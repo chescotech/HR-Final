@@ -191,9 +191,7 @@
                         <div class="col-sm-4 col-xs-4">
                             <div class="card">
                                 <center>
-                                    <div class="th">
-
-                                    </div>
+                                    <div class="th">                                    
                                     </div>
                                     <div class="graph">
                                         <canvas id="myChart3"></canvas>
@@ -293,7 +291,6 @@
     console.log(totalLateArrivals);
 
     const data3 = {
-    const data3 = {
         labels: ['Early Arrival', 'Late Arrival'],
         datasets: [{
             data: [totalEarlyArrivals, totalLateArrivals],
@@ -323,16 +320,7 @@
             borderColor: 'rgb(54, 162, 235)',
             borderWidth: 1
         }]
-    };
-        labels: <?php echo json_encode($years); ?>,
-        datasets: [{
-            label: 'Exit with reason Distribution',
-            data: <?php echo json_encode($counts); ?>,
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-            borderColor: 'rgb(54, 162, 235)',
-            borderWidth: 1
-        }]
-    };
+    };       
 
 
     const data6 = {
@@ -484,21 +472,7 @@
                 }
             }
         },
-    };
-        type: 'bar',
-        data: data5,
-        options: {
-            responsive: true,
-            scales: {
-                x: {
-                    beginAtZero: true
-                },
-                y: {
-                    beginAtZero: true
-                }
-            }
-        },
-    };
+    };        
 
 
 
