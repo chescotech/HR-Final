@@ -135,7 +135,7 @@ class Payslips
         return $pension;
     }
 
-    public function addEmpPayslipInfo($empno, $pay, $dayswork, $otrate, $othrs, $allow, $advances, $insurance, $time, $comission, $company_id)
+    public function addEmpPayslipInfo($empno, $pay, $dayswork, $otrate, $othrs, $allow, $advances, $insurance, $time, $comission, $company_id, $earnings_id_arg, $deductions_id_arg)
     {
         $result = "";
         $pension = 0;
@@ -153,11 +153,11 @@ class Payslips
                     $employer_share = ($this->getEmployerPensionShareCal() / 100) * $this->getBasicPay($empno);
                 }
 
-                return var_dump($empno, $pay, $dayswork, $otrate, $othrs, $allow, $advances, $insurance, $time, $comission, $company_id);
+                // return var_dump($empno, $pay, $dayswork, $otrate, $othrs, $allow, $advances, $insurance, $time, $comission, $company_id, $deductions_id_arg, $earnings_id_arg);
                 $result = mysql_query("INSERT INTO employee(empno,pay,
                      dayswork,otrate,othrs
-                    ,allow,advances,insurance,time,comission,company_id,health_insurance,pension,employer_share,employee_share) VALUES('$empno','$pay','$dayswork'
-                    ,'$otrate','$othrs', '$allow','$advances','$insurance', '$time','$comission','$company_id','$nhima','$pension','$employer_share' ,'$employee_share'  )") or die(mysql_error());
+                    ,allow,advances,insurance,time,comission,company_id,health_insurance,pension,employer_share,employee_share, earnings_id, deductions_id) VALUES('$empno','$pay','$dayswork'
+                    ,'$otrate','$othrs', '$allow','$advances','$insurance', '$time','$comission','$company_id','$nhima','$pension','$employer_share' ,'$employee_share', '$earnings_id_arg', '$deductions_id_arg'  )") or die(mysql_error());
             }
             return $result;
         } else {

@@ -184,7 +184,17 @@
                         echo '$commision1 ' . $commision1;
                         // if (isset($staffer1)) {
                         // return $pay;
-                        $PaySlipsObject->addEmpPayslipInfo($empno1, $pay, $days_worked1, $overtime_rate_hour1, $overtime1, $allowance1, $advances1, $insurance1, $time, $commision1, $compId);
+                        $empDedQuery = mysql_query("SELECT id FROM employee_deductions WHERE employee_no='$empno1'") or die(mysql_error());
+                        // find earnings in earnings table
+                        $empEarnQuery = mysql_query("SELECT id FROM employee_earnings WHERE employee_no='$empno1'") or die(mysql_error());
+
+                        $dedRow = mysql_fetch_array($empDedQuery);
+                        $earnRow = mysql_fetch_array($empEarnQuery);
+
+                        $earnID = $earnRow['id'];
+                        $dedID = $dedRow['id'];
+
+                        $PaySlipsObject->addEmpPayslipInfo($empno1, $pay, $days_worked1, $overtime_rate_hour1, $overtime1, $allowance1, $advances1, $insurance1, $time, $commision1, $compId, $earnID, $dedID);
                         // }
                         // $PaySlipsObject->addEmpPayslipInfo($empno, $pay, $days_worked, $overtime_rate_hour, $overtime, $allowance, $advances, $insurance, $time, $commision, $compId);
 
@@ -295,7 +305,18 @@
 
                         // if (isset($staffer1)) {
                         // return $pay;
-                        $PaySlipsObject->addEmpPayslipInfo($empno1, $pay, $days_worked1, $overtime_rate_hour1, $overtime1, $allowance1, $advances1, $insurance1, $time, $commision1, $compId);
+                        // get employee earnings id
+                        $empDedQuery = mysql_query("SELECT id FROM employee_deductions WHERE employee_no='$empno1'") or die(mysql_error());
+                        // find earnings in earnings table
+                        $empEarnQuery = mysql_query("SELECT id FROM employee_earnings WHERE employee_no='$empno1'") or die(mysql_error());
+
+                        $dedRow = mysql_fetch_array($empDedQuery);
+                        $earnRow = mysql_fetch_array($empEarnQuery);
+
+                        $earnID = $earnRow['id'];
+                        $dedID = $dedRow['id'];
+
+                        $PaySlipsObject->addEmpPayslipInfo($empno1, $pay, $days_worked1, $overtime_rate_hour1, $overtime1, $allowance1, $advances1, $insurance1, $time, $commision1, $compId, $earnID, $dedID);
                         // }
                         // $PaySlipsObject->addEmpPayslipInfo($empno, $pay, $days_worked, $overtime_rate_hour, $overtime, $allowance, $advances, $insurance, $time, $commision, $compId);
 

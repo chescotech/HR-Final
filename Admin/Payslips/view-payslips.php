@@ -212,13 +212,18 @@
                                                     if ($empno == "all") {
                                                         $query = "SELECT * FROM emp_info WHERE company_id='$compId'  ";
                                                         $query2 = "SELECT * FROM employee_earnings WHERE company_id='$compId'  ";
+                                                        $query3 = "SELECT * FROM employee WHERE company_id='$compId'";
                                                     } else {
                                                         $query = "SELECT * FROM emp_info WHERE empno = '$empno' AND company_id='$compId'  ";
                                                         $query2 = "SELECT * FROM employee_earnings WHERE company_id='$compId'  ";
+                                                        $query3 = "SELECT * FROM employee WHERE company_id='$compId'";
                                                     }
 
                                                     $result = mysql_query($query, $link) or die(mysql_error());
                                                     $result2 = mysql_query($query2, $link) or die(mysql_error());
+                                                    $result3 = mysql_query($query3, $link) or die(mysql_error());
+
+                                                    $emp = mysql_fetch_array($result3);
 
                                                     $sum = 0;
                                                     $row2 = '';
@@ -301,12 +306,19 @@
                                                 ?>
 
                                                     <?php
+                                                        $emp_nom = $row['empno'];
+                                                        $query3 = "SELECT * FROM employee WHERE empno='$emp_nom'";
+
+                                                        $result3 = mysql_query($query3, $link) or die(mysql_error());
+
+                                                        $emp = mysql_fetch_array($result3);
+
                                                         $nPay = number_format("$netpay", 2);
 
 
                                                         echo '<tr>';
                                                         echo '  <td>' . $row["empno"] . '</td>';
-                                                        echo '  <td>' . $date . '</td>';
+                                                        echo '  <td>' . $emp['time'] . '</td>';
                                                         // echo '  <td></td>';
 
                                                         $row2 = mysql_fetch_array($result2);
