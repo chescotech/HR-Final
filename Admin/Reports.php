@@ -116,32 +116,33 @@ if (mysql_num_rows($query6) > 0) {
 }
 
 
-$earlyArrivalCount = 0;
-$lateArrivalCount = 0;
 
-if (mysql_num_rows($query7) > 0) { 
-    $data7 = array();  
-    while ($row7 = mysql_fetch_array($query7)) {
-        $data7[] = array(
-            'login_date' => $row7['login_date'],
-            'late_login_count' => $row7['late_login_count']
-        );
 
-        // Update early and late arrival counts
-        if ($row7['late_login_count'] > 0) {
-            $lateArrivalCount += $row7['late_login_count'];
-        } else {
-            $earlyArrivalCount += 1;
+
+    $data7 = array();
+    $earlyArrivalCount = 0;
+    $lateArrivalCount = 0;
+    
+    if (mysql_num_rows($query7) > 0) {
+        while ($row7 = mysql_fetch_array($query7)) {
+            $data7[] = array(
+                'login_date' => $row7['login_date'],
+                'late_login_count' => $row7['late_login_count']
+            );
+    
+            if ($row7['late_login_count'] > 0) {
+                $lateArrivalCount += $row7['late_login_count'];
+            } else {
+                $earlyArrivalCount += 1;
+            }
         }
     }
-}
 
 
-
-if (mysql_num_rows($query8) > 0) { 
+if (mysql_num_rows($query8) > 0) {
     $years = array();
     $counts = array();
-    
+
     while ($row8 = mysql_fetch_array($query8)) {
         $years[] = $row8['exit_year']; // Assuming you have a column name 'exit_year' in the query result
         $counts[] = $row8['employee_count']; // Assuming you have a column name 'employee_count' in the query result
@@ -152,5 +153,3 @@ if (mysql_num_rows($query8) > 0) {
 
 
 ?>
-
-
