@@ -286,6 +286,8 @@
 const labels = jsonData.map(entry => entry.login_date);
 const counts = jsonData.map(entry => entry.late_login_count);
 
+console.log(jsonData);
+
 // Calculate early arrival count (those who arrived before 8:00 AM)
 const earlyArrivalCount = jsonData.reduce((total, entry) => {
     if (entry.late_login_count === 0) {
@@ -524,24 +526,6 @@ const data3 = {
     const myChart5 = new Chart(document.getElementById('myChart5').getContext('2d'), config5);
     const myChart7 = new Chart(document.getElementById('myChart7').getContext('2d'), config7);
 </script>
-
-
-<script type="text/javascript" src="autosum.js"></script>
-
-<!-- jQuery 2.1.4 -->
-<script src="../plugins/jQuery/jQuery-2.1.4.min.js"></script>
-<script src="../dist/js/jquery.min.js"></script>
-<!-- Bootstrap 3.3.5 -->
-<script src="../bootstrap/js/bootstrap.min.js"></script>
-<script src="../plugins/select2/select2.full.min.js"></script>
-<!-- SlimScroll -->
-<script src="../plugins/slimScroll/jquery.slimscroll.min.js"></script>
-<!-- FastClick -->
-<script src="../plugins/fastclick/fastclick.min.js"></script>
-<!-- AdminLTE App -->
-<script src="../dist/js/app.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="../dist/js/demo.js"></script>
 
 <?php
 include_once '../Admin/Classes/Company.php';

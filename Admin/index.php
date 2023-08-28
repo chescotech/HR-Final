@@ -96,11 +96,10 @@
     <!-- Slimscroll -->
     <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
     <!-- FastClick -->
-    <script src="plugins/fastclick/fastclick.min.js"></script>
-    <!-- AdminLTE App -->
+    <script src="plugins/fastclick/fastclick.min.js"></script>    
     <script src="dist/js/app.min.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="dist/js/pages/dashboard.js"></script>
+    <!-- <script src="dist/js/pages/dashboard.js"></script> -->
     <!-- AdminLTE for demo purposes -->
     <script src="dist/js/demo.js"></script>
 </body>
