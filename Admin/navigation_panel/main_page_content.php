@@ -169,7 +169,7 @@
                                     <div class="th">
                                     </div>
                                     <p> Total employees : <?php echo $totalGenderCount ?> </p>
-                                    <p> Total percentages : men <?php echo number_format($totalMalePercentage, 2) . '%' ?> female: <?php echo number_format($totalFemalePercentage, 2) . '%' ?> </p>
+                                    <p> Total percentages : male <?php echo number_format($totalMalePercentage, 2) . '%' ?> female: <?php echo number_format($totalFemalePercentage, 2) . '%' ?> </p>
                                     <div class="graph">
                                         <canvas id="myChart"></canvas>
                                     </div>

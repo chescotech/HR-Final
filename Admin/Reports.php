@@ -20,8 +20,8 @@ $query5 = mysql_query("SELECT empno, bdate, TIMESTAMPDIFF(YEAR, bdate, CURDATE()
 $query6 = mysql_query("SELECT gross_pay FROM emp_info") or die(mysql_error());
 $query7 = mysql_query("SELECT DATE(login_time) AS login_date, COUNT(*) AS late_login_count FROM attendance_logs WHERE DATE(login_time) >= CURDATE() - INTERVAL 5 DAY AND TIME(login_time) > '08:00:00' GROUP BY DATE(login_time) ORDER BY login_date;") or die(mysql_error());
 $query8 = mysql_query("SELECT YEAR(STR_TO_DATE(date_of_exit, '%m/%d/%Y')) AS exit_year, COUNT(*) AS employee_count FROM employee_exits_tb WHERE STR_TO_DATE(date_of_exit, '%m/%d/%Y') >= DATE_SUB(CURDATE(), INTERVAL 20 YEAR) GROUP BY exit_year ORDER BY exit_year;") or die(mysql_error());
-$earlyQuery = mysql_query("SELECT SUM(CASE WHEN TIME(login_time) <= '08:00:00' THEN 1 ELSE 0 END) AS total_early_login_count FROM attendance_logs WHERE DATE(login_time) >= CURDATE() - INTERVAL 5 DAY;") or die(mysql_error());
-$lateQuery = mysql_query("SELECT SUM(CASE WHEN TIME(login_time) > '08:00:00' THEN 1 ELSE 0 END) AS total_late_login_count FROM attendance_logs WHERE DATE(login_time) >= CURDATE() - INTERVAL 5 DAY;") or die(mysql_error());
+$earlyQuery = mysql_query("SELECT SUM(CASE WHEN TIME(login_time) <= '08:00:00' THEN 1 ELSE 0 END) AS total_early_login_count FROM attendance_logs") or die(mysql_error());
+$lateQuery = mysql_query("SELECT SUM(CASE WHEN TIME(login_time) > '08:00:00' THEN 1 ELSE 0 END) AS total_late_login_count FROM attendance_logs") or die(mysql_error());
 
 
 
