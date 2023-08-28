@@ -1,0 +1,745 @@
+[02-Nov-2020 06:06:19 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[02-Nov-2020 06:06:19 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[02-Nov-2020 06:06:19 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[02-Nov-2020 06:07:14 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[02-Nov-2020 06:07:14 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[02-Nov-2020 06:07:14 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[02-Nov-2020 06:10:57 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[02-Nov-2020 06:10:57 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[02-Nov-2020 06:10:57 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[02-Nov-2020 07:23:09 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[02-Nov-2020 07:23:09 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[02-Nov-2020 07:23:09 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[02-Nov-2020 07:23:21 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[02-Nov-2020 07:23:21 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[02-Nov-2020 07:23:21 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[02-Nov-2020 07:23:27 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[02-Nov-2020 07:23:27 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[02-Nov-2020 07:23:27 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[02-Nov-2020 07:23:39 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[02-Nov-2020 07:23:39 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[02-Nov-2020 07:23:39 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[02-Nov-2020 07:25:55 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[02-Nov-2020 07:25:55 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[02-Nov-2020 07:25:55 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[02-Nov-2020 07:25:55 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[02-Nov-2020 07:25:55 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[02-Nov-2020 07:25:55 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[02-Nov-2020 07:25:55 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[02-Nov-2020 07:25:55 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[02-Nov-2020 07:25:55 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[02-Nov-2020 07:25:55 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[02-Nov-2020 07:25:55 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[02-Nov-2020 07:35:41 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[02-Nov-2020 07:35:41 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[02-Nov-2020 07:35:41 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[02-Nov-2020 07:35:41 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[02-Nov-2020 07:35:41 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[02-Nov-2020 07:35:41 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[02-Nov-2020 07:35:41 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[02-Nov-2020 07:35:41 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[02-Nov-2020 07:35:41 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[02-Nov-2020 07:35:41 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[02-Nov-2020 07:35:41 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[02-Nov-2020 08:22:38 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[02-Nov-2020 08:22:38 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[02-Nov-2020 08:22:38 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[02-Nov-2020 08:23:29 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[02-Nov-2020 08:23:29 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[02-Nov-2020 08:23:29 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[02-Nov-2020 14:18:06 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[02-Nov-2020 14:18:06 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[02-Nov-2020 14:18:06 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[02-Nov-2020 14:18:06 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[02-Nov-2020 14:18:06 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[02-Nov-2020 14:18:06 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[02-Nov-2020 14:18:06 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[02-Nov-2020 14:18:06 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[02-Nov-2020 14:18:06 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[02-Nov-2020 14:18:06 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[02-Nov-2020 14:18:06 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[02-Nov-2020 14:18:49 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[02-Nov-2020 14:18:49 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[02-Nov-2020 14:18:49 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[02-Nov-2020 14:18:49 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[02-Nov-2020 14:18:49 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[02-Nov-2020 14:18:49 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[02-Nov-2020 14:18:49 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[02-Nov-2020 14:18:49 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[02-Nov-2020 14:18:49 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[02-Nov-2020 14:18:49 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[02-Nov-2020 14:18:49 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[03-Nov-2020 06:16:44 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[03-Nov-2020 06:16:44 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[03-Nov-2020 06:16:44 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[03-Nov-2020 06:16:44 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[03-Nov-2020 06:16:44 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[03-Nov-2020 06:16:44 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[03-Nov-2020 06:16:44 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[03-Nov-2020 06:16:44 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[03-Nov-2020 06:16:44 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[03-Nov-2020 06:16:44 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[03-Nov-2020 06:16:44 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[03-Nov-2020 14:15:46 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[03-Nov-2020 14:15:46 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[03-Nov-2020 14:15:46 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[03-Nov-2020 14:15:46 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[03-Nov-2020 14:15:46 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[03-Nov-2020 14:15:46 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[03-Nov-2020 14:15:46 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[03-Nov-2020 14:15:46 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[03-Nov-2020 14:15:46 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[03-Nov-2020 14:15:46 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[03-Nov-2020 14:15:46 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[04-Nov-2020 06:04:10 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[04-Nov-2020 06:04:10 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[04-Nov-2020 06:04:10 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[04-Nov-2020 06:04:10 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[04-Nov-2020 06:04:10 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[04-Nov-2020 06:04:10 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[04-Nov-2020 06:04:10 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[04-Nov-2020 06:04:10 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[04-Nov-2020 06:04:10 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[04-Nov-2020 06:04:10 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[04-Nov-2020 06:04:10 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[04-Nov-2020 07:10:39 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[04-Nov-2020 07:10:39 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[04-Nov-2020 07:10:39 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[04-Nov-2020 07:10:39 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[04-Nov-2020 07:10:39 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[04-Nov-2020 07:10:39 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[04-Nov-2020 07:10:39 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[04-Nov-2020 07:10:39 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[04-Nov-2020 07:10:39 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[04-Nov-2020 07:10:39 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[04-Nov-2020 07:10:39 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[04-Nov-2020 07:39:40 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[04-Nov-2020 07:39:40 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[04-Nov-2020 07:39:40 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[04-Nov-2020 14:34:33 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[04-Nov-2020 14:34:33 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[04-Nov-2020 14:34:33 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[04-Nov-2020 14:34:33 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[04-Nov-2020 14:34:33 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[04-Nov-2020 14:34:33 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[04-Nov-2020 14:34:33 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[04-Nov-2020 14:34:33 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[04-Nov-2020 14:34:33 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[04-Nov-2020 14:34:33 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[04-Nov-2020 14:34:33 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[05-Nov-2020 06:09:43 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[05-Nov-2020 06:09:43 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[05-Nov-2020 06:09:43 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[05-Nov-2020 06:09:43 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[05-Nov-2020 06:09:43 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[05-Nov-2020 06:09:43 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[05-Nov-2020 06:09:43 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[05-Nov-2020 06:09:43 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[05-Nov-2020 06:09:43 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[05-Nov-2020 06:09:43 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[05-Nov-2020 06:09:43 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[05-Nov-2020 07:13:06 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[05-Nov-2020 07:13:06 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[05-Nov-2020 07:13:06 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[05-Nov-2020 07:13:06 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[05-Nov-2020 07:13:06 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[05-Nov-2020 07:13:06 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[05-Nov-2020 07:13:06 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[05-Nov-2020 07:13:06 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[05-Nov-2020 07:13:06 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[05-Nov-2020 07:13:06 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[05-Nov-2020 07:13:06 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[05-Nov-2020 07:14:20 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[05-Nov-2020 07:14:20 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[05-Nov-2020 07:14:20 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[05-Nov-2020 07:18:45 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[05-Nov-2020 07:18:45 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[05-Nov-2020 07:18:45 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[05-Nov-2020 07:18:45 UTC] PHP Deprecated:  Function set_magic_quotes_runtime() is deprecated in /home/chescote/msimbihr.chesco-tech.com/PHPmailer/mailer/class.phpmailer.php on line 1471
+[05-Nov-2020 07:18:45 UTC] PHP Deprecated:  Function set_magic_quotes_runtime() is deprecated in /home/chescote/msimbihr.chesco-tech.com/PHPmailer/mailer/class.phpmailer.php on line 1475
+[05-Nov-2020 07:18:51 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[05-Nov-2020 07:18:51 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[05-Nov-2020 07:18:51 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[05-Nov-2020 08:27:34 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[05-Nov-2020 08:27:34 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[05-Nov-2020 08:27:34 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[05-Nov-2020 14:24:59 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[05-Nov-2020 14:24:59 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[05-Nov-2020 14:24:59 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[05-Nov-2020 14:24:59 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[05-Nov-2020 14:24:59 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[05-Nov-2020 14:24:59 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[05-Nov-2020 14:24:59 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[05-Nov-2020 14:24:59 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[05-Nov-2020 14:24:59 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[05-Nov-2020 14:24:59 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[05-Nov-2020 14:24:59 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[06-Nov-2020 05:49:18 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[06-Nov-2020 05:49:18 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[06-Nov-2020 05:49:18 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[06-Nov-2020 05:49:18 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[06-Nov-2020 05:49:18 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[06-Nov-2020 05:49:18 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[06-Nov-2020 05:49:18 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[06-Nov-2020 05:49:18 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[06-Nov-2020 05:49:18 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[06-Nov-2020 05:49:18 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[06-Nov-2020 05:49:18 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[06-Nov-2020 06:02:16 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[06-Nov-2020 06:02:16 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[06-Nov-2020 06:02:16 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[06-Nov-2020 06:02:16 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[06-Nov-2020 06:02:16 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[06-Nov-2020 06:02:16 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[06-Nov-2020 06:02:16 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[06-Nov-2020 06:02:16 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[06-Nov-2020 06:02:16 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[06-Nov-2020 06:02:16 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[06-Nov-2020 06:02:16 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[06-Nov-2020 07:52:50 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[06-Nov-2020 07:52:50 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[06-Nov-2020 07:52:50 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[06-Nov-2020 11:17:46 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[06-Nov-2020 11:17:46 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[06-Nov-2020 11:17:46 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[06-Nov-2020 11:17:52 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[06-Nov-2020 11:17:52 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[06-Nov-2020 11:17:52 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[07-Nov-2020 15:06:02 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[07-Nov-2020 15:06:02 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[07-Nov-2020 15:06:02 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[07-Nov-2020 15:06:02 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[07-Nov-2020 15:06:02 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[07-Nov-2020 15:06:02 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[07-Nov-2020 15:06:02 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[07-Nov-2020 15:06:02 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[07-Nov-2020 15:06:02 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[07-Nov-2020 15:06:02 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[07-Nov-2020 15:06:02 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[09-Nov-2020 05:48:58 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[09-Nov-2020 05:48:58 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[09-Nov-2020 05:48:58 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[09-Nov-2020 05:49:18 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[09-Nov-2020 05:49:18 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[09-Nov-2020 05:49:18 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[09-Nov-2020 05:49:34 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[09-Nov-2020 05:49:34 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[09-Nov-2020 05:49:34 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[09-Nov-2020 05:49:42 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[09-Nov-2020 05:49:42 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[09-Nov-2020 05:49:42 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[09-Nov-2020 05:50:05 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[09-Nov-2020 05:50:05 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[09-Nov-2020 05:50:05 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[09-Nov-2020 13:18:51 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[09-Nov-2020 13:18:51 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[09-Nov-2020 13:18:51 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[09-Nov-2020 13:20:33 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[09-Nov-2020 13:20:33 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[09-Nov-2020 13:20:33 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[09-Nov-2020 13:20:54 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[09-Nov-2020 13:20:54 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[09-Nov-2020 13:20:54 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[09-Nov-2020 15:24:26 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[09-Nov-2020 15:24:26 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[09-Nov-2020 15:24:26 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[09-Nov-2020 17:43:03 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[09-Nov-2020 17:43:03 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[09-Nov-2020 17:43:03 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[09-Nov-2020 17:43:03 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[09-Nov-2020 17:43:03 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/my-leave.php on line 32
+[09-Nov-2020 17:43:03 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[09-Nov-2020 17:43:03 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[09-Nov-2020 17:43:03 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[09-Nov-2020 17:43:04 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[09-Nov-2020 17:43:04 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[09-Nov-2020 17:43:04 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[09-Nov-2020 17:43:04 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[09-Nov-2020 17:43:04 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/leave-balance.php on line 28
+[09-Nov-2020 17:43:04 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[09-Nov-2020 17:43:04 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[09-Nov-2020 17:43:04 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[10-Nov-2020 05:56:32 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[10-Nov-2020 05:56:32 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[10-Nov-2020 05:56:32 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[10-Nov-2020 05:56:32 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[10-Nov-2020 05:56:32 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[10-Nov-2020 05:56:32 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[10-Nov-2020 05:56:32 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[10-Nov-2020 05:56:32 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[10-Nov-2020 05:56:32 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[10-Nov-2020 05:56:32 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[10-Nov-2020 05:56:32 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[10-Nov-2020 12:26:55 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[10-Nov-2020 12:26:55 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[10-Nov-2020 12:26:55 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[10-Nov-2020 12:27:12 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[10-Nov-2020 12:27:12 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[10-Nov-2020 12:27:12 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[10-Nov-2020 12:30:11 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[10-Nov-2020 12:30:11 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[10-Nov-2020 12:30:11 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[10-Nov-2020 12:30:11 UTC] PHP Deprecated:  Function set_magic_quotes_runtime() is deprecated in /home/chescote/msimbihr.chesco-tech.com/PHPmailer/mailer/class.phpmailer.php on line 1471
+[10-Nov-2020 12:30:11 UTC] PHP Deprecated:  Function set_magic_quotes_runtime() is deprecated in /home/chescote/msimbihr.chesco-tech.com/PHPmailer/mailer/class.phpmailer.php on line 1475
+[10-Nov-2020 12:30:26 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[10-Nov-2020 12:30:26 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[10-Nov-2020 12:30:26 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[10-Nov-2020 14:44:32 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[10-Nov-2020 14:44:32 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[10-Nov-2020 14:44:32 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[10-Nov-2020 14:44:32 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[10-Nov-2020 14:44:32 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[10-Nov-2020 14:44:32 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[10-Nov-2020 14:44:32 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[10-Nov-2020 14:44:32 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[10-Nov-2020 14:44:32 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[10-Nov-2020 14:44:32 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[10-Nov-2020 14:44:32 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[10-Nov-2020 15:02:32 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[10-Nov-2020 15:02:32 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[10-Nov-2020 15:02:32 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[10-Nov-2020 15:02:40 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[10-Nov-2020 15:02:40 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[10-Nov-2020 15:02:40 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[11-Nov-2020 07:45:35 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[11-Nov-2020 07:45:35 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[11-Nov-2020 07:45:35 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[11-Nov-2020 07:46:41 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[11-Nov-2020 07:46:41 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[11-Nov-2020 07:46:41 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[11-Nov-2020 07:50:49 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[11-Nov-2020 07:50:49 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[11-Nov-2020 07:50:49 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[11-Nov-2020 07:50:49 UTC] PHP Deprecated:  Function set_magic_quotes_runtime() is deprecated in /home/chescote/msimbihr.chesco-tech.com/PHPmailer/mailer/class.phpmailer.php on line 1471
+[11-Nov-2020 07:50:49 UTC] PHP Deprecated:  Function set_magic_quotes_runtime() is deprecated in /home/chescote/msimbihr.chesco-tech.com/PHPmailer/mailer/class.phpmailer.php on line 1475
+[11-Nov-2020 14:38:22 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[11-Nov-2020 14:38:22 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[11-Nov-2020 14:38:22 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[12-Nov-2020 05:45:41 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[12-Nov-2020 05:45:41 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[12-Nov-2020 05:45:41 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[12-Nov-2020 05:45:41 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[12-Nov-2020 05:45:41 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[12-Nov-2020 05:45:41 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[12-Nov-2020 05:45:41 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[12-Nov-2020 05:45:41 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[12-Nov-2020 05:45:41 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[12-Nov-2020 05:45:41 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[12-Nov-2020 05:45:41 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[12-Nov-2020 07:21:44 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[12-Nov-2020 07:21:44 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[12-Nov-2020 07:21:44 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[12-Nov-2020 07:21:49 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[12-Nov-2020 07:21:49 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[12-Nov-2020 07:21:49 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[12-Nov-2020 07:21:49 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[12-Nov-2020 07:21:49 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[12-Nov-2020 07:21:49 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[12-Nov-2020 07:21:49 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[12-Nov-2020 07:21:49 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[12-Nov-2020 07:21:49 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[12-Nov-2020 07:21:49 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[12-Nov-2020 07:21:49 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[12-Nov-2020 14:10:19 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[12-Nov-2020 14:10:20 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[12-Nov-2020 14:10:20 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[12-Nov-2020 14:10:20 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[12-Nov-2020 14:10:20 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[12-Nov-2020 14:10:20 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[12-Nov-2020 14:10:20 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[12-Nov-2020 14:10:20 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[12-Nov-2020 14:10:20 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[12-Nov-2020 14:10:20 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[12-Nov-2020 14:10:20 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[13-Nov-2020 06:01:59 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[13-Nov-2020 06:01:59 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[13-Nov-2020 06:01:59 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[13-Nov-2020 06:01:59 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[13-Nov-2020 06:01:59 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[13-Nov-2020 06:01:59 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[13-Nov-2020 06:01:59 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[13-Nov-2020 06:01:59 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[13-Nov-2020 06:01:59 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[13-Nov-2020 06:01:59 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[13-Nov-2020 06:01:59 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[13-Nov-2020 07:14:38 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[13-Nov-2020 07:14:38 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[13-Nov-2020 07:14:38 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[13-Nov-2020 07:15:16 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[13-Nov-2020 07:15:16 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[13-Nov-2020 07:15:16 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[14-Nov-2020 06:08:20 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[14-Nov-2020 06:08:20 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[14-Nov-2020 06:08:20 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[14-Nov-2020 06:08:20 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[14-Nov-2020 06:08:20 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[14-Nov-2020 06:08:20 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[14-Nov-2020 06:08:20 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[14-Nov-2020 06:08:20 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[14-Nov-2020 06:08:20 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[14-Nov-2020 06:08:20 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[14-Nov-2020 06:08:20 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[14-Nov-2020 13:51:27 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[14-Nov-2020 13:51:27 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[14-Nov-2020 13:51:27 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[14-Nov-2020 13:51:27 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[14-Nov-2020 13:51:27 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[14-Nov-2020 13:51:27 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[14-Nov-2020 13:51:27 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[14-Nov-2020 13:51:27 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[14-Nov-2020 13:51:27 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[14-Nov-2020 13:51:27 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[14-Nov-2020 13:51:27 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[16-Nov-2020 05:52:11 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[16-Nov-2020 05:52:11 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[16-Nov-2020 05:52:11 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[16-Nov-2020 05:52:11 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[16-Nov-2020 05:52:11 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[16-Nov-2020 05:52:11 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[16-Nov-2020 05:52:11 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[16-Nov-2020 05:52:11 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[16-Nov-2020 05:52:11 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[16-Nov-2020 05:52:11 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[16-Nov-2020 05:52:11 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[16-Nov-2020 05:53:35 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[16-Nov-2020 05:53:35 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[16-Nov-2020 05:53:35 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[16-Nov-2020 05:53:35 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[16-Nov-2020 05:53:35 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[16-Nov-2020 05:53:35 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[16-Nov-2020 05:53:35 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[16-Nov-2020 05:53:35 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[16-Nov-2020 05:53:35 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[16-Nov-2020 05:53:35 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[16-Nov-2020 05:53:35 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[16-Nov-2020 07:42:19 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[16-Nov-2020 07:42:19 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[16-Nov-2020 07:42:19 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[16-Nov-2020 07:42:19 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[16-Nov-2020 07:42:19 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[16-Nov-2020 07:42:19 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[16-Nov-2020 07:42:19 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[16-Nov-2020 07:42:19 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[16-Nov-2020 07:42:19 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[16-Nov-2020 07:42:19 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[16-Nov-2020 07:42:19 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[16-Nov-2020 15:57:14 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[16-Nov-2020 15:57:14 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[16-Nov-2020 15:57:14 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[16-Nov-2020 15:57:14 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[16-Nov-2020 15:57:14 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[16-Nov-2020 15:57:14 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[16-Nov-2020 15:57:14 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[16-Nov-2020 15:57:14 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[16-Nov-2020 15:57:14 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[16-Nov-2020 15:57:14 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[16-Nov-2020 15:57:14 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[17-Nov-2020 05:54:29 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[17-Nov-2020 05:54:29 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[17-Nov-2020 05:54:29 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[17-Nov-2020 05:54:29 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[17-Nov-2020 05:54:29 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[17-Nov-2020 05:54:29 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[17-Nov-2020 05:54:29 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[17-Nov-2020 05:54:29 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[17-Nov-2020 05:54:29 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[17-Nov-2020 05:54:29 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[17-Nov-2020 05:54:29 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[17-Nov-2020 07:42:13 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[17-Nov-2020 07:42:13 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[17-Nov-2020 07:42:13 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[17-Nov-2020 07:42:13 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[17-Nov-2020 07:42:13 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[17-Nov-2020 07:42:13 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[17-Nov-2020 07:42:13 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[17-Nov-2020 07:42:13 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[17-Nov-2020 07:42:13 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[17-Nov-2020 07:42:13 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[17-Nov-2020 07:42:13 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[17-Nov-2020 08:07:04 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[17-Nov-2020 08:07:04 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[17-Nov-2020 08:07:04 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[17-Nov-2020 08:07:04 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[17-Nov-2020 08:07:04 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[17-Nov-2020 08:07:04 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[17-Nov-2020 08:07:04 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[17-Nov-2020 08:07:04 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[17-Nov-2020 08:07:04 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[17-Nov-2020 08:07:04 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[17-Nov-2020 08:07:04 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[17-Nov-2020 08:07:04 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[17-Nov-2020 08:07:04 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[17-Nov-2020 08:07:04 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[17-Nov-2020 08:07:04 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[17-Nov-2020 08:07:04 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[17-Nov-2020 08:07:04 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[17-Nov-2020 08:07:04 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[17-Nov-2020 08:07:04 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[17-Nov-2020 08:07:04 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[17-Nov-2020 08:07:04 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[17-Nov-2020 08:07:04 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[17-Nov-2020 14:20:38 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[17-Nov-2020 14:20:38 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[17-Nov-2020 14:20:38 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[17-Nov-2020 14:20:38 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[17-Nov-2020 14:20:38 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[17-Nov-2020 14:20:38 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[17-Nov-2020 14:20:38 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[17-Nov-2020 14:20:38 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[17-Nov-2020 14:20:38 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[17-Nov-2020 14:20:38 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[17-Nov-2020 14:20:38 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[17-Nov-2020 14:22:12 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[17-Nov-2020 14:22:12 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[17-Nov-2020 14:22:12 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[17-Nov-2020 15:26:38 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[17-Nov-2020 15:26:38 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[17-Nov-2020 15:26:38 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[17-Nov-2020 15:26:38 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[17-Nov-2020 15:26:38 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[17-Nov-2020 15:26:38 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[17-Nov-2020 15:26:38 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[17-Nov-2020 15:26:38 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[17-Nov-2020 15:26:38 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[17-Nov-2020 15:26:38 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[17-Nov-2020 15:26:38 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[18-Nov-2020 05:47:35 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[18-Nov-2020 05:47:35 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[18-Nov-2020 05:47:35 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[18-Nov-2020 05:47:35 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[18-Nov-2020 05:47:35 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[18-Nov-2020 05:47:35 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[18-Nov-2020 05:47:35 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[18-Nov-2020 05:47:35 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[18-Nov-2020 05:47:35 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[18-Nov-2020 05:47:35 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[18-Nov-2020 05:47:35 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[18-Nov-2020 05:56:21 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[18-Nov-2020 05:56:21 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[18-Nov-2020 05:56:21 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[18-Nov-2020 05:56:21 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[18-Nov-2020 05:56:21 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[18-Nov-2020 05:56:21 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[18-Nov-2020 05:56:21 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[18-Nov-2020 05:56:21 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[18-Nov-2020 05:56:21 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[18-Nov-2020 05:56:21 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[18-Nov-2020 05:56:21 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[18-Nov-2020 08:08:57 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[18-Nov-2020 08:08:57 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[18-Nov-2020 08:08:57 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[18-Nov-2020 08:08:57 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[18-Nov-2020 08:08:57 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[18-Nov-2020 08:08:57 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[18-Nov-2020 08:08:57 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[18-Nov-2020 08:08:57 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[18-Nov-2020 08:08:57 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[18-Nov-2020 08:08:57 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[18-Nov-2020 08:08:57 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[18-Nov-2020 14:04:18 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[18-Nov-2020 14:04:18 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[18-Nov-2020 14:04:18 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[18-Nov-2020 14:04:18 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[18-Nov-2020 14:04:18 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[18-Nov-2020 14:04:18 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[18-Nov-2020 14:04:18 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[18-Nov-2020 14:04:18 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[18-Nov-2020 14:04:18 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[18-Nov-2020 14:04:18 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[18-Nov-2020 14:04:18 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[18-Nov-2020 14:07:45 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[18-Nov-2020 14:07:45 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[18-Nov-2020 14:07:45 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[18-Nov-2020 14:07:45 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[18-Nov-2020 14:07:45 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[18-Nov-2020 14:07:45 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[18-Nov-2020 14:07:45 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[18-Nov-2020 14:07:45 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[18-Nov-2020 14:07:45 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[18-Nov-2020 14:07:45 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[18-Nov-2020 14:07:45 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[19-Nov-2020 05:59:11 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[19-Nov-2020 05:59:11 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[19-Nov-2020 05:59:11 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[19-Nov-2020 05:59:11 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[19-Nov-2020 05:59:11 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[19-Nov-2020 05:59:11 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[19-Nov-2020 05:59:11 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[19-Nov-2020 05:59:11 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[19-Nov-2020 05:59:11 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[19-Nov-2020 05:59:11 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[19-Nov-2020 05:59:11 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[19-Nov-2020 07:14:20 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[19-Nov-2020 07:14:20 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[19-Nov-2020 07:14:20 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[19-Nov-2020 07:14:20 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[19-Nov-2020 07:14:20 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[19-Nov-2020 07:14:20 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[19-Nov-2020 07:14:20 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[19-Nov-2020 07:14:20 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[19-Nov-2020 07:14:20 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[19-Nov-2020 07:14:20 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[19-Nov-2020 07:14:20 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[19-Nov-2020 07:15:02 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[19-Nov-2020 07:15:02 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[19-Nov-2020 07:15:02 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[19-Nov-2020 14:44:30 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[19-Nov-2020 14:44:30 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[19-Nov-2020 14:44:30 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[19-Nov-2020 14:44:30 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[19-Nov-2020 14:44:30 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[19-Nov-2020 14:44:30 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[19-Nov-2020 14:44:30 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[19-Nov-2020 14:44:30 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[19-Nov-2020 14:44:30 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[19-Nov-2020 14:44:30 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[19-Nov-2020 14:44:30 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[19-Nov-2020 14:53:08 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[19-Nov-2020 14:53:08 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[19-Nov-2020 14:53:08 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[19-Nov-2020 14:53:08 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[19-Nov-2020 14:53:08 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[19-Nov-2020 14:53:08 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[19-Nov-2020 14:53:08 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[19-Nov-2020 14:53:08 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[19-Nov-2020 14:53:08 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[19-Nov-2020 14:53:08 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[19-Nov-2020 14:53:08 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[20-Nov-2020 05:58:00 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[20-Nov-2020 05:58:00 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[20-Nov-2020 05:58:00 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[20-Nov-2020 05:58:00 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[20-Nov-2020 05:58:00 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[20-Nov-2020 05:58:00 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[20-Nov-2020 05:58:00 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[20-Nov-2020 05:58:00 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[20-Nov-2020 05:58:00 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[20-Nov-2020 05:58:00 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[20-Nov-2020 05:58:00 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[20-Nov-2020 06:11:28 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[20-Nov-2020 06:11:28 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[20-Nov-2020 06:11:28 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[20-Nov-2020 06:11:28 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[20-Nov-2020 06:11:28 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[20-Nov-2020 06:11:28 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[20-Nov-2020 06:11:28 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[20-Nov-2020 06:11:28 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[20-Nov-2020 06:11:28 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[20-Nov-2020 06:11:28 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[20-Nov-2020 06:11:28 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[20-Nov-2020 07:12:24 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[20-Nov-2020 07:12:24 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[20-Nov-2020 07:12:24 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[20-Nov-2020 07:12:24 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[20-Nov-2020 07:12:24 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[20-Nov-2020 07:12:24 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[20-Nov-2020 07:12:24 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[20-Nov-2020 07:12:24 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[20-Nov-2020 07:12:24 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[20-Nov-2020 07:12:24 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[20-Nov-2020 07:12:24 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[20-Nov-2020 14:13:18 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[20-Nov-2020 14:13:18 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[20-Nov-2020 14:13:18 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[20-Nov-2020 14:13:18 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[20-Nov-2020 14:13:18 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[20-Nov-2020 14:13:18 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[20-Nov-2020 14:13:18 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[20-Nov-2020 14:13:18 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[20-Nov-2020 14:13:18 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[20-Nov-2020 14:13:18 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[20-Nov-2020 14:13:18 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[21-Nov-2020 08:32:27 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[21-Nov-2020 08:32:27 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[21-Nov-2020 08:32:27 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[21-Nov-2020 08:32:27 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[21-Nov-2020 08:32:27 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[21-Nov-2020 08:32:27 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[21-Nov-2020 08:32:27 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[21-Nov-2020 08:32:27 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[21-Nov-2020 08:32:27 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[21-Nov-2020 08:32:27 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[21-Nov-2020 08:32:27 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[23-Nov-2020 05:54:26 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[23-Nov-2020 05:54:26 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[23-Nov-2020 05:54:26 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[23-Nov-2020 05:54:26 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[23-Nov-2020 05:54:26 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[23-Nov-2020 05:54:26 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[23-Nov-2020 05:54:26 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[23-Nov-2020 05:54:26 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[23-Nov-2020 05:54:26 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[23-Nov-2020 05:54:26 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[23-Nov-2020 05:54:26 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[23-Nov-2020 05:54:27 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[23-Nov-2020 05:54:27 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[23-Nov-2020 05:54:27 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[23-Nov-2020 05:54:27 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[23-Nov-2020 05:54:27 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[23-Nov-2020 05:54:27 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[23-Nov-2020 05:54:27 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[23-Nov-2020 05:54:27 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[23-Nov-2020 05:54:27 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[23-Nov-2020 05:54:27 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[23-Nov-2020 05:54:27 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[23-Nov-2020 05:54:28 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[23-Nov-2020 05:54:28 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[23-Nov-2020 05:54:28 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[23-Nov-2020 05:54:28 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[23-Nov-2020 05:54:28 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[23-Nov-2020 05:54:28 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[23-Nov-2020 05:54:28 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[23-Nov-2020 05:54:28 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[23-Nov-2020 05:54:28 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[23-Nov-2020 05:54:28 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[23-Nov-2020 05:54:28 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[23-Nov-2020 06:01:14 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[23-Nov-2020 06:01:14 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/include/dbconnection.php on line 8
+[23-Nov-2020 06:01:14 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 18
+[23-Nov-2020 06:01:14 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/authenticated_user_header.php on line 36
+[23-Nov-2020 06:01:14 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 35
+[23-Nov-2020 06:01:14 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/msimbihr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[23-Nov-2020 06:01:14 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/navigation_panel/side_navigation_bar.php on line 65
+[23-Nov-2020 06:01:14 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 218
+[23-Nov-2020 06:01:14 UTC] PHP Notice:  Undefined index: employee_id in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 234
+[23-Nov-2020 06:01:14 UTC] PHP Notice:  Undefined index: company_ID in /home/chescote/msimbihr.chesco-tech.com/employee/leave/apply.php on line 288
+[23-Nov-2020 06:01:14 UTC] PHP Notice:  Undefined index: company_name in /home/chescote/msimbihr.chesco-tech.com/employee/footer/footer.php on line 5
+[23-Nov-2020 09:49:00 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/waltergeniushr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[23-Nov-2020 09:49:00 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/waltergeniushr.chesco-tech.com/include/dbconnection.php on line 8
+[23-Nov-2020 09:49:00 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/waltergeniushr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[23-Nov-2020 09:49:54 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/waltergeniushr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[23-Nov-2020 09:49:54 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/waltergeniushr.chesco-tech.com/include/dbconnection.php on line 8
+[23-Nov-2020 09:49:54 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/waltergeniushr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[23-Nov-2020 09:50:00 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/waltergeniushr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[23-Nov-2020 09:50:00 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/waltergeniushr.chesco-tech.com/include/dbconnection.php on line 8
+[23-Nov-2020 09:50:00 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/waltergeniushr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[23-Nov-2020 09:51:33 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/waltergeniushr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[23-Nov-2020 09:51:33 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/waltergeniushr.chesco-tech.com/include/dbconnection.php on line 8
+[23-Nov-2020 09:51:33 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/waltergeniushr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[23-Nov-2020 09:51:50 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/waltergeniushr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[23-Nov-2020 09:51:50 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/waltergeniushr.chesco-tech.com/include/dbconnection.php on line 8
+[23-Nov-2020 09:51:50 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/waltergeniushr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[23-Nov-2020 10:39:05 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/waltergeniushr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[23-Nov-2020 10:39:05 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/waltergeniushr.chesco-tech.com/include/dbconnection.php on line 8
+[23-Nov-2020 10:39:05 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/waltergeniushr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[23-Nov-2020 10:40:37 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/waltergeniushr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[23-Nov-2020 10:40:37 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/waltergeniushr.chesco-tech.com/include/dbconnection.php on line 8
+[23-Nov-2020 10:40:37 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/waltergeniushr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[23-Nov-2020 10:40:50 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/waltergeniushr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[23-Nov-2020 10:40:50 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/waltergeniushr.chesco-tech.com/include/dbconnection.php on line 8
+[23-Nov-2020 10:40:50 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/waltergeniushr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[03-Dec-2020 14:12:59 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/lendmepayhr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[03-Dec-2020 14:12:59 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/lendmepayhr.chesco-tech.com/include/dbconnection.php on line 8
+[03-Dec-2020 14:12:59 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/lendmepayhr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[03-Dec-2020 14:14:09 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/lendmepayhr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[03-Dec-2020 14:14:09 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/lendmepayhr.chesco-tech.com/include/dbconnection.php on line 8
+[03-Dec-2020 14:14:09 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/lendmepayhr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[03-Dec-2020 14:14:25 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/lendmepayhr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[03-Dec-2020 14:14:25 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/lendmepayhr.chesco-tech.com/include/dbconnection.php on line 8
+[03-Dec-2020 14:14:25 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/lendmepayhr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[03-Dec-2020 14:15:55 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/lendmepayhr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[03-Dec-2020 14:15:55 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/lendmepayhr.chesco-tech.com/include/dbconnection.php on line 8
+[03-Dec-2020 14:15:55 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/lendmepayhr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[03-Dec-2020 14:16:08 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/lendmepayhr.chesco-tech.com/employee/Classes/Leave.php on line 8
+[03-Dec-2020 14:16:08 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/lendmepayhr.chesco-tech.com/include/dbconnection.php on line 8
+[03-Dec-2020 14:16:08 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/lendmepayhr.chesco-tech.com/employee/Classes/Leave.php on line 8
