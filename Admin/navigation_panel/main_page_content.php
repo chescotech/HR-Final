@@ -282,38 +282,46 @@
         }],
     };
 
-    const jsonData = <?php echo json_encode($data7) ?>;    
-const labels = jsonData.map(entry => entry.login_date);
-const counts = jsonData.map(entry => entry.late_login_count);
+       // Define earlyArrivalCount and lateArrivalCount outside the conditional block
+       const earlyArrivalCount = <?php echo $earlyArrivalCount; ?>;
+    const lateArrivalCount = <?php echo $lateArrivalCount; ?>;
 
-console.log(jsonData);
+    <?php if (!empty($data7)) { ?>
+    const jsonData = <?php echo json_encode($data7) ?>;
+    const labels = jsonData.map(entry => entry.login_date);
+    const counts = jsonData.map(entry => entry.late_login_count);
 
-// Calculate early arrival count (those who arrived before 8:00 AM)
-const earlyArrivalCount = jsonData.reduce((total, entry) => {
-    if (entry.late_login_count === 0) {
-        return total + 1;
-    }
-    return total;
-}, 0);
+    console.log(jsonData);
 
-// Calculate late arrival count (those who arrived after 8:00 AM)
-const lateArrivalCount = jsonData.reduce((total, entry) => {
-    return total + entry.late_login_count;
-}, 0);
+    // const earlyArrivalCount = jsonData.reduce((total, entry) => {
+    //     if (entry.late_login_count === 0) {
+    //         return total + 1;
+    //     }
+    //     return total;
+    // }, 0);
+
+    // const lateArrivalCount = jsonData.reduce((total, entry) => {
+    //     return total + entry.late_login_count;
+    // }, 0);
+
+    <?php } else { ?>
+    // Handle case when data is empty, e.g., display a message or default chart
+    console.log("No data available for charts.");
+<?php } ?>
 
 const data3 = {
-    labels: ['Early Arrival', 'Late Arrival'],
-    datasets: [{
-        data: [earlyArrivalCount, lateArrivalCount],
-        backgroundColor: [
-            'green',  // Color for early arrivals
-            'red',    // Color for late arrivals
-        ],
-        borderWidth: 0,
-    }],
-};
+        labels: ['Early Arrival', 'Late Arrival'],
+        datasets: [{
+            data: [earlyArrivalCount, lateArrivalCount],
+            backgroundColor: [
+                'green',  // Color for early arrivals
+                'red',    // Color for late arrivals
+            ],
+            borderWidth: 0,
+        }],
+    };
 
-// Create your Chart.js chart using the 'data3' configuration
+
 
     const ageGroupCounts = <?php echo json_encode($ageGroups) ?>;
     const data4 = {
