@@ -193,7 +193,7 @@
                                 <center>
                                     <div class="th">
 
-                                    </div>                                   
+                                    </div>
                                     <div class="graph">
                                         <canvas id="myChart3"></canvas>
                                     </div>
@@ -242,7 +242,7 @@
 
                 <div class="row">
                     <div class="">
-                        
+
                         <div class="col-sm-6 col-xs-6">
                             <div class="card">
                                 <center>
@@ -271,47 +271,47 @@
             borderWidth: 0,
         }],
     };
-  
+
     const department = <?php echo json_encode($department) ?>;
     const data2 = {
         labels: department.map(item => item.departmentNames),
         datasets: [{
-            data:  department.map(item => item.count),
+            data: department.map(item => item.count),
             backgroundColor: ['green', 'brown'],
             borderWidth: 0,
         }],
     };
 
-    const jsonData = <?php echo json_encode($data7) ?>;    
-const labels = jsonData.map(entry => entry.login_date);
-const counts = jsonData.map(entry => entry.late_login_count);
+    const jsonData = <?php echo json_encode($data7) ?>;
+    const labels = jsonData.map(entry => entry.login_date);
+    const counts = jsonData.map(entry => entry.late_login_count);
 
-// Calculate early arrival count (those who arrived before 8:00 AM)
-const earlyArrivalCount = jsonData.reduce((total, entry) => {
-    if (entry.late_login_count === 0) {
-        return total + 1;
-    }
-    return total;
-}, 0);
+    // Calculate early arrival count (those who arrived before 8:00 AM)
+    const earlyArrivalCount = jsonData.reduce((total, entry) => {
+        if (entry.late_login_count === 0) {
+            return total + 1;
+        }
+        return total;
+    }, 0);
 
-// Calculate late arrival count (those who arrived after 8:00 AM)
-const lateArrivalCount = jsonData.reduce((total, entry) => {
-    return total + entry.late_login_count;
-}, 0);
+    // Calculate late arrival count (those who arrived after 8:00 AM)
+    const lateArrivalCount = jsonData.reduce((total, entry) => {
+        return total + entry.late_login_count;
+    }, 0);
 
-const data3 = {
-    labels: ['Early Arrival', 'Late Arrival'],
-    datasets: [{
-        data: [earlyArrivalCount, lateArrivalCount],
-        backgroundColor: [
-            'green',  // Color for early arrivals
-            'red',    // Color for late arrivals
-        ],
-        borderWidth: 0,
-    }],
-};
+    const data3 = {
+        labels: ['Early Arrival', 'Late Arrival'],
+        datasets: [{
+            data: [earlyArrivalCount, lateArrivalCount],
+            backgroundColor: [
+                'green', // Color for early arrivals
+                'red', // Color for late arrivals
+            ],
+            borderWidth: 0,
+        }],
+    };
 
-// Create your Chart.js chart using the 'data3' configuration
+    // Create your Chart.js chart using the 'data3' configuration
 
     const ageGroupCounts = <?php echo json_encode($ageGroups) ?>;
     const data4 = {
@@ -326,15 +326,15 @@ const data3 = {
     };
 
     const data5 = {
-            labels: <?php echo json_encode($years); ?>,
-            datasets: [{
-                label: 'Exit with reason Distribution',
-                data: <?php echo json_encode($counts); ?>,
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgb(54, 162, 235)',
-                borderWidth: 1
-            }]
-        };
+        labels: <?php echo json_encode($years); ?>,
+        datasets: [{
+            label: 'Exit with reason Distribution',
+            data: <?php echo json_encode($counts); ?>,
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgb(54, 162, 235)',
+            borderWidth: 1
+        }]
+    };
 
 
     const data6 = {
@@ -375,7 +375,7 @@ const data3 = {
 
     const grossPayGroups = <?php echo json_encode($grossPayGroups) ?>;
     const data7 = {
-        labels: ['1 - 2000', '2001 - 4800', '4801 - 6000', '6001 - 9999', '10000 - 15000', '15001 - 20000', '20001 - 30000', '30001 - 60000','60000+'],
+        labels: ['1 - 2000', '2001 - 4800', '4801 - 6000', '6001 - 9999', '10000 - 15000', '15001 - 20000', '20001 - 30000', '30001 - 60000', '60000+'],
         datasets: [{
             label: 'Gross Pay Distribution',
             data: Object.values(grossPayGroups),
@@ -430,22 +430,22 @@ const data3 = {
         },
     };
 
-  const config3 = {
-    type: 'pie',
-    data: data3,
-    options: {
-        responsive: true,
-        plugins: {
-            legend: {
-                position: 'top',
-            },
-            title: {
-                display: true,
-                text: 'Late Login Counts'
+    const config3 = {
+        type: 'pie',
+        data: data3,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Late Login Counts'
+                }
             }
-        }
-    },
-};
+        },
+    };
 
     const config4 = {
         type: 'bar',
@@ -467,20 +467,20 @@ const data3 = {
     };
 
     const config5 = {
-    type: 'bar',
-    data: data5,
-    options: {
-        responsive: true,
-        scales: {
-            x: {
-                beginAtZero: true
-            },
-            y: {
-                beginAtZero: true
+        type: 'bar',
+        data: data5,
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    beginAtZero: true
+                },
+                y: {
+                    beginAtZero: true
+                }
             }
-        }
-    },
-};
+        },
+    };
 
 
 
