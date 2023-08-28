@@ -85,6 +85,8 @@
         $DepartmentObject = new Department();
         $PaySlipsObject = new Payslips();
         $TaxObject = new Tax();
+        // error_reporting(E_ALL);
+        // ini_set('display_errors', 1);
 
         include '../navigation_panel/authenticated_user_header.php';
         //$companyId = $_SESSION['username'];
@@ -102,6 +104,7 @@
             $insurance = $_POST['insurance'];
             $advances = $_POST['advances'];
             $commision = $_POST['commision'];
+            $allowance = $_POST['advances'];
             $overtime = $_POST['overtime'];
             $overtime_rate_hour = $_POST['overtime_rate_hour'];
             $days_worked = $_POST['days_worked'];
@@ -109,137 +112,20 @@
 
             $no_of_emps = count($empno);
 
-            // Get employee earnings
-
-            // get employee deductions
-
-            // get employee recurring deductions
-
-
-            // $staffer = $_POST['staffer'];
-            // $id_ = $_POST['id_'];
             if ($no_of_emps == 1) {
                 // Dissable single
                 // while ($no_of_emps > 1) {
                 echo "<script> alert('You cannot enter a single record!') </script>";
                 die();
-                // return var_dump($empno1,$commision1);
-
-                array_map(function ($empno1, $days_worked1, $overtime_rate_hour1, $overtime1, $allowance1, $advances1, $insurance1, $commision1) {
-                    // return var_dump($commision1);
-                    global $DepartmentObject, $TaxObject, $compId, $PaySlipsObject, $LoanObject, $time;
-
-                    $Grosspay = $DepartmentObject->getBasicPay($empno1) + $DepartmentObject->getAllowances($empno1);
-                    // Hide
-                    //echo '$Grosspay'.$Grosspay;
-                    $totalpay = ($Grosspay / 26) * $days_worked1;
-                    $pay = $totalpay;
-
-                    $gross = ($pay) + ($overtime_rate_hour1 * $overtime1) + $allowance1 + $commision1;
-                    $napsa = $gross * 0.05;
-                    if ($TaxObject->getEmployeeAge($empno1) < 55) {
-                        $napsa = $gross * 0.05;
-                        if ($napsa >= $TaxObject->getNapsaCeiling($compId))
-                            $napsa = $TaxObject->getNapsaCeiling($compId);
-
-                        $napsa_calc = "";
-                        if ($napsa >= 255)
-                            $napsa_calc = 255;
-                    } else {
-                        $napsa = 0;
-                    }
-
-                    $band1_top = $TaxObject->getTopBand1($compId);
-                    $band2_top = $TaxObject->getTopBand2($compId);
-                    $band3_top = $TaxObject->getTopBand3($compId);
-
-                    $band1_rate = $TaxObject->getBandRate1($compId) / 100;
-                    $band2_rate = $TaxObject->getBandRate2($compId) / 100;
-                    $band3_rate = $TaxObject->getBandRate3($compId) / 100;
-                    $band4_rate = $TaxObject->getBandRate4($compId) / 100;
-
-                    $starting_income = $income = $gross - $napsa;
-
-                    $band1 = $band2 = $band3 = $band4 = 0;
-
-                    if ($income > $band3_top) {
-                        $band4 = ($income - $band3_top) * $band4_rate;
-                        $income = $band3_top;
-                    }
-
-                    if ($income > $band2_top) {
-                        $band3 = ($income - $band2_top) * $band3_rate;
-                        $income = $band2_top;
-                    }
-
-                    if ($income > $band1_top) {
-                        $band2 = ($income - $band1_top) * $band2_rate;
-                        $income = $band1_top;
-                    }
-
-                    $band1 = $income * $band1_rate;
-
-                    $total_tax_paid = $TaxObject->TaxCal($gross, $compId);
-
-                    $taxable = $gross - $income;
-                    // hide
-
-                    if ($PaySlipsObject->checkIfRecordExsists($empno1, $time) != "true") {
-
-                        echo '$commision1 ' . $commision1;
-                        // if (isset($staffer1)) {
-                        // return $pay;
-                        $PaySlipsObject->addEmpPayslipInfo($empno1, $pay, $days_worked1, $overtime_rate_hour1, $overtime1, $allowance1, $advances1, $insurance1, $time, $commision1, $compId);
-                        // }
-                        // $PaySlipsObject->addEmpPayslipInfo($empno, $pay, $days_worked, $overtime_rate_hour, $overtime, $allowance, $advances, $insurance, $time, $commision, $compId);
-
-                        $checkQuery = "SELECT * FROM tax where empno='$empno1'";
-                        $checkIfEmployeeExsist = mysql_query($checkQuery) or die("invalid query" . mysql_error());
-
-                        //debug_to_console("Test1");
-
-                        if (mysql_num_rows($checkIfEmployeeExsist) == 0) {
-                            $PaySlipsObject->addTax($taxable, $total_tax_paid, $empno1, $compId, $time);
-                        } else {
-                            $PaySlipsObject->updateTax($taxable, $total_tax_paid, $empno1);
-                        }
-
-                        $checkForLeave = "SELECT * FROM leave_days where empno='$empno1'";
-                        $checkIfEmployeeLeaveExsist = mysql_query($checkForLeave) or die("invalid query" . mysql_error());
-
-                        if (mysql_num_rows($checkIfEmployeeLeaveExsist) == 0) {
-                            $PaySlipsObject->addLeave($empno1);
-                        } else {
-                            // $empno = $_POST['empno'];
-                            $PaySlipsObject->updateLeave($empno1, $compId);
-                        }
-
-                        if ($LoanObject->checkIfEmpHasLoan($empno1) == 1 && $LoanObject->getEmpLoanStatus($empno1) == "Pending") {
-                            $LoanObject->updateLoanInfo($empno1);
-                        }
-
-                        if (!empty($LoanObject->empHasGratuity($empno1))) {
-                            // How much youll make this month
-                            $gratuity_this_month = $Grosspay * $LoanObject->getEmployeeGratuity($empno1);
-                            $existing_gratuity = $LoanObject->getEmployeeCurrentGratuity($empno1);
-                            $new_grat = $gratuity_this_month + $existing_gratuity;
-
-                            $LoanObject->updateEmployeeCurrentGratuity($empno1, $new_grat);
-                        }
-
-                        // echo "<script> alert('Record added successfully" . $staffer1 . $empno1 .  $pay . "') </script>";
-                    } else {
-                        //echo "<script> alert('failed, record already exsists." . $staffer1 . $empno1 . "') </script>";
-                    }
-                }, $empno, $days_worked, $overtime_rate_hour, $overtime, $allowance, $advances, $insurance, $commision);
-
-                // }
-                echo ' <center> <h3 style="color:green"> Record added successfully. </h3> </center>';
+                echo "<script>history.back()</script>";
             } else if ($no_of_emps > 1) {
-                // while ($no_of_emps > 1) {
-
-
+                // WHEN MANY USERS ARE SELECTED
+                // WHEN MANY USERS ARE SELECTED
+                // WHEN MANY USERS ARE SELECTED
+                // WHEN MANY USERS ARE SELECTED
+                // WHEN MANY USERS ARE SELECTED
                 array_map(function ($empno1, $days_worked1, $overtime_rate_hour1, $overtime1, $allowance1, $advances1, $insurance1, $commision1) {
+
                     // return var_dump($staffer1);
                     global $DepartmentObject, $TaxObject, $compId, $PaySlipsObject, $LoanObject, $time;
 
@@ -297,11 +183,22 @@
 
                     $taxable = $gross - $income;
                     // hide
+                    // return var_dump($PaySlipsObject->checkIfRecordExsists($empno1, $time));
                     if ($PaySlipsObject->checkIfRecordExsists($empno1, $time) != "true") {
 
                         // if (isset($staffer1)) {
-                        // return $pay;
-                        $PaySlipsObject->addEmpPayslipInfo($empno1, $pay, $days_worked1, $overtime_rate_hour1, $overtime1, $allowance1, $advances1, $insurance1, $time, $commision1, $compId);
+                        $empDedQuery = mysql_query("SELECT id FROM employee_deductions WHERE employee_no='$empno1'") or die(mysql_error());
+                        // find earnings in earnings table
+                        $empEarnQuery = mysql_query("SELECT id FROM employee_earnings WHERE employee_no='$empno1'") or die(mysql_error());
+
+
+                        $dedRow = mysql_fetch_array($empDedQuery);
+                        $earnRow = mysql_fetch_array($empEarnQuery);
+
+                        $earnID = $earnRow['id'] ? $earnRow['id'] : 0;
+                        $dedID = $dedRow['id'] ? $dedRow['id'] : 0;
+
+                        $PaySlipsObject->addEmpPayslipInfo($empno1, $pay, $days_worked1, $overtime_rate_hour1, $overtime1, $allowance1, $advances1, $insurance1, $time, $commision1, $compId, $earnID, $dedID);
                         // }
                         // $PaySlipsObject->addEmpPayslipInfo($empno, $pay, $days_worked, $overtime_rate_hour, $overtime, $allowance, $advances, $insurance, $time, $commision, $compId);
 

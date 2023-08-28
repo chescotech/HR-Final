@@ -223,8 +223,9 @@
                             <td class="box" width="">Date Issued:</td>
                             <td>:
                                 <?php
-                                $query = mysql_query("SELECT * FROM employee WHERE id=$emp_id");
+                                $query = mysql_query("SELECT * FROM employee WHERE empno='$empno'");
                                 $row = mysql_fetch_array($query);
+                                // return var_dump($row);
                                 $dateIssued = $row['time'];
                                 $dayswork_ = 26;
                                 $mydate = strtoTime($dateIssued);
@@ -713,19 +714,40 @@
                                 // return var_dump($recurringDeductRows);
                                 foreach ($recurringDeductRows as $recurringDeductRow) {
                                     $deductionTypeId = $recurringDeductRow['deduction_type'];
+                                    $deductionEndDate = $recurringDeductRow['date_completion'];
 
                                     // Get deduction details from `recurring_deductions` table
                                     $deductionTypeQuery2 = mysql_query("SELECT * FROM recurring_deduction_types WHERE id='$deductionTypeId'");
                                     $deductionTypeRow2 = mysql_fetch_array($deductionTypeQuery2);
 
                                     $deductionName = $deductionTypeRow2['name'];
-                                    $deductionValue = $recurringDeductRow2['monthly_deduct'];
+                                    $deductionValue = $recurringDeductRow['monthly_deduct'];
+
+                                    $DI = new DateTime($dateIssued);
+                                    $DED = new DateTime($deductionEndDate);
+
+                                    if ($DI < $DED) {
                                 ?>
-                                    <td><?= $deductionName ?></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                        <td><?= $deductionName ?></td>
+                                        <td><?php
+
+                                            $interval = $DI->diff($DED);
+                                            $months = ($interval->y * 12) + $interval->m;
+
+                                            echo number_format($deductionValue, 2) * $months;
+                                            ?></td>
+                                        <td>N/A</td>
+                                        <td>
+                                            <?php
+
+                                            $interval = $DI->diff($DED);
+                                            $months = ($interval->y * 12) + $interval->m;
+
+                                            echo $months;
+                                            ?>
+                                        </td>
                                 <?php
+                                    }
                                 }
                                 ?>
                             </tr>

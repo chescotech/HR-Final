@@ -194,6 +194,7 @@
                                     <div class="th">
 
                                     </div>
+                                    </div>
                                     <div class="graph">
                                         <canvas id="myChart3"></canvas>
                                     </div>
@@ -243,6 +244,7 @@
                 <div class="row">
                     <div class="">
 
+
                         <div class="col-sm-6 col-xs-6">
                             <div class="card">
                                 <center>
@@ -272,10 +274,12 @@
         }],
     };
 
+
     const department = <?php echo json_encode($department) ?>;
     const data2 = {
         labels: department.map(item => item.departmentNames),
         datasets: [{
+            data: department.map(item => item.count),
             data: department.map(item => item.count),
             backgroundColor: ['green', 'brown'],
             borderWidth: 0,
@@ -288,6 +292,7 @@
     console.log(totalEarlyArrivals);
     console.log(totalLateArrivals);
 
+    const data3 = {
     const data3 = {
         labels: ['Early Arrival', 'Late Arrival'],
         datasets: [{
@@ -310,6 +315,15 @@
     };
 
     const data5 = {
+        labels: <?php echo json_encode($years); ?>,
+        datasets: [{
+            label: 'Exit with reason Distribution',
+            data: <?php echo json_encode($counts); ?>,
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgb(54, 162, 235)',
+            borderWidth: 1
+        }]
+    };
         labels: <?php echo json_encode($years); ?>,
         datasets: [{
             label: 'Exit with reason Distribution',
@@ -359,6 +373,7 @@
 
     const grossPayGroups = <?php echo json_encode($grossPayGroups) ?>;
     const data7 = {
+        labels: ['1 - 2000', '2001 - 4800', '4801 - 6000', '6001 - 9999', '10000 - 15000', '15001 - 20000', '20001 - 30000', '30001 - 60000', '60000+'],
         labels: ['1 - 2000', '2001 - 4800', '4801 - 6000', '6001 - 9999', '10000 - 15000', '15001 - 20000', '20001 - 30000', '30001 - 60000', '60000+'],
         datasets: [{
             label: 'Gross Pay Distribution',
@@ -456,6 +471,20 @@
     };
 
     const config5 = {
+        type: 'bar',
+        data: data5,
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    beginAtZero: true
+                },
+                y: {
+                    beginAtZero: true
+                }
+            }
+        },
+    };
         type: 'bar',
         data: data5,
         options: {
