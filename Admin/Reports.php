@@ -115,10 +115,8 @@ if (mysql_num_rows($query6) > 0) {
             $grossPayGroups['60000+']++;
         }
     }
-}
+};
 
-   
-    
 
 
 $rowEarly = mysql_fetch_array($earlyQuery);
