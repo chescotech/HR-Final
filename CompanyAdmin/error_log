@@ -1,0 +1,1 @@
+[07-Jun-2020 10:32:34 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/chescote/chescohr.chesco-tech.com/include/dbconnection.php on line 8

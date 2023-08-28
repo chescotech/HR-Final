@@ -1,0 +1,266 @@
+@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:400,300,700,800);
+@import url('font-awesome.min.css');
+@import url('overwrite.css');
+@import url('dlmenu.css');
+@import url('animate.css');
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+
+padding: 0;
+border: 1;
+outline: 0;
+font-weight: inherit;
+font-style: inherit;
+font-size: 100%;
+
+}
+/* remember to define focus styles! */
+:focus {
+outline: 0;
+}
+body {
+line-height: 1;
+background-color:#FFF;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+
+caption, th, td {
+text-align: auto;
+font-weight: normal;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+content: "";
+}
+
+em {
+font-style:oblique;
+}
+strong
+{
+	font-weight:bold;
+}
+p {
+margin:15px 0;
+}
+
+.aligncenter, div.aligncenter {
+display: block;
+margin-left: auto;
+margin-right: auto;
+}
+.alignleft {
+float: left;
+}
+.alignright {
+float: right;
+}
+
+
+
+a:link {color:#0289ce;}
+a:hover {color:#f64274;}
+
+body {
+	background-color: #FBFBFB;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 94%;
+	font-style: normal;
+	font-weight: bold;
+	font-variant: normal;
+}
+
+.wrap {
+margin:0 auto;
+width:900px;
+}
+
+#sdi-header, #footer,#sdi-nav {
+float:left;
+padding:15px 0;
+min-width:100%;
+}
+#sdi-content,#sdi-footer
+{
+float:left;
+min-width:100%;
+}
+#sdi-footer 
+{
+	padding-top: 20px;
+	font-weight: normal;
+	color: #333;
+	padding-bottom: 20px;
+	
+}
+#sdi-content
+{
+	background-color: #FFF;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #EFEFEF;
+	padding-top: 20px;
+	padding-bottom: 40px;
+}
+#sdi-content h1
+{
+	font-size: 40px;
+	font-weight: normal;
+	color: #666;
+}
+#sdi-content h2
+{
+	font-size: 25px;
+	font-weight: normal;
+	color: #AAAAAA;
+	margin-top: 15px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-style: italic;
+}
+.designer
+{
+	color: #F5612A;
+	font-size: 82%;
+	font-weight: normal;
+	margin-left: 20px;
+}
+#sdi-nav {
+	background-color: #3c8dbc;
+}
+#sdi-nav a:link,#sdi-nav a:visited
+{
+	color:#FFF;
+	margin-right:15px;
+	text-decoration:none!important;
+}
+#sdi-nav a:hover
+{
+	text-decoration:underline!important;
+}
+#sdi-header {
+	background-color: #F7F7F7;
+}
+
+#logo {
+float:left;
+width:400px;
+}
+#top-nav {
+	float: right;
+	width: 400px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 105%!important;
+	font-weight: bold;
+	text-align: right;
+}
+
+#sdi-header p {
+float:right;
+width:400px;
+margin:0;
+}
+
+#content {
+padding:15px 0;
+clear:both;
+}
+
+#footer {
+background:#333;
+text-align:center;
+/*To anchor to bottom of page uncomment the following lines:*/
+position:fixed;
+bottom:0;
+}
+
+#footer a {
+color:#fff;
+}
+
+
+#sdi-introduction {
+	overflow: hidden;
+	margin-bottom: 20px;
+	border-bottom-width: 2px;
+	border-bottom-style: dashed;
+	border-bottom-color: #D1D1D1;
+}
+
+
+ #sdi-benefits-right h2
+{
+	font-size: 25px;
+	font-weight: normal;
+	color: #F5612A;
+	margin-top: 15px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-style: normal;
+}
+.lower
+{
+	color: #666;
+	font-size: 13px;
+	line-height: 20px;
+}
+#sdi-benefits {
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #EBEBEB;
+	overflow: hidden;
+	margin-bottom: 20px;
+	padding-bottom: 8px;
+}
+#locations {
+	border: 1px solid #E2E2E2;
+}
+#sdi-location-headers {
+	color: #333;
+	background-color: #F5F5F5;
+	font-weight: bold;
+	overflow: hidden;
+		border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #D4D4D4;
+}
+#sdi-location-office {
+	float: left;
+	width: 230px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-right: 10px;
+	padding-left: 10px;
+	border-right-width: 1px;
+	border-right-style: solid;
+	border-right-color: #D4D4D4;
+}
+#sdi-location-number {
+	float: left;
+	width: 220px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-right: 10px;
+	padding-left: 10px;
+}
+#sdi-location-content {
+	overflow: hidden;
+}
+#sdi-location-content p{
+	margin:0;
+}
+#sdi-location-content-all
+{
+	overflow:hidden;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #D4D4D4;
+}
+
+
