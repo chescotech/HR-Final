@@ -406,7 +406,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <table border="0" width="417">
+                                        <table border="0" width="417" style="margin-top: -6rem;">
                                             <tr>
                                                 <td class="box1"></td>
                                                 <td class="box1"><?php echo $id; ?></td>

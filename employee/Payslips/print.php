@@ -379,7 +379,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <table border="0" width="417">
+                                        <table border="0" width="417" style="margin-top: -6rem;">
                                             <style type="">
                                                 .align{
                                             word-spacing:285px;}.align1{
