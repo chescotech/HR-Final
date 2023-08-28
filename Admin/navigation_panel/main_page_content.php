@@ -193,7 +193,7 @@
                                 <center>
                                     <div class="th">
 
-                                    </div>                                   
+                                    </div>
                                     <div class="graph">
                                         <canvas id="myChart3"></canvas>
                                     </div>
@@ -242,7 +242,7 @@
 
                 <div class="row">
                     <div class="">
-                        
+
                         <div class="col-sm-6 col-xs-6">
                             <div class="card">
                                 <center>
@@ -271,57 +271,31 @@
             borderWidth: 0,
         }],
     };
-  
+
     const department = <?php echo json_encode($department) ?>;
     const data2 = {
         labels: department.map(item => item.departmentNames),
         datasets: [{
-            data:  department.map(item => item.count),
+            data: department.map(item => item.count),
             backgroundColor: ['green', 'brown'],
             borderWidth: 0,
         }],
     };
 
-       // Define earlyArrivalCount and lateArrivalCount outside the conditional block
-       const earlyArrivalCount = <?php echo $earlyArrivalCount; ?>;
-    const lateArrivalCount = <?php echo $lateArrivalCount; ?>;
+    const totalEarlyArrivals = <?php echo json_encode($totalEarlyArrivals) ?>;
+    const totalLateArrivals = <?php echo json_encode($totalLateArrivals) ?>;
 
-    <?php if (!empty($data7)) { ?>
-    const jsonData = <?php echo json_encode($data7) ?>;
-    const labels = jsonData.map(entry => entry.login_date);
-    const counts = jsonData.map(entry => entry.late_login_count);
+    console.log(totalEarlyArrivals);
+    console.log(totalLateArrivals);
 
-    console.log(jsonData);
-
-    // const earlyArrivalCount = jsonData.reduce((total, entry) => {
-    //     if (entry.late_login_count === 0) {
-    //         return total + 1;
-    //     }
-    //     return total;
-    // }, 0);
-
-    // const lateArrivalCount = jsonData.reduce((total, entry) => {
-    //     return total + entry.late_login_count;
-    // }, 0);
-
-    <?php } else { ?>
-    // Handle case when data is empty, e.g., display a message or default chart
-    console.log("No data available for charts.");
-<?php } ?>
-
-const data3 = {
+    const data3 = {
         labels: ['Early Arrival', 'Late Arrival'],
         datasets: [{
-            data: [earlyArrivalCount, lateArrivalCount],
-            backgroundColor: [
-                'green',  // Color for early arrivals
-                'red',    // Color for late arrivals
-            ],
+            data: [totalEarlyArrivals, totalLateArrivals],
+            backgroundColor: ['green', 'red'], // Color for early and late arrivals
             borderWidth: 0,
         }],
     };
-
-
 
     const ageGroupCounts = <?php echo json_encode($ageGroups) ?>;
     const data4 = {
@@ -336,15 +310,15 @@ const data3 = {
     };
 
     const data5 = {
-            labels: <?php echo json_encode($years); ?>,
-            datasets: [{
-                label: 'Exit with reason Distribution',
-                data: <?php echo json_encode($counts); ?>,
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgb(54, 162, 235)',
-                borderWidth: 1
-            }]
-        };
+        labels: <?php echo json_encode($years); ?>,
+        datasets: [{
+            label: 'Exit with reason Distribution',
+            data: <?php echo json_encode($counts); ?>,
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgb(54, 162, 235)',
+            borderWidth: 1
+        }]
+    };
 
 
     const data6 = {
@@ -385,7 +359,7 @@ const data3 = {
 
     const grossPayGroups = <?php echo json_encode($grossPayGroups) ?>;
     const data7 = {
-        labels: ['1 - 2000', '2001 - 4800', '4801 - 6000', '6001 - 9999', '10000 - 15000', '15001 - 20000', '20001 - 30000', '30001 - 60000','60000+'],
+        labels: ['1 - 2000', '2001 - 4800', '4801 - 6000', '6001 - 9999', '10000 - 15000', '15001 - 20000', '20001 - 30000', '30001 - 60000', '60000+'],
         datasets: [{
             label: 'Gross Pay Distribution',
             data: Object.values(grossPayGroups),
@@ -440,22 +414,27 @@ const data3 = {
         },
     };
 
-  const config3 = {
-    type: 'pie',
-    data: data3,
-    options: {
-        responsive: true,
-        plugins: {
-            legend: {
-                position: 'top',
-            },
-            title: {
-                display: true,
-                text: 'Late Login Counts'
+    const config3 = {
+        type: 'pie',
+        data: data3,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    color: 'black'
+                },
+                labels: {
+                    boxWidth: 10, // Set the width of the legend color boxes
+                    usePointStyle: true // Use circle shape for legend color boxes
+                },
+                title: {
+                    display: true,
+                    text: 'Early and Late Login Counts'
+                }
             }
-        }
-    },
-};
+        },
+    };
 
     const config4 = {
         type: 'bar',
@@ -477,20 +456,20 @@ const data3 = {
     };
 
     const config5 = {
-    type: 'bar',
-    data: data5,
-    options: {
-        responsive: true,
-        scales: {
-            x: {
-                beginAtZero: true
-            },
-            y: {
-                beginAtZero: true
+        type: 'bar',
+        data: data5,
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    beginAtZero: true
+                },
+                y: {
+                    beginAtZero: true
+                }
             }
-        }
-    },
-};
+        },
+    };
 
 
 

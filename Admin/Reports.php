@@ -20,6 +20,8 @@ $query5 = mysql_query("SELECT empno, bdate, TIMESTAMPDIFF(YEAR, bdate, CURDATE()
 $query6 = mysql_query("SELECT gross_pay FROM emp_info") or die(mysql_error());
 $query7 = mysql_query("SELECT DATE(login_time) AS login_date, COUNT(*) AS late_login_count FROM attendance_logs WHERE DATE(login_time) >= CURDATE() - INTERVAL 5 DAY AND TIME(login_time) > '08:00:00' GROUP BY DATE(login_time) ORDER BY login_date;") or die(mysql_error());
 $query8 = mysql_query("SELECT YEAR(STR_TO_DATE(date_of_exit, '%m/%d/%Y')) AS exit_year, COUNT(*) AS employee_count FROM employee_exits_tb WHERE STR_TO_DATE(date_of_exit, '%m/%d/%Y') >= DATE_SUB(CURDATE(), INTERVAL 20 YEAR) GROUP BY exit_year ORDER BY exit_year;") or die(mysql_error());
+$earlyQuery = mysql_query("SELECT SUM(CASE WHEN TIME(login_time) <= '08:00:00' THEN 1 ELSE 0 END) AS total_early_login_count FROM attendance_logs WHERE DATE(login_time) >= CURDATE() - INTERVAL 5 DAY;") or die(mysql_error());
+$lateQuery = mysql_query("SELECT SUM(CASE WHEN TIME(login_time) > '08:00:00' THEN 1 ELSE 0 END) AS total_late_login_count FROM attendance_logs WHERE DATE(login_time) >= CURDATE() - INTERVAL 5 DAY;") or die(mysql_error());
 
 
 
@@ -115,28 +117,19 @@ if (mysql_num_rows($query6) > 0) {
     }
 }
 
-
-
-
-
-    $data7 = array();
-    $earlyArrivalCount = 0;
-    $lateArrivalCount = 0;
+   
     
-    if (mysql_num_rows($query7) > 0) {
-        while ($row7 = mysql_fetch_array($query7)) {
-            $data7[] = array(
-                'login_date' => $row7['login_date'],
-                'late_login_count' => $row7['late_login_count']
-            );
-    
-            if ($row7['late_login_count'] > 0) {
-                $lateArrivalCount += $row7['late_login_count'];
-            } else {
-                $earlyArrivalCount += 1;
-            }
-        }
-    }
+
+
+$rowEarly = mysql_fetch_array($earlyQuery);
+$rowLate = mysql_fetch_array($lateQuery);
+
+$totalEarlyArrivals = $rowEarly['total_early_login_count'];
+$totalLateArrivals = $rowLate['total_late_login_count'];
+
+mysql_free_result($earlyQuery);
+mysql_free_result($lateQuery);
+
 
 
 if (mysql_num_rows($query8) > 0) {
