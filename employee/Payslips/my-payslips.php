@@ -57,20 +57,7 @@
 
                                             <tr>
                                                 <th>Date Issued</th>
-                                                <th>Pay</th>
-                                                <th>Days Worked</th>
-                                                <th>OT Rate/Hr</th>
-                                                <th>OT Hrs</th>
-                                                <th>Allownce</th>
-                                                <th>Comission</th>
-                                                <th>Taxable Amount</th>
-                                                <th>Npsa</th>
-                                                <th>Advances</th>
-                                                <th>Insurance</th>
-                                                <th>NHIMA</th>
-                                                <th>PAYE</th>
-                                                <th>Loan</th>
-                                                <th>Net Pay</th>
+
                                                 <th>Print</th>
                                             </tr>
                                         </thead>
@@ -150,20 +137,7 @@
                                                 echo '  
                                                         <tr>  
                                                             <td>' . $datePeriod . '</td>  
-                                                            <td>' . $basicPay . '</td> 
-                                                            <td>' . $dateWorked . '</td> 
-                                                            <td>' . $overtimeRateHour . '</td>
-                                                            <td>' . $overTimeHrs . '</td> 
-                                                            <td>' . $allowance . '</td> 
-                                                            <td>' . $commison . '</td>
-                                                            <td>' . number_format($starting_income) . '</td> 
-                                                            <td>' . number_format($napsa) . '</td> 
-                                                            <td>' . $row['advances'] . '</td>
-                                                            <td>' . $row['insurance'] . '</td> 
-                                                            <td>' . $row['health_insurance'] . '</td>     
-                                                            <td>' . number_format("$total_tax_paid", 2) . '</td>   
-                                                            <td>' . number_format("$loanAmnt", 2) . '</td>     
-                                                            <td>' . number_format("$netpay", 2) . '</td> 
+                                                          
                                                             <td><a target="_blank" href=' . "print.php?id=" . $id . "&empno=" . $employeeId . '>Print</a></td>
                                                         </tr>  
 
