@@ -1,3 +1,7 @@
+<?php
+error_reporting(0); 
+
+?>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <div class="content-wrapper" style="background-color: white">
 
@@ -136,6 +140,9 @@
             background: #CC99BC;
             border: 1px solid black;
         }
+        .th p {
+            color: RED;
+        }
     </style>
     <?php include './Classes/Loans.php';
     $LoanObject = new Loans();
@@ -167,6 +174,11 @@
                             <div class="card">
                                 <center>
                                     <div class="th">
+                                    <?php                                         
+                                        if(empty($gender)){
+                                            echo ' <p style ="margin-right:auto; margin-left:auto; width:100%;"> No available data for chart</p>';                                             
+                                        }
+                                        ?>
                                     </div>
                                     <p> Total employees : <?php echo $totalGenderCount ?> </p>
                                     <p> Total percentages : male <?php echo number_format($totalMalePercentage, 2) . '%' ?> female: <?php echo number_format($totalFemalePercentage, 2) . '%' ?> </p>
@@ -180,6 +192,11 @@
                             <div class="card">
                                 <center>
                                     <div class="th">
+                                    <?php                                         
+                                        if(empty($department)){
+                                            echo ' <p style ="margin-right:auto; margin-left:auto; width:100%;"> No available data for chart </p>';                                             
+                                        }
+                                        ?>
                                     </div>
                                     <p> Total employees : <?php echo $totalGenderCount ?> </p>
                                     <div class="graph">
@@ -191,7 +208,12 @@
                         <div class="col-sm-4 col-xs-4">
                             <div class="card">
                                 <center>
-                                    <div class="th">                                    
+                                    <div class="th">  
+                                    <?php                                         
+                                        if(empty($totalEarlyArrivals & $totalLateArrivals)){
+                                            echo ' <p style ="margin-right:auto; margin-left:auto; width:100%;"> No available data for chart </p>';                                             
+                                        }
+                                        ?>                                  
                                     </div>
                                     <div class="graph">
                                         <canvas id="myChart3"></canvas>
@@ -212,6 +234,11 @@
                             <div class="card">
                                 <center>
                                     <div class="th">
+                                    <?php                                         
+                                        if(empty($ageGroups)){
+                                            echo ' <p style ="margin-right:auto; margin-left:auto; width:100%;"> No available data for chart </p>';                                             
+                                        }
+                                        ?>
 
                                     </div>
                                     <div class="graph">
@@ -224,7 +251,11 @@
                             <div class="card">
                                 <center>
                                     <div class="th">
-
+                                    <?php                                         
+                                        if(empty($years)){
+                                            echo ' <p style ="margin-right:auto; margin-left:auto; width:100%;"> No available data for chart </p>';                                             
+                                        }
+                                        ?>
                                     </div>
                                     <div class="graph">
                                         <canvas id="myChart5"></canvas>
@@ -247,7 +278,11 @@
                             <div class="card">
                                 <center>
                                     <div class="th">
-
+                                        <?php                                         
+                                        if(empty($grossPayGroups)){
+                                            echo ' <p style ="margin-right:auto; margin-left:auto; width:100%;"> No available data for chart </p>';                                             
+                                        }
+                                        ?>
                                     </div>
                                     <div class="graph">
                                         <canvas id="myChart7"></canvas>
