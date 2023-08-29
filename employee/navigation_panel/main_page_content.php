@@ -107,7 +107,7 @@
         }
     </style>
 
-    <div class="container-fluid" style="margin-top: -6rem;">
+    <div class="container-fluid" style="margin-top: -4.5rem;">
         <?php
         $query = mysql_query("SELECT * FROM publications ORDER BY date DESC") or die(mysql_error);
         $rowCount = 0; // To keep track of the displayed rows

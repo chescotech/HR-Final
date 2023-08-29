@@ -190,8 +190,8 @@ ul li a {
             <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
-            <li><a href="publication.php"> <i class="fa fa-circle-o"></i>create Publications</a></li>
-            <li><a href="edit.php"> <i class="fa fa-circle-o"></i> Edit Publications</a></li>       
+            <li><a href="../publications/publication.php"> <i class="fa fa-circle-o"></i>create Publications</a></li>
+            <li><a href="../publications/edit.php"> <i class="fa fa-circle-o"></i> Edit Publications</a></li>       
         </ul>
     </li>
         </ul>

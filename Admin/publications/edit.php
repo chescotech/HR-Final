@@ -181,8 +181,7 @@
                             <th>message</th>
                             <th>Category</th>                            
                             <th>Attachment</th>                            
-                            <th>Edit</th>                            
-                            <th>Remove</th>                            
+                            <th>Edit</th>                                                                           
                         </tr>
                     </thead>
                     <tbody>
@@ -203,8 +202,7 @@
                             <td><?php echo $row0['message']; ?></td>
                             <td><?php echo $row0['category']; ?></td>
                             <td><a href="../../files/<?php echo $files ?>" class="btn">view</a></td>
-                            <td><a href="./edit_form.php?id=<?php echo $id;?>" class="btn">Edit</a></td>
-                            <td><a href="#" class="btn delete-btn">Delete</a></td>
+                            <td><a href="./edit_form.php?id=<?php echo $id;?>" class="btn">Edit</a> <a href="#" class="btn delete-btn">Delete</a></td>                           
                             </tr>
                         <?php } ?>
 
