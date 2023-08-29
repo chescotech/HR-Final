@@ -1,3 +1,7 @@
+<?php 
+error_reporting(0);
+?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -26,8 +30,7 @@
     }
 
     .name_ {
-        background-color: #fff;
-        height: 90px;
+        background-color: #fff;       
         width: 450px;
         float: left;
     }
@@ -421,13 +424,13 @@
                                             <?php
                                             $query2 = "SELECT * FROM employee_earnings WHERE employee_no ='$empno'";
                                             $result2 = mysql_query($query2, $link) or die(mysql_error());
-
+$totalGross = 0;
                                             $rows = array();
                                             while ($row2 = mysql_fetch_assoc($result2)) {
                                                 $rows[] = $row2;
                                             }
 
-                                            foreach (array_slice($columns, 3) as $columnName) {
+                                            foreach (array_slice($columns, 4) as $columnName) {
                                                 echo "<tr>";
                                                 echo "<td align='left' style='text-transform: capitalize;'>" . $columnName . "</td>";
 
@@ -435,6 +438,8 @@
                                                     $columnNameWithUnderscores = str_replace(' ', '_', $columnName);
                                                     echo "<td align='right'>" . (isset($row[$columnNameWithUnderscores]) ? number_format("$row[$columnNameWithUnderscores]", 2) : "0") . "</td>";
                                                     echo "</tr>"; // Close the row after each value
+                                                    
+                                                    $totalGross += number_format($row[$columnNameWithUnderscores]);
                                                 }
                                             }
 
@@ -504,7 +509,7 @@
 
                                             $band1 = $income * $band1_rate;
 
-                                            $total_tax_paid = $TaxObject->TaxCal($gross, $compId);
+                                            $total_tax_paid = $TaxObject->TaxCal($totalGross, $compId);
 
                                             $taxable = $gross - $income;
 
@@ -517,7 +522,7 @@
                                             }
 
                                             $totdeduct = $total_tax_paid + $row['advances'] + $row['insurance'] + $napsa + $loanAmnt;
-                                            $netpay = $gross - $totdeduct;
+                                            $netpay = $totalGross - $totdeduct;
                                             ?>
                                             <tr>
                                                 <td class="box"></td>
@@ -643,7 +648,7 @@
                             </tr>
                             </tr>
                             <tr>
-                                <td class="align2"><b>Gross Pay <div class="align3"> <?php echo number_format("$gross", 2); ?></div></b>
+                                <td class="align2"><b>Gross Pay <div class="align3"> <?php echo number_format("$totalGross", 2); ?></div></b>
 
                                 </td>
                                 <td><b>Total Deductions <div class="align3"> <?php
@@ -657,7 +662,7 @@
                         <table border="1" width="422" align="right" class="net" cellspacing="0">
                             <tr>
                                 <td align="left"><b> Net Pay <div class="align3"><?php
-                                                                                    $net = ($gross - $totalDeductions);
+                                                                                    $net = ($totalGross - $totalDeductions);
                                                                                     echo number_format($net, 2);
                                                                                     ?></div></b></td>
                             </tr>

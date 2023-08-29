@@ -30,7 +30,7 @@ error_reporting(0);
 
     .name_ {
         background-color: #fff;
-        height: 90px;
+       
         width: 450px;
         float: left;
     }
@@ -410,7 +410,7 @@ error_reporting(0);
                                 </tr>
                                 <tr>
                                     <td>
-                                        <table border="0" width="417" style="margin-top: -6rem;">
+                                        <table border="0" width="417" style="margin-top:-6rem;">
                                             <tr>
                                                 <td class="box1"></td>
                                                 <td class="box1"><?php echo $id; ?></td>
@@ -425,7 +425,7 @@ error_reporting(0);
                                                 $rows[] = $row2;
                                             }
 
-                                            foreach (array_slice($columns, 3) as $columnName) {
+                                            foreach (array_slice($columns, 4) as $columnName) {
                                                 echo "<tr>";
                                                 echo "<td align='left' style='text-transform: capitalize;'>" . $columnName . "</td>";
 

@@ -189,8 +189,10 @@
             $nok_address = $_POST['nok_address'];
             $nok_phone = $_POST['nok_phone'];
 
+            $trim = trim($empno);
+
             $new_employee = $DepartmentObject->addEmployee(
-                trim($empno),
+                $trim,
                 $fname,
                 $lname,
                 $init,
@@ -263,11 +265,11 @@
                 $columnsString = implode(", ", $deductionColumns);
                 $valuesString = implode(", ", $deductionValues);
 
-                $query = mysql_query("INSERT INTO employee_deductions(employee_id, trim($empno), company_id, $columnsString) VALUES ('$new_emp_id', '$companyId', $valuesString)") or die(mysql_error());
+                $query = mysql_query("INSERT INTO employee_deductions(employee_id, employee_no, company_id, $columnsString) VALUES ('$new_emp_id', '$trim', '$companyId', $valuesString)") or die(mysql_error());
             }
 
 
-            $earnings_item = mysql_query("INSERT INTO employee_earnings(employee_id, trim($empno), company_id, $cn_imploded) VALUES('$new_emp_id','$companyId', $cv_imploded)") or die(mysql_error());
+            $earnings_item = mysql_query("INSERT INTO employee_earnings(employee_id, employee_no, company_id, $cn_imploded) VALUES('$new_emp_id', '$trim', '$companyId', $cv_imploded)") or die(mysql_error());
 
             // return var_dump($earnings_item);
 
