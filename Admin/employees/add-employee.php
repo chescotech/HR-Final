@@ -263,11 +263,13 @@
                 $columnsString = implode(", ", $deductionColumns);
                 $valuesString = implode(", ", $deductionValues);
 
-                $query = mysql_query("INSERT INTO employee_deductions(employee_id, company_id, $columnsString) VALUES ('$new_emp_id', '$companyId', $valuesString)") or die(mysql_error());
+                $query = mysql_query("INSERT INTO employee_deductions(employee_id, trim($empno), company_id, $columnsString) VALUES ('$new_emp_id', '$companyId', $valuesString)") or die(mysql_error());
             }
 
 
-            $earnings_item = mysql_query("INSERT INTO employee_earnings(employee_id, company_id, $cn_imploded) VALUES('$new_emp_id','$companyId', $cv_imploded)") or die(mysql_error());
+            $earnings_item = mysql_query("INSERT INTO employee_earnings(employee_id, trim($empno), company_id, $cn_imploded) VALUES('$new_emp_id','$companyId', $cv_imploded)") or die(mysql_error());
+
+            // return var_dump($earnings_item);
 
             // log user creation
             $action = "Create Employee";
