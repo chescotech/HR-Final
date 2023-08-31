@@ -1,4 +1,4 @@
-<?php 
+<?php
 error_reporting(0);
 ?>
 
@@ -30,7 +30,7 @@ error_reporting(0);
 
     .name_ {
         background-color: #fff;
-       
+
         width: 450px;
         float: left;
     }
@@ -290,7 +290,7 @@ error_reporting(0);
                     if (isset($_GET['id'])) {
                         $insert = 0;
                         $id = $_GET['id'];
-                        $query = "SELECT * FROM emp_info WHERE id=$id";
+                        $query = "SELECT * FROM employee WHERE id=$id";
 
                         $result = mysql_query($query, $link) or die(mysql_error());
                         if (!mysql_num_rows($result)) {
@@ -437,6 +437,12 @@ error_reporting(0);
                                             }
 
                                             ?>
+                                            <tr>
+                                                <td align="left">
+                                                    Overtime
+                                                </td>
+                                                <td align="right"><?= $overtime ?></td>
+                                            </tr>
 
                                 </tr>
                                 <?php
@@ -636,7 +642,9 @@ error_reporting(0);
                             </tr>
                             </tr>
                             <tr>
-                                <td class="align2"><b>Gross Pay <div class="align3"><?php echo number_format($gross, 2); ?></div></b>
+                                <td class="align2"><b>Gross Pay <div class="align3"><?php
+                                                                                    $totalPay = $gross + $overtime;
+                                                                                    echo number_format($totalPay, 2); ?></div></b>
 
                                 </td>
                                 <td><b>Total Deductions <div class="align3"> <?php
@@ -650,7 +658,7 @@ error_reporting(0);
                         <table border="1" width="422" align="right" class="net" cellspacing="0">
                             <tr>
                                 <td align="left"><b> Net Pay <div class="align3"><?php
-                                                                                    $net = ($gross - $totalDeductions);
+                                                                                    $net = ($totalPay - $totalDeductions);
                                                                                     echo number_format($net, 2);
                                                                                     ?></div></b></td>
                             </tr>
@@ -659,15 +667,7 @@ error_reporting(0);
                         <input type="hidden" name="insert" disabled value="<?php echo $insert; ?>" />
                         <br><br>
                         <?php
-                        $query = "SELECT * FROM loan where empno = '$empno' ";
 
-                        $result = mysql_query($query) or die($query . "<br/><br/>" . mysql_error());
-
-                        $row = mysql_fetch_array($result, MYSQL_ASSOC);
-                        $balance = $row['loan_amt'];
-                        $interest = $row['interest'];
-                        $months = $row['duration'];
-                        $deduct = $row['monthly_deduct'];
                         ?>
                         Outstanding Payments
                         <table border="1" width="850" cellspacing="0">
@@ -677,42 +677,46 @@ error_reporting(0);
                                 <td>Interest</td>
                                 <td>Months Left</td>
                             </tr>
-                            <tr>
-                                <td>Personal Loans</td>
-                                <td><?php
-                                    if ($balance == "") {
-                                        echo "0.0";
-                                    } else {
-                                        echo $loanAmnt;
-                                    }
-                                    ?></td>
-                                <td><?php
-                                    if ($interest == "") {
-                                        echo "0.0";
-                                    } else {
-                                        echo number_format("$interest", 2);
-                                    }
-                                    ?></td>
-                                <td><?php
-                                    if ($months == "") {
-                                        echo "0";
-                                    } else {
+                            <?php
+                            $query = "SELECT * FROM loan where empno = '$empno' AND status='Pending' ";
+
+                            $result = mysql_query($query) or die($query . "<br/><br/>" . mysql_error());
+
+                            while ($row = mysql_fetch_array($result)) {
+                                // return var_dump($row);
+                                $balance = $row['loan_amt'];
+                                $interest = $row['interest'];
+                                $months = $row['duration'];
+                                $deduct = $row['monthly_deduct'];
+                                $deadLine = new DateTime($row['date_completion']);
+                                $DI = new DateTime($dateIssued);
+                            ?>
+                                <tr>
+                                    <td>Personal Loans</td>
+                                    <td><?php
+                                        $interval = $DI->diff($deadLine);
+                                        $months = ($interval->y * 12) + $interval->m;
+                                        $balance = $deduct * $months;
+
+                                        echo number_format($balance, 2);
+                                        ?></td>
+                                    <td><?php
+                                        if ($interest == "") {
+                                            echo "0.0";
+                                        } else {
+                                            echo number_format("$interest", 2);
+                                        }
+                                        ?></td>
+                                    <td><?php
+                                        $interval = $DI->diff($deadLine);
+                                        $months = ($interval->y * 12) + $interval->m;
+
                                         echo $months;
-                                    }
-                                    ?></td>
-                            </tr>
-                            <tr>
-                                <td>Car Loans</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>Educational Loans</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
+                                        ?></td>
+                                </tr>
+                            <?php
+                            }
+                            ?>
                             <tr>
                                 <?php
                                 // return var_dump($recurringDeductRows);
@@ -727,7 +731,6 @@ error_reporting(0);
                                     $deductionName = $deductionTypeRow2['name'];
                                     $deductionValue = $recurringDeductRow['monthly_deduct'];
 
-                                    $DI = new DateTime($dateIssued);
                                     $DED = new DateTime($deductionEndDate);
 
                                     if ($DI < $DED) {

@@ -16,9 +16,9 @@ class RecurringDeductions
         return $result;
     }
 
-    public function createRecurringDeduction($empno, $deduction_amount, $monthly_deduction, $duration, $LoanDate, $deadLine, $companyId, $status, $deduction_type)
+    public function createRecurringDeduction($emp_id, $empno, $deduction_amount, $monthly_deduction, $duration, $LoanDate, $deadLine, $companyId, $status, $deduction_type)
     {
-        $createQuery = mysql_query("INSERT INTO emp_recurring_deductions(employee_id, deduction_total, monthly_deduct, duration, deduction_date, date_completion, company_ID, status, deduction_type) VALUES('$empno', '$deduction_amount', '$monthly_deduction', '$duration', '$LoanDate','$deadLine', '$companyId', '$status', '$deduction_type')") or die(mysql_error());
+        $createQuery = mysql_query("INSERT INTO emp_recurring_deductions(employee_id, employee_no, deduction_total, monthly_deduct, duration, deduction_date, date_completion, company_ID, status, deduction_type) VALUES('$emp_id', '$empno', '$deduction_amount', '$monthly_deduction', '$duration', '$LoanDate','$deadLine', '$companyId', '$status', '$deduction_type')") or die(mysql_error());
 
         return $createQuery;
     }

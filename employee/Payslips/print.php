@@ -1,4 +1,4 @@
-<?php 
+<?php
 error_reporting(0);
 ?>
 
@@ -30,7 +30,7 @@ error_reporting(0);
     }
 
     .name_ {
-        background-color: #fff;       
+        background-color: #fff;
         width: 450px;
         float: left;
     }
@@ -424,7 +424,7 @@ error_reporting(0);
                                             <?php
                                             $query2 = "SELECT * FROM employee_earnings WHERE employee_no ='$empno'";
                                             $result2 = mysql_query($query2, $link) or die(mysql_error());
-$totalGross = 0;
+                                            $totalGross = 0;
                                             $rows = array();
                                             while ($row2 = mysql_fetch_assoc($result2)) {
                                                 $rows[] = $row2;
@@ -438,12 +438,18 @@ $totalGross = 0;
                                                     $columnNameWithUnderscores = str_replace(' ', '_', $columnName);
                                                     echo "<td align='right'>" . (isset($row[$columnNameWithUnderscores]) ? number_format("$row[$columnNameWithUnderscores]", 2) : "0") . "</td>";
                                                     echo "</tr>"; // Close the row after each value
-                                                    
+
                                                     $totalGross += number_format($row[$columnNameWithUnderscores]);
                                                 }
                                             }
 
                                             ?>
+                                            <tr>
+                                                <td align="left">
+                                                    Overtime
+                                                </td>
+                                                <td align="right"><?= $overtime ?></td>
+                                            </tr>
 
 
                                             <tr>
@@ -611,12 +617,29 @@ $totalGross = 0;
                                                 <td class="box">Advances</td>
                                                 <td align="right"><?php echo number_format("$advances", 2); ?></td>
                                             </tr>
-                                            <tr>
-                                                <td class="box">Loan</td>
-                                                <td align="right"><?php
-                                                                    echo number_format("$loanAmnt", 2);
-                                                                    ?></td>
-                                            </tr>
+                                            <?php
+                                            $query = "SELECT * FROM loan where empno = '$empno' AND status='Pending' ";
+
+                                            $result = mysql_query($query) or die($query . "<br/><br/>" . mysql_error());
+
+                                            while ($row = mysql_fetch_array($result)) {
+                                                // return var_dump($row);
+                                                $balance = $row['loan_amt'];
+                                                $loanAmnt = $row['monthly_deduct'];
+                                                $deadLine = new DateTime($row['date_completion']);
+                                                $DI = new DateTime($dateIssued);
+                                            ?>
+                                                <tr>
+                                                    <td class="box">Loan</td>
+                                                    <td align="right">
+                                                        <?php
+                                                        echo $loanAmnt;
+                                                        ?>
+                                                    </td>
+                                                </tr>
+                                            <?php
+                                            }
+                                            ?>
 
                                             <tr>
                                                 <td class="box">National Health Insurance</td>
@@ -648,12 +671,14 @@ $totalGross = 0;
                             </tr>
                             </tr>
                             <tr>
-                                <td class="align2"><b>Gross Pay <div class="align3"> <?php echo number_format("$totalGross", 2); ?></div></b>
+                                <td class="align2"><b>Gross Pay <div class="align3"> <?php
+                                                                                        $totalPay = $totalGross + $overtime;
+                                                                                        echo number_format("$totalPay", 2); ?></div></b>
 
                                 </td>
                                 <td><b>Total Deductions <div class="align3"> <?php
                                                                                 $totalDeductions = $total_tax_paid + $napsa +
-                                                                                    $advances + $insurance + $loanAmnt + $nhema;
+                                                                                    $advances + $insurance + $loanAmnt + $nhema + $recurringDeductTotal + $deductionsTotal;
                                                                                 echo number_format("$totalDeductions", 2);
                                                                                 ?></div></b></td>
                             </tr>
@@ -662,7 +687,7 @@ $totalGross = 0;
                         <table border="1" width="422" align="right" class="net" cellspacing="0">
                             <tr>
                                 <td align="left"><b> Net Pay <div class="align3"><?php
-                                                                                    $net = ($totalGross - $totalDeductions);
+                                                                                    $net = ($totalPay - $totalDeductions);
                                                                                     echo number_format($net, 2);
                                                                                     ?></div></b></td>
                             </tr>
@@ -690,42 +715,46 @@ $totalGross = 0;
                                 <td>Outstanding Interest</td>
                                 <td>Months Left</td>
                             </tr>
-                            <tr>
-                                <td>Personal Loans</td>
-                                <td><?php
-                                    if ($loanAmnt == "") {
-                                        echo '0.00';
-                                    } else {
-                                        echo number_format("$loanAmnt", 2);
-                                    }
-                                    ?></td>
-                                <td><?php
-                                    if ($interest == "") {
-                                        echo '0.00';
-                                    } else {
-                                        echo number_format("$interest", 2);
-                                    }
-                                    ?></td>
-                                <td><?php
-                                    if ($months == "") {
-                                        echo '0.00';
-                                    } else {
-                                        echo number_format("$months", 2);
-                                    }
-                                    ?></td>
-                            </tr>
-                            <tr>
-                                <td>Car Loans</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>Educational Loans</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
+                            <?php
+                            $query = "SELECT * FROM loan where empno = '$empno' AND status='Pending' ";
+
+                            $result = mysql_query($query) or die($query . "<br/><br/>" . mysql_error());
+
+                            while ($row = mysql_fetch_array($result)) {
+                                // return var_dump($row);
+                                $balance = $row['loan_amt'];
+                                $interest = $row['interest'];
+                                $months = $row['duration'];
+                                $deduct = $row['monthly_deduct'];
+                                $deadLine = new DateTime($row['date_completion']);
+                                $DI = new DateTime($dateIssued);
+                            ?>
+                                <tr>
+                                    <td>Personal Loans</td>
+                                    <td><?php
+                                        $interval = $DI->diff($deadLine);
+                                        $months = ($interval->y * 12) + $interval->m;
+                                        $balance = $deduct * $months;
+
+                                        echo number_format($balance, 2);
+                                        ?></td>
+                                    <td><?php
+                                        if ($interest == "") {
+                                            echo "0.0";
+                                        } else {
+                                            echo number_format("$interest", 2);
+                                        }
+                                        ?></td>
+                                    <td><?php
+                                        $interval = $DI->diff($deadLine);
+                                        $months = ($interval->y * 12) + $interval->m;
+
+                                        echo $months;
+                                        ?></td>
+                                </tr>
+                            <?php
+                            }
+                            ?>
                             <tr>
                                 <?php
                                 // return var_dump($recurringDeductRows);
