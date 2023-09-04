@@ -1,3 +1,6 @@
+<?php
+error_reporting(0);
+?>
 <!DOCTYPE html>
 <html>
 
@@ -50,7 +53,6 @@
 
         <?php
         if (isset($_POST['save'])) {
-
             $message = "";
             $empno = $_POST['empno'];
             // $loan_type = $_POST['loan_type'];
@@ -59,7 +61,7 @@
             $monthly_deduction = $_POST['monthly_deduction'];
             $intrest_rate = $_POST['intrest_rate'];
             $companyId = $_SESSION['company_ID'];
-            $interest = (($intrest_rate / 100) * $loan_amount);
+            $interest = $intrest_rate > 0 ? (($intrest_rate / 100) * $loan_amount) : 0;
             $principle = $loan_amount - ($monthly_deduction - $interest);
 
             $LoanDate = date('Y-m-d', strtotime($_POST['date_start']));
@@ -67,8 +69,9 @@
             $newdate = strtotime($months, strtotime($LoanDate));
             $deadLine = date('Y-m-d', strtotime($_POST['date_end']));
             $status = "Pending";
+            $loan_type = 0;
 
-            $LoanObject->addLoan($empno, $loan_amount, $monthly_deduction, $duration, $companyId, $principle, $intrest_rate, $interest, $LoanDate, $deadLine, $status);
+            $loan =             $LoanObject->addLoan($empno, $loan_amount, $monthly_deduction, $duration, $companyId, $principle, $intrest_rate, $interest, $LoanDate, $deadLine, $status, $loan_type);
 
             $message = "Loan Entry sucess!!"
         ?>

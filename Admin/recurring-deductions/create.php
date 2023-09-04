@@ -33,6 +33,8 @@
     <div class="wrapper">
 
         <?php
+        error_reporting(0);
+
         include_once '../Classes/Department.php';
         include_once '../Classes/RecurringDeductions.php';
         require_once('../../PHPmailer/sendmail.php');
@@ -53,7 +55,10 @@
         if (isset($_POST['save'])) {
 
             $message = "";
-            $empno = $_POST['empno'];
+            $empid = $_POST['empno'];
+            $empIDQ = mysql_query("SELECT id, empno FROM emp_info WHERE id='$empid'");
+            $empRow = mysql_fetch_array($empIDQ);
+            $empno = $empRow['empno'];
             $deduction_type = $_POST['deduction_type'];
             $deduction_amount = $_POST['deduction_amount'];
             $duration = $_POST['months'];
@@ -66,7 +71,7 @@
             $deadLine = date('Y-m-d', strtotime($_POST['date_end']));
             $status = "Pending";
 
-            $RecurringDeductionsObject->createRecurringDeduction($empno, $deduction_amount, $monthly_deduction, $duration, $LoanDate, $deadLine, $companyId, $status, $deduction_type);
+            $RecurringDeductionsObject->createRecurringDeduction($empid, $empno, $deduction_amount, $monthly_deduction, $duration, $LoanDate, $deadLine, $companyId, $status, $deduction_type);
 
             $message = "Recurring Deduction Successfully Created!!"
         ?>

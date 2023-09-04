@@ -1,4 +1,4 @@
-<?php 
+<?php
 error_reporting(0);
 ?>
 
@@ -86,10 +86,12 @@ error_reporting(0);
         include_once '../Classes/Payslips.php';
         include_once '../Classes/Loans.php';
         include_once '../Classes/Tax.php';
+        include_once '../Classes/RecurringDeductions.php';
         $LoanObject = new Loans();
         $DepartmentObject = new Department();
         $PaySlipsObject = new Payslips();
         $TaxObject = new Tax();
+        $RecurringDeductionsObject = new RecurringDeductions();
         // error_reporting(E_ALL);
         // ini_set('display_errors', 1);
 
@@ -132,7 +134,7 @@ error_reporting(0);
                 array_map(function ($empno1, $days_worked1, $overtime_rate_hour1, $overtime1, $allowance1, $advances1, $insurance1, $commision1) {
 
                     // return var_dump($staffer1);
-                    global $DepartmentObject, $TaxObject, $compId, $PaySlipsObject, $LoanObject, $time;
+                    global $DepartmentObject, $TaxObject, $compId, $PaySlipsObject, $LoanObject, $RecurringDeductionsObject, $time;
 
                     $Grosspay = $DepartmentObject->getBasicPay($empno1) + $DepartmentObject->getAllowances($empno1);
                     // Hide
@@ -229,6 +231,10 @@ error_reporting(0);
 
                         if ($LoanObject->checkIfEmpHasLoan($empno1) == 1 && $LoanObject->getEmpLoanStatus($empno1) == "Pending") {
                             $LoanObject->updateLoanInfo($empno1);
+                        }
+
+                        if ($RecurringDeductionsObject->checkIfEmpHasRD($empno1) == 1 && $RecurringDeductionsObject->getEmpDeductionStatus($empno1) == "Pending") {
+                            $RecurringDeductionsObject->updateDeductInfo($empno1);
                         }
 
 

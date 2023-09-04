@@ -1,4 +1,4 @@
-<?php 
+<?php
 error_reporting(0);
 ?>
 
@@ -86,10 +86,13 @@ error_reporting(0);
         include_once '../Classes/Payslips.php';
         include_once '../Classes/Loans.php';
         include_once '../Classes/Tax.php';
+        include_once '../Classes/RecurringDeductions.php';
+
         $LoanObject = new Loans();
         $DepartmentObject = new Department();
         $PaySlipsObject = new Payslips();
         $TaxObject = new Tax();
+        $RecurringDeductionsObject = new RecurringDeductions();
 
         include '../navigation_panel/authenticated_user_header.php';
         //$companyId = $_SESSION['username'];
@@ -127,7 +130,7 @@ error_reporting(0);
 
                 array_map(function ($empno1, $days_worked1, $overtime_rate_hour1, $overtime1, $allowance1, $advances1, $insurance1, $commision1) {
                     // return var_dump($commision1);
-                    global $DepartmentObject, $TaxObject, $compId, $PaySlipsObject, $LoanObject, $time;
+                    global $DepartmentObject, $TaxObject, $compId, $PaySlipsObject, $LoanObject, $RecurringDeductionsObject, $time;
 
                     $Grosspay = $DepartmentObject->getBasicPay($empno1) + $DepartmentObject->getAllowances($empno1);
                     // Hide
@@ -196,6 +199,7 @@ error_reporting(0);
                         $dedRow = mysql_fetch_array($empDedQuery);
                         $earnRow = mysql_fetch_array($empEarnQuery);
 
+
                         $earnID = $earnRow['id'];
                         $dedID = $dedRow['id'];
 
@@ -228,6 +232,11 @@ error_reporting(0);
                             $LoanObject->updateLoanInfo($empno1);
                         }
 
+                        // check and update recurring deductions
+                        if ($RecurringDeductionsObject->checkIfEmpHasRD($empno1) == 1 && $RecurringDeductionsObject->getEmpDeductionStatus($empno1) == "Pending") {
+                            $RecurringDeductionsObject->updateDeductInfo($empno1);
+                        }
+
                         if (!empty($LoanObject->empHasGratuity($empno1))) {
                             // How much youll make this month
                             $gratuity_this_month = $Grosspay * $LoanObject->getEmployeeGratuity($empno1);
@@ -250,7 +259,7 @@ error_reporting(0);
 
                 array_map(function ($empno1, $days_worked1, $overtime_rate_hour1, $overtime1, $allowance1, $advances1, $insurance1, $commision1) {
                     // return var_dump($staffer1);
-                    global $DepartmentObject, $TaxObject, $compId, $PaySlipsObject, $LoanObject, $time;
+                    global $DepartmentObject, $TaxObject, $compId, $PaySlipsObject, $LoanObject, $RecurringDeductionsObject, $time;
 
                     $Grosspay = $DepartmentObject->getBasicPay($empno1) + $DepartmentObject->getAllowances($empno1);
                     // Hide
@@ -349,6 +358,10 @@ error_reporting(0);
                             $LoanObject->updateLoanInfo($empno1);
                         }
 
+                        // check and update recurring deductions
+                        if ($RecurringDeductionsObject->checkIfEmpHasRD($empno1) == 1 && $RecurringDeductionsObject->getEmpDeductionStatus($empno1) == "Pending") {
+                            $RecurringDeductionsObject->updateDeductInfo($empno1);
+                        }
 
                         if (!empty($LoanObject->empHasGratuity($empno1))) {
                             // How much youll make this month
@@ -370,6 +383,11 @@ error_reporting(0);
             } else {
                 echo ' <center> <h3 style="color:red"> Error! No Employees Selected! </h3> </center>';
             }
+            // WHEN A SINGLE EMPLOYEE IS SELECTED
+            // WHEN A SINGLE EMPLOYEE IS SELECTED
+            // WHEN A SINGLE EMPLOYEE IS SELECTED
+            // WHEN A SINGLE EMPLOYEE IS SELECTED
+            // WHEN A SINGLE EMPLOYEE IS SELECTED
         } elseif (isset($_POST['save_single'])) {
             $message = "";
             $empno1 = $_POST['empno'];
@@ -438,12 +456,19 @@ error_reporting(0);
 
             if ($PaySlipsObject->checkIfRecordExsists($empno1, $time) == "false") {
 
-                // echo '$commision1 ' . $commision1;
                 // if (isset($staffer1)) {
-                // return $pay;
-                $PaySlipsObject->addEmpPayslipInfo($empno1, $pay, $days_worked1, $overtime_rate_hour1, $overtime1, $allowance1, $advances1, $insurance1, $time, $commision1, $compId);
-                // }
-                // $PaySlipsObject->addEmpPayslipInfo($empno, $pay, $days_worked, $overtime_rate_hour, $overtime, $allowance, $advances, $insurance, $time, $commision, $compId);
+                $empDedQuery = mysql_query("SELECT id FROM employee_deductions WHERE employee_no='$empno1'") or die(mysql_error());
+                // find earnings in earnings table
+                $empEarnQuery = mysql_query("SELECT id FROM employee_earnings WHERE employee_no='$empno1'") or die(mysql_error());
+
+
+                $dedRow = mysql_fetch_array($empDedQuery);
+                $earnRow = mysql_fetch_array($empEarnQuery);
+
+                $earnID = $earnRow['id'] ? $earnRow['id'] : 0;
+                $dedID = $dedRow['id'] ? $dedRow['id'] : 0;
+
+                $PaySlipsObject->addEmpPayslipInfo($empno1, $pay, $days_worked1, $overtime_rate_hour1, $overtime1, $allowance1, $advances1, $insurance1, $time, $commision1, $compId, $earnID, $dedID);
 
                 $checkQuery = "SELECT * FROM tax where empno='$empno1'";
                 $checkIfEmployeeExsist = mysql_query($checkQuery) or die("invalid query" . mysql_error());
@@ -477,6 +502,10 @@ error_reporting(0);
                     $new_grat = $gratuity_this_month + $existing_gratuity;
 
                     $LoanObject->updateEmployeeCurrentGratuity($empno1, $new_grat);
+                }
+
+                if ($RecurringDeductionsObject->checkIfEmpHasRD($empno1) == 1 && $RecurringDeductionsObject->getEmpDeductionStatus($empno1) == "Pending") {
+                    $RecurringDeductionsObject->updateDeductInfo($empno1);
                 }
 
                 // echo "<script> alert('Record added successfully" . $staffer1 . $empno1 .  $pay . "') </script>";

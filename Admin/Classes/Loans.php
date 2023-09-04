@@ -1048,14 +1048,14 @@ class Loans
         return $result;
     }
 
-    public function addLoan($empno, $loan_amount, $monthly_deduction, $duration, $companyId, $principle, $interest_rate, $intrest, $LoanDate, $deadLine, $status)
+    public function addLoan($empno, $loan_amount, $monthly_deduction, $duration, $companyId, $principle, $interest_rate, $intrest, $LoanDate, $deadLine, $status, $loan_type)
     {
         $result = mysql_query("INSERT INTO loan(empno,loan_amt,"
             . " monthly_deduct,duration,company_ID,principle"
             . ",interest_rate,interest,loan_date,date_completion,status, loan_type"
             . ") VALUES('$empno','$loan_amount','$monthly_deduction'"
             . ",'$duration','$companyId', '$principle','$interest_rate',"
-            . "'$intrest','$LoanDate','$deadLine','$status')");
+            . "'$intrest','$LoanDate','$deadLine','$status', '$loan_type')");
         return $result;
     }
 
