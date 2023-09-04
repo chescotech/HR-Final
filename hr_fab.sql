@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 04, 2023 at 12:35 PM
+-- Generation Time: Sep 04, 2023 at 04:53 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -183,7 +183,8 @@ INSERT INTO `allowances_tb` (`id`, `company_id`, `house_allowance`, `transport_a
 (142, 4, 0, 0, 0, 'LMP0379'),
 (143, 4, 0, 0, 0, 'LMP0380'),
 (144, 4, 0, 0, 0, 'LMP02'),
-(145, 4, 0, 0, 0, 'LMP03');
+(145, 4, 0, 0, 0, 'LMP03'),
+(146, 4, 0, 0, 0, 'LMP04');
 
 -- --------------------------------------------------------
 
@@ -23326,7 +23327,9 @@ INSERT INTO `comp_structure` (`parent_id`, `memberId`, `otherInfo`, `empno`, `ho
 (1, 13, '', '', 13),
 (10, 14, '', '', 14),
 (10, 15, '', '', 15),
-(1, 16, '', '', 16);
+(1, 16, '', '', 16),
+(0, 17, 'Mark Zuckerberg CEO', 'LMP02', 0),
+(0, 18, 'Richard Hendricks CEO', 'LMP03', 0);
 
 -- --------------------------------------------------------
 
@@ -23363,11 +23366,8 @@ CREATE TABLE `deductions` (
 --
 
 INSERT INTO `deductions` (`ded_id`, `name`, `company_ID`, `type`, `emp_fixed`, `comp_fixed`, `status`, `percent`, `percent_of`, `emp_calc_num`, `emp_calc_deno`, `comp_calc_num`, `comp_calc_deno`, `comp_lower_bound`, `comp_lower_bound_amnt`, `emp_lower_bound`, `emp_lower_bound_amnt`, `comp_upper_bound`, `comp_upper_bound_amnt`, `emp_upper_bound`, `emp_upper_bound_amnt`) VALUES
-(10, 'FIXED_500_500', 4, 'fixed', '500', '500', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0),
-(11, 'CALC_2%_3%', 4, 'calculated', NULL, NULL, NULL, NULL, NULL, 2, 100, 3, 100, 1000, 0, 1000, 0, 1500, 0, 1500, 1500),
 (12, 'FIXED_1k_1k', 4, 'fixed', '1000', '1000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0),
-(13, 'CALC_5%_5%', 4, 'calculated', NULL, NULL, NULL, NULL, NULL, 5, 100, 5, 100, 5000, 6500, 5000, 6500, 15000, 15000, 15000, 15000),
-(14, 'Monthly Deduction', 4, 'calculated', NULL, NULL, NULL, NULL, NULL, 5, 100, 2, 100, 500, 500, 500, 500, 1500, 1500, 1500, 1500);
+(14, 'Monthly Deduction', 4, 'calculated', NULL, NULL, NULL, NULL, NULL, 5, 100, 5, 100, 500, 500, 500, 500, 1500, 1500, 1500, 1500);
 
 -- --------------------------------------------------------
 
@@ -23465,7 +23465,8 @@ CREATE TABLE `employee` (
 --
 
 INSERT INTO `employee` (`id`, `empno`, `pay`, `dayswork`, `otrate`, `othrs`, `allow`, `advances`, `insurance`, `time`, `comission`, `company_id`, `health_insurance`, `pension`, `employer_share`, `employee_share`, `group_id`, `earnings_id`, `deductions_id`) VALUES
-(10, 'LMP02', '0.00', 26, '200.00', 12, '0.00', '0.00', '0.00', '2023-09-30', '0', '4', '0', '0', '0', '0', 0, 1, 1);
+(10, 'LMP02', '0.00', 26, '200.00', 12, '0.00', '0.00', '0.00', '2023-09-30', '0', '4', '0', '0', '0', '0', 0, 1, 1),
+(11, 'LMP04', '0.00', 26, '200.00', 10, '200.00', '300.00', '400.00', '2023-09-30', '200', '4', '0', '0', '0', '0', 0, 3, 3);
 
 -- --------------------------------------------------------
 
@@ -23479,7 +23480,6 @@ CREATE TABLE `employee_deductions` (
   `employee_no` varchar(10) NOT NULL,
   `company_id` int(10) NOT NULL,
   `fixed_1k_1k` varchar(20) DEFAULT NULL,
-  `calc_5%_5%` int(20) DEFAULT NULL,
   `monthly_deduction` int(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -23487,9 +23487,10 @@ CREATE TABLE `employee_deductions` (
 -- Dumping data for table `employee_deductions`
 --
 
-INSERT INTO `employee_deductions` (`id`, `employee_id`, `employee_no`, `company_id`, `fixed_1k_1k`, `calc_5%_5%`, `monthly_deduction`) VALUES
-(1, 2, 'LMP02', 4, '1', NULL, 1),
-(2, 3, 'LMP03', 4, NULL, NULL, 1);
+INSERT INTO `employee_deductions` (`id`, `employee_id`, `employee_no`, `company_id`, `fixed_1k_1k`, `monthly_deduction`) VALUES
+(1, 2, 'LMP02', 4, '1', 1),
+(2, 3, 'LMP03', 4, NULL, 1),
+(3, 4, 'LMP04', 4, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -23532,7 +23533,8 @@ CREATE TABLE `employee_earnings` (
 
 INSERT INTO `employee_earnings` (`id`, `employee_id`, `employee_no`, `company_id`, `basic_pay`, `housing_allowance`, `transport_allowance`, `lunch_allowance`) VALUES
 (1, 2, 'LMP02', 4, 3000, 4000, NULL, NULL),
-(2, 3, 'LMP03', 4, 4000, 1000, 1000, NULL);
+(2, 3, 'LMP03', 4, 4000, 1000, 1000, NULL),
+(3, 4, 'LMP04', 4, 5000, 2500, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -23759,7 +23761,8 @@ CREATE TABLE `emp_info` (
 --
 
 INSERT INTO `emp_info` (`id`, `empno`, `photo`, `lname`, `fname`, `init`, `gender`, `bdate`, `dept`, `position`, `phone`, `address`, `email`, `personal_email`, `bank`, `account`, `date_joined`, `date_left`, `employee_grade`, `marital_status`, `payment_method`, `leave_days`, `company_id`, `password`, `basic_pay`, `gross_pay`, `nok_phone`, `nok_name`, `nok_relationship`, `nok_email`, `nok_address`, `NRC`, `employment_type`, `probation_deadline`, `status`, `employee_type`, `social`, `branch_code`, `has_gratuity`, `gatuity_amount`, `leaveworkflow_id`, `nrc_file`, `next_kin_phone`, `Dept_Name`, `nhima`, `tpin`) VALUES
-(2, 'LMP02', 'zuckerberg.jpg', 'Zuckerberg', 'Mark', ' Mr', 'male', '1999-01-01', '35', 'CEO', '+183889293', 'On a Yatch', 'mark@fb.com', '', 'Bank of America', '10293919010', '2023-08-01', '2023-08-01', '<br />\r\n<b>Notice</b>:  Undefined index: grade in ', 'Single', 'Cash', 0, '4', 'ba21817627bf2368e0bd2db2c4742847', '', '7000', '+17289029393', 'Linda Zuckerberg', 'Wife', 'linda@fb.com', 'The same', 'JN8788361', 'Permanent', '', '', 'Full Time', '99729012', 'GH62782', '--Is Employee Eligible for Gratuity ?--', '', 0, 'zuckerberg.jpg', '', NULL, '', '403'),
+(2, 'LMP02', 'zuckerberg.jpg', 'Zuckerberg', 'Mark', ' Mr', 'male', '1999-01-01', '35', 'CEO', '+183889293', 'On a Yatch', 'mark@fb.com', '', 'Bank of America', '10293919010', '2023-08-01', '2023-08-01', '', 'Single', 'Cash', 0, '4', 'ba21817627bf2368e0bd2db2c4742847', '', '7000', '+17289029393', 'Linda Zuckerberg', 'Wife', 'linda@fb.com', 'The same', 'JN8788361', 'Permanent', '', '', 'Full Time', '99729012', 'GH62782', '--Is Employee Eligible for Gratuity ?--', '', 0, 'zuckerberg.jpg', '', NULL, '', '403'),
+(4, 'LMP04', 'janedoe.jpg', 'Doe', 'Jane', ' Ms', 'male', '1995-05-05', '40', 'CTO', '+26078812919', '5230 Penfield Avenue', 'hane@example.com', '', 'SVB', '37173712324', '2023-09-01', '1970-01-01', 'USG 2', 'Married', 'Bank', 0, '4', 'ba21817627bf2368e0bd2db2c4742847', '', '7500', '+260789129931', 'John Doe', 'Husband', 'john@example.com', 'The same', 'HF738293', 'Permanent', '', '', 'Full Time', '90319201', 'OP08288', '--Is Employee Eligible for Gratuity ?--', '', 0, 'janedoe.jpg', '', NULL, '', '201'),
 (3, 'LMP03', 'hendricks.png', 'Hendricks', 'Richard', ' Mr', 'male', '1978-03-13', '38', 'CEO', '+19299884', '5230 Penfield Avenue', 'rich@piedpiper.com', '', 'SVB', '37173710288', '2014-01-01', '2014-01-01', '', 'Single', 'Bank', 0, '4', 'ba21817627bf2368e0bd2db2c4742847', '', '6000', '+1883900223', 'Erlich Bachman', 'Landlord', 'erlich@aviato.com', 'The same', 'JU78891', 'Permanent', '', '', 'Full Time', '7912881', 'OP08288', '--Is Employee Eligible for Gratuity ?--', '', 0, 'hendricks.png', '', NULL, '', '782');
 
 -- --------------------------------------------------------
@@ -23804,7 +23807,9 @@ INSERT INTO `emp_log` (`id`, `company_id`, `action`, `action_user`, `date`) VALU
 (21, 4, 'Edit Employee', '10', '2023-09-04 09:57:21'),
 (22, 4, 'Edit Employee', '10', '2023-09-04 09:57:33'),
 (23, 4, 'Create Employee', '10', '2023-09-04 10:10:05'),
-(24, 4, 'Edit Employee', '10', '2023-09-04 10:10:56');
+(24, 4, 'Edit Employee', '10', '2023-09-04 10:10:56'),
+(25, 4, 'Edit Employee', '10', '2023-09-04 12:17:51'),
+(26, 4, 'Create Employee', '10', '2023-09-04 14:51:42');
 
 -- --------------------------------------------------------
 
@@ -24068,7 +24073,6 @@ INSERT INTO `hod_tb` (`empno`, `departmentId`, `companyID`, `parent_supervisor`,
 ('FAB158', '53', 4, 'FAB425', 7, 1, 1),
 ('FAB092', '54', 4, 'FAB425', 8, 1, 1),
 ('FAB192', '40', 4, 'FAB425', 9, 1, 1),
-('FAB061', '37', 4, 'FAB425', 10, 1, 1),
 ('FAB345', '40', 4, 'FAB425', 11, 1, 1),
 ('FAB067', '48', 4, 'FAB425', 12, 1, 1),
 ('FAB425', '55', 4, 'FAB425', 13, 1, 1),
@@ -27484,6 +27488,13 @@ CREATE TABLE `leave_applications_tb` (
   `days` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `leave_applications_tb`
+--
+
+INSERT INTO `leave_applications_tb` (`application_id`, `leave_start_date`, `leave_end_date`, `leave_type`, `reason_leave`, `empno`, `status`, `contact`, `contact_person`, `address_on_leave`, `file_proof`, `parent_supervisor_notified`, `application_date`, `level`, `days`) VALUES
+(1, '2023-09-05', '2023-09-13', 'Sick Leave	', 'Leave by Admin on behalf of employee', 'LMP02', 'Approved', '', '', '', '', '', '', 1, '');
+
 -- --------------------------------------------------------
 
 --
@@ -27652,7 +27663,8 @@ INSERT INTO `leave_days` (`ID`, `available`, `empno`) VALUES
 (138, 9.5, 'LMP0378'),
 (139, 9.5, 'LMP0379'),
 (140, 2, 'LMP0380'),
-(141, 22, 'LMP02');
+(141, 14, 'LMP02'),
+(142, 2, 'LMP04');
 
 -- --------------------------------------------------------
 
@@ -28109,7 +28121,7 @@ INSERT INTO `tax` (`id`, `taxable_to_date`, `tax_paid_to_date`, `empno`, `compan
 (48, '6700', '2159.375', 'CTL04', '4', '0'),
 (49, '10107.5', '2414', 'LMP02', '4', '0'),
 (50, '42955', '50623.948300000004', 'LMP03', '4', '0'),
-(51, '13400', '4318.75', 'LMP04', '4', '0'),
+(51, '13520', '4318.75', 'LMP04', '4', '0'),
 (52, '73692.3076923076', '23003.8653846152', 'LMP01', '4', '0'),
 (53, '15000', '4918.75', 'LMP010', '4', '0'),
 (54, '0', '0', '-- Select Employee to add --', '4', '0'),
@@ -28678,7 +28690,7 @@ ALTER TABLE `workflows`
 -- AUTO_INCREMENT for table `allowances_tb`
 --
 ALTER TABLE `allowances_tb`
-  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=146;
+  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=147;
 --
 -- AUTO_INCREMENT for table `appeal_notices`
 --
@@ -28763,7 +28775,7 @@ ALTER TABLE `company`
 -- AUTO_INCREMENT for table `comp_structure`
 --
 ALTER TABLE `comp_structure`
-  MODIFY `memberId` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `memberId` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `deductions`
 --
@@ -28783,12 +28795,12 @@ ALTER TABLE `earnings`
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `id` int(90) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(90) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `employee_deductions`
 --
 ALTER TABLE `employee_deductions`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `employee_discplinary_records`
 --
@@ -28798,7 +28810,7 @@ ALTER TABLE `employee_discplinary_records`
 -- AUTO_INCREMENT for table `employee_earnings`
 --
 ALTER TABLE `employee_earnings`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `employee_exits_tb`
 --
@@ -28818,12 +28830,12 @@ ALTER TABLE `emp_history_tb`
 -- AUTO_INCREMENT for table `emp_info`
 --
 ALTER TABLE `emp_info`
-  MODIFY `id` int(90) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(90) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `emp_log`
 --
 ALTER TABLE `emp_log`
-  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT for table `emp_recurring_deductions`
 --
@@ -28923,7 +28935,7 @@ ALTER TABLE `jobs_user_skills`
 -- AUTO_INCREMENT for table `leave_applications_tb`
 --
 ALTER TABLE `leave_applications_tb`
-  MODIFY `application_id` int(12) NOT NULL AUTO_INCREMENT;
+  MODIFY `application_id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `leave_application_levels`
 --
@@ -28933,7 +28945,7 @@ ALTER TABLE `leave_application_levels`
 -- AUTO_INCREMENT for table `leave_days`
 --
 ALTER TABLE `leave_days`
-  MODIFY `ID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=142;
+  MODIFY `ID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=143;
 --
 -- AUTO_INCREMENT for table `leave_ratings_tb`
 --

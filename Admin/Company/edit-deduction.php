@@ -1,3 +1,6 @@
+<?php
+error_reporting(0);
+?>
 <!DOCTYPE html>
 <html>
 
@@ -38,6 +41,7 @@
                     $ded_id = $_GET['id'];
                     $compID = $_SESSION['company_ID'];
                     echo $_SESSION['name'] . ' Employee Deductions';
+                    $message = "";
                     ?>
                 </h1>
             </section>
@@ -99,7 +103,7 @@
                 } else {
                     $message = "Failed to update the deduction information.";
                 }
-                header("Location:deductions.php");
+                header("Location:edit-deduction.php?id='$ded_id'");
             }
             ?>
 
@@ -128,11 +132,11 @@
                                 </div>
                                 <div>
                                     <?php
-                                    if (isset($message) && str_contains($message, "Fail")) {
-                                        echo '<p class="bg-danger">' . $message . '</p>';
-                                    } else {
-                                        echo '<p class="bg-success">' . $message . '</p>';
-                                    }
+                                    // if (isset($message) && str_contains($message, "Fail")) {
+                                    //     echo '<p class="bg-danger">' . $message . '</p>';
+                                    // } else {
+                                    //     echo '<p class="bg-success">' . $message . '</p>';
+                                    // }
                                     ?>
                                 </div>
                                 <div class="box-body">

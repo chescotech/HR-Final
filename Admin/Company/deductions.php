@@ -109,7 +109,7 @@
 
                     $add_q = mysql_query("UPDATE deductions SET name = '$name',type='$type',status='$status',
                             percent = '$percent', percent_of = '$percent_of'
-                        WHERE id = '$id' ") or die(mysql_error());
+                        WHERE ded_id = '$id' ") or die(mysql_error());
 
                     if ($add_q) {
                         echo "<script> alert('Updated Successfuly') </script>";
@@ -119,7 +119,7 @@
                 if (isset($_POST['delete'])) {
                     $id = $_POST['id'];
 
-                    $add_q = mysql_query("DELETE FROM deductions WHERE id = '$id' ") or die(mysql_error());
+                    $add_q = mysql_query("DELETE FROM deductions WHERE ded_id = '$id' ") or die(mysql_error());
 
                     if ($add_q) {
 
