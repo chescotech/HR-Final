@@ -303,7 +303,7 @@ error_reporting(0);
                                                     </div>
                                                     <div class="row">
                                                         <div class="form-group">
-                                                            <input name="short_desc" class="form-control" type="text" value="<?= $row['name'] ?>" id="" value="<?= $row['short_desc']; ?>">
+                                                            <input name="short_desc" class="form-control" type="text" value="<?= $row['name'] ?>" id="" value="<?= $row['short_desc']; ?>" disabled>
                                                         </div>
                                                     </div>
                                                 </div>

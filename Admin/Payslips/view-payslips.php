@@ -246,9 +246,9 @@ error_reporting(0);
                                                         echo '  <td>' . $row['time'] . '</td>';
                                                         // echo '  <td></td>';
 
-                                                        echo '  <td><a target="_blank" href=' . "print-payslip.php?id=" . $id_ . '&empno=' . $row["empno"] . '>Print</a></td>';
+                                                        echo '  <td><a target="_blank" href=' . "print-payslip.php?id=" . $id_ . '&empno=' . $row["empno"] . '&date=' . $row["time"] . '>Print</a></td>';
                                                         // echo '  <td><a href=' . "edit-payslip.php?id=" . $id_ . '>Edit</a></td>';
-                                                        echo '  <td><a href=' . "delete-payslip.php?id=" . $id_ . '&date=' . $time . '&empno=' . $row["empno"] . '>Delete</a></td>';
+                                                        echo '  <td><a href=' . "delete-payslip.php?id=" . $id_ . '&date=' . $row["time"] . '&empno=' . $row["empno"] . '>Delete</a></td>';
 
                                                         echo '</tr>';
                                                         // }

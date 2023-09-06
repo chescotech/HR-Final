@@ -1,5 +1,5 @@
 <?php
-error_reporting(0);
+// error_reporting(0);
 ?>
 <!DOCTYPE html>
 <html>
@@ -32,7 +32,9 @@ error_reporting(0);
         include_once '../Classes/Employee.php';
         include_once '../Classes/Loans.php';
         include_once '../Classes/Tax.php';
+        include_once '../Classes/Payslips.php';
         $EmployeeObject = new Employee();
+        $PaySlipObject = new Payslips();
         $loanObj = new Loans();
         $TaxObject = new Tax();
 
@@ -115,18 +117,12 @@ error_reporting(0);
                                                     <th>ID</th>
                                                     <th>First Name</th>
                                                     <th>Last Name</th>
-                                                    <th>Date Period</th>
+                                                    <!-- <th>Date Period</th>
                                                     <th>Days Worked</th>
                                                     <th>Overtime</th>
                                                     <th>Allowances</th>
-                                                    <th>Comission</th>
+                                                    <th>Comission</th> -->
                                                     <th>Gross Pay</th>
-                                                    <th>Tax</th>
-                                                    <th>NAPSA</th>
-                                                    <th>Advances</th>
-                                                    <th>NHIMA</th>
-                                                    <th>Loan</th>
-                                                    <th>Pension</th>
                                                     <th>Total Deductions</th>
                                                     <th>Net Pay</th>
                                                 </tr>
@@ -159,23 +155,23 @@ error_reporting(0);
                                                 $band3_rate = "";
                                                 $band4_rate = "";
 
-                                                $query2 = "SELECT em.*, n.*, ee.*, ed.*
+                                                $query2 = "SELECT *
                                                 FROM employee em
                                                 INNER JOIN emp_info n ON em.empno = n.empno
-                                                INNER JOIN employee_earnings ee ON em.earnings_id = ee.id
-                                                INNER JOIN employee_deductions ed ON em.deductions_id = ed.id
                                                 WHERE em.company_id = '$compId' AND em.time = '$year-$month-$day'";
 
-
                                                 $result2 = mysql_query($query2, $link) or die(mysql_error());
-
-
                                                 $sum = 0;
                                                 while ($row = mysql_fetch_array($result2)) {
-                                                    return var_dump($row);
+                                                    $earn_id = $row['earnings_id'];
+                                                    $ded_id = $row['deductions_id'];
 
-                                                    $gross = ($row['pay']) + ($row['otrate'] * $row['othrs']) + $row['allow'] + $row['comission'];
+                                                    $earnings = $PaySlipObject->getEmployeeEarnings($earn_id);
+
+                                                    $gross = ($row['pay']) + ($row['otrate'] * $row['othrs']) + $row['allow'] + $row['comission'] + $earnings;
                                                     $empoyeeNo = $row['empno'];
+
+                                                    $emp_deductions = $PaySlipObject->getEmployeeDeductions($gross, $empoyeeNo, $ded_id);
 
                                                     if ($TaxObject->getEmployeeAge($row['empno']) < 55) {
                                                         $napsa = $gross * 0.05;
@@ -221,12 +217,15 @@ error_reporting(0);
                                                     $total_tax_paid = $TaxObject->TaxCal($gross, $compId); //$band1 + $band2 + $band3 + $band4;
 
                                                     $date_compare = date('Y-m-d', strtotime($row['time']));
-                                                    if ($loanObj->getLoanMonthDedeductAmounts($empoyeeNo, $date_compare) == "") {
+                                                    if ($loanObj->getLoanMonthDedeductAmount($empoyeeNo, $date_compare) == "") {
                                                         $lAmount = 0;
                                                     } else {
-                                                        $lAmount = $loanObj->getLoanMonthDedeductAmounts($empoyeeNo, $date_compare);
+                                                        $lAmount = $loanObj->getLoanMonthDedeductAmount($empoyeeNo, $date_compare);
                                                     }
-                                                    $totdeduct = $total_tax_paid + $row['advances'] + $row['insurance'] + $lAmount + $napsa + $row['health_insurance'] + $row['pension'];
+
+                                                    // var_dump($total_tax_paid, $row['advances'], $row['insurance'], $lAmount, $napsa, $row['health_insurance'], $row['pension'], $emp_deductions);
+
+                                                    $totdeduct = $total_tax_paid + $row['advances'] + $row['insurance'] + $lAmount + $napsa + $row['health_insurance'] + $row['pension'] + $emp_deductions;
                                                     $netpay = ($gross - $totdeduct);
 
                                                     $sum += $netpay;
@@ -237,19 +236,9 @@ error_reporting(0);
                                                             <td>' . $row['empno'] . '</td>  
                                                             <td>' . $row['fname'] . '</td>                                                            
                                                             <td>' . $row['lname'] . '</td>
-                                                            <td>' . $row['time'] . '</td> 
-                                                            <td>' . $row['dayswork'] . '</td>                                                                                                                       
-                                                            <td>' . $overtime . '</td> 
-                                                            <td>' . $row['allow'] . '</td> 
-                                                            <td>' . $row['comission'] . '</td> 
+                                                            
                                                             <td>' . number_format("$gross", 2) . '</td> 
-                                                            <td>' . $total_tax_paid . '</td>
-                                                            <td>' . $napsa . '</td>    
-                                                            <td>' . $row['advances'] . '</td>
-                                                            <td>' . $row['health_insurance'] . '</td>
-                                                            <td>' . $lAmount . '</td>
-                                                                <td>' . $row['pension'] . '</td>
-                                                            <td>' . number_format("$totdeduct", 2) . '</td>
+                                                            <td>' . number_format("$totdeduct", 2) . '</td> 
                                                             <td>' . number_format("$netpay", 2) . '</td>                                                                
                                                         </tr>  
                                                         ';

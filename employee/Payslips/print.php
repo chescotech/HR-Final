@@ -382,7 +382,7 @@ error_reporting(0);
                                 </tr>
                                 <tr>
                                     <td>
-                                        <table border="0" width="417" style="margin-top: -77px;">
+                                        <table border="0" width="417" style="margin-top: -25%;">
                                             <style type="">
                                                 .align{
                                             word-spacing:285px;}.align1{
@@ -424,7 +424,7 @@ error_reporting(0);
                                             <?php
                                             $query2 = "SELECT * FROM employee_earnings WHERE employee_no ='$empno'";
                                             $result2 = mysql_query($query2, $link) or die(mysql_error());
-                                            $totalGross = 0;
+                                            $totalEarnings = 0;
                                             $rows = array();
                                             while ($row2 = mysql_fetch_assoc($result2)) {
                                                 $rows[] = $row2;
@@ -439,7 +439,7 @@ error_reporting(0);
                                                     echo "<td align='right'>" . (isset($row[$columnNameWithUnderscores]) ? number_format("$row[$columnNameWithUnderscores]", 2) : "0") . "</td>";
                                                     echo "</tr>"; // Close the row after each value
 
-                                                    $totalGross += number_format($row[$columnNameWithUnderscores]);
+                                                    $totalEarnings += $row[$columnNameWithUnderscores];
                                                 }
                                             }
 
@@ -469,7 +469,8 @@ error_reporting(0);
                                                 <td align="right"></td>
                                             </tr>
                                             <?php
-                                            $gross = ($row['pay']) + ($row['otrate'] * $row['othrs']) + $row['allow'] + $row['comission'];
+
+                                            $gross = ($row['pay']) + $overtime + $row['allow'] + $row['comission'] + $totalEarnings;
 
                                             if ($TaxObject->getEmployeeAge($row['empno']) < 55) {
                                                 $napsa = $gross * 0.05;
@@ -515,7 +516,7 @@ error_reporting(0);
 
                                             $band1 = $income * $band1_rate;
 
-                                            $total_tax_paid = $TaxObject->TaxCal($totalGross, $compId);
+                                            $total_tax_paid = $TaxObject->TaxCal($gross, $compId);
 
                                             $taxable = $gross - $income;
 
@@ -528,7 +529,7 @@ error_reporting(0);
                                             }
 
                                             $totdeduct = $total_tax_paid + $row['advances'] + $row['insurance'] + $napsa + $loanAmnt;
-                                            $netpay = $totalGross - $totdeduct;
+                                            $netpay = $gross - $totdeduct;
                                             ?>
                                             <tr>
                                                 <td class="box"></td>
@@ -672,8 +673,8 @@ error_reporting(0);
                             </tr>
                             <tr>
                                 <td class="align2"><b>Gross Pay <div class="align3"> <?php
-                                                                                        $totalPay = $totalGross + $overtime;
-                                                                                        echo number_format("$totalPay", 2); ?></div></b>
+
+                                                                                        echo number_format("$gross", 2); ?></div></b>
 
                                 </td>
                                 <td><b>Total Deductions <div class="align3"> <?php
@@ -687,7 +688,7 @@ error_reporting(0);
                         <table border="1" width="422" align="right" class="net" cellspacing="0">
                             <tr>
                                 <td align="left"><b> Net Pay <div class="align3"><?php
-                                                                                    $net = ($totalPay - $totalDeductions);
+                                                                                    $net = ($gross - $totalDeductions);
                                                                                     echo number_format($net, 2);
                                                                                     ?></div></b></td>
                             </tr>
