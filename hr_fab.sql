@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 04, 2023 at 04:53 PM
+-- Generation Time: Sep 06, 2023 at 10:27 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -23367,7 +23367,7 @@ CREATE TABLE `deductions` (
 
 INSERT INTO `deductions` (`ded_id`, `name`, `company_ID`, `type`, `emp_fixed`, `comp_fixed`, `status`, `percent`, `percent_of`, `emp_calc_num`, `emp_calc_deno`, `comp_calc_num`, `comp_calc_deno`, `comp_lower_bound`, `comp_lower_bound_amnt`, `emp_lower_bound`, `emp_lower_bound_amnt`, `comp_upper_bound`, `comp_upper_bound_amnt`, `emp_upper_bound`, `emp_upper_bound_amnt`) VALUES
 (12, 'FIXED_1k_1k', 4, 'fixed', '1000', '1000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0),
-(14, 'Monthly Deduction', 4, 'calculated', NULL, NULL, NULL, NULL, NULL, 5, 100, 5, 100, 500, 500, 500, 500, 1500, 1500, 1500, 1500);
+(14, 'Monthly Deduction', 4, 'calculated', NULL, NULL, NULL, NULL, NULL, 10, 100, 5, 100, 500, 500, 500, 500, 1500, 1500, 1500, 1500);
 
 -- --------------------------------------------------------
 
@@ -23465,6 +23465,7 @@ CREATE TABLE `employee` (
 --
 
 INSERT INTO `employee` (`id`, `empno`, `pay`, `dayswork`, `otrate`, `othrs`, `allow`, `advances`, `insurance`, `time`, `comission`, `company_id`, `health_insurance`, `pension`, `employer_share`, `employee_share`, `group_id`, `earnings_id`, `deductions_id`) VALUES
+(12, 'LMP02', '0.00', 26, '200.00', 3, '0.00', '0.00', '0.00', '2023-10-31', '0', '4', '0', '0', '0', '0', 0, 1, 1),
 (10, 'LMP02', '0.00', 26, '200.00', 12, '0.00', '0.00', '0.00', '2023-09-30', '0', '4', '0', '0', '0', '0', 0, 1, 1),
 (11, 'LMP04', '0.00', 26, '200.00', 10, '200.00', '300.00', '400.00', '2023-09-30', '200', '4', '0', '0', '0', '0', 0, 3, 3);
 
@@ -24040,8 +24041,8 @@ CREATE TABLE `group_tb` (
 
 INSERT INTO `group_tb` (`id`, `name`, `permissions_id`, `company_id`) VALUES
 (1, 'Admins', 2, 4),
-(2, 'General', 0, 4),
-(3, 'Standard', 3, 4);
+(3, 'Standard', 3, 4),
+(4, 'MidLevel', 12, 4);
 
 -- --------------------------------------------------------
 
@@ -27968,7 +27969,8 @@ INSERT INTO `permissions_tb` (`id`, `company_setup`, `employee`, `hr_reports`, `
 (2, 'true', 'true', 'true', 'true', 'true', 'true', 'true', 'true', 'true'),
 (3, 'true', 'true', 'false', 'true', 'false', 'true', 'false', 'true', 'true'),
 (4, 'true', 'false', 'false', 'false', 'false', 'false', 'false', 'true', '4'),
-(11, 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false');
+(11, 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false', 'false'),
+(12, 'false', 'false', 'false', 'true', 'true', 'true', 'true', 'false', 'false');
 
 -- --------------------------------------------------------
 
@@ -28119,7 +28121,7 @@ INSERT INTO `tax` (`id`, `taxable_to_date`, `tax_paid_to_date`, `empno`, `compan
 (46, '0', '0', 'CTL02', '4', '0'),
 (47, '6800', '1880', 'CTL03', '4', '0'),
 (48, '6700', '2159.375', 'CTL04', '4', '0'),
-(49, '10107.5', '2414', 'LMP02', '4', '0'),
+(49, '10137.5', '2414', 'LMP02', '4', '0'),
 (50, '42955', '50623.948300000004', 'LMP03', '4', '0'),
 (51, '13520', '4318.75', 'LMP04', '4', '0'),
 (52, '73692.3076923076', '23003.8653846152', 'LMP01', '4', '0'),
@@ -28204,11 +28206,12 @@ INSERT INTO `users_tb` (`id`, `user_name`, `password`, `company_id`, `empno`, `u
 (1, 'superadmin', 'c12e01f2a13ff5587e1e9e4aedb8242d', 4, '', 'superadmin', 'Choolwe', 'Ngandu', 'choolwe@crystaline.co.zm', 'Not Active', 1),
 (10, 'admin', '21232f297a57a5a743894a0e4a801fc3 ', 4, '', 'HR Admin', 'Isabella', 'Mulima', 'choolwe1992@gmail.com', '', 1),
 (16, 'adminlso', '21232f297a57a5a743894a0e4a801fc3', 5, '', 'admin', 'Ngandu', 'Choolwe', 'choolwe1992@gmail.com', '', 3),
-(20, 'admin@corp.com', '21232f297a57a5a743894a0e4a801fc3', 9, 'PSC01', 'HR Admin', 'Chilonda', 'Chilonda', ' officemanager@psccorporatepark.com', '', 2),
+(20, 'admin@corp.com', '21232f297a57a5a743894a0e4a801fc3', 9, 'PSC01', 'HR Admin', 'Chilonda', 'Chilonda', ' officemanager@psccorporatepark.com', '', 0),
 (21, 'admin@ranch.com', '21232f297a57a5a743894a0e4a801fc3', 10, '', 'HR Admin', 'Chilonda', 'Chilonda', 'reception4@psccorporatepark.com', '', 3),
 (22, 'admin@corpmanager.com', '21232f297a57a5a743894a0e4a801fc3', 9, '', 'HR Admin', 'Chilonda', 'Chilonda', ' officemanager@psccorporatepark.com', '', 3),
 (23, 'admin@ranchmanager.com', '21232f297a57a5a743894a0e4a801fc3', 10, '', 'HR Admin', 'Chilonda', 'Chilonda', 'reception4@psccorporatepark.com', '', 0),
-(25, 'choolwe', 'ef8c889458a56135316327e2bd4986b2', 4, '', 'HR Admin', 'choolwe', 'ngandu', 'choolwe1992@gmail.com', 'Active', 0);
+(25, 'choolwe', 'ef8c889458a56135316327e2bd4986b2', 4, '', 'HR Admin', 'choolwe', 'ngandu', 'choolwe1992@gmail.com', 'Active', 0),
+(26, 'steve', '1f8a6e93437ce2c3ff15ebb47d25b8d4', 4, '', 'HR Admin', 'Stephen', 'Jobs', 'steve@apple.com', 'Active', 4);
 
 -- --------------------------------------------------------
 
@@ -28795,7 +28798,7 @@ ALTER TABLE `earnings`
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `id` int(90) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(90) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `employee_deductions`
 --
@@ -28860,7 +28863,7 @@ ALTER TABLE `gratuity_settings_tb`
 -- AUTO_INCREMENT for table `group_tb`
 --
 ALTER TABLE `group_tb`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `hod_tb`
 --
@@ -29000,7 +29003,7 @@ ALTER TABLE `pensions_tb`
 -- AUTO_INCREMENT for table `permissions_tb`
 --
 ALTER TABLE `permissions_tb`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `postings`
 --
@@ -29045,7 +29048,7 @@ ALTER TABLE `tax_bands`
 -- AUTO_INCREMENT for table `users_tb`
 --
 ALTER TABLE `users_tb`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT for table `workflows`
 --
