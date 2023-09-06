@@ -55,25 +55,41 @@
             $usergroup = $_POST['group_selection'];
             $company_id = $_SESSION['company_ID'];
 
-            if ($DepartmentObject->checkUser($user_name, $company_id) != "true") {
-                if ($password == $repassword) {
-                    $res = mysql_query("INSERT INTO users_tb(user_name,company_id,firstname,lastname,email_address,status,password,user_type, group_id)"
-                        . " VALUES('$user_name','$company_id','$firstname','$lastname','$email_address','$status','$password','HR Admin', '$usergroup' )");
-                    $stateMessage = "User has been added sucessfully!!";
+            // Check if the user already exists
+            if ($DepartmentObject->checkUser($user_name, $company_id) == "true") {
+                // Perform the update only if the user exists
+                $updateQuery = "UPDATE users_tb SET 
+                firstname = '$firstname',
+                lastname = '$lastname',
+                email_address = '$email_address',
+                status = '$status',
+                password = '$password',
+                user_type = 'HR Admin',
+                group_id = '$usergroup'
+                WHERE user_name = '$user_name' AND company_id = '$company_id'";
+
+                $res = mysql_query($updateQuery);
+
+                if ($res) {
+                    $stateMessage = "User has been updated successfully!";
                 } else {
-                    $stateMessage = "Passwords do not match, please provide a valid password. !!";
+                    $stateMessage = "Error updating user: " . mysql_error();
                 }
             } else {
-                $stateMessage = "The username selected already exsists, please use another one.. !!";
+                $stateMessage = "The username selected does not exist. Please provide a valid username.";
             }
-        ?>
-        <?php
         }
         ?>
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <section class="content-header">
+                <!-- fetch user -->
+                <?php
+                $user_id = $_GET["id"];
+                $user_query = mysql_query("SELECT * FROM users_tb WHERE id='$user_id'");
 
+                $user_row = mysql_fetch_array($user_query);
+                ?>
             </section>
 
             <section class="content">
@@ -108,36 +124,36 @@
 
                                     <div class="form-group">
                                         <h5 style="color: black"><b>First Name</b></h5>
-                                        <input required="required" name="firstname" class="form-control" placeholder="First Name:">
+                                        <input required="required" name="firstname" class="form-control" placeholder="First Name:" value="<?= $user_row['firstname'] ?>">
                                     </div>
                                     <div class="form-group">
                                         <h5 style="color: black"><b>Last Name</b></h5>
-                                        <input required="required" name="lastname" class="form-control" placeholder="Last Name:">
+                                        <input required="required" name="lastname" class="form-control" placeholder="Last Name:" value="<?= $user_row['lastname'] ?>">
                                     </div>
                                     <div class="form-group">
                                         <h5 style="color: black"><b>Email</b></h5>
-                                        <input required="required" name="email_address" class="form-control" placeholder="Enter Email:">
+                                        <input required="required" name="email_address" class="form-control" placeholder="Enter Email:" value="<?= $user_row['email_address'] ?>">
                                     </div>
                                     <div class="form-group">
-                                        <h5 style="color: black"><b>Enter User Name</b></h5>
-                                        <input required="required" name="user_name" class="form-control" placeholder="Enter User Name:">
+                                        <h5 style="color: black"><b>Username</b></h5>
+                                        <input required="required" name="user_name" class="form-control" placeholder="Enter User Name:" value="<?= $user_row['user_name'] ?>">
                                     </div>
 
                                     <div class="form-group">
-                                        <h5 style="color: black"><b>Change password</b></h5>
-                                        <input required="required" type="password" name="password" class="form-control" placeholder="Change password:">
+                                        <h5 style="color: black"><b>Password</b></h5>
+                                        <input required="required" type="password" name="password" class="form-control" placeholder="Change password:" value="<?= md5($user_row['password']) ?>">
                                     </div>
 
                                     <div class="form-group">
                                         <h5 style="color: black"><b>Re Enter password</b></h5>
-                                        <input required="required" type="password" name="repassword" class="form-control" placeholder="Re Enter password:">
+                                        <input required="required" type="password" name="repassword" class="form-control" placeholder="Re Enter password:" value="<?= md5($user_row['password']) ?>">
                                     </div>
 
                                     <div class="form-group">
-                                        <h5 style="color: black"><b>Assign to Group</b></h5>
+                                        <h5 style="color: black"><b>Group</b></h5>
 
                                         <select name="group_selection" class="dropdown" style="border: 0px; padding: 8px; ">
-                                            <option value=""><span>---Select an Option---</span></option>
+                                            <option value="<?= $user_row['group_id'] ?>"><span>---Select an Option---</span></option>
                                             <?php
                                             $groupList = $GroupObject->getGroups($_SESSION['company_ID']);
 

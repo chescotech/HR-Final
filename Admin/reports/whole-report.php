@@ -159,15 +159,20 @@ error_reporting(0);
                                                 $band3_rate = "";
                                                 $band4_rate = "";
 
-                                                $query2 = "SELECT *
-                                                        FROM employee em
-                                                        INNER JOIN emp_info n ON em.empno = n.empno                                                     
-                                                        WHERE em.company_id =  '$compId' and em.time = '$year-$month-$day'";
+                                                $query2 = "SELECT em.*, n.*, ee.*, ed.*
+                                                FROM employee em
+                                                INNER JOIN emp_info n ON em.empno = n.empno
+                                                INNER JOIN employee_earnings ee ON em.earnings_id = ee.id
+                                                INNER JOIN employee_deductions ed ON em.deductions_id = ed.id
+                                                WHERE em.company_id = '$compId' AND em.time = '$year-$month-$day'";
+
 
                                                 $result2 = mysql_query($query2, $link) or die(mysql_error());
 
+
                                                 $sum = 0;
                                                 while ($row = mysql_fetch_array($result2)) {
+                                                    return var_dump($row);
 
                                                     $gross = ($row['pay']) + ($row['otrate'] * $row['othrs']) + $row['allow'] + $row['comission'];
                                                     $empoyeeNo = $row['empno'];

@@ -119,7 +119,7 @@
                                                     <a class="btn btn-default" href="members?group=<?= $id ?>">View Members</a>
                                                 </td>
                                                 <td>
-                                                    <a href="#updateordinance<?php echo $id; ?>" data-target="#updateordinance<?php echo $id; ?>" data-toggle="modal" style="color:#fff;" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-pencil"></span> Manage Permissions</i></a>
+                                                    <a href="#updateordinance<?php echo $id; ?>" data-target="#updateordinance<?php echo $id; ?>" data-toggle="modal" style="color:#fff;" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-pencil"></span> Manage Permissions</i></a>
                                                     <a href="#deleteordinance<?php echo $id; ?>" data-target="#deleteordinance<?php echo $id; ?>" data-toggle="modal" style="color:#000; background: #f01" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span> Delete</i></a>
 
                                                 </td>

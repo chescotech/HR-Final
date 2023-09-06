@@ -411,7 +411,7 @@ error_reporting(0);
                                 </tr>
                                 <tr>
                                     <td>
-                                        <table border="0" width="417" style="margin-top:-5rem;">
+                                        <table border="0" width="417" style="margin-top: -77px;">
                                             <tr>
                                                 <td class="box1"></td>
                                                 <td class="box1"><?php echo $id; ?></td>
