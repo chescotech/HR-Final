@@ -236,7 +236,6 @@ error_reporting(0);
 
                     // Sanitize and format the deduction name
                     $sanitizedDeductionName = mysql_real_escape_string(strtolower(str_replace(" ", "_", $deductionName)));
-
                     // Check if the deduction is selected (value is not empty)
                     $deductionValue = !empty($value) ? 'TRUE' : 'FALSE';
 
@@ -245,15 +244,42 @@ error_reporting(0);
                 }
             }
 
+            // List of columns to exclude
+            $columns_to_exclude = array('id', 'employee_id', 'employee_no', 'company_id');
+
+            // Get the list of column names from the table
+            $query = "SHOW COLUMNS FROM `employee_deductions`";
+            $result = mysql_query($query) or die(mysql_error());
+
+            $update_columns = array();
+
+
+
             // Build the SET part of the query
             $setClause = implode(", ", $deductionValues);
 
-            // Build the full UPDATE query
-            $updateQuery = "UPDATE employee_deductions SET $setClause WHERE employee_id = '$id'";
+            if ($result) {
+                while ($row = mysql_fetch_assoc($result)) {
 
-            // Execute the query
-            $deductions_update = mysql_query($updateQuery) or die(mysql_error());
+                    $column_name = $row['Field'];
 
+                    // Exclude the columns you want to keep (first 4)
+                    if (!in_array($column_name, $columns_to_exclude)) {
+                        $clearClause[] = "`$column_name` = NULL";
+                    }
+                }
+
+                // Construct the full query to clear this employee's deductions first
+                $updateQuery = "UPDATE employee_deductions SET " . implode(", ", $clearClause) . " WHERE employee_id = '$id'";
+
+                // Execute the clear statement
+                $deductions_update = mysql_query($updateQuery) or die(mysql_error());
+            } else {
+                echo "Error: " . mysql_error();
+            }
+
+            // update the relevant deductions
+            $updateQuery = mysql_query("UPDATE employee_deductions SET " . $setClause . " WHERE employee_id = '$id'");
 
             // log user creation
             $action = "Edit Employee";
