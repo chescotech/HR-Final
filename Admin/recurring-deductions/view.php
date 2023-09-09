@@ -1,3 +1,6 @@
+<?php
+error_reporting(0);
+?>
 <!DOCTYPE html>
 <html>
 
@@ -30,9 +33,9 @@
 
         <?php
         include_once '../Classes/Department.php';
-        include_once '../Classes/RecurringDeductions.php';
         include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Loans.php';
+        include_once '../Classes/RecurringDeductions.php';
         $LoanObject = new Loans();
         $RecurringDeductionsObject = new RecurringDeductions();
         $companyId = $_SESSION['company_ID'];

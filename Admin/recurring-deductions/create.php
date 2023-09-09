@@ -223,20 +223,20 @@
     <script src="../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 
     <script>
-        $(function() {
-            $(document).ready(function() {
-                let ded_amt = $("#deduction_amount").val();
-                let mths = $("#months").val();
+        // $(function() {
+        //     $(document).ready(function() {
+        //         let ded_amt = $("#deduction_amount").val();
+        //         let mths = $("#months").val();
 
-                function calculate_monthly() {
-                    if (ded_amt > 0 && mths > 0) {
-                        let monthlyDeduction = ded_amt / mths;
-                        $("#monthly_deduction").val(monthlyDeduction.toFixed(2));
-                        $("#monthly_deduction").prop('disabled', true);
-                    }
-                }
-            });
-        });
+        //         function calculate_monthly() {
+        //             if (ded_amt > 0 && mths > 0) {
+        //                 let monthlyDeduction = ded_amt / mths;
+        //                 $("#monthly_deduction").val(monthlyDeduction.toFixed(2));
+        //                 $("#monthly_deduction").prop('disabled', true);
+        //             }
+        //         }
+        //     });
+        // });
     </script>
 
 </body>

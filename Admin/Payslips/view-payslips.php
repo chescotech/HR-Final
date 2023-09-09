@@ -1,4 +1,4 @@
-<?php 
+<?php
 error_reporting(0);
 ?>
 
@@ -216,153 +216,42 @@ error_reporting(0);
 
                                                     $empno = $_POST['empno'];
                                                     if ($empno == "all") {
-                                                        $query = "SELECT * FROM emp_info WHERE company_id='$compId'  ";
-                                                        $query2 = "SELECT * FROM employee_earnings WHERE company_id='$compId'  ";
                                                         $query3 = "SELECT * FROM employee WHERE company_id='$compId'";
                                                     } else {
-                                                        $query = "SELECT * FROM emp_info WHERE empno = '$empno' AND company_id='$compId'  ";
-                                                        $query2 = "SELECT * FROM employee_earnings WHERE company_id='$compId'  ";
-                                                        $query3 = "SELECT * FROM employee WHERE company_id='$compId'";
+                                                        $query3 = "SELECT * FROM employee WHERE company_id='$compId' AND empno='$empno'";
                                                     }
 
-                                                    $result = mysql_query($query, $link) or die(mysql_error());
-                                                    $result2 = mysql_query($query2, $link) or die(mysql_error());
+                                                    // $result = mysql_query($query, $link) or die(mysql_error());
+                                                    // $result2 = mysql_query($query2, $link) or die(mysql_error());
                                                     $result3 = mysql_query($query3, $link) or die(mysql_error());
-
-                                                    $emp = mysql_fetch_array($result3);
 
                                                     $sum = 0;
                                                     $row2 = '';
 
-                                                    while ($row = mysql_fetch_array($result)) {
+                                                    while ($row = mysql_fetch_array($result3)) {
 
                                                         $id_ = $row['id'];
                                                         $employeeId = $row['empno'];
 
-                                                        //echo 'pay '.$row['pay'] ;
-                                                        $gross = ($DepartmentObject->TotalGrossPay($empno));
-
-                                                        if ($TaxObject->getEmployeeAge($row['empno']) < 55) {
-
-
-                                                            $napsa = $gross * 0.05;
-                                                            if ($napsa >= $TaxObject->getNapsaCeiling($compId))
-                                                                $napsa = $TaxObject->getNapsaCeiling($compId);
-                                                            $napsa_calc = "";
-                                                            if ($napsa >= 255)
-                                                                $napsa_calc = 255;
-                                                        } else {
-                                                            $napsa = 0;
-                                                        }
-
-
-                                                        //the tops of each tax band
-                                                        $band1_top = $TaxObject->getTopBand1($compId);
-                                                        $band2_top = $TaxObject->getTopBand2($compId);
-                                                        $band3_top = $TaxObject->getTopBand3($compId);
-
-                                                        $band1_rate = $TaxObject->getBandRate1($compId) / 100;
-                                                        $band2_rate = $TaxObject->getBandRate2($compId) / 100;
-                                                        $band3_rate = $TaxObject->getBandRate3($compId) / 100;
-                                                        $band4_rate = $TaxObject->getBandRate4($compId) / 100;
-
-                                                        $income = $gross - $napsa;
-                                                        $starting_income = $gross - $napsa;
-                                                        $band1 = $band2 = $band3 = $band4 = 0;
-
-                                                        if ($income > $band3_top) {
-                                                            $band4 = ($income - $band3_top) * $band4_rate;
-                                                            $income = $band3_top;
-                                                        }
-
-                                                        if ($income > $band2_top) {
-                                                            $band3 = ($income - $band2_top) * $band3_rate;
-                                                            $income = $band2_top;
-                                                        }
-
-                                                        if ($income > $band1_top) {
-                                                            $band2 = ($income - $band1_top) * $band2_rate;
-                                                            $income = $band1_top;
-                                                        }
-
-                                                        $band1 = $income * $band1_rate;
-
-                                                        $total_tax_paid = $TaxObject->TaxCal($gross, $compId);
-                                                        $date_timestamp = strtotime($row['time']);
-                                                        $date = date('m-d-Y', $date_timestamp);
-                                                        $date_compare = date('Y-m-d', $date_timestamp);
-                                                        if ($LoanObject->getLoanMonthDedeductAmounts($row["empno"], $date_compare) == "") {
-                                                            $loanAmnt = "0.0";
-                                                        } else {
-                                                            $loanAmnt = $LoanObject->getLoanMonthDedeductAmounts($row["empno"], $date_compare);
-                                                        }
-
-                                                        $totdeduct = $total_tax_paid + $napsa;
-
-                                                        $Grosspay = number_format("$gross", 2);
-                                                        $time = $row['time'];
-                                                        $sIncome = number_format($starting_income);
-                                                        $npsa = $napsa;
-                                                        $tTaxPaid = number_format("$total_tax_paid", 2);
-
-                                                        $overtime = ($row['otrate'] * $row['othrs']);
-
-
-                                                        $netpay = ($gross - $totdeduct);
                                                 ?>
 
                                                     <?php
                                                         $emp_nom = $row['empno'];
-                                                        $query3 = "SELECT * FROM employee WHERE empno='$emp_nom'";
-
-                                                        $result3 = mysql_query($query3, $link) or die(mysql_error());
-
-                                                        $emp = mysql_fetch_array($result3);
 
                                                         $nPay = number_format("$netpay", 2);
 
 
                                                         echo '<tr>';
                                                         echo '  <td>' . $row["empno"] . '</td>';
-                                                        echo '  <td>' . $emp['time'] . '</td>';
+                                                        echo '  <td>' . $row['time'] . '</td>';
                                                         // echo '  <td></td>';
 
-                                                        $row2 = mysql_fetch_array($result2);
-
-                                                        // if ($row2) {
-                                                        //     echo '<td>' . $row2[3] . '</td>'; // Display the first element after the third column
-                                                        //     for ($i = 4; $i < count($row2) - 7; $i++) {
-                                                        //         if (isset($row2[$i])) {
-                                                        //             echo '<td>' . $row2[$i] . '</td>'; // Display subsequent elements
-                                                        //         } else {
-                                                        //             echo '<td>N/A</td>'; // Display an empty cell if offset doesn't exist
-                                                        //         }
-                                                        //     }
-                                                        // } else {
-                                                        //     // Display empty cells for the remaining columns
-                                                        //     $numColumnsInRow2 = count($columns) - 3; // Calculate the number of columns in employee_earnings
-                                                        //     for ($i = 0; $i < $numColumnsInRow2; $i++) {
-                                                        //         echo '<td></td>';
-                                                        //     }
-                                                        // }
-                                                        // $ov = count($row2);
-
-                                                        // echo '  <td>' . $overtime . '</td>';
-                                                        // echo '  <td>' . $row["comission"] . '</td>';
-                                                        // echo '  <td>' . $Grosspay . '</td>';
-                                                        // echo '  <td>' . $npsa . '</td>';
-                                                        // echo '  <td></td>';
-                                                        // echo '  <td></td>';
-                                                        // echo '  <td></td>';
-                                                        // echo '  <td>' . $total_tax_paid . '</td>';
-                                                        // echo '  <td>' . $loanAmnt . '</td>';
-                                                        // echo '  <td>' . $totdeduct . '</td>';
-                                                        // echo '  <td>' . $nPay . '</td>';
-                                                        echo '  <td><a target="_blank" href=' . "print-payslip.php?id=" . $id_ . '&empno=' . $row["empno"] . '>Print</a></td>';
+                                                        echo '  <td><a target="_blank" href=' . "print-payslip.php?id=" . $id_ . '&empno=' . $row["empno"] . '&date=' . $row["time"] . '>Print</a></td>';
                                                         // echo '  <td><a href=' . "edit-payslip.php?id=" . $id_ . '>Edit</a></td>';
-                                                        echo '  <td><a href=' . "delete-payslip.php?id=" . $id_ . '&date=' . $time . '&empno=' . $row["empno"] . '>Delete</a></td>';
+                                                        echo '  <td><a href=' . "delete-payslip.php?id=" . $id_ . '&date=' . $row["time"] . '&empno=' . $row["empno"] . '>Delete</a></td>';
 
                                                         echo '</tr>';
+                                                        // }
                                                     }
                                                     ?>
                                                 <?php

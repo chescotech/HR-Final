@@ -299,8 +299,50 @@ class Payslips
         }
     }
 
-    public function getRecurringDeductionValue()
+    public function getEmployeeEarnings($emp_earn_id_arg)
     {
-        echo "Recurring";
+        $query = mysql_query("SELECT * FROM employee_earnings WHERE id = '$emp_earn_id_arg'") or die(mysql_error());
+        $sum = 0;
+        $data = mysql_fetch_assoc($query);
+
+        $sum = 0;
+        $sliced = array_slice($data, 4);
+
+        foreach ($sliced as $key => $value) {
+            if ($key === "company_id" || $key === "employee_id" || $key === "id" || $key === "employee_no") {
+                $add = false; // Stop adding when 'company_id' is reached
+            } elseif (is_numeric($value)) {
+                $sum += (float)$value; // Convert to float and add if it's numeric
+            }
+        }
+        // var_dump($sum);
+        return $sum;
+    }
+
+    public function getEmployeeDeductions($salary_arg, $emp_num_arg, $emp_ded_id_arg)
+    {
+        $query = mysql_query("SELECT * FROM employee_deductions WHERE id = '$emp_ded_id_arg'") or die(mysql_error());
+        $sum = 0;
+        $data = mysql_fetch_assoc($query);
+
+
+        foreach ($data as $key => $value) {
+            // key is the column name
+            $dQuery = mysql_query("SELECT * FROM deductions WHERE name LIKE '$key'");
+            $ded = mysql_fetch_assoc($dQuery);
+
+            if ($value === '1') {
+                $ded_value = $this->getDeductionValue($salary_arg, $ded);
+                $sum += $ded_value;
+            }
+        }
+
+        // recurring
+        $rdQuery = mysql_query("SELECT * FROM emp_recurring_deductions WHERE employee_no = '$emp_num_arg' && status = 'Pending'") or die(mysql_error());
+        $rdRow = mysql_fetch_assoc($rdQuery);
+
+        $sum += $rdRow['monthly_deduct'];
+
+        return $sum;
     }
 }

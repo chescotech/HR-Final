@@ -9,11 +9,10 @@ $permissions = mysql_fetch_assoc($userGroup);
 
 ?>
 
-<style> 
-ul li a {
-    color: black !important;
-}
-
+<style>
+    ul li a {
+        color: black !important;
+    }
 </style>
 <aside class="main-sidebar">
     <section class="sidebar">
@@ -103,7 +102,7 @@ ul li a {
                     <li><a href="../recurring-deductions/create"><i class="fa fa-circle-o"></i>New Recurring Deduction</a></li>
                     <li><a href="../recurring-deductions/view"><i class="fa fa-circle-o"></i>View Recurring Deductions</a></li>
                     <li><a href="../Payslips/payslip-distribution"><i class="fa fa-circle-o"></i>Email Pay Slips</a></li>
-                    <li><a href="../Payslips_old/upload-pay-slip.php"><i class="fa fa-circle-o"></i>Upload Pay Slip</a></li>
+                    <li><a href="../Payslips/upload-pay-slip.php"><i class="fa fa-circle-o"></i>Upload Pay Slip</a></li>
 
                 </ul>
             </li>
@@ -181,19 +180,19 @@ ul li a {
                 </ul>
             </li>
             <li class="treeview" <?php echo $permissions['groups'] == 'false' ? 'hidden' : '' ?>>
-        <a href="#">
-            <i class="fa fa-group">
-                <span>
-                    Publications
-                </span>
-            </i>
-            <i class="fa fa-angle-left pull-right"></i>
-        </a>
-        <ul class="treeview-menu">
-            <li><a href="../publications/publication.php"> <i class="fa fa-circle-o"></i>create Publications</a></li>
-            <li><a href="../publications/edit.php"> <i class="fa fa-circle-o"></i> Edit Publications</a></li>       
-        </ul>
-    </li>
+                <a href="#">
+                    <i class="fa fa-group">
+                        <span>
+                            Publications
+                        </span>
+                    </i>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="../publications/publication.php"> <i class="fa fa-circle-o"></i>Create Publications</a></li>
+                    <li><a href="../publications/edit.php"> <i class="fa fa-circle-o"></i> Edit Publications</a></li>
+                </ul>
+            </li>
         </ul>
 
     </section>

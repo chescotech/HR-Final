@@ -1,3 +1,6 @@
+<?php
+error_reporting(0);
+?>
 <!DOCTYPE html>
 <html>
 
@@ -38,6 +41,7 @@
                     $ded_id = $_GET['id'];
                     $compID = $_SESSION['company_ID'];
                     echo $_SESSION['name'] . ' Employee Deductions';
+                    $message = "";
                     ?>
                 </h1>
             </section>
@@ -66,6 +70,7 @@
                 $comp_ub = doubleval($_POST['comp_upper_bound']);
                 $comp_ub_amnt = doubleval($_POST['comp_upper_bound_amnt']);
                 $name = $_POST['short_desc'];
+                $orig_name = $_POST['orig_name'];
                 // if fixed amount is set
                 $variable = "not set";
                 if ($type == 'fixed') {
@@ -95,11 +100,13 @@
                 }
                 // redirect to dedcutions
                 if ($updateQuery) {
+                    // change column name in employee deductions
+                    // $qr = mysql_query("ALTER TABLE `employee_deductions` CHANGE '$orig_name' '$name' int(20) NULL") or die(mysql_error());
                     $message = "Deduction information successfully updated.";
                 } else {
                     $message = "Failed to update the deduction information.";
                 }
-                header("Location:deductions.php");
+                header("Location:edit-deduction.php?id='$ded_id'");
             }
             ?>
 
@@ -128,11 +135,11 @@
                                 </div>
                                 <div>
                                     <?php
-                                    if (isset($message) && str_contains($message, "Fail")) {
-                                        echo '<p class="bg-danger">' . $message . '</p>';
-                                    } else {
-                                        echo '<p class="bg-success">' . $message . '</p>';
-                                    }
+                                    // if (isset($message) && str_contains($message, "Fail")) {
+                                    //     echo '<p class="bg-danger">' . $message . '</p>';
+                                    // } else {
+                                    //     echo '<p class="bg-success">' . $message . '</p>';
+                                    // }
                                     ?>
                                 </div>
                                 <div class="box-body">
@@ -299,8 +306,9 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="form-group">
-                                                            <input name="short_desc" class="form-control" type="text" value="<?= $row['name'] ?>" id="" value="<?= $row['short_desc']; ?>">
+                                                            <input name="short_desc" class="form-control" type="text" value="<?= $row['name'] ?>" id="" value="<?= $row['short_desc']; ?>" disabled>
                                                         </div>
+                                                        <input type="hidden" name="orig_name" value="<?= $row['name'] ?>">
                                                     </div>
                                                 </div>
                                                 <!-- company column -->

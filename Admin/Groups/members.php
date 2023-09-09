@@ -1,3 +1,6 @@
+<?php
+error_reporting(0);
+?>
 <!DOCTYPE html>
 <html>
 
@@ -37,7 +40,7 @@
 
             $updated = $GroupObject->updateUserGroup($groupid, $userid);
 
-            header('Location:groups.php');
+            echo "<script> window.location='groups' </script>";
         }
 
         ?>

@@ -147,7 +147,21 @@ INSERT INTO `allowances_tb` (`id`, `company_id`, `house_allowance`, `transport_a
 (129,	4,	2275,	600,	600,	'FAB437'),
 (130,	4,	5000,	5000,	0,	'CH353'),
 (131,	4,	4500,	2000,	2500,	'LMP0354'),
-(132,	4,	4500,	2000,	2500,	'LMP0354');
+(132,	4,	4500,	2000,	2500,	'LMP0354'),
+(133,	4,	0,	0,	0,	'LMP0354'),
+(134,	4,	0,	0,	0,	'LMP0355'),
+(135,	4,	0,	0,	0,	'LMP0367'),
+(136,	4,	0,	0,	0,	'LMP0368'),
+(137,	4,	0,	0,	0,	'LMP0369'),
+(138,	4,	0,	0,	0,	'LMP0372'),
+(139,	4,	0,	0,	0,	'LMP0375'),
+(140,	4,	0,	0,	0,	'LMP0377'),
+(141,	4,	0,	0,	0,	'LMP0378'),
+(142,	4,	0,	0,	0,	'LMP0379'),
+(143,	4,	0,	0,	0,	'LMP0380'),
+(144,	4,	0,	0,	0,	'LMP02'),
+(145,	4,	0,	0,	0,	'LMP03'),
+(146,	4,	0,	0,	0,	'LMP04');
 
 DROP TABLE IF EXISTS `appeal_notices`;
 CREATE TABLE `appeal_notices` (
@@ -337,7 +351,7 @@ CREATE TABLE `attendance_logs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 INSERT INTO `attendance_logs` (`id`, `log_date`, `login_time`, `logout_time`, `empno`, `company_id`, `comment`, `out_office`) VALUES
-(1,	'2017/01/14',	'2017-01-14 09:58:28',	'2017-01-14 10:02:30',	'CTL015',	'4',	'',	''),
+(1,	'2017/01/14',	'2023-08-28 09:58:28',	'2017-01-14 10:02:30',	'CTL015',	'4',	'',	''),
 (2,	'2021/06/04',	'2021-06-04 12:45:48',	'',	'LMP01',	'4',	'',	''),
 (3,	'2021/12/11',	'2021-12-11 11:25:31',	'',	'LMP05',	'4',	'',	''),
 (12,	'2022/02/23',	'2022-02-23 13:18:52',	'2022-02-23 13:19:03',	'LMP08',	'4',	'',	''),
@@ -23010,7 +23024,7 @@ INSERT INTO `attendance_logs` (`id`, `log_date`, `login_time`, `logout_time`, `e
 (22699,	'2023/01/23',	'2023-01-23 10:38:45',	'',	'fab404',	'4',	'',	''),
 (22700,	'2023/01/23',	'2023-01-23 11:38:06',	'',	'FAB192',	'4',	'forgot to log on',	''),
 (22701,	'2023/01/23',	'2023-01-23 15:02:52',	'',	'FAB425',	'4',	'',	''),
-(22702,	'2023/06/08',	'2023-06-08 18:22:37',	'2023-06-08 18:24:08',	'FAB290',	'4',	'had an emergency ',	'');
+(22702,	'2023/08/28',	'2023-06-08 18:22:37',	'2023-06-08 18:24:08',	'FAB290',	'4',	'had an emergency ',	'');
 
 DROP TABLE IF EXISTS `band_tb`;
 CREATE TABLE `band_tb` (
@@ -23112,123 +23126,24 @@ CREATE TABLE `comp_structure` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 INSERT INTO `comp_structure` (`parent_id`, `memberId`, `otherInfo`, `empno`, `hod_id`) VALUES
-(1,	1,	'DR. CHENGA  CHISHA -     Chief Risk and Compliance Officer',	'FAB344',	2),
-(1,	2,	' SALOME  CHULU -    Manager Treasury',	'FAB192',	9),
-(1,	3,	'PETER  MULENGA -    Chief Financial Officer',	'FAB345',	11),
-(1,	4,	'VIKAS  GUPTA -    Flexcube Specialist',	'FAB406',	16),
-(1,	5,	'ALEPHA  PHIRI  -   Chief Internal Auditor',	'FAB320',	3),
-(1,	6,	'  RAVINDRA  KUMAR             -   DGM Credit',	'FAB413',	4),
-(1,	7,	'MWENDABAI KAKULA  MWILA -    Manager HR & Admin',	'FAB422',	1),
-(1,	8,	'KULDIP  PALIWAL - Managing Director & CEO',	'FAB425',	13),
-(10,	9,	'CHOOLWE  MUZUMBWE -       Assistant Manager Centralised Operation',	'FAB433',	14),
-(1,	10,	'CATFISH  MARGARET -      Branch Manager',	'FAB067',	12),
-(1,	11,	'NANCY  CHALABESA  MWANZA - Branch Manager',	'FAB158',	7),
-(1,	12,	'EROY  MUNGAILA  -   Branch Manager',	'FAB078',	6),
-(1,	13,	'LILLIAN B  MWABA -   Branch Manager',	'FAB092',	8),
-(1,	14,	'LITINI  NGATSHA -      Senior Officer',	'FAB150',	5),
-(1,	15,	'MATHIUS  CHIKOPELA -  Head of Centralized  Operations',	'FAB061',	10),
-(10,	16,	'MATHIUS  CHIKOPELA -  Head of Centralized  Operations',	'FAB061',	15),
-(10,	17,	'NATASHA CHALABESA   CLERK',	'FAB371',	0),
-(11,	18,	'PATRICIA CHABINGA     Supervisor',	'FAB317',	0),
-(0,	19,	' BRENDA NTALASHA-CHISAKAILA   SENIOR OFFICER- CARDS  OPERATIONS AND DIGITA',	'FAB181',	0),
-(10,	20,	'WENDY CHONGO  Supervisor',	'FAB210',	0),
-(2,	21,	'CLEVER HAMEJA  Assistant Manager/MLRO',	'FAB396',	0),
-(16,	22,	'MOOMBE HAAMAUNDU     Officer IT',	'FAB389',	0),
-(0,	23,	'KAZEMBE MIRRIAM ILUNGA      Clerk',	'FAB364',	0),
-(10,	24,	'BENJAMIN KALELA       Manager International Banking',	'FAB132',	0),
-(3,	25,	'BRIAN KANIKI       CLERK',	'FAB325',	0),
-(10,	26,	'LEONARD KAPUTULA   Supervisor',	'FAB339',	0),
-(16,	27,	'PAUL KASWEKA   IT Clerk',	'FAB407',	0),
-(0,	28,	'GEORGE MAMBO Caretaker Messenger',	'FAB212',	0),
-(10,	29,	'YVONNE MTONGA  TEMBO     Supervisor',	'FAB290',	0),
-(11,	30,	'YUMBE MUKEYA   Officer',	'FAB297',	0),
-(16,	31,	'MAYBIN MULENGA    Officer',	'FAB338',	0),
-(0,	32,	'JOSEPH NSAMA MULENGA   Messenger',	'FAB307',	0),
-(0,	33,	' CHRISTINE SITUMBAETO LIFASI MUSANYA             SENIOR OFFICER',	'FAB187',	0),
-(0,	34,	'LOVENESS MWALE    Clerk',	'FAB379',	0),
-(16,	35,	'Nyawengo Mwale  IT Senior Officer',	'FAB072',	0),
-(11,	36,	'ANANSI NALI        Supervisor',	'FAB340',	0),
-(0,	37,	'FESTO ZULU   Office Messenger/DRIVER',	'FAB373',	0),
-(0,	38,	'TOUNGSON ZIMBA Driver',	'FAB404',	0),
-(11,	39,	'JOACHIM SIKATALI   Supervisor',	'FAB398',	0),
-(10,	40,	'MILDRED NGWILIRAKANDO JUNIOR OFFICER',	'FAB438',	0),
-(8,	41,	'ROSE SUMBUKENI   Officer',	'FAB205',	0),
-(3,	42,	'CHRISTINE BANDA                   Officer',	'FAB410',	0),
-(11,	43,	'  CECILIA LUKUTATI              Officer',	'FAB411',	0),
-(4,	44,	'NDEMBELA MWALE   Officer',	'FAB380',	0),
-(4,	45,	'DAISY SEMEMBA     Officer',	'FAB415',	0),
-(0,	46,	'GILDAH  SAMAKAYI KATAMBO        Officer Administration',	'FAB416',	0),
-(10,	47,	'Chimuka Dinde       Marketing Officer',	'FAB423',	0),
-(16,	48,	'KABWE MUTENGO        VISA/POS Officer',	'FAB424',	0),
-(4,	49,	'GRACE KAMANGA MUKUKA   Officer',	'FAB395',	0),
-(4,	50,	'MATTHEW K PIKITI   Credit Manager',	'FAB039',	0),
-(4,	51,	'MWEWA PAUL CHIPILI  Legal Officer',	'FAB421',	0),
-(0,	52,	'SIMON PHIRI     Driver/Office Assistant/Messenger',	'FAB431',	0),
-(16,	53,	'Joseph Phiri       Assistant Manager IT Digital',	'FAB432',	0),
-(5,	54,	'MARY CHEWE     Clerk',	'FAB349',	0),
-(0,	55,	'PRECIOUS CHISANGA  MUGALA    Clerk',	'FAB365',	0),
-(12,	56,	'HILDAH PHIRI CHITEMA   Officer',	'FAB055',	0),
-(12,	57,	'RUTENDO GAVIAO   Clerk',	'FAB401',	0),
-(0,	58,	'TRUST KALOMBO            Supervisor',	'FAB363',	0),
-(12,	59,	'Miyoba J Munkombwe Mweendo       Senior Officer',	'FAB186',	0),
-(10,	60,	'DOROTHY MOOMBA SHAMUTETE     Clerk',	'FAB368',	0),
-(12,	61,	'RICHARD  MWAMBA MUBANGA  Supervisor',	'FAB376',	0),
-(4,	62,	'HARRISON MUSONDA     Manager Credit Administration',	'FAB324',	0),
-(12,	63,	'BERTHA WALLAN  Junior Officer',	'FAB321',	0),
-(4,	64,	'JEAN MUUKA MUZYAMBA      Supervisor',	'FAB332',	0),
-(12,	65,	'BWALYA SALOME MWAMBAZI          Officer',	'FAB087',	0),
-(12,	66,	'GOODSON MWANJE   Messenger',	'FAB286',	0),
-(0,	67,	'JOSEPHINE MWIMBE    Supervisor',	'FAB356',	0),
-(4,	68,	'MASAUSO NGONDO    Clerk',	'FAB299',	0),
-(0,	69,	'VICTORIA NGULUBE   Officer',	'FAB259',	0),
-(12,	70,	'OSWARD SIMFUKWE  Messenger',	'FAB223',	0),
-(3,	71,	'SUZYO HARAWA     Officer',	'FAB377',	0),
-(12,	72,	'SAPHINATE NYANGU KALEBI      Supervisor',	'FAB354',	0),
-(11,	73,	'KOMBE  NONDE     Supervisor',	'FAB412',	0),
-(12,	74,	'AGNES MAMBWE    Clerk',	'FAB408',	0),
-(12,	75,	'SUSAN DAKA  Clerk',	'FAB409',	0),
-(12,	76,	'EDINA PHIRI    Clerk',	'FAB402',	0),
-(12,	77,	'HARRIET MWABA  Clerk',	'FAB417',	0),
-(12,	78,	'MALELE HAAMAUNDU  Clerk',	'FAB420',	0),
-(7,	79,	'ROBERT CHITANDA   Clerk/MESSENGER',	'FAB056',	0),
-(7,	80,	'ABIN HINYANGA Messenger',	'FAB128',	0),
-(7,	81,	'EDNA KUYELA CHIBULA   Junior Officer',	'FAB219',	0),
-(10,	82,	'ELLEN LUPAHLA  Clerk',	'FAB309',	0),
-(7,	83,	'NSOFWA MULENGA Clerk',	'FAB273',	0),
-(7,	84,	'MWAPE MUSONDA  Clerk',	'FAB314',	0),
-(7,	85,	'PETRONELLA CHIYUMBA  Officer',	'FAB263',	0),
-(6,	86,	'LORRAINE ZIBA  Clerk',	'FAB343',	0),
-(6,	87,	'JUDITH DIPA MWILA MAWERE-MWILA    Officer',	'FAB252',	0),
-(6,	88,	'DORCAS MWANZA   Messenger',	'FAB385',	0),
-(6,	89,	'NACHOONA KASAMBA HAMAINZA - SIKANANU  Clerk',	'FAB392',	0),
-(6,	90,	'CHILESHE MULENGA Supervisor',	'FAB204',	0),
-(6,	91,	'THABO SAKALA Clerk',	'FAB419',	0),
-(8,	92,	'N ROSEMARY BUNDA Officer',	'FAB153',	0),
-(8,	93,	'MEGAN NAMWILA BWEUPE   Clerk/CASHIER',	'FAB189',	0),
-(8,	94,	'JANE  CHISHIBA  LUBEMBA  MUTALE           Clerk',	'FAB304',	0),
-(8,	95,	'ISHMAEL CHIPUNGU  Clerk',	'FAB179',	0),
-(8,	96,	'EVARISTO MUTELEKESHA     Clerk',	'FAB387',	0),
-(8,	97,	'FRIDAH MBEWE     Clerk',	'FAB329',	0),
-(8,	98,	' FWANYANGA EMMANUEL MUFUNE    Officer',	'FAB045',	0),
-(8,	99,	'SAXON MUGEMEZULU   Messenger',	'FAB020',	0),
-(8,	100,	' ALEXINA NALUBAMBA     Clerk',	'FAB047',	0),
-(8,	101,	'BLESSINGS PHIRI         Clerk',	'FAB351',	0),
-(8,	102,	'TAMARA SUZE   Secretary',	'FAB360',	0),
-(8,	103,	'KATILI MPASELA    Supervisor',	'FAB272',	0),
-(5,	104,	'RABECCA NAMONJE             Clerk',	'FAB388',	0),
-(5,	105,	'CHRISTINE  MAKOLA CHIKONDE NAYAME    Supervisor',	'FAB337',	0),
-(5,	106,	'BINTA  LEE       Clerk',	'FAB334',	0),
-(5,	107,	'GEORGE CHEWE          Messenger',	'FAB091',	0),
-(5,	108,	'BRUCE MOONGA CHIMOWA     Messenger',	'FAB250',	0),
-(5,	109,	'CHISHIMBA CHISHA Supervisor',	'FAB200',	0),
-(5,	110,	'MONDE MUMEKA        Clerk',	'FAB279',	0),
-(5,	111,	'NYANGU WITOLA         Clerk',	'FAB331',	0),
-(5,	112,	'FAITH CHIDO BWEBE    Supervisor',	'FAB220',	0),
-(5,	113,	'CAROLINE BANDA PIKITI         Clerk',	'FAB418',	0),
-(16,	114,	'PAUL MVULA  Software Developer',	'FAB434',	0),
-(11,	115,	'SUMBWANYAMBE MEBELO  TAX OFFICER',	'FAB435',	0),
-(11,	116,	'MICHAEL CHAPASUKA    HEAD OF FINANCE & ACCOUNTS',	'FAB436',	0),
-(10,	117,	'CHEBWA BBUKU   Junior officer',	'FAB437',	0);
+(1,	1,	'',	'',	1),
+(1,	2,	'',	'',	2),
+(1,	3,	'',	'',	3),
+(1,	4,	'',	'',	4),
+(1,	5,	'',	'',	5),
+(1,	6,	'',	'',	6),
+(1,	7,	'',	'',	7),
+(1,	8,	'',	'',	8),
+(1,	9,	'',	'',	9),
+(1,	10,	'',	'',	10),
+(1,	11,	'',	'',	11),
+(1,	12,	'',	'',	12),
+(1,	13,	'',	'',	13),
+(10,	14,	'',	'',	14),
+(10,	15,	'',	'',	15),
+(1,	16,	'',	'',	16),
+(0,	17,	'Mark Zuckerberg CEO',	'LMP02',	0),
+(0,	18,	'Richard Hendricks CEO',	'LMP03',	0);
 
 DROP TABLE IF EXISTS `deductions`;
 CREATE TABLE `deductions` (
@@ -23257,8 +23172,8 @@ CREATE TABLE `deductions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 INSERT INTO `deductions` (`ded_id`, `name`, `company_ID`, `type`, `emp_fixed`, `comp_fixed`, `status`, `percent`, `percent_of`, `emp_calc_num`, `emp_calc_deno`, `comp_calc_num`, `comp_calc_deno`, `comp_lower_bound`, `comp_lower_bound_amnt`, `emp_lower_bound`, `emp_lower_bound_amnt`, `comp_upper_bound`, `comp_upper_bound_amnt`, `emp_upper_bound`, `emp_upper_bound_amnt`) VALUES
-(10,	'FIXED_500_500',	4,	'fixed',	'500',	'500',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	0,	0,	0,	0,	0,	0),
-(11,	'CALC_2%_3%',	4,	'calculated',	NULL,	NULL,	NULL,	NULL,	NULL,	2,	100,	3,	100,	1000,	0,	1000,	0,	1500,	0,	1500,	1500);
+(12,	'FIXED_1k_1k',	4,	'fixed',	'1000',	'1000',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	0,	0,	0,	0,	0,	0),
+(14,	'Monthly_Deduction',	4,	'calculated',	NULL,	NULL,	NULL,	NULL,	NULL,	10,	100,	5,	100,	500,	500,	500,	500,	1500,	1500,	1500,	1500);
 
 DROP TABLE IF EXISTS `department`;
 CREATE TABLE `department` (
@@ -23298,19 +23213,14 @@ CREATE TABLE `earnings` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 INSERT INTO `earnings` (`id`, `name`, `company_ID`, `slug`) VALUES
-(1,	'Basic Pay',	'4',	'BasPa'),
-(2,	'Transport Allowance',	'4',	'TRA-ALL'),
-(4,	'Commission Earned',	'4',	'com_ear'),
 (5,	'Basic Pay',	'5',	''),
 (6,	'Transport Allowance',	'5',	''),
 (7,	'Housing Allowance',	'5',	''),
 (8,	'Commission Earned',	'5',	''),
-(9,	'Security Allowance',	'4',	'SECALL'),
-(10,	'Lunch Allowance',	'4',	'LUNALL'),
-(11,	'Housing Allowance',	'4',	'HOUALL'),
-(12,	'Medical Allowance',	'4',	'MEDALL'),
-(13,	'School Allowance',	'4',	'SCHALL'),
-(14,	'Vacation Bonus',	'4',	'VACBON');
+(15,	'Basic Pay',	'4',	'BAPA'),
+(16,	'Housing Allowance',	'4',	'HOUALL'),
+(17,	'Transport Allowance',	'4',	'TRAL'),
+(19,	'Lunch Allowance',	'4',	'LUNALL');
 
 DROP TABLE IF EXISTS `employee`;
 CREATE TABLE `employee` (
@@ -23320,7 +23230,7 @@ CREATE TABLE `employee` (
   `dayswork` int(10) unsigned NOT NULL DEFAULT 0,
   `otrate` decimal(10,2) unsigned NOT NULL DEFAULT 0.00,
   `othrs` int(10) unsigned NOT NULL DEFAULT 0,
-  `allow` decimal(10,2) unsigned NOT NULL DEFAULT 0.00,
+  `allow` decimal(10,2) unsigned DEFAULT 0.00,
   `advances` decimal(10,2) unsigned NOT NULL DEFAULT 0.00,
   `insurance` decimal(10,2) unsigned NOT NULL DEFAULT 0.00,
   `time` date NOT NULL,
@@ -23328,18 +23238,34 @@ CREATE TABLE `employee` (
   `company_id` varchar(20) NOT NULL,
   `health_insurance` text NOT NULL,
   `pension` text NOT NULL,
-  `employer_share` text NOT NULL,
-  `employee_share` text NOT NULL,
+  `employer_share` text DEFAULT NULL,
+  `employee_share` text DEFAULT NULL,
   `group_id` int(10) NOT NULL DEFAULT 0,
   `earnings_id` int(10) NOT NULL,
+  `deductions_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
-INSERT INTO `employee` (`id`, `empno`, `pay`, `dayswork`, `otrate`, `othrs`, `allow`, `advances`, `insurance`, `time`, `comission`, `company_id`, `health_insurance`, `pension`, `employer_share`, `employee_share`, `group_id`, `earnings_id`) VALUES
-(1,	'FAB039',	35000.00,	26,	0.00,	0,	0.00,	0.00,	0.00,	'2023-05-31',	0,	'4',	'150',	'3000',	'2250',	'750',	3,	0),
-(2,	'FAB402',	23000.00,	26,	0.00,	0,	0.00,	0.00,	0.00,	'2023-05-31',	0,	'4',	'100',	'2000',	'1500',	'500',	3,	0),
-(3,	'FAB351',	23000.00,	26,	0.00,	0,	0.00,	0.00,	0.00,	'2023-05-31',	0,	'4',	'100',	'2000',	'1500',	'500',	3,	0),
-(4,	'CH353',	20000.00,	26,	0.00,	0,	0.00,	0.00,	0.00,	'2023-05-31',	0,	'4',	'100',	'2000',	'1500',	'500',	3,	0);
+INSERT INTO `employee` (`id`, `empno`, `pay`, `dayswork`, `otrate`, `othrs`, `allow`, `advances`, `insurance`, `time`, `comission`, `company_id`, `health_insurance`, `pension`, `employer_share`, `employee_share`, `group_id`, `earnings_id`, `deductions_id`) VALUES
+(12,	'LMP02',	0.00,	26,	200.00,	3,	0.00,	0.00,	0.00,	'2023-10-31',	0,	'4',	'0',	'0',	'0',	'0',	0,	1,	1),
+(10,	'LMP02',	0.00,	26,	200.00,	12,	0.00,	0.00,	0.00,	'2023-09-30',	0,	'4',	'0',	'0',	'0',	'0',	0,	1,	1),
+(11,	'LMP04',	0.00,	26,	200.00,	10,	200.00,	300.00,	400.00,	'2023-09-30',	200,	'4',	'0',	'0',	'0',	'0',	0,	3,	3);
+
+DROP TABLE IF EXISTS `employee_deductions`;
+CREATE TABLE `employee_deductions` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `employee_id` int(11) NOT NULL,
+  `employee_no` varchar(10) NOT NULL,
+  `company_id` int(10) NOT NULL,
+  `fixed_1k_1k` varchar(20) DEFAULT NULL,
+  `monthly_deduction` int(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `employee_deductions` (`id`, `employee_id`, `employee_no`, `company_id`, `fixed_1k_1k`, `monthly_deduction`) VALUES
+(1,	2,	'LMP02',	4,	'1',	1),
+(2,	3,	'LMP03',	4,	NULL,	1),
+(3,	4,	'LMP04',	4,	NULL,	1);
 
 DROP TABLE IF EXISTS `employee_discplinary_records`;
 CREATE TABLE `employee_discplinary_records` (
@@ -23360,15 +23286,19 @@ DROP TABLE IF EXISTS `employee_earnings`;
 CREATE TABLE `employee_earnings` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `employee_id` int(10) NOT NULL,
+  `employee_no` varchar(10) NOT NULL,
   `company_id` int(10) NOT NULL,
-  `housing_allowance` int(10) NOT NULL,
-  `transport_allowance` int(10) NOT NULL,
-  `commission_earne` int(10) NOT NULL,
-  `security_allowance` int(10) NOT NULL,
-  `school_fees_bonus` int(10) DEFAULT NULL,
+  `basic_pay` int(10) DEFAULT NULL,
+  `housing_allowance` int(10) DEFAULT NULL,
+  `transport_allowance` int(10) DEFAULT NULL,
+  `lunch_allowance` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+INSERT INTO `employee_earnings` (`id`, `employee_id`, `employee_no`, `company_id`, `basic_pay`, `housing_allowance`, `transport_allowance`, `lunch_allowance`) VALUES
+(1,	2,	'LMP02',	4,	3000,	4000,	NULL,	NULL),
+(2,	3,	'LMP03',	4,	4000,	1000,	1000,	NULL),
+(3,	4,	'LMP04',	4,	5000,	2500,	NULL,	NULL);
 
 DROP TABLE IF EXISTS `employee_exits_tb`;
 CREATE TABLE `employee_exits_tb` (
@@ -23563,10 +23493,9 @@ CREATE TABLE `emp_info` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 INSERT INTO `emp_info` (`id`, `empno`, `photo`, `lname`, `fname`, `init`, `gender`, `bdate`, `dept`, `position`, `phone`, `address`, `email`, `personal_email`, `bank`, `account`, `date_joined`, `date_left`, `employee_grade`, `marital_status`, `payment_method`, `leave_days`, `company_id`, `password`, `basic_pay`, `gross_pay`, `nok_phone`, `nok_name`, `nok_relationship`, `nok_email`, `nok_address`, `NRC`, `employment_type`, `probation_deadline`, `status`, `employee_type`, `social`, `branch_code`, `has_gratuity`, `gatuity_amount`, `leaveworkflow_id`, `nrc_file`, `next_kin_phone`, `Dept_Name`, `nhima`, `tpin`) VALUES
-(45,	'FAB039',	'MP.jpg',	'NGANDU',	'CHOOLWE',	'Mr',	'male',	'1961-07-21',	'38',	'Chief Executive Officer ',	'0975704991',	'HOUSE # 68, PETAUKE RD KASENSHI',	'pikiti@fabank.co.zm',	'pikiti@yahoo.com',	'FNB',	'0030400896003',	'2020-05-01',	'2020-05-01',	'<br />\r\n<b>Notice</b>:  Undefined index: grade in ',	'Married',	'BANK',	0,	'4',	'ba21817627bf2368e0bd2db2c4742847',	'15000',	'35000',	'0977436242',	'MILLICA KAELA MWAMBA',	'WIFE',	'NILL',	'HOUSE # 68, PETAUKE RD KASENSHI, NDOLA',	'166168/44/1',	'Permanent',	'',	'Active',	'Full time',	'00',	'000',	'',	'',	11,	'MP.jpg',	'0',	'HEAD OFFICE',	'',	''),
-(76,	'FAB402',	'IMG_20201218_080403_332.jpg',	'MUNONGO',	'TAWANDA',	'Mr',	'female',	'1992-02-05',	'38',	'Software Developer',	'0976 269711',	'CHALALA',	'kaundaedna8@gmail.com',	'',	'FNB',	'10001338001',	'2019-04-16',	'2019-04-16',	'',	'',	'BANK',	0,	'4',	'ba21817627bf2368e0bd2db2c4742847',	'10000',	'23000',	'0970554268',	'JONATHAN KAUNDA',	'HUSBAND',	'kaundaedna8@gmail.com',	'CHALALA',	'562967/52/1',	'Permanent',	'',	'Active',	'Full time',	'   121075424',	'001',	'',	'',	13,	'IMG_20201218_080403_332.jpg',	'0',	NULL,	'',	''),
-(102,	'FAB351',	'BLESSINGS_ (2).jpg',	'MATUTU',	'COLLINS',	'Mr',	'female',	'1983-07-24',	'38',	'DATABASE AND SOFTWARE DEVELOPER',	'962489780',	'61 SAMFYA ROAD LUBUTO ROAD NDOLA',	'blessings708@gmail.com',	'blessings708@gmail.com',	'FNB',	'30401243003',	'2014-12-28',	'',	'<br />\r\n<b>Notice</b>:  Undefined index: grade in ',	'Married',	'Bank',	0,	'4',	'ba21817627bf2368e0bd2db2c4742847',	'10000',	'23000',	'+260777977646',	'EUNICE PHIRI',	'SISTER',	'eunice.phiri4@gmail.com',	'15 MILES, GREAT NORTH ROAD, CHIBOMBO',	'933075/11/1',	'Permanent',	'',	'Active',	'Full Time',	'        110709848',	'003',	'',	'',	15,	'BLESSINGS_ (2).jpg',	'0',	NULL,	'',	''),
-(126,	'CH353',	'BLESSINGS_ (2).jpg',	'MARTIN',	'MWENDA',	'Mr',	'Male',	'1983-07-24',	'38',	'Security and Testing engineer',	'260976809818',	'61 SAMFYA ROAD LUBUTO ROAD NDOLA',	'blessings708@gmail.com',	'blessings708@gmail.com',	'FNB',	'30401553666',	'2014-12-28',	'2014-12-28',	'<br />\r\n<b>Notice</b>:  Undefined index: grade in ',	'Single',	'Bank',	0,	'4',	'ba21817627bf2368e0bd2db2c4742847',	'10000',	'20000',	'+260777977646',	'EUNICE PHIRI',	'SISTER',	'eunice.phiri4@gmail.com',	'15 MILES, GREAT NORTH ROAD, CHIBOMBO',	'933075/11/1',	'Permanent',	'',	'Active',	'Full Time',	'        110709848',	'003',	'',	'',	15,	'BLESSINGS_ (2).jpg',	'0',	NULL,	'',	'');
+(2,	'LMP02',	'zuckerberg.jpg',	'Zuckerberg',	'Mark',	' Mr',	'male',	'1999-01-01',	'35',	'CEO',	'+183889293',	'On a Yatch',	'mark@fb.com',	'',	'Bank of America',	'10293919010',	'2023-08-01',	'2023-08-01',	'',	'Single',	'Cash',	0,	'4',	'ba21817627bf2368e0bd2db2c4742847',	'',	'7000',	'+17289029393',	'Linda Zuckerberg',	'Wife',	'linda@fb.com',	'The same',	'JN8788361',	'Permanent',	'',	'',	'Full Time',	'99729012',	'GH62782',	'--Is Employee Eligible for Gratuity ?--',	'',	0,	'zuckerberg.jpg',	'',	NULL,	'',	'403'),
+(4,	'LMP04',	'janedoe.jpg',	'Doe',	'Jane',	' Ms',	'male',	'1995-05-05',	'40',	'CTO',	'+26078812919',	'5230 Penfield Avenue',	'hane@example.com',	'',	'SVB',	'37173712324',	'2023-09-01',	'1970-01-01',	'USG 2',	'Married',	'Bank',	0,	'4',	'ba21817627bf2368e0bd2db2c4742847',	'',	'7500',	'+260789129931',	'John Doe',	'Husband',	'john@example.com',	'The same',	'HF738293',	'Permanent',	'',	'',	'Full Time',	'90319201',	'OP08288',	'--Is Employee Eligible for Gratuity ?--',	'',	0,	'janedoe.jpg',	'',	NULL,	'',	'201'),
+(3,	'LMP03',	'hendricks.png',	'Hendricks',	'Richard',	' Mr',	'male',	'1978-03-13',	'38',	'CEO',	'+19299884',	'5230 Penfield Avenue',	'rich@piedpiper.com',	'',	'SVB',	'37173710288',	'2014-01-01',	'2014-01-01',	'',	'Single',	'Bank',	0,	'4',	'ba21817627bf2368e0bd2db2c4742847',	'',	'6000',	'+1883900223',	'Erlich Bachman',	'Landlord',	'erlich@aviato.com',	'The same',	'JU78891',	'Permanent',	'',	'',	'Full Time',	'7912881',	'OP08288',	'--Is Employee Eligible for Gratuity ?--',	'',	0,	'hendricks.png',	'',	NULL,	'',	'782');
 
 DROP TABLE IF EXISTS `emp_log`;
 CREATE TABLE `emp_log` (
@@ -23582,7 +23511,49 @@ INSERT INTO `emp_log` (`id`, `company_id`, `action`, `action_user`, `date`) VALU
 (1,	4,	'Create Employee',	'',	'2023-08-12 08:33:20'),
 (2,	4,	'Create Employee',	'10',	'2023-08-12 08:48:03'),
 (3,	4,	'Edit Employee',	'10',	'2023-08-12 13:21:02'),
-(4,	4,	'Create Employee',	'10',	'2023-08-17 09:15:22');
+(4,	4,	'Create Employee',	'10',	'2023-08-17 09:15:22'),
+(5,	4,	'Create Employee',	'10',	'2023-08-17 09:51:17'),
+(6,	4,	'Create Employee',	'10',	'2023-08-17 09:52:51'),
+(7,	4,	'Create Employee',	'10',	'2023-08-17 10:15:24'),
+(8,	4,	'Create Employee',	'10',	'2023-08-17 10:15:50'),
+(9,	4,	'Edit Employee',	'10',	'2023-08-18 08:43:27'),
+(10,	4,	'Create Employee',	'10',	'2023-08-18 14:43:22'),
+(11,	4,	'Create Employee',	'10',	'2023-08-18 14:45:48'),
+(12,	4,	'Create Employee',	'10',	'2023-08-18 14:49:00'),
+(13,	4,	'Create Employee',	'10',	'2023-08-18 14:51:24'),
+(14,	4,	'Create Employee',	'10',	'2023-08-18 14:53:15'),
+(15,	4,	'Create Employee',	'10',	'2023-08-19 07:07:28'),
+(16,	4,	'Create Employee',	'10',	'2023-08-19 07:09:39'),
+(17,	4,	'Edit Employee',	'10',	'2023-08-19 10:50:04'),
+(18,	4,	'Edit Employee',	'10',	'2023-08-19 12:17:40'),
+(19,	4,	'Create Employee',	'10',	'2023-08-29 14:15:05'),
+(20,	4,	'Edit Employee',	'10',	'2023-09-04 09:57:04'),
+(21,	4,	'Edit Employee',	'10',	'2023-09-04 09:57:21'),
+(22,	4,	'Edit Employee',	'10',	'2023-09-04 09:57:33'),
+(23,	4,	'Create Employee',	'10',	'2023-09-04 10:10:05'),
+(24,	4,	'Edit Employee',	'10',	'2023-09-04 10:10:56'),
+(25,	4,	'Edit Employee',	'10',	'2023-09-04 12:17:51'),
+(26,	4,	'Create Employee',	'10',	'2023-09-04 14:51:42');
+
+DROP TABLE IF EXISTS `emp_recurring_deductions`;
+CREATE TABLE `emp_recurring_deductions` (
+  `id` int(6) NOT NULL AUTO_INCREMENT,
+  `employee_id` int(90) NOT NULL,
+  `employee_no` varchar(10) NOT NULL,
+  `deduction_total` int(200) NOT NULL,
+  `monthly_deduct` text NOT NULL,
+  `duration` int(200) NOT NULL,
+  `company_ID` int(20) NOT NULL,
+  `deduction_date` text NOT NULL,
+  `date_completion` text NOT NULL,
+  `status` text NOT NULL,
+  `deduction_type` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+INSERT INTO `emp_recurring_deductions` (`id`, `employee_id`, `employee_no`, `deduction_total`, `monthly_deduct`, `duration`, `company_ID`, `deduction_date`, `date_completion`, `status`, `deduction_type`) VALUES
+(3,	0,	'LMP02',	1000,	'200',	4,	4,	'2023-08-01',	'2023-10-31',	'Cleared',	2),
+(4,	2,	'LMP02',	1000,	'250',	4,	4,	'2023-01-09',	'2023-12-31',	'Pending',	2);
 
 DROP TABLE IF EXISTS `grade`;
 CREATE TABLE `grade` (
@@ -23754,8 +23725,8 @@ CREATE TABLE `group_tb` (
 
 INSERT INTO `group_tb` (`id`, `name`, `permissions_id`, `company_id`) VALUES
 (1,	'Admins',	2,	4),
-(2,	'General',	0,	4),
-(3,	'Standard',	3,	4);
+(3,	'Standard',	3,	4),
+(4,	'MidLevel',	12,	4);
 
 DROP TABLE IF EXISTS `hod_tb`;
 CREATE TABLE `hod_tb` (
@@ -23779,7 +23750,6 @@ INSERT INTO `hod_tb` (`empno`, `departmentId`, `companyID`, `parent_supervisor`,
 ('FAB158',	'53',	4,	'FAB425',	7,	1,	1),
 ('FAB092',	'54',	4,	'FAB425',	8,	1,	1),
 ('FAB192',	'40',	4,	'FAB425',	9,	1,	1),
-('FAB061',	'37',	4,	'FAB425',	10,	1,	1),
 ('FAB345',	'40',	4,	'FAB425',	11,	1,	1),
 ('FAB067',	'48',	4,	'FAB425',	12,	1,	1),
 ('FAB425',	'55',	4,	'FAB425',	13,	1,	1),
@@ -27083,6 +27053,8 @@ CREATE TABLE `leave_applications_tb` (
   PRIMARY KEY (`application_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+INSERT INTO `leave_applications_tb` (`application_id`, `leave_start_date`, `leave_end_date`, `leave_type`, `reason_leave`, `empno`, `status`, `contact`, `contact_person`, `address_on_leave`, `file_proof`, `parent_supervisor_notified`, `application_date`, `level`, `days`) VALUES
+(1,	'2023-09-05',	'2023-09-13',	'Sick Leave	',	'Leave by Admin on behalf of employee',	'LMP02',	'Approved',	'',	'',	'',	'',	'',	'',	1,	'');
 
 DROP TABLE IF EXISTS `leave_application_levels`;
 CREATE TABLE `leave_application_levels` (
@@ -27225,7 +27197,24 @@ INSERT INTO `leave_days` (`ID`, `available`, `empno`) VALUES
 (122,	22,	'FAB436'),
 (123,	20,	'FAB437'),
 (124,	15,	'FAB438'),
-(125,	2,	'CH353');
+(125,	2,	'CH353'),
+(126,	7,	'LMP0355'),
+(127,	7,	'LMP0361'),
+(128,	2,	'LMP0368'),
+(129,	7,	'LMP0369'),
+(130,	7,	'LMP0370'),
+(131,	7,	'LMP0371'),
+(132,	7,	'LMP0372'),
+(133,	7,	'LMP0373'),
+(134,	7,	'LMP0374'),
+(135,	7,	'LMP0375'),
+(136,	7,	'LMP0376'),
+(137,	9.5,	'LMP0377'),
+(138,	9.5,	'LMP0378'),
+(139,	9.5,	'LMP0379'),
+(140,	2,	'LMP0380'),
+(141,	14,	'LMP02'),
+(142,	2,	'LMP04');
 
 DROP TABLE IF EXISTS `leave_ratings_tb`;
 CREATE TABLE `leave_ratings_tb` (
@@ -27294,7 +27283,7 @@ CREATE TABLE `loan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 INSERT INTO `loan` (`LOAN_NO`, `empno`, `loan_amt`, `monthly_deduct`, `duration`, `company_ID`, `principle`, `interest_rate`, `interest`, `loan_date`, `date_completion`, `status`, `loan_type`) VALUES
-(1,	'FAB039',	3000,	'1500',	2,	'4',	1500,	0,	0,	'2023-07-25',	'2023-07-31',	'Pending',	'');
+(3,	'LMP02',	10000,	'2500',	3,	'4',	7500,	0,	0,	'2023-08-01',	'2023-12-31',	'Pending',	'0');
 
 DROP TABLE IF EXISTS `loan_applications`;
 CREATE TABLE `loan_applications` (
@@ -27354,7 +27343,42 @@ INSERT INTO `login_log` (`id`, `empno`, `action`, `time`, `company_id`) VALUES
 (14,	'FAB039',	'LOGOUT',	'2023-08-14 07:32:16',	4),
 (15,	'FAB039',	'LOGIN',	'2023-08-17 06:30:35',	4),
 (16,	'FAB039',	'LOGIN',	'2023-08-17 07:16:32',	4),
-(17,	'FAB039',	'LOGOUT',	'2023-08-17 08:15:04',	4);
+(17,	'FAB039',	'LOGOUT',	'2023-08-17 08:15:04',	4),
+(18,	'LMP0379',	'LOGIN',	'2023-08-27 06:05:09',	4),
+(19,	'LMP0379',	'LOGOUT',	'2023-08-27 06:16:04',	4),
+(20,	'LMP0379',	'LOGIN',	'2023-08-28 07:07:03',	4),
+(21,	'LMP0380',	'LOGIN',	'2023-08-28 08:06:19',	4),
+(22,	'LMP0380',	'LOGOUT',	'2023-08-28 08:08:17',	4),
+(23,	'LMP0380',	'LOGIN',	'2023-08-28 09:13:52',	4),
+(24,	'LMP0380',	'LOGOUT',	'2023-08-28 10:25:51',	4),
+(25,	'LMP0379',	'LOGIN',	'2023-08-28 10:36:30',	4),
+(26,	'LMP0379',	'LOGOUT',	'2023-08-28 10:36:32',	4),
+(27,	'LMP0379',	'LOGIN',	'2023-08-28 11:38:30',	4),
+(28,	'LMP0379',	'LOGOUT',	'2023-08-28 11:38:51',	4),
+(29,	'LMP0379',	'LOGIN',	'2023-08-28 11:38:53',	4),
+(30,	'LMP0379',	'LOGOUT',	'2023-08-28 11:38:59',	4),
+(31,	'LMP0379',	'LOGIN',	'2023-08-28 11:39:49',	4),
+(32,	'LMP0379',	'LOGOUT',	'2023-08-28 11:39:58',	4),
+(33,	'LMP0379',	'LOGIN',	'2023-08-28 11:40:40',	4),
+(34,	'LMP0379',	'LOGOUT',	'2023-08-28 11:42:30',	4),
+(35,	'LMP0380',	'LOGIN',	'2023-08-28 11:42:34',	4),
+(36,	'LMP0380',	'LOGOUT',	'2023-08-28 12:11:23',	4),
+(37,	'LMP0380',	'LOGIN',	'2023-08-28 13:44:35',	4),
+(38,	'LMP0380',	'LOGOUT',	'2023-08-28 14:08:59',	4),
+(39,	'LMP02',	'LOGIN',	'2023-08-29 14:18:56',	4),
+(40,	'LMP02',	'LOGOUT',	'2023-08-29 14:25:34',	4),
+(41,	'LMP02',	'LOGIN',	'2023-08-29 14:25:38',	4),
+(42,	'LMP02',	'LOGOUT',	'2023-08-29 14:25:54',	4),
+(43,	'LMP02',	'LOGIN',	'2023-08-31 07:47:44',	4),
+(44,	'LMP02',	'LOGOUT',	'2023-08-31 07:55:33',	4),
+(45,	'LMP02',	'LOGIN',	'2023-09-02 07:52:56',	4),
+(46,	'LMP02',	'LOGOUT',	'2023-09-02 08:20:32',	4),
+(47,	'LMP02',	'LOGIN',	'2023-09-02 08:21:38',	4),
+(48,	'LMP02',	'LOGOUT',	'2023-09-02 08:22:39',	4),
+(49,	'LMP02',	'LOGIN',	'2023-09-02 08:23:04',	4),
+(50,	'LMP02',	'LOGOUT',	'2023-09-02 08:23:31',	4),
+(51,	'LMP02',	'LOGIN',	'2023-09-02 10:07:20',	4),
+(52,	'LMP02',	'LOGIN',	'2023-09-06 15:19:24',	4);
 
 DROP TABLE IF EXISTS `nhima_tb`;
 CREATE TABLE `nhima_tb` (
@@ -27422,7 +27446,8 @@ INSERT INTO `permissions_tb` (`id`, `company_setup`, `employee`, `hr_reports`, `
 (2,	'true',	'true',	'true',	'true',	'true',	'true',	'true',	'true',	'true'),
 (3,	'true',	'true',	'false',	'true',	'false',	'true',	'false',	'true',	'true'),
 (4,	'true',	'false',	'false',	'false',	'false',	'false',	'false',	'true',	'4'),
-(11,	'false',	'false',	'false',	'false',	'false',	'false',	'false',	'false',	'false');
+(11,	'false',	'false',	'false',	'false',	'false',	'false',	'false',	'false',	'false'),
+(12,	'false',	'false',	'false',	'true',	'true',	'true',	'true',	'false',	'false');
 
 DROP TABLE IF EXISTS `postings`;
 CREATE TABLE `postings` (
@@ -27455,6 +27480,32 @@ CREATE TABLE `prefix` (
 
 INSERT INTO `prefix` (`id`, `prefix`, `company_id`) VALUES
 (1,	'LMP',	'4');
+
+DROP TABLE IF EXISTS `publications`;
+CREATE TABLE `publications` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `category` text NOT NULL,
+  `subject` text NOT NULL,
+  `message` text NOT NULL,
+  `file` text NOT NULL,
+  `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+INSERT INTO `publications` (`id`, `category`, `subject`, `message`, `file`, `date`) VALUES
+(14,	'news',	'TAWANDA',	'ANALOG',	'',	'2023-08-27 20:12:40');
+
+DROP TABLE IF EXISTS `recurring_deduction_types`;
+CREATE TABLE `recurring_deduction_types` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `company_id` int(10) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `short_name` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+INSERT INTO `recurring_deduction_types` (`id`, `company_id`, `name`, `short_name`) VALUES
+(2,	4,	'MTN Phone',	'MTN_PHNS');
 
 DROP TABLE IF EXISTS `sms_credits_tb`;
 CREATE TABLE `sms_credits_tb` (
@@ -27496,9 +27547,9 @@ INSERT INTO `tax` (`id`, `taxable_to_date`, `tax_paid_to_date`, `empno`, `compan
 (46,	'0',	'0',	'CTL02',	'4',	'0'),
 (47,	'6800',	'1880',	'CTL03',	'4',	'0'),
 (48,	'6700',	'2159.375',	'CTL04',	'4',	'0'),
-(49,	'9600',	'2414',	'LMP02',	'4',	'0'),
+(49,	'10137.5',	'2414',	'LMP02',	'4',	'0'),
 (50,	'42955',	'50623.948300000004',	'LMP03',	'4',	'0'),
-(51,	'13400',	'4318.75',	'LMP04',	'4',	'0'),
+(51,	'13520',	'4318.75',	'LMP04',	'4',	'0'),
 (52,	'73692.3076923076',	'23003.8653846152',	'LMP01',	'4',	'0'),
 (53,	'15000',	'4918.75',	'LMP010',	'4',	'0'),
 (54,	'0',	'0',	'-- Select Employee to add --',	'4',	'0'),
@@ -27565,11 +27616,12 @@ INSERT INTO `users_tb` (`id`, `user_name`, `password`, `company_id`, `empno`, `u
 (1,	'superadmin',	'c12e01f2a13ff5587e1e9e4aedb8242d',	4,	'',	'superadmin',	'Choolwe',	'Ngandu',	'choolwe@crystaline.co.zm',	'Not Active',	1),
 (10,	'admin',	'21232f297a57a5a743894a0e4a801fc3 ',	4,	'',	'HR Admin',	'Isabella',	'Mulima',	'choolwe1992@gmail.com',	'',	1),
 (16,	'adminlso',	'21232f297a57a5a743894a0e4a801fc3',	5,	'',	'admin',	'Ngandu',	'Choolwe',	'choolwe1992@gmail.com',	'',	3),
-(20,	'admin@corp.com',	'21232f297a57a5a743894a0e4a801fc3',	9,	'PSC01',	'HR Admin',	'Chilonda',	'Chilonda',	' officemanager@psccorporatepark.com',	'',	2),
+(20,	'admin@corp.com',	'21232f297a57a5a743894a0e4a801fc3',	9,	'PSC01',	'HR Admin',	'Chilonda',	'Chilonda',	' officemanager@psccorporatepark.com',	'',	0),
 (21,	'admin@ranch.com',	'21232f297a57a5a743894a0e4a801fc3',	10,	'',	'HR Admin',	'Chilonda',	'Chilonda',	'reception4@psccorporatepark.com',	'',	3),
 (22,	'admin@corpmanager.com',	'21232f297a57a5a743894a0e4a801fc3',	9,	'',	'HR Admin',	'Chilonda',	'Chilonda',	' officemanager@psccorporatepark.com',	'',	3),
 (23,	'admin@ranchmanager.com',	'21232f297a57a5a743894a0e4a801fc3',	10,	'',	'HR Admin',	'Chilonda',	'Chilonda',	'reception4@psccorporatepark.com',	'',	0),
-(25,	'choolwe',	'ef8c889458a56135316327e2bd4986b2',	4,	'',	'HR Admin',	'choolwe',	'ngandu',	'choolwe1992@gmail.com',	'Active',	0);
+(25,	'choolwe',	'ef8c889458a56135316327e2bd4986b2',	4,	'',	'HR Admin',	'choolwe',	'ngandu',	'choolwe1992@gmail.com',	'Active',	0),
+(26,	'steve',	'd69403e2673e611d4cbd3fad6fd1788e',	4,	'',	'HR Admin',	'Stephen',	'Jobs',	'steve@apple.com',	'Active',	4);
 
 DROP TABLE IF EXISTS `workflows`;
 CREATE TABLE `workflows` (
@@ -27593,4 +27645,4 @@ INSERT INTO `workflows` (`id`, `name`) VALUES
 (15,	'BRANCH OPERATIONS-NDOLA'),
 (16,	'BRANCH OPERATIONS-INDUSTRIAL');
 
--- 2023-08-17 09:22:38
+-- 2023-09-07 06:39:15

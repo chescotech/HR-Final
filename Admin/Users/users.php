@@ -172,90 +172,23 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <a href="#updateordinance<?php echo $id; ?>" data-target="#updateordinance<?php echo $id; ?>" data-toggle="modal" style="color:#fff;" class="btn btn-primary btn-sm">Edit</i></a>
+                                                    <a href="edit-user.php?id=<?php echo $user_id; ?>" class="btn btn-primary btn-sm">Edit</i></a>
                                                 </td>
                                             </tr>
-                                            <div id="updateordinance<?php echo $id ?>" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content" style="height:auto">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">×</span></button>
-                                                            <h4 class="modal-title">Update User Details </h4>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <form class="form-horizontal" method="post" action="">
-
-                                                                <div class="box-body">
-                                                                    <div class="form-group">
-                                                                        <h5 style="color: black"><b>User Name</b></h5>
-                                                                        <input required="required" name="user_name" value="<?php echo $row['user_name']; ?>" class="form-control" placeholder="Enter Loan Type:">
-                                                                    </div>
-
-                                                                    <div class="form-group">
-                                                                        <h5 style="color: black"><b>Change password</b></h5>
-                                                                        <input required="required" type="password" name="password" class="form-control" placeholder="Change password:">
-                                                                    </div>
-
-                                                                    <div class="form-group">
-                                                                        <h5 style="color: black"><b>Re Enter password</b></h5>
-                                                                        <input required="required" type="password" name="repassword" class="form-control" placeholder="Re Enter password:">
-                                                                    </div>
-
-                                                                    <div class="form-group">
-                                                                        <h5 style="color: black">Update Group</b></h5>
-                                                                        <select name="group_update" class="dropdown" style="border: 0px; padding: 8px; ">
-                                                                            <option value=""><span>---Select an Option---</span></option>
-                                                                            <?php
-                                                                            $groupList = $GroupObject->getGroups($_SESSION['company_ID']);
 
 
-                                                                            while ($group_row = mysql_fetch_array($groupList)) {
-                                                                            ?>
-                                                                                <option class="list-menu-item" value="<?= $group_row['id'] ?>"><?= $group_row['name'] ?></option>
-                                                                            <?php
-                                                                            }
-                                                                            ?>
-                                                                        </select>
-                                                                    </div>
-
-                                                                    <div class="box-body">
-                                                                        <label>User Type:</label><span style="color:red; font-size: large;" title="Required">* </span>
-                                                                        <div class="form-group">
-                                                                            <select name="status" class="form-control">
-                                                                                <option value="<?php echo $rows['status']; ?>"> <?php echo $row['status']; ?> </option>
-                                                                                <option value="Active">Active</option>
-                                                                                <option value="Not Active">Not Active</option>
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="form-group" hidden="">
-                                                                        <h5 style="color: black"><b>Maximum Repayment Period</b></h5>
-                                                                        <input required="required" name="id" value="<?= $id; ?>" class="form-control" placeholder="Enter Maximum Number of months:">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="submit" class="btn btn-primary" name="update">Save changes</button>
-                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-
-                                                    </div>
-                                                    <!--end of modal-dialog-->
-                                                </div>
-                                            <?php } ?>
+                                        <?php } ?>
                                 </table>
                             </div><!-- /.box-body -->
                         </div><!-- /.box -->
 
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-            </section><!-- /.content -->
-        </div>
-        <?php include '../footer/footer.php'; ?>
-        <div class="control-sidebar-bg"></div>
+                    </div>
+                </div><!-- /.col -->
+        </div><!-- /.row -->
+        </section><!-- /.content -->
+    </div>
+    <?php include '../footer/footer.php'; ?>
+    <div class="control-sidebar-bg"></div>
     </div><!-- ./wrapper -->
 
     <script src="../bootstrap/js/bootstrap.min.js"></script>
