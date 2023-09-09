@@ -562,15 +562,16 @@ error_reporting(0);
                                     while ($deductionDetailRow = mysql_fetch_array($deductionDetailsResult)) {
                                         $deductionColumnName = strtolower($deductionDetailRow['name']); // Transform name to uppercase
                                         $deductionValue = isset($row[$deductionColumnName]) ? $row[$deductionColumnName] : 0;
-                                        // if ($deductionValue == 1) {
-                                        $deductionsTotal += $PayslipObject->getDeductionValue($gross, $deductionDetailRow);
+                                        // return var_dump($deductionValue);
+                                        if ($deductionValue == "1") {
+                                            $deductionsTotal += $PayslipObject->getDeductionValue($gross, $deductionDetailRow);
                                     ?>
-                                        <tr>
-                                            <td class="box"><?php echo $deductionDetailRow['name']; ?></td>
-                                            <td align="right"><?php echo number_format($PayslipObject->getDeductionValue($gross, $deductionDetailRow), 2); ?></td>
-                                        </tr>
+                                            <tr>
+                                                <td class="box"><?php echo $deductionDetailRow['name']; ?></td>
+                                                <td align="right"><?php echo number_format($PayslipObject->getDeductionValue($gross, $deductionDetailRow), 2); ?></td>
+                                            </tr>
                                     <?php
-                                        // }
+                                        }
                                     }
                                     ?>
 
