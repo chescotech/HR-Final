@@ -36,9 +36,10 @@ error_reporting(0);
         include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Loans.php';
         include_once '../Classes/Tax.php';
+        include_once '../Classes/Payslips.php';
         $TaxObject = new Tax();
         $LoanObject = new Loans();
-
+        $PayslipObject = new Payslips();
         $DepartmentObject = new Department();
         $compId = $_SESSION['company_ID'];
         ?>
@@ -155,8 +156,9 @@ error_reporting(0);
 
                                             $sum = 0;
                                             while ($row = mysql_fetch_array($result)) {
+                                                $earnings = $PayslipObject->getEmployeeEarnings($row['earnings_id']);
 
-                                                $gross = ($row['pay']) + ($row['otrate'] * $row['othrs']) + $row['allow'] + $row['comission'];
+                                                $gross = $earnings + ($row['otrate'] * $row['othrs']) + $row['allow'] + $row['comission'];
 
 
 

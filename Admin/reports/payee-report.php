@@ -27,6 +27,8 @@
         <?php
         include_once '../Classes/Employee.php';
         include_once '../Classes/Tax.php';
+        include_once '../Classes/Payslips.php';
+        $PayslipsObject = new Payslips();
         $EmployeeObject = new Employee();
         $TaxObject = new Tax();
 
@@ -140,8 +142,9 @@
 
                                                 $sum = 0;
                                                 while ($row = mysql_fetch_array($result)) {
+                                                    $earnings = $PayslipsObject->getEmployeeEarnings($row['earnings_id']);
 
-                                                    $gross = ($row['pay']) + ($row['otrate'] * $row['othrs']) + $row['allow'] + $row['comission'];
+                                                    $gross = $earnings + ($row['otrate'] * $row['othrs']) + $row['allow'] + $row['comission'];
 
                                                     $empoyeeNo = $row['empno'];
                                                     $natureEmployement = $row['employment_type'];

@@ -65,10 +65,10 @@ error_reporting(0);
                                                 <th>Total Amount</th>
                                                 <th>Monthly Deduction</th>
                                                 <th>Duration</th>
-                                                <th>Loan Date</th>
+                                                <th>Start Date</th>
                                                 <th>Date Completion</th>
                                                 <th>Status</th>
-                                                <th>Edit</th>
+                                                <!-- <th>Edit</th> -->
                                                 <th>Delete</th>
                                             </tr>
                                         </thead>
@@ -98,8 +98,7 @@ error_reporting(0);
                                                             <td>' . $row['deduction_date'] . '</td> 
                                                             <td>' . $row['date_completion'] . '</td>  
                                                             <td>' . $status . '</td>     
-                                                            <td><a href=' . "edit-deduction.php?id=" . $id_ . '>Edit</a></td>
-                                                            <td><a href=' . "delete-deduction.php?id=" . $id_ . '>Del</a></td>
+                                                            <td><a href=' . "delete-deduction.php?id=" . $id_ . '>Delete</a></td>
                                                        
                                                         </tr>  
 

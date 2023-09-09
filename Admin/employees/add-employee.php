@@ -178,7 +178,7 @@
             $transport_allowance = $_POST['transport_allowance'];
             $lunch_allowance = $_POST['lunch_allowance'];
             // $gross_pay = $_POST['gross_pay'] + $house_allowance + $transport_allowance + $lunch_allowance;
-            $basicPay = $_POST['gross_pay'];
+            $basicPay = $_POST['earning_basic_pay'];
             $branch_code = $_POST['branch_code'];
             $has_gratuity = $_POST['has_gratuity'];
 
@@ -213,6 +213,7 @@
                 $leaveDays,
                 $companyId,
                 $password,
+                $basicPay,
                 $gross_pay,
                 $employment_type,
                 $nok_name,

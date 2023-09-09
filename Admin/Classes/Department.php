@@ -101,6 +101,7 @@ class Department
         $leaveDays,
         $companyId,
         $password,
+        $basic_pay,
         $gross_pay,
         $employment_type,
         $nok_name,

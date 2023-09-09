@@ -102,6 +102,7 @@
 
                 if (isset($_POST['delete'])) {
                     $id = $_POST['id'];
+                    $name = $_POST['name'];
 
                     $add_q = mysql_query("DELETE FROM deductions WHERE ded_id = '$id' ") or die(mysql_error());
 
@@ -382,8 +383,9 @@
                                                          <div class="modal-body" hidden="">
                                                              <form class="form-horizontal" method="post" action="#delete" enctype='multipart/form-data'>
                                                                  <div class="form-group">
-                                                                     <div class="col-lg-9"><input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['ded_id']; ?>" required>
-                                                                         <input type="text" class="form-control" id="name" name="id" value="<?php echo $row['id']; ?>" required>
+                                                                     <div class="col-lg-9">
+                                                                         <input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['ded_id']; ?>" required>
+                                                                         <input type="text" class="form-control" id="name" name="name" value="<?php echo $row['name']; ?>" required>
                                                                      </div>
                                                                  </div>
                                                          </div>
