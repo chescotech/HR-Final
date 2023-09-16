@@ -55,6 +55,21 @@ class RecurringDeductions
 
         return $createQuery;
     }
+    public function updateRecurringDeduction($empno, $deduction_amount, $monthly_deduction, $duration, $LoanDate, $deadLine, $companyId, $status, $deduction_type)
+    {
+        $updateQuery = mysql_query("UPDATE emp_recurring_deductions SET 
+        deduction_total = '$deduction_amount',
+        monthly_deduct = '$monthly_deduction',
+        duration = '$duration',
+        deduction_date = '$LoanDate',
+        date_completion = '$deadLine',
+        status = '$status',
+        deduction_type = '$deduction_type'
+        WHERE AND employee_no = '$empno' AND company_ID = '$companyId'
+    ") or die(mysql_error());
+
+        return $updateQuery;
+    }
     public function getRecurringDeductions($comp_id_arg)
     {
         $fetchQuery = mysql_query("SELECT * FROM emp_recurring_deductions WHERE company_id='$comp_id_arg'");

@@ -16,7 +16,7 @@
         <ul class="treeview-menu">
             <li><a href="Attendance/log-attendance"><i class="fa fa-circle-o"></i>Log Attendance</a></li>
             <li><a href="Attendance/my-attendance"><i class="fa fa-circle-o"></i>My Attendance</a></li>
-             <li><a href="Attendance/out-office-attendance"><i class="fa fa-circle-o"></i>Out of Office Attendance</a></li>
+            <li><a href="Attendance/out-office-attendance"><i class="fa fa-circle-o"></i>Out of Office Attendance</a></li>
         </ul>
     </li>
 
@@ -32,22 +32,36 @@
         </ul>
     </li>
 
-      <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-money"></i> <span>My Loans</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="../employee/loan/apply"><i class="fa fa-circle-o"></i>Apply for Loan</a></li>
-                </ul>
-            </li>
-    
+    <li class="treeview">
+        <a href="#">
+            <i class="fa fa-money"></i> <span>My Loans</span>
+            <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+            <li><a href="../employee/loan/apply"><i class="fa fa-circle-o"></i>Apply for Loan</a></li>
+        </ul>
+    </li>
+
     <li>
         <a href="Payslips/my-payslips">
             <i class="fa fa-money"></i> <span>My Pay slips</span>
             <small class="label pull-right bg-red"></small>
         </a>
     </li>
+
+    <?php
+    if ($_SESSION['has_timesheets'] === "true") {
+    ?>
+
+        <li>
+            <a href="timesheets/my-timesheets">
+                <i class="fa fa-clock-o"></i> <span>Timesheets</span>
+                <small class="label pull-right bg-red"></small>
+            </a>
+        </li>
+    <?php
+    }
+    ?>
 
     <li>
         <a href="EmployeeHistory/Education">
@@ -111,6 +125,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="Attendance/attendance"><i class="fa fa-circle-o"></i>View attendance</a></li>
+                    <li><a href="timesheets/submissions"><i class="fa fa-circle-o"></i>View Timesheet Submissions</a></li>
                      <li><a href="Attendance/my-department"><i class="fa fa-circle-o"></i>View Employees in Department</a></li>
                 </ul>
             </li>';

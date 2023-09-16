@@ -20,7 +20,7 @@ class MyPayslips
     public function getLoanMonthDedeductAmounts($empno, $date)
     {
         // $dateFormated = date_format(strtotime($date), "Y/m/d");
-        $result = mysql_query("SELECT * FROM loan WHERE empno='$empno' AND status='Pending' AND '$date' BETWEEN loan_date AND date_completion  ");
+        $result = mysql_query("SELECT * FROM loan WHERE empno='$empno' AND status='Pending' AND '$date' BETWEEN loan_date AND date_completion  ") or die(mysql_error());
         $rows = mysql_fetch_array($result);
         $loanAmount = $rows['monthly_deduct'];
         return $loanAmount;

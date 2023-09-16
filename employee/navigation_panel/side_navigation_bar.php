@@ -28,8 +28,8 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="../Attendance/log-attendance"><i class="fa fa-circle-o"></i>Log Attendance</a></li>
-                    <li><a href="../Attendance/my-attendance"><i class="fa fa-circle-o"></i>My Attendance</a></li>  
-                      <li><a href="../Attendance/out-office-attendance"><i class="fa fa-circle-o"></i>Out of Office Attendance</a></li>
+                    <li><a href="../Attendance/my-attendance"><i class="fa fa-circle-o"></i>My Attendance</a></li>
+                    <li><a href="../Attendance/out-office-attendance"><i class="fa fa-circle-o"></i>Out of Office Attendance</a></li>
                 </ul>
             </li>
 
@@ -41,11 +41,11 @@
                 <ul class="treeview-menu">
                     <li><a href="../leave/apply"><i class="fa fa-circle-o"></i>Apply for Leave</a></li>
                     <li><a href="../leave/my-leave"><i class="fa fa-circle-o"></i>Leave History</a></li>
-                    <li><a href="../leave/leave-balance"><i class="fa fa-circle-o"></i>Leave Balance</a></li> 
+                    <li><a href="../leave/leave-balance"><i class="fa fa-circle-o"></i>Leave Balance</a></li>
                 </ul>
             </li>
-            
-              <li class="treeview">
+
+            <li class="treeview">
                 <a href="#">
                     <i class="fa fa-money"></i> <span>My Loans</span>
                     <i class="fa fa-angle-left pull-right"></i>
@@ -63,6 +63,19 @@
                 </a>
             </li>
 
+            <?php
+            if ($_SESSION['has_timesheets'] === "true") {
+            ?>
+
+                <li>
+                    <a href="../timesheets/my-timesheets">
+                        <i class="fa fa-clock-o"></i> <span>Timesheets</span>
+                        <small class="label pull-right bg-red"></small>
+                    </a>
+                </li>
+            <?php
+            }
+            ?>
             <li>
                 <a href="../EmployeeHistory/Education">
                     <i class="fa fa-book"></i> <span>Employment History</span>
@@ -125,6 +138,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="../Attendance/attendance"><i class="fa fa-circle-o"></i>View attendance</a></li>
+                    <li><a href="../timesheets/submissions"><i class="fa fa-circle-o"></i>View Timesheet Submissions</a></li>
                       <li><a href="../Attendance/my-department"><i class="fa fa-circle-o"></i>View Employees in Department</a></li>
                 </ul>
             </li>';
@@ -150,7 +164,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="../profile/profile"><i class="fa fa-circle-o"></i>Profile Info</a></li>
-                    <li><a href="../profile/change-password"><i class="fa fa-circle-o"></i>Change Password</a></li>               
+                    <li><a href="../profile/change-password"><i class="fa fa-circle-o"></i>Change Password</a></li>
                 </ul>
             </li>
 

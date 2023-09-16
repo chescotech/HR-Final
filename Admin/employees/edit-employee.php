@@ -670,7 +670,7 @@ error_reporting(0);
 
                                                 <div class="modal-footer">
 
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Save</button>
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
                                                     <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
 
@@ -734,7 +734,7 @@ error_reporting(0);
                                                 </div>
                                                 <div class="modal-footer">
 
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Save</button>
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                 </div>
                                             </div>
                                         </div>

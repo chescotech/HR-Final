@@ -66,9 +66,9 @@
             $deadLine = date('Y-m-d', strtotime($_POST['date_end']));
             $status = "Pending";
 
-            $RecurringDeductionsObject->createRecurringDeduction($empno, $deduction_amount, $monthly_deduction, $duration, $LoanDate, $deadLine, $companyId, $status, $deduction_type);
+            $RecurringDeductionsObject->updateRecurringDeduction($empno, $deduction_amount, $monthly_deduction, $duration, $LoanDate, $deadLine, $companyId, $status, $deduction_type);
 
-            $message = "Recurring Deduction Successfully Created!!"
+            $message = "Recurring Deduction Successfully Created!!";
         }
         ?>
 

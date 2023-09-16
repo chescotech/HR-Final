@@ -140,6 +140,8 @@ $permissions = mysql_fetch_assoc($userGroup);
                     <li><a href="../Settings/app_rating"><i class="fa fa-circle-o"></i>Appraisal Ratings</a></li>
                     <li><a href="../Settings/loan-types"><i class="fa fa-circle-o"></i>Loan Types</a></li>
                     <li><a href="../Settings/rd-types"><i class="fa fa-circle-o"></i>Recurring Deduction Types</a></li>
+                    <li><a href="../Settings/configure-timesheets"><i class="fa fa-circle-o" aria-hidden="true"></i>Set Timesheets</a></li>
+                    <li><a href="../Settings/timesheets"><i class="fa fa-circle-o" aria-hidden="true"></i>View Timesheets</a></li>
                 </ul>
             </li>
 

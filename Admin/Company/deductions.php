@@ -102,6 +102,7 @@
 
                 if (isset($_POST['delete'])) {
                     $id = $_POST['id'];
+                    $name = $_POST['name'];
 
                     $add_q = mysql_query("DELETE FROM deductions WHERE ded_id = '$id' ") or die(mysql_error());
 
@@ -376,22 +377,22 @@
                                                          <div class="modal-header">
                                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                  <span aria-hidden="true">×</span></button>
-                                                             <h4 class="modal-title">Are u sure you want to delete this field ??
+                                                             <h4 class="modal-title">Are you sure you want to delete this field ??
                                                              </h4>
                                                          </div>
-                                                         <div class="modal-body" hidden="">
-                                                             <form class="form-horizontal" method="post" action="#delete" enctype='multipart/form-data'>
+                                                         <form class="form-horizontal" method="post" action="#delete" enctype='multipart/form-data'>
+                                                             <div class="modal-body" hidden="">
                                                                  <div class="form-group">
                                                                      <div class="col-lg-9"><input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['ded_id']; ?>" required>
-                                                                         <input type="text" class="form-control" id="name" name="id" value="<?php echo $row['id']; ?>" required>
+                                                                         <input type="text" class="form-control" id="name" name="name" value="<?php echo $row['name']; ?>" required>
                                                                      </div>
                                                                  </div>
-                                                         </div>
-                                                         <hr>
-                                                         <div class="modal-footer">
-                                                             <button type="submit" class="btn btn-primary" name="delete">Delete</button>
-                                                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                                         </div>
+                                                             </div>
+                                                             <!-- <hr> -->
+                                                             <div class="modal-footer">
+                                                                 <button type="submit" class="btn btn-primary" name="delete">Delete</button>
+                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                                             </div>
                                                          </form>
                                                      </div>
 

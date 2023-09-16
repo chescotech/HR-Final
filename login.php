@@ -59,6 +59,7 @@ if (isset($_POST['sign_in'])) {
         if (mysql_num_rows($EmployeeQuery) == 1) {
             $_SESSION['employee_id'] = $_POST['username'];
             $_SESSION['empno'] = $employeeRows['empno'];
+            $_SESSION['has_timesheets'] = $employeeRows['has_timesheets'];
             // log the log in
             $empnum = $_SESSION['empno'];
             $companyId = $employeeRows['company_id'];
