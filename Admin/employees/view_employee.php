@@ -34,6 +34,8 @@
 
         <?php
         include_once '../Classes/Employee.php';
+        include_once '../Classes/Payslips.php';
+        $PayslipsObject = new Payslips();
         $EmployeeObject = new Employee();
         include '../navigation_panel/authenticated_user_header.php';
         ?>
@@ -251,7 +253,10 @@
                                                         </td>
                                                         <td>
                                                             <div>
-                                                                <p><?php echo $row['basic_pay']; ?>.</p>
+                                                                <p><?php
+                                                                    $earnings_id = $PayslipsObject->getEmployeeEarningsId($empno);
+                                                                    $basic = $PayslipsObject->getEmployeeBasicPay($earnings_id['id']);
+                                                                    echo $basic['basic_pay']; ?>.</p>
                                                             </div>
                                                         </td>
                                                     </tr>

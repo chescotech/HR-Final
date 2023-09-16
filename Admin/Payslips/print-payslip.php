@@ -175,7 +175,7 @@ error_reporting(0);
 
                 $position = $brow['position'];
 
-                $query8 = "SELECT * FROM loan where empno = '$empno' ";
+                $query8 = "SELECT * FROM loan where empno = '$empno' AND status='Pending' ";
                 $result = mysql_query($query8) or die($query . "<br/><br/>" . mysql_error());
                 $row = mysql_fetch_array($result, MYSQL_ASSOC);
                 $balance = $row['loan_amt'];
@@ -408,121 +408,123 @@ error_reporting(0);
 
 
 
-                            <table border="1" cellspacing="0">
-                                <tr>
-                                    <td align="left" class="align1"><b>Earnings Amount</b></td>
-                                    <td class="align"><b>Deductions Amount</b></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <table border="0" width="417" style="margin-top: -21%;">
-                                            <tr>
-                                                <td class="box1"></td>
-                                                <td class="box1"><?php echo $id; ?></td>
-                                            </tr>
+                            <table border="1" cellspacing="0" style="height: 100%;">
+                                <tbody style="vertical-align: top;
+                                            align-items: stretch;
+                                            display: flex;
+                                            flex-direction: column;">
+                                    <tr>
+                                        <td align="left" class="align1"><b>Earnings Amount</b></td>
+                                        <td class="align"><b>Deductions Amount</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <table border="0" width="417" style="">
 
-                                            <?php
-                                            $query2 = "SELECT * FROM employee_earnings WHERE employee_no ='$emp_no'";
-                                            $result2 = mysql_query($query2, $link) or die(mysql_error());
-                                            $earningsTotal = 0;
-                                            $rows = array();
-                                            while ($row2 = mysql_fetch_assoc($result2)) {
-                                                $rows[] = $row2;
-                                            }
 
-                                            foreach (array_slice($columns, 4) as $columnName) {
-                                                echo "<tr>";
-                                                echo "<td align='left' style='text-transform: capitalize;'>" . $columnName . "</td>";
-
-                                                foreach ($rows as $row) {
-                                                    $columnNameWithUnderscores = str_replace(' ', '_', $columnName);
-                                                    echo "<td align='right'>" . (isset($row[$columnNameWithUnderscores]) ? number_format("$row[$columnNameWithUnderscores]", 2) : "0") . "</td>";
-                                                    echo "</tr>"; // Close the row after each value
-                                                    $earningsTotal += $row[$columnNameWithUnderscores];
+                                                <?php
+                                                $query2 = "SELECT * FROM employee_earnings WHERE employee_no ='$emp_no'";
+                                                $result2 = mysql_query($query2, $link) or die(mysql_error());
+                                                $earningsTotal = 0;
+                                                $rows = array();
+                                                while ($row2 = mysql_fetch_assoc($result2)) {
+                                                    $rows[] = $row2;
                                                 }
-                                            }
 
-                                            ?>
-                                            <tr>
-                                                <td align="left">
-                                                    Overtime
-                                                </td>
-                                                <td align="right"><?= number_format($overtime, 2) ?></td>
-                                            </tr>
+                                                foreach (array_slice($columns, 4) as $columnName) {
+                                                    echo "<tr>";
+                                                    echo "<td align='left' valign='top' style='text-transform: capitalize;'>" . $columnName . "</td>";
 
-                                </tr>
-                                <?php
+                                                    foreach ($rows as $row) {
+                                                        $columnNameWithUnderscores = str_replace(' ', '_', $columnName);
+                                                        echo "<td align='right' style='vertical-align: top;'>" . (isset($row[$columnNameWithUnderscores]) ? number_format("$row[$columnNameWithUnderscores]", 2) : "0") . "</td>";
+                                                        echo "</tr>"; // Close the row after each value
+                                                        $earningsTotal += $row[$columnNameWithUnderscores];
+                                                    }
+                                                }
 
-                                ?>
+                                                ?>
+                                                <tr>
+                                                    <td align="left">
+                                                        Overtime
+                                                    </td>
+                                                    <td align="right" style='vertical-align: top;'><?= number_format($overtime, 2) ?></td>
+                                                </tr>
+                                                <tr style="height: 0px;">
+                                                    <td class="box1"></td>
+                                                    <td class="box1"><?php echo $id; ?></td>
+                                                </tr>
 
-                                <?php
-                                ?>
-
-                                <?php
-                                $gross = ($DepartmentObject->TotalGrossPay($empno));
+                                    </tr>
 
 
-                                if ($TaxObject->getEmployeeAge($empno) < 55) {
-                                    $napsa = $gross * 0.05;
-                                    if ($napsa >= $TaxObject->getNapsaCeiling($compId))
-                                        $napsa = $TaxObject->getNapsaCeiling($compId);
+                                    <?php
+                                    $gross = ($DepartmentObject->TotalGrossPay($empno));
 
-                                    $napsa_calc = "";
-                                    if ($napsa >= 255)
-                                        $napsa_calc = 255;
-                                } else {
-                                    $napsa = 0;
-                                }
 
-                                $band1_top = $TaxObject->getTopBand1($compId);
-                                $band2_top = $TaxObject->getTopBand2($compId);
-                                $band3_top = $TaxObject->getTopBand3($compId);
+                                    if ($TaxObject->getEmployeeAge($empno) < 55) {
+                                        $napsa = $gross * 0.05;
+                                        if ($napsa >= $TaxObject->getNapsaCeiling($compId))
+                                            $napsa = $TaxObject->getNapsaCeiling($compId);
 
-                                $band1_rate = $TaxObject->getBandRate1($compId) / 100;
-                                $band2_rate = $TaxObject->getBandRate2($compId) / 100;
-                                $band3_rate = $TaxObject->getBandRate3($compId) / 100;
-                                $band4_rate = $TaxObject->getBandRate4($compId) / 100;
+                                        $napsa_calc = "";
+                                        if ($napsa >= 255)
+                                            $napsa_calc = 255;
+                                    } else {
+                                        $napsa = 0;
+                                    }
 
-                                $emp_pay = $earningsTotal + $overtime;
+                                    $band1_top = $TaxObject->getTopBand1($compId);
+                                    $band2_top = $TaxObject->getTopBand2($compId);
+                                    $band3_top = $TaxObject->getTopBand3($compId);
 
-                                $starting_income = $income = $emp_pay - $napsa;
+                                    $band1_rate = $TaxObject->getBandRate1($compId) / 100;
+                                    $band2_rate = $TaxObject->getBandRate2($compId) / 100;
+                                    $band3_rate = $TaxObject->getBandRate3($compId) / 100;
+                                    $band4_rate = $TaxObject->getBandRate4($compId) / 100;
 
-                                $band1 = $band2 = $band3 = $band4 = 0;
+                                    $emp_pay = $earningsTotal + $overtime;
 
-                                if ($income > $band3_top) {
-                                    $band4 = ($income - $band3_top) * $band4_rate;
-                                    $income = $band3_top;
-                                }
+                                    $starting_income = $income = $emp_pay - $napsa;
 
-                                if ($income > $band2_top) {
-                                    $band3 = ($income - $band2_top) * $band3_rate;
-                                    $income = $band2_top;
-                                }
+                                    $band1 = $band2 = $band3 = $band4 = 0;
 
-                                if ($income > $band1_top) {
-                                    $band2 = ($income - $band1_top) * $band2_rate;
-                                    $income = $band1_top;
-                                }
+                                    if ($income > $band3_top) {
+                                        $band4 = ($income - $band3_top) * $band4_rate;
+                                        $income = $band3_top;
+                                    }
 
-                                $band1 = $income * $band1_rate;
+                                    if ($income > $band2_top) {
+                                        $band3 = ($income - $band2_top) * $band3_rate;
+                                        $income = $band2_top;
+                                    }
 
-                                $total_tax_paid = $TaxObject->TaxCal($emp_pay, $compId);
+                                    if ($income > $band1_top) {
+                                        $band2 = ($income - $band1_top) * $band2_rate;
+                                        $income = $band1_top;
+                                    }
 
-                                $taxable = $earningsTotal - $income;
+                                    $band1 = $income * $band1_rate;
 
-                                $totdeduct = $total_tax_paid + $row['advances'] + $row['insurance'] + $napsa;
-                                $netpay = $emp_pay - $totdeduct;
+                                    $total_tax_paid = $TaxObject->TaxCal($emp_pay, $compId);
 
-                                $loanAmnt = $LoanObject->getLoanMonthDedeductAmounts($empno, $dateIssued) === "" ? "0" : $LoanObject->getLoanMonthDedeductAmounts($empno, $dateIssued);
+                                    $taxable = $earningsTotal - $income;
 
-                                ?>
-                                <script>
-                                    console.log(<?php json_encode($emp_pay); ?>);
-                                </script>
-                                <tr>
-                                    <td class="box"></td>
-                                    <td align="right">
-                                    </td>
+                                    $totdeduct = $total_tax_paid + $row['advances'] + $row['insurance'] + $napsa;
+                                    $netpay = $emp_pay - $totdeduct;
+
+                                    $loanAmnt = $LoanObject->getLoanMonthDedeductAmounts($empno, $dateIssued) === "" ? "0" : $LoanObject->getLoanMonthDedeductAmounts($empno, $dateIssued);
+
+                                    ?>
+                                    <script>
+                                        console.log(<?php json_encode($emp_pay); ?>);
+                                    </script>
+                                    <tr>
+                                        <td class="box"></td>
+                                        <td align="right">
+                                        </td>
+                                    </tr>
+                                </tbody>
                             </table>
                             </td>
                             <td width="">
@@ -647,10 +649,11 @@ error_reporting(0);
                             </td>
                             </tr>
                             </tr>
-                            <tr>
-                                <td class="align2"><b>Gross Pay <div class="align3"><?php
-                                                                                    $totalPay = $earningsTotal + $overtime;
-                                                                                    echo number_format($totalPay, 2); ?></div></b>
+                            <tr style="display: flex;
+    justify-content: space-between;">
+                                <td class="align2"><b style="margin-right: 10px;">Gross Pay <div class="align3"><?php
+                                                                                                                $totalPay = $earningsTotal + $overtime;
+                                                                                                                echo number_format($totalPay, 2); ?></div></b>
 
                                 </td>
                                 <td><b>Total Deductions <div class="align3"> <?php
@@ -663,10 +666,10 @@ error_reporting(0);
                         </br>
                         <table border="1" width="422" align="right" class="net" cellspacing="0">
                             <tr>
-                                <td align="left"><b> Net Pay <div class="align3"><?php
-                                                                                    $net = ($totalPay - $totalDeductions);
-                                                                                    echo number_format($net, 2);
-                                                                                    ?></div></b></td>
+                                <td align="left"><b style="margin-right: 10px;"> Net Pay <div class="align3"><?php
+                                                                                                                $net = ($totalPay - $totalDeductions);
+                                                                                                                echo number_format($net, 2);
+                                                                                                                ?></div></b></td>
                             </tr>
                         </table>
 

@@ -2,10 +2,10 @@
 
 include_once './Classes/Tax.php';
 include_once './Classes/Loans.php';
+// include_once './Classes/Payslips.php';
 
 class Loans
 {
-
     public function getAllEmpLoans($companyId)
     {
         $result = mysql_query("SELECT * FROM loan WHERE company_ID = '$companyId' ");
@@ -471,6 +471,8 @@ class Loans
     public function getEmployeeAnnualtax($companyId, $fromDate, $toDate, $empno, $compId)
     {
 
+        // $PayslipsObject = new Payslips();
+
         $arr = explode("/", $fromDate);
         list($Getmonth, $Getday, $GetYear) = $arr;
 
@@ -513,8 +515,9 @@ class Loans
 
         $sum = 0;
         while ($row = mysql_fetch_array($result2)) {
+            // $earnings = $PayslipsObject->getEmployeeEarnings($row['earnings_id']);
 
-            $gross = ($row['pay']) + ($row['otrate'] * $row['othrs']) + $row['allow'] + $row['comission'];
+            $gross = $row['basic_pay'] + ($row['otrate'] * $row['othrs']) + $row['allow'] + $row['comission'];
             $empoyeeNo = $row['empno'];
             $napsa = $gross * 0.05;
             if ($this->getEmployeeAge($empno) < 55) {

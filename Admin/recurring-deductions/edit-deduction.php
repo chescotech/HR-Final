@@ -69,6 +69,7 @@
             $RecurringDeductionsObject->updateRecurringDeduction($empno, $deduction_amount, $monthly_deduction, $duration, $LoanDate, $deadLine, $companyId, $status, $deduction_type);
 
             $message = "Recurring Deduction Successfully Created!!";
+            $message = "Recurring Deduction Successfully Created!!";
         }
         ?>
 

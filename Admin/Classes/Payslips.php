@@ -319,6 +319,24 @@ class Payslips
         return $sum;
     }
 
+    public function getEmployeeEarningsId($emp_no_arg)
+    {
+        $query = mysql_query("SELECT id FROM employee_earnings WHERE employee_no='$emp_no_arg'");
+
+        $value = mysql_fetch_assoc($query);
+
+        return $value;
+    }
+
+    public function getEmployeeBasicPay($emp_earn_id_arg)
+    {
+        $query = mysql_query("SELECT basic_pay FROM employee_earnings WHERE id = '$emp_earn_id_arg'") or die(mysql_error());
+
+        $data = mysql_fetch_assoc($query);
+
+        return $data;
+    }
+
     public function getEmployeeDeductions($salary_arg, $emp_num_arg, $emp_ded_id_arg)
     {
         $query = mysql_query("SELECT * FROM employee_deductions WHERE id = '$emp_ded_id_arg'") or die(mysql_error());

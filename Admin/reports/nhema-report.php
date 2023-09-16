@@ -35,6 +35,8 @@ error_reporting(0);
         <?php
         include_once '../Classes/Employee.php';
         include_once '../Classes/Loans.php';
+        include_once '../Classes/Payslips.php';
+        $PayslipsObject = new Payslips();
         $EmployeeObject = new Employee();
         $loanObj = new Loans();
 
@@ -159,16 +161,15 @@ error_reporting(0);
                                                 $month2 = $Getmonth2;
                                                 $day2 = $Getday2;
 
-                                                $query = "SELECT emp_info.nhima,employee.empno,emp_info.nrc,emp_info.bdate,health_insurance,emp_info.fname,emp_info.lname,employee.time,emp_info.basic_pay FROM `employee` INNER JOIN emp_info on emp_info.empno=employee.empno
+                                                $query = "SELECT emp_info.nhima,employee.empno,emp_info.nrc,emp_info.bdate,health_insurance,emp_info.fname,emp_info.lname,employee.time,emp_info.basic_pay, employee.earnings_id, employee.deductions_id FROM `employee` INNER JOIN emp_info on emp_info.empno=employee.empno
                                                     WHERE employee.time BETWEEN '$year-$month-$day'  AND  '$year2-$month2-$day2' ";
 
                                                 $result2 = mysql_query($query, $link) or die(mysql_error());
 
                                                 $sum = 0;
                                                 while ($row = mysql_fetch_array($result2)) {
-
                                                     $empno = $row['empno'];
-                                                    $basic_pay = $row['basic_pay'];
+                                                    $basic_pay = $PayslipsObject->getEmployeeEarnings($row['earnings_id']);
 
                                                     //$AnnualTax = $loanObj->getEmployeeAnnualtax($compId, $reportDate, $toDate, $empno,$compId);
 
