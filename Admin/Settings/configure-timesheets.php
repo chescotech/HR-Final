@@ -114,7 +114,7 @@ error_reporting(0);
 
         $TimesheetObject->setEmployeeTimesheets($emp_id, $new_status);
 
-        header("Location: configure-timesheets");
+        echo '<script>window.location.href = "configure-timesheets.php"</script>';
         exit();
     }
     ?>

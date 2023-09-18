@@ -56,7 +56,7 @@
                     $sanitized_name = str_replace(" ", "_", strtolower($name));
                     $update_table = mysql_query("ALTER TABLE `employee_earnings` ADD `$sanitized_name` int(10) NULL;");
                     echo "<script> alert('Added Successfuly') </script>";
-                    echo "<script> window.location='earnings' </script>";
+                    echo "<script> window.location.href='earnings' </script>";
                 }
             }
             if (isset($_POST['update'])) {
@@ -70,7 +70,7 @@
 
                 if ($add_q) {
                     echo "<script> alert('Updated Successfuly') </script>";
-                    echo "<script> window.location='earnings' </script>";
+                    echo "<script> window.location.href='earnings' </script>";
                 }
             }
             if (isset($_POST['delete'])) {
@@ -83,7 +83,7 @@
                     $sanitized_name = str_replace(" ", "_", strtolower($name));
                     $update_table = mysql_query("ALTER TABLE `employee_earnings` DROP `$sanitized_name`;");
                     echo "<script> alert('Deleted Successfuly') </script>";
-                    echo "<script> window.location='earnings' </script>";
+                    echo "<script> window.location.href='earnings' </script>";
                 }
             }
             ?>

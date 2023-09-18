@@ -95,7 +95,7 @@
                                             </div>
                                         </div>
                                         <div class="col-2">
-                                            <table>
+                                            <table class="table">
                                                 <tbody>
                                                     <tr>
                                                         <td>
@@ -424,6 +424,19 @@
 
 
             </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class=" text-right">
+                <label>Employees Timesheets </label>
+            </div>
+        </div>
+        <div> </div>
+        <div class="col-lg-5">
+            <div class="">
+                <a href="../Settings/timesheets.php?empid=<?php echo $empno; ?>">Click here to view timesheets.</a>
+            </div>
+            <br>
         </div>
         <div class="col-lg-12 col-md-12">
             <?php include '../footer/footer.php'; ?>

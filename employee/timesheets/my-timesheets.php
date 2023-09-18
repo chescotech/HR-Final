@@ -172,7 +172,7 @@
 
         $deleted = $Timesheets->deleteTimesheet($timesheet_id);
 
-        header("Location:my-timesheets");
+        echo '<script>window.location.href = "my-timesheets"</script>';
         exit();
     }
     ?>

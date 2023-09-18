@@ -27,13 +27,12 @@
 
 include '../navigation_panel/authenticated_user_header.php';
 $empno = $_SESSION['employee_id'];
-$companyId = $_SESSION['company_id'];
+$companyId = $_SESSION['company_ID'];
 ?>
 <?php
 include_once '../Classes/Timesheets.php';
 
 $TimesheetObject = new Timesheets();
-
 ?>
 
 <?php
@@ -70,8 +69,6 @@ if (isset($_POST['save'])) {
 
 <body class="hold-transition skin-green-light sidebar-mini">
     <div class="wrapper">
-
-
 
         <?php include '../navigation_panel/side_navigation_bar.php'; ?>
 

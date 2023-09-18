@@ -60,7 +60,7 @@ error_reporting(0);
 
             if ($add_q) {
                 echo "<script> alert('Updated Successfuly') </script>";
-                echo "<script> window.location='rd-types' </script>";
+                echo "<script> window.location.href='rd-types' </script>";
             }
         }
         ?>

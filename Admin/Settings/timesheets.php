@@ -32,7 +32,9 @@ error_reporting(0);
         <?php
         include_once '../Classes/Department.php';
         include_once '../Classes/Timesheet.php';
+        include_once '../Classes/Payslips.php';
 
+        $PaySlipsObject = new Payslips();
         $DepartmentObject = new Department();
         $TimesheetObject = new Timesheet();
 
@@ -56,10 +58,10 @@ error_reporting(0);
             <section class="content-header">
                 <h1>
                     <?php
-                    if (isset($_POST['empno'])) {
-                        $empno = $_POST['empno'];
-                        // $empDetails = $PaySlipsObject->PayslipEditDetails($empno);
-                        echo 'Timesheet results for ' . $empno;
+                    if (isset($_GET['empid'])) {
+                        $empno = $_GET['empid'];
+                        $empDetails = $PaySlipsObject->PayslipEditDetails($empno);
+                        echo 'Timesheet results for ' . $empDetails;
                     } else {
                         echo ' Search for a Timesheet';
                     }
@@ -70,38 +72,7 @@ error_reporting(0);
             <section class="content">
                 <div class="row">
                     <div class="col-md-4">
-                        <form action="timesheets.php" method="post">
-                            <table cellpadding="" border="0" class="se">
-                                <tr>
-                                    <td>
-                                        <select name="empno" class="form-control">
-                                            <option value="all"> All Employees </option>
-                                            <?php
-                                            $departmentquery = $DepartmentObject->getAllEmployeesByCompany($compId);
-                                            while ($row = mysql_fetch_array($departmentquery)) {
 
-                                                $fname = $row['fname'];
-                                                $lname = $row['lname'];
-                                                $position = $row['position'];
-                                            ?>
-                                                <option value="<?php echo $row['empno']; ?>"> <?php echo $fname . " " . $lname . " - " . $position ?></option>
-                                            <?php
-                                            }
-                                            ?>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <button type="submit" name="" id="save" type="button" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Search
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-default"><span class="glyphicon glyphicon-trash"></span> Bulk Delete
-                                        </button>
-                                    </td>
-                                </tr>
-                            </table>
-
-                        </form>
 
                         <!-- Modal -->
                         <div class="modal fade" id="myModal" role="dialog">
@@ -156,20 +127,16 @@ error_reporting(0);
                                                     <th>Period</th>
                                                     <th>Status</th>
                                                     <th>Detailed View</th>
-                                                    <th>Decision</th>
+                                                    <!-- <th>Decision</th> -->
                                                 </tr>
                                             </thead>
                                             <tbody>
 
                                                 <?php
                                                 $timesheets_results;
-                                                if (isset($_POST['empno'])) {
-                                                    $empnum = $_POST['empno'];
-                                                    if ($empnum == 'all') {
-                                                        $timesheets_results = $TimesheetObject->getAllTimesheetsByCompany($compId);
-                                                    } else {
-                                                        $timesheets_results = $TimesheetObject->getEmployeeTimesheets($empnum);
-                                                    }
+                                                if (isset($_GET['empid'])) {
+                                                    $empnum = $_GET['empid'];
+                                                    $timesheets_results = $TimesheetObject->getEmployeeTimesheets($empnum);
                                                 }
 
                                                 while ($row = mysql_fetch_assoc($timesheets_results)) {
@@ -196,14 +163,14 @@ error_reporting(0);
                                                         <td><?= $row['start_date'] ?> to <?= $row['end_date'] ?></td>
 
                                                         <td><a target="_blank" href="../Timesheets/view-timesheet.php?id=<?= $id_ ?>&empno=<?= $employee_no ?>">View</a></td>
-                                                        <td>
+                                                        <!-- <td>
                                                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#approve<?= $row['id']; ?>">Approve</button>
 
-                                                            <!-- Button trigger modal -->
+                                                            Button trigger modal
                                                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deny<?= $row['id']; ?>">
                                                                 Deny
                                                             </button>
-                                                        </td>
+                                                        </td> -->
                                                         <!-- Approve Modal -->
                                                         <div class="modal fade" id="approve<?= $row['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                                                             <form action="timesheets" method="post">

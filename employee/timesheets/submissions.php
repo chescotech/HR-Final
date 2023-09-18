@@ -1,9 +1,6 @@
 <?php
 error_reporting(0);
 ?>
-
-
-
 <!DOCTYPE html>
 <html>
 
@@ -187,7 +184,7 @@ error_reporting(0);
                                                         <td><?= $status ?></td>
                                                         <td><?= $row['start_date'] ?> to <?= $row['end_date'] ?></td>
 
-                                                        <td><a target="_blank" href="../Timesheets/view-timesheet.php?id=<?= $id_ ?>&empno=<?= $employee_no ?>">View</a></td>
+                                                        <td><a target="_blank" href="view-timesheet.php?id=<?= $id_ ?>&empno=<?= $employee_no ?>">View</a></td>
                                                         <td>
                                                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#approve<?= $row['id']; ?>">Approve</button>
 
@@ -198,7 +195,7 @@ error_reporting(0);
                                                         </td>
                                                         <!-- Approve Modal -->
                                                         <div class="modal fade" id="approve<?= $row['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-                                                            <form action="timesheets" method="post">
+                                                            <form action="" method="post">
                                                                 <div class="modal-dialog" role="document">
                                                                     <div class="modal-content">
                                                                         <div class="modal-header">
@@ -221,7 +218,7 @@ error_reporting(0);
                                                         </div>
                                                         <!-- Reject Modal -->
                                                         <div class="modal fade" id="deny<?= $row['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-                                                            <form action="timesheets" method="post">
+                                                            <form action="" method="post">
                                                                 <div class="modal-dialog" role="document">
                                                                     <div class="modal-content">
                                                                         <div class="modal-header">
@@ -268,10 +265,10 @@ error_reporting(0);
         $approve = "Approved";
         $timesheet_id = $_POST['ts_id'];
 
-        // $updated = $TimesheetObject->updateTimesheetStatus($approve, $timesheet_id);
+        $updated = $TimesheetObject->updateTimesheetStatus($approve, $timesheet_id);
 
         if ($updated) {
-            '<script>window.location("timesheets.php")</script>';
+            '<script>window.location("submissions.php")</script>';
         }
     }
     // reject timesheet
@@ -279,10 +276,10 @@ error_reporting(0);
         $reject = "Rejected";
         $timesheet_id = $_POST['ts_id'];
 
-        // $updated = $TimesheetObject->updateTimesheetStatus($reject, $timesheet_id);
+        $updated = $TimesheetObject->updateTimesheetStatus($reject, $timesheet_id);
 
         if ($updated) {
-            '<script>window.location("timesheets.php")</script>';
+            '<script>window.location("submissions.php")</script>';
         }
     }
     ?>

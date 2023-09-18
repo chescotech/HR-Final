@@ -65,6 +65,22 @@ class Timesheets
         return $query;
     }
 
+    public function getTimesheetDetails($timesheet_id_arg)
+    {
+        $query = "SELECT * FROM timesheet ts
+        INNER JOIN timesheet_day td on td.timesheet_id=ts.id
+        INNER JOIN timesheet_entry te on td.id=te.day_id
+        WHERE ts.id='$timesheet_id_arg'";
+
+        $result = mysql_query($query);
+
+        if (!$result) {
+            die("Query failed: " . mysql_error());
+        }
+
+        return $result;
+    }
+
     function getTimesheetById($timesheet_id_arg)
     {
         $query = mysql_query("SELECT * FROM timesheet WHERE id='$timesheet_id_arg'");
@@ -74,7 +90,9 @@ class Timesheets
 
     function getTimeSheetsByDepartment($dept_id_arg)
     {
-        $result = mysql_query("SELECT * FROM emp_info em WHERE dept=''$dept_id_arg");
+        $result = mysql_query("SELECT * FROM emp_info em 
+        INNER JOIN timesheet on timesheet.employee_no=em.empno
+        WHERE em.dept='$dept_id_arg'");
 
         return $result;
     }
@@ -117,5 +135,15 @@ class Timesheets
         } else {
             return false;
         }
+    }
+
+
+    public function updateTimesheetStatus($status_arg, $timesheet_id_arg)
+    {
+        $query = "UPDATE timesheet SET status='$status_arg' WHERE id='$timesheet_id_arg'";
+
+        $result = mysql_query($query) or die(mysql_error());
+
+        return $result;
     }
 }
