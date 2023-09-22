@@ -54,7 +54,7 @@
                 if ($add_q) {
                     // add column to employee_earnings table
                     $sanitized_name = str_replace(" ", "_", strtolower($name));
-                    $update_table = mysql_query("ALTER TABLE `employee_earnings` ADD `$sanitized_name` int(10) NULL;");
+                    $update_table = mysql_query("ALTER TABLE `employee_earnings` ADD `$sanitized_name` double(10, 2) NULL");
                     echo "<script> alert('Added Successfuly') </script>";
                     echo "<script> window.location.href='earnings' </script>";
                 }

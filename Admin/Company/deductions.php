@@ -95,7 +95,7 @@
                     // add to employee_deductions table
                     // add column to employee_earnings table
                     $sanitized_name = str_replace(" ", "_", strtolower($name));
-                    $update_table = mysql_query("ALTER TABLE `employee_deductions` ADD `$sanitized_name` int(20) NULL;");
+                    $update_table = mysql_query("ALTER TABLE `employee_deductions` ADD `$sanitized_name` double(10,2) NULL;");
 
                     // if 
                 }

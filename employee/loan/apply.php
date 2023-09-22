@@ -86,7 +86,7 @@
         <?php
         if (isset($_POST['save'])) {
             // *Check if there's a pending loan first
-            $res = mysql_query("SELECT * FROM loan_applications WHERE empno='$empno' AND status = 'Pending Approval' ");
+            $res = mysql_query("SELECT * FROM loan_applications WHERE empno='$empno' AND status = 'Pending Approval' ") or die(mysql_error());
             if (mysql_num_rows($res) > 0) {
                 echo "<script> alert('Error! You already have a pending loan.') </script>";
                 echo "<script> window.location='apply' </script>";
@@ -102,7 +102,7 @@
             $monthly_deduction = $_POST['monthly_deduction'];
 
             //              validate Duration
-            $result = mysql_query("SELECT * FROM loan_tb where loan_type='$loanType'");
+            $result = mysql_query("SELECT * FROM loan_tb where loan_type='$loanType'") or die(mysql_error());
             if ($result) {
                 echo "<script> console.log('validating'); </script>";
                 $row = mysql_fetch_assoc($result);

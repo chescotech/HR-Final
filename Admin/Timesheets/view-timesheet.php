@@ -119,16 +119,16 @@
                                                 <input type="hidden" class="form-control" name="date" id="date" placeholder="" value="<?= $_GET['current-date'] ?>" readonly="true">
                                             </div>
                                             <tr>
-                                                <td class="">
+                                                <!-- <td class="">
                                                     <div>
                                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#approve<?= $row['id']; ?>">Approve</button>
 
-                                                        <!-- Button trigger modal -->
+                                                        Button trigger modal
                                                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deny<?= $row['id']; ?>">
                                                             Deny
                                                         </button>
                                                     </div>
-                                                    <!-- Approve Modal -->
+                                                    Approve Modal
                                                     <div class="modal fade" id="approve<?= $row['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                                                         <form action="view-timesheet.php" method="post">
                                                             <div class="modal-dialog" role="document">
@@ -151,7 +151,7 @@
                                                             </div>
                                                         </form>
                                                     </div>
-                                                    <!-- Reject Modal -->
+                                                    Reject Modal
                                                     <div class="modal fade" id="deny<?= $row['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                                                         <form action="view-timesheet.php" method="post">
                                                             <div class="modal-dialog" role="document">
@@ -175,7 +175,7 @@
                                                         </form>
                                                     </div>
 
-                                                </td>
+                                                </td> -->
                                             </tr>
                                         </form>
                                     </tbody>

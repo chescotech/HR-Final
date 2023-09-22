@@ -81,7 +81,7 @@
                                                     </tr>';
                                             }
                                             while ($row = mysql_fetch_array($MyTimesheets)) {
-                                                $id_ = $row['application_id'];
+                                                $id_ = $row['id'];
                                                 $Status = $row['status'];
                                                 if ($Status == "Approved") {
                                                     $status = '<span class="label label-success arrowed-in arrowed-in-right">' . $Status . '    </span>';

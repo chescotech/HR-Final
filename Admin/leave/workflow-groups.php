@@ -74,7 +74,7 @@
                                                         <tr>  
                                                             <td>' . $row['name'] . '</td>                                                                                                                                                                              
                                                             <td><a href=' . "edit_workflow.php?id=" . $id_ . '>Edit</a></td>
-                                                            <td><a href=' . "assign-to-workflow.php?id=" . $id_ . '&name=' . $name . '>Assign Members</a></td>
+                                                            <td><a href=' . "assign-to-workflow.php?id=" . $id_ . '&name=' . urlencode($name) . '>Assign Members</a></td>
                                                         </tr>  
 
                                                         ';

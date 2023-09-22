@@ -195,44 +195,13 @@ CREATE TABLE `appover_groups` (
   `id` int(12) NOT NULL AUTO_INCREMENT,
   `work_flow_id` int(12) NOT NULL,
   `level` int(12) NOT NULL,
-  `date_created` date NOT NULL,
+  `date_created` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE current_timestamp(),
   `empno` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 INSERT INTO `appover_groups` (`id`, `work_flow_id`, `level`, `date_created`, `empno`) VALUES
-(20,	1,	3,	'0000-00-00',	'LMP03'),
-(21,	2,	1,	'0000-00-00',	'LMP05'),
-(23,	4,	1,	'0000-00-00',	'FAB072'),
-(24,	3,	2,	'0000-00-00',	'LMP05'),
-(26,	1,	1,	'0000-00-00',	'ps'),
-(27,	1,	2,	'0000-00-00',	'LMP05'),
-(30,	11,	1,	'0000-00-00',	'FAB413'),
-(31,	8,	1,	'0000-00-00',	'FAB150'),
-(33,	14,	1,	'0000-00-00',	'FAB078'),
-(35,	13,	1,	'0000-00-00',	'FAB067'),
-(36,	16,	1,	'0000-00-00',	'FAB158'),
-(37,	15,	1,	'0000-00-00',	'FAB092'),
-(39,	5,	1,	'0000-00-00',	'FAB422'),
-(40,	7,	1,	'0000-00-00',	'FAB320'),
-(41,	7,	2,	'0000-00-00',	'FAB422'),
-(45,	10,	1,	'0000-00-00',	'FAB344'),
-(46,	10,	2,	'0000-00-00',	'FAB422'),
-(47,	6,	2,	'0000-00-00',	'FAB422'),
-(48,	8,	2,	'0000-00-00',	'FAB422'),
-(49,	13,	2,	'0000-00-00',	'FAB422'),
-(50,	14,	2,	'0000-00-00',	'FAB422'),
-(51,	16,	2,	'0000-00-00',	'FAB422'),
-(52,	15,	2,	'0000-00-00',	'FAB422'),
-(53,	12,	2,	'0000-00-00',	'FAB422'),
-(55,	4,	2,	'0000-00-00',	'FAB422'),
-(65,	4,	1,	'0000-00-00',	'FAB406'),
-(66,	12,	1,	'2022-06-10',	'FAB345'),
-(67,	9,	1,	'0000-00-00',	'FAB061'),
-(68,	9,	2,	'0000-00-00',	'FAB422'),
-(69,	11,	2,	'0000-00-00',	'FAB422'),
-(70,	4,	1,	'0000-00-00',	'FAB290'),
-(71,	4,	2,	'0000-00-00',	'FAB373');
+(72,	4,	1,	'2023-09-19 10:34:12',	'LMP04');
 
 DROP TABLE IF EXISTS `app_rating`;
 CREATE TABLE `app_rating` (
@@ -23173,7 +23142,8 @@ CREATE TABLE `deductions` (
 
 INSERT INTO `deductions` (`ded_id`, `name`, `company_ID`, `type`, `emp_fixed`, `comp_fixed`, `status`, `percent`, `percent_of`, `emp_calc_num`, `emp_calc_deno`, `comp_calc_num`, `comp_calc_deno`, `comp_lower_bound`, `comp_lower_bound_amnt`, `emp_lower_bound`, `emp_lower_bound_amnt`, `comp_upper_bound`, `comp_upper_bound_amnt`, `emp_upper_bound`, `emp_upper_bound_amnt`) VALUES
 (12,	'FIXED_1k_1k',	4,	'fixed',	'1000',	'1000',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	0,	0,	0,	0,	0,	0),
-(14,	'Monthly_Deduction',	4,	'calculated',	NULL,	NULL,	NULL,	NULL,	NULL,	10,	100,	5,	100,	500,	500,	500,	500,	1500,	1500,	1500,	1500);
+(14,	'Monthly_Deduction',	4,	'calculated',	NULL,	NULL,	NULL,	NULL,	NULL,	10,	100,	5,	100,	500,	500,	500,	500,	1500,	1500,	1500,	1500),
+(15,	'Office Party',	4,	'fixed',	'200',	'200',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	0,	0,	0,	0,	0,	0);
 
 DROP TABLE IF EXISTS `department`;
 CREATE TABLE `department` (
@@ -23247,9 +23217,7 @@ CREATE TABLE `employee` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 INSERT INTO `employee` (`id`, `empno`, `pay`, `dayswork`, `otrate`, `othrs`, `allow`, `advances`, `insurance`, `time`, `comission`, `company_id`, `health_insurance`, `pension`, `employer_share`, `employee_share`, `group_id`, `earnings_id`, `deductions_id`) VALUES
-(12,	'LMP02',	0.00,	26,	200.00,	3,	0.00,	0.00,	0.00,	'2023-10-31',	0,	'4',	'0',	'0',	'0',	'0',	0,	1,	1),
-(10,	'LMP02',	0.00,	26,	200.00,	12,	0.00,	0.00,	0.00,	'2023-09-30',	0,	'4',	'0',	'0',	'0',	'0',	0,	1,	1),
-(11,	'LMP04',	0.00,	26,	200.00,	10,	200.00,	300.00,	400.00,	'2023-09-30',	200,	'4',	'0',	'0',	'0',	'0',	0,	3,	3);
+(13,	'LMP02',	0.00,	26,	0.00,	0,	0.00,	0.00,	0.00,	'2023-09-30',	0,	'4',	'0',	'0',	'0',	'0',	0,	1,	1);
 
 DROP TABLE IF EXISTS `employee_deductions`;
 CREATE TABLE `employee_deductions` (
@@ -23259,13 +23227,14 @@ CREATE TABLE `employee_deductions` (
   `company_id` int(10) NOT NULL,
   `fixed_1k_1k` varchar(20) DEFAULT NULL,
   `monthly_deduction` int(20) DEFAULT NULL,
+  `office_party` int(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `employee_deductions` (`id`, `employee_id`, `employee_no`, `company_id`, `fixed_1k_1k`, `monthly_deduction`) VALUES
-(1,	2,	'LMP02',	4,	'1',	1),
-(2,	3,	'LMP03',	4,	NULL,	1),
-(3,	4,	'LMP04',	4,	NULL,	1);
+INSERT INTO `employee_deductions` (`id`, `employee_id`, `employee_no`, `company_id`, `fixed_1k_1k`, `monthly_deduction`, `office_party`) VALUES
+(1,	2,	'LMP02',	4,	'1',	NULL,	NULL),
+(2,	3,	'LMP03',	4,	'1',	1,	1),
+(3,	4,	'LMP04',	4,	NULL,	1,	NULL);
 
 DROP TABLE IF EXISTS `employee_discplinary_records`;
 CREATE TABLE `employee_discplinary_records` (
@@ -23298,7 +23267,7 @@ CREATE TABLE `employee_earnings` (
 INSERT INTO `employee_earnings` (`id`, `employee_id`, `employee_no`, `company_id`, `basic_pay`, `housing_allowance`, `transport_allowance`, `lunch_allowance`) VALUES
 (1,	2,	'LMP02',	4,	3000,	4000,	NULL,	NULL),
 (2,	3,	'LMP03',	4,	4000,	1000,	1000,	NULL),
-(3,	4,	'LMP04',	4,	5000,	2500,	NULL,	NULL);
+(3,	4,	'LMP04',	4,	6000,	2500,	NULL,	NULL);
 
 DROP TABLE IF EXISTS `employee_exits_tb`;
 CREATE TABLE `employee_exits_tb` (
@@ -23489,13 +23458,14 @@ CREATE TABLE `emp_info` (
   `Dept_Name` varchar(200) DEFAULT NULL,
   `nhima` text NOT NULL,
   `tpin` text NOT NULL,
+  `has_timesheets` varchar(5) NOT NULL DEFAULT 'false',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
-INSERT INTO `emp_info` (`id`, `empno`, `photo`, `lname`, `fname`, `init`, `gender`, `bdate`, `dept`, `position`, `phone`, `address`, `email`, `personal_email`, `bank`, `account`, `date_joined`, `date_left`, `employee_grade`, `marital_status`, `payment_method`, `leave_days`, `company_id`, `password`, `basic_pay`, `gross_pay`, `nok_phone`, `nok_name`, `nok_relationship`, `nok_email`, `nok_address`, `NRC`, `employment_type`, `probation_deadline`, `status`, `employee_type`, `social`, `branch_code`, `has_gratuity`, `gatuity_amount`, `leaveworkflow_id`, `nrc_file`, `next_kin_phone`, `Dept_Name`, `nhima`, `tpin`) VALUES
-(2,	'LMP02',	'zuckerberg.jpg',	'Zuckerberg',	'Mark',	' Mr',	'male',	'1999-01-01',	'35',	'CEO',	'+183889293',	'On a Yatch',	'mark@fb.com',	'',	'Bank of America',	'10293919010',	'2023-08-01',	'2023-08-01',	'',	'Single',	'Cash',	0,	'4',	'ba21817627bf2368e0bd2db2c4742847',	'',	'7000',	'+17289029393',	'Linda Zuckerberg',	'Wife',	'linda@fb.com',	'The same',	'JN8788361',	'Permanent',	'',	'',	'Full Time',	'99729012',	'GH62782',	'--Is Employee Eligible for Gratuity ?--',	'',	0,	'zuckerberg.jpg',	'',	NULL,	'',	'403'),
-(4,	'LMP04',	'janedoe.jpg',	'Doe',	'Jane',	' Ms',	'male',	'1995-05-05',	'40',	'CTO',	'+26078812919',	'5230 Penfield Avenue',	'hane@example.com',	'',	'SVB',	'37173712324',	'2023-09-01',	'1970-01-01',	'USG 2',	'Married',	'Bank',	0,	'4',	'ba21817627bf2368e0bd2db2c4742847',	'',	'7500',	'+260789129931',	'John Doe',	'Husband',	'john@example.com',	'The same',	'HF738293',	'Permanent',	'',	'',	'Full Time',	'90319201',	'OP08288',	'--Is Employee Eligible for Gratuity ?--',	'',	0,	'janedoe.jpg',	'',	NULL,	'',	'201'),
-(3,	'LMP03',	'hendricks.png',	'Hendricks',	'Richard',	' Mr',	'male',	'1978-03-13',	'38',	'CEO',	'+19299884',	'5230 Penfield Avenue',	'rich@piedpiper.com',	'',	'SVB',	'37173710288',	'2014-01-01',	'2014-01-01',	'',	'Single',	'Bank',	0,	'4',	'ba21817627bf2368e0bd2db2c4742847',	'',	'6000',	'+1883900223',	'Erlich Bachman',	'Landlord',	'erlich@aviato.com',	'The same',	'JU78891',	'Permanent',	'',	'',	'Full Time',	'7912881',	'OP08288',	'--Is Employee Eligible for Gratuity ?--',	'',	0,	'hendricks.png',	'',	NULL,	'',	'782');
+INSERT INTO `emp_info` (`id`, `empno`, `photo`, `lname`, `fname`, `init`, `gender`, `bdate`, `dept`, `position`, `phone`, `address`, `email`, `personal_email`, `bank`, `account`, `date_joined`, `date_left`, `employee_grade`, `marital_status`, `payment_method`, `leave_days`, `company_id`, `password`, `basic_pay`, `gross_pay`, `nok_phone`, `nok_name`, `nok_relationship`, `nok_email`, `nok_address`, `NRC`, `employment_type`, `probation_deadline`, `status`, `employee_type`, `social`, `branch_code`, `has_gratuity`, `gatuity_amount`, `leaveworkflow_id`, `nrc_file`, `next_kin_phone`, `Dept_Name`, `nhima`, `tpin`, `has_timesheets`) VALUES
+(2,	'LMP02',	'zuckerberg.jpg',	'Zuckerberg',	'Mark',	' Mr',	'male',	'1999-01-01',	'40',	'CEO',	'+183889293',	'On a Yatch',	'mark@fb.com',	'',	'Bank of America',	'10293919010',	'2023-08-01',	'2023-08-01',	'',	'Single',	'Cash',	0,	'4',	'ba21817627bf2368e0bd2db2c4742847',	'',	'7000',	'+17289029393',	'Linda Zuckerberg',	'Wife',	'linda@fb.com',	'The same',	'JN8788361',	'Permanent',	'',	'',	'Full Time',	'99729012',	'GH62782',	'--Is Employee Eligible for Gratuity ?--',	'',	4,	'zuckerberg.jpg',	'',	NULL,	'',	'403',	'true'),
+(4,	'LMP04',	'janedoe.jpg',	'Doe',	'Jane',	' Ms',	'male',	'1995-05-05',	'40',	'CTO',	'+26078812919',	'5230 Penfield Avenue',	'hane@example.com',	'',	'SVB',	'37173712324',	'2023-09-01',	'2023-09-01',	'',	'Married',	'Bank',	0,	'4',	'ba21817627bf2368e0bd2db2c4742847',	'',	'8500',	'+260789129931',	'John Doe',	'Husband',	'john@example.com',	'The same',	'HF738293',	'Permanent',	'',	'',	'Full Time',	'90319201',	'OP08288',	'--Is Employee Eligible for Gratuity ?--',	'',	4,	'janedoe.jpg',	'',	NULL,	'',	'201',	'true'),
+(3,	'LMP03',	'hendricks.png',	'Hendricks',	'Richard',	' Mr',	'male',	'1978-03-13',	'38',	'CEO',	'+19299884',	'5230 Penfield Avenue',	'rich@piedpiper.com',	'',	'SVB',	'37173710288',	'2014-01-01',	'2014-01-01',	'',	'Single',	'Bank',	0,	'4',	'ba21817627bf2368e0bd2db2c4742847',	'',	'6000',	'+1883900223',	'Erlich Bachman',	'Landlord',	'erlich@aviato.com',	'The same',	'JU78891',	'Permanent',	'',	'',	'Full Time',	'7912881',	'OP08288',	'--Is Employee Eligible for Gratuity ?--',	'',	0,	'hendricks.png',	'',	NULL,	'',	'782',	'false');
 
 DROP TABLE IF EXISTS `emp_log`;
 CREATE TABLE `emp_log` (
@@ -23533,7 +23503,24 @@ INSERT INTO `emp_log` (`id`, `company_id`, `action`, `action_user`, `date`) VALU
 (23,	4,	'Create Employee',	'10',	'2023-09-04 10:10:05'),
 (24,	4,	'Edit Employee',	'10',	'2023-09-04 10:10:56'),
 (25,	4,	'Edit Employee',	'10',	'2023-09-04 12:17:51'),
-(26,	4,	'Create Employee',	'10',	'2023-09-04 14:51:42');
+(26,	4,	'Create Employee',	'10',	'2023-09-04 14:51:42'),
+(27,	4,	'Edit Employee',	'10',	'2023-09-07 14:03:12'),
+(28,	4,	'Edit Employee',	'10',	'2023-09-07 14:09:17'),
+(29,	4,	'Edit Employee',	'10',	'2023-09-07 14:11:33'),
+(30,	4,	'Edit Employee',	'10',	'2023-09-07 14:17:26'),
+(31,	4,	'Edit Employee',	'10',	'2023-09-07 14:19:42'),
+(32,	4,	'Edit Employee',	'10',	'2023-09-07 14:19:53'),
+(33,	4,	'Edit Employee',	'10',	'2023-09-07 14:23:42'),
+(34,	4,	'Edit Employee',	'10',	'2023-09-07 14:25:26'),
+(35,	4,	'Edit Employee',	'10',	'2023-09-07 14:33:26'),
+(36,	4,	'Edit Employee',	'10',	'2023-09-07 14:47:15'),
+(37,	4,	'Edit Employee',	'10',	'2023-09-11 14:43:49'),
+(38,	4,	'Edit Employee',	'10',	'2023-09-13 12:15:32'),
+(39,	4,	'Edit Employee',	'10',	'2023-09-14 10:12:19'),
+(40,	4,	'Edit Employee',	'10',	'2023-09-16 09:07:31'),
+(41,	4,	'Edit Employee',	'10',	'2023-09-19 06:58:31'),
+(42,	4,	'Edit Employee',	'10',	'2023-09-19 12:47:05'),
+(43,	4,	'Edit Employee',	'10',	'2023-09-19 12:53:09');
 
 DROP TABLE IF EXISTS `emp_recurring_deductions`;
 CREATE TABLE `emp_recurring_deductions` (
@@ -23755,7 +23742,7 @@ INSERT INTO `hod_tb` (`empno`, `departmentId`, `companyID`, `parent_supervisor`,
 ('FAB425',	'55',	4,	'FAB425',	13,	1,	1),
 ('FAB433',	'56',	4,	'FAB061',	14,	10,	13),
 ('FAB061',	'57',	4,	'FAB061',	15,	10,	10),
-('FAB406',	'38',	4,	'FAB425',	16,	1,	1);
+('LMP04',	'38',	4,	'LMP02',	16,	1,	1);
 
 DROP TABLE IF EXISTS `holidays`;
 CREATE TABLE `holidays` (
@@ -27054,7 +27041,8 @@ CREATE TABLE `leave_applications_tb` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 INSERT INTO `leave_applications_tb` (`application_id`, `leave_start_date`, `leave_end_date`, `leave_type`, `reason_leave`, `empno`, `status`, `contact`, `contact_person`, `address_on_leave`, `file_proof`, `parent_supervisor_notified`, `application_date`, `level`, `days`) VALUES
-(1,	'2023-09-05',	'2023-09-13',	'Sick Leave	',	'Leave by Admin on behalf of employee',	'LMP02',	'Approved',	'',	'',	'',	'',	'',	'',	1,	'');
+(1,	'2023-09-05',	'2023-09-13',	'Sick Leave	',	'Leave by Admin on behalf of employee',	'LMP02',	'Approved',	'',	'',	'',	'',	'',	'',	1,	''),
+(2,	'2023-09-25',	'2023-09-27',	'Special Leave',	'yes',	'LMP02',	'Approved',	'+2607732838192',	'Jennifer Lopez',	'la bvls',	'',	'',	'2023-09-19',	1,	'3');
 
 DROP TABLE IF EXISTS `leave_application_levels`;
 CREATE TABLE `leave_application_levels` (
@@ -27213,7 +27201,7 @@ INSERT INTO `leave_days` (`ID`, `available`, `empno`) VALUES
 (138,	9.5,	'LMP0378'),
 (139,	9.5,	'LMP0379'),
 (140,	2,	'LMP0380'),
-(141,	14,	'LMP02'),
+(141,	11,	'LMP02'),
 (142,	2,	'LMP04');
 
 DROP TABLE IF EXISTS `leave_ratings_tb`;
@@ -27283,7 +27271,7 @@ CREATE TABLE `loan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 INSERT INTO `loan` (`LOAN_NO`, `empno`, `loan_amt`, `monthly_deduct`, `duration`, `company_ID`, `principle`, `interest_rate`, `interest`, `loan_date`, `date_completion`, `status`, `loan_type`) VALUES
-(3,	'LMP02',	10000,	'2500',	3,	'4',	7500,	0,	0,	'2023-08-01',	'2023-12-31',	'Pending',	'0');
+(3,	'LMP02',	10000,	'2500',	2,	'4',	7500,	0,	0,	'2023-08-01',	'2023-12-31',	'Pending',	'0');
 
 DROP TABLE IF EXISTS `loan_applications`;
 CREATE TABLE `loan_applications` (
@@ -27302,6 +27290,8 @@ CREATE TABLE `loan_applications` (
   PRIMARY KEY (`LOAN_NO`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+INSERT INTO `loan_applications` (`LOAN_NO`, `loan_amt`, `loan_type`, `empno`, `status`, `loan_date`, `monthly_deduct`, `duration`, `date_completion`, `company_ID`, `level`, `interest`) VALUES
+(1,	'2000',	'Car Loans',	'LMP02',	'Approved',	'2023-09-19',	'1000',	2,	'2023-10-31',	4,	1,	'');
 
 DROP TABLE IF EXISTS `loan_tb`;
 CREATE TABLE `loan_tb` (
@@ -27378,7 +27368,76 @@ INSERT INTO `login_log` (`id`, `empno`, `action`, `time`, `company_id`) VALUES
 (49,	'LMP02',	'LOGIN',	'2023-09-02 08:23:04',	4),
 (50,	'LMP02',	'LOGOUT',	'2023-09-02 08:23:31',	4),
 (51,	'LMP02',	'LOGIN',	'2023-09-02 10:07:20',	4),
-(52,	'LMP02',	'LOGIN',	'2023-09-06 15:19:24',	4);
+(52,	'LMP02',	'LOGIN',	'2023-09-06 15:19:24',	4),
+(53,	'LMP03',	'LOGIN',	'2023-09-11 07:12:20',	4),
+(54,	'LMP03',	'LOGIN',	'2023-09-11 08:08:57',	4),
+(55,	'LMP03',	'LOGIN',	'2023-09-11 13:09:10',	4),
+(56,	'LMP03',	'LOGOUT',	'2023-09-11 14:41:58',	4),
+(57,	'LMP03',	'LOGIN',	'2023-09-11 14:50:41',	4),
+(58,	'LMP03',	'LOGIN',	'2023-09-12 07:37:28',	4),
+(59,	'LMP03',	'LOGIN',	'2023-09-12 09:36:00',	4),
+(60,	'LMP02',	'LOGIN',	'2023-09-12 12:10:29',	4),
+(61,	'LMP02',	'LOGIN',	'2023-09-12 14:01:09',	4),
+(62,	'LMP02',	'LOGIN',	'2023-09-13 07:16:43',	4),
+(63,	'LMP02',	'LOGIN',	'2023-09-13 08:44:15',	4),
+(64,	'LMP02',	'LOGIN',	'2023-09-13 13:10:34',	4),
+(65,	'LMP02',	'LOGIN',	'2023-09-14 07:48:02',	4),
+(66,	'LMP02',	'LOGIN',	'2023-09-14 12:06:27',	4),
+(67,	'LMP02',	'LOGOUT',	'2023-09-14 14:21:11',	4),
+(68,	'LMP02',	'LOGIN',	'2023-09-15 12:06:03',	4),
+(69,	'LMP02',	'LOGOUT',	'2023-09-15 12:29:01',	4),
+(70,	'LMP02',	'LOGIN',	'2023-09-15 12:44:42',	4),
+(71,	'LMP02',	'LOGOUT',	'2023-09-15 12:46:04',	4),
+(72,	'LMP02',	'LOGIN',	'2023-09-15 13:30:25',	4),
+(73,	'LMP02',	'LOGOUT',	'2023-09-15 13:38:00',	4),
+(74,	'LMP04',	'LOGIN',	'2023-09-15 13:42:44',	4),
+(75,	'LMP04',	'LOGOUT',	'2023-09-15 14:53:46',	4),
+(76,	'LMP04',	'LOGIN',	'2023-09-15 14:53:48',	4),
+(77,	'LMP02',	'LOGIN',	'2023-09-16 06:33:21',	4),
+(78,	'LMP02',	'LOGOUT',	'2023-09-16 06:33:24',	4),
+(79,	'LMP04',	'LOGIN',	'2023-09-16 06:33:28',	4),
+(80,	'LMP04',	'LOGOUT',	'2023-09-16 06:35:05',	4),
+(81,	'LMP02',	'LOGIN',	'2023-09-16 06:35:09',	4),
+(82,	'LMP02',	'LOGIN',	'2023-09-16 07:45:45',	4),
+(83,	'LMP02',	'LOGIN',	'2023-09-16 09:03:32',	4),
+(84,	'LMP02',	'LOGOUT',	'2023-09-16 09:06:45',	4),
+(85,	'LMP04',	'LOGIN',	'2023-09-16 09:06:50',	4),
+(86,	'LMP04',	'LOGOUT',	'2023-09-16 09:07:03',	4),
+(87,	'LMP02',	'LOGIN',	'2023-09-16 09:07:06',	4),
+(88,	'LMP02',	'LOGOUT',	'2023-09-16 09:07:10',	4),
+(89,	'LMP04',	'LOGIN',	'2023-09-16 09:07:38',	4),
+(90,	'LMP04',	'LOGOUT',	'2023-09-16 09:11:34',	4),
+(91,	'LMP02',	'LOGIN',	'2023-09-16 09:11:38',	4),
+(92,	'LMP02',	'LOGOUT',	'2023-09-16 09:11:46',	4),
+(93,	'LMP04',	'LOGIN',	'2023-09-16 09:11:48',	4),
+(94,	'LMP04',	'LOGIN',	'2023-09-16 09:14:24',	4),
+(95,	'LMP04',	'LOGOUT',	'2023-09-16 09:15:31',	4),
+(96,	'LMP04',	'LOGIN',	'2023-09-16 09:16:58',	4),
+(97,	'LMP02',	'LOGIN',	'2023-09-16 13:07:59',	4),
+(98,	'LMP02',	'LOGOUT',	'2023-09-16 13:08:02',	4),
+(99,	'LMP04',	'LOGIN',	'2023-09-16 13:08:07',	4),
+(100,	'LMP04',	'LOGOUT',	'2023-09-16 13:36:46',	4),
+(101,	'LMP02',	'LOGIN',	'2023-09-16 13:41:56',	4),
+(102,	'LMP02',	'LOGIN',	'2023-09-19 06:56:59',	4),
+(103,	'LMP02',	'LOGOUT',	'2023-09-19 06:57:08',	4),
+(104,	'LMP04',	'LOGIN',	'2023-09-19 06:57:12',	4),
+(105,	'LMP04',	'LOGOUT',	'2023-09-19 06:57:45',	4),
+(106,	'LMP02',	'LOGIN',	'2023-09-19 07:06:31',	4),
+(107,	'LMP02',	'LOGIN',	'2023-09-19 09:04:35',	4),
+(108,	'LMP02',	'LOGOUT',	'2023-09-19 09:04:56',	4),
+(109,	'LMP04',	'LOGIN',	'2023-09-19 09:05:05',	4),
+(110,	'LMP02',	'LOGIN',	'2023-09-19 09:59:09',	4),
+(111,	'LMP02',	'LOGOUT',	'2023-09-19 09:59:14',	4),
+(112,	'LMP02',	'LOGIN',	'2023-09-19 10:01:20',	4),
+(113,	'LMP02',	'LOGIN',	'2023-09-19 10:27:57',	4),
+(114,	'LMP02',	'LOGIN',	'2023-09-19 12:30:04',	4),
+(115,	'LMP04',	'LOGIN',	'2023-09-19 14:08:05',	4),
+(116,	'LMP04',	'LOGOUT',	'2023-09-19 14:15:22',	4),
+(117,	'LMP02',	'LOGIN',	'2023-09-19 14:15:24',	4),
+(118,	'LMP02',	'LOGOUT',	'2023-09-19 14:44:35',	4),
+(119,	'LMP04',	'LOGIN',	'2023-09-19 14:44:37',	4),
+(120,	'LMP04',	'LOGIN',	'2023-09-20 10:39:20',	4),
+(121,	'LMP04',	'LOGIN',	'2023-09-20 12:22:28',	4);
 
 DROP TABLE IF EXISTS `nhima_tb`;
 CREATE TABLE `nhima_tb` (
@@ -27596,6 +27655,63 @@ CREATE TABLE `tax_bands` (
 INSERT INTO `tax_bands` (`id`, `band_top1`, `band_top2`, `band_top3`, `band_rate1`, `band_rate2`, `band_rate3`, `band_rate4`, `company_ID`, `napsa_ceiling`) VALUES
 (3,	'4500',	'4800',	'6900',	'0',	'25',	'30',	'37.5',	'4',	'1221.80');
 
+DROP TABLE IF EXISTS `timesheet`;
+CREATE TABLE `timesheet` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `employee_no` varchar(15) NOT NULL,
+  `company_id` varchar(10) NOT NULL,
+  `start_date` varchar(15) NOT NULL,
+  `end_date` varchar(15) NOT NULL,
+  `hours` int(11) DEFAULT 0,
+  `status` varchar(30) NOT NULL DEFAULT 'Pending Approval',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `timesheet` (`id`, `employee_no`, `company_id`, `start_date`, `end_date`, `hours`, `status`, `created_at`, `updated_at`) VALUES
+(27,	'LMP02',	'4',	'2023-09-14',	'2023-09-15',	10,	'Rejected',	'2023-09-14 14:02:28',	'2023-09-16 13:34:36'),
+(28,	'LMP02',	'',	'2023-09-16',	'2023-09-17',	24,	'Approved',	'2023-09-16 09:05:57',	'2023-09-16 09:53:10');
+
+DROP TABLE IF EXISTS `timesheet_day`;
+CREATE TABLE `timesheet_day` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `timesheet_id` int(11) NOT NULL,
+  `day_date` date NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `timesheet_id` (`timesheet_id`),
+  CONSTRAINT `timesheet_day_ibfk_1` FOREIGN KEY (`timesheet_id`) REFERENCES `timesheet` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `timesheet_day` (`id`, `timesheet_id`, `day_date`, `created_at`, `updated_at`) VALUES
+(33,	27,	'2023-09-14',	'2023-09-14 14:02:36',	'2023-09-14 14:02:36'),
+(34,	27,	'2023-09-15',	'2023-09-14 14:02:53',	'2023-09-14 14:02:53'),
+(35,	28,	'2023-09-16',	'2023-09-16 09:06:18',	'2023-09-16 09:06:18'),
+(36,	28,	'2023-09-17',	'2023-09-16 09:06:30',	'2023-09-16 09:06:30');
+
+DROP TABLE IF EXISTS `timesheet_entry`;
+CREATE TABLE `timesheet_entry` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `day_id` int(11) NOT NULL,
+  `start_time` time NOT NULL,
+  `end_time` time NOT NULL,
+  `hours` int(5) NOT NULL,
+  `note` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `day_id` (`day_id`),
+  CONSTRAINT `timesheet_entry_ibfk_1` FOREIGN KEY (`day_id`) REFERENCES `timesheet_day` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `timesheet_entry` (`id`, `day_id`, `start_time`, `end_time`, `hours`, `note`, `created_at`, `updated_at`) VALUES
+(30,	33,	'16:02:00',	'18:02:00',	2,	'afternoon',	'2023-09-14 14:02:36',	'2023-09-14 14:02:36'),
+(31,	34,	'12:02:00',	'20:02:00',	8,	'all day tings',	'2023-09-14 14:02:53',	'2023-09-14 14:02:53'),
+(32,	35,	'11:06:00',	'23:06:00',	12,	'all day tings',	'2023-09-16 09:06:18',	'2023-09-16 09:06:18'),
+(33,	36,	'11:06:00',	'23:06:00',	12,	'morning grind',	'2023-09-16 09:06:30',	'2023-09-16 09:06:30');
+
 DROP TABLE IF EXISTS `users_tb`;
 CREATE TABLE `users_tb` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -27645,4 +27761,4 @@ INSERT INTO `workflows` (`id`, `name`) VALUES
 (15,	'BRANCH OPERATIONS-NDOLA'),
 (16,	'BRANCH OPERATIONS-INDUSTRIAL');
 
--- 2023-09-07 06:39:15
+-- 2023-09-21 08:25:59

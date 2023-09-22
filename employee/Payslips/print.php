@@ -368,11 +368,18 @@ error_reporting(0);
                             ?>
                             <style type="">
                                 .align{
-                                            word-spacing:285px;}.align1{
-                                            word-spacing:300px;}.align3{
-                                            float:right;}.net{
-                                            margin-right:31px;}
-                                        </style>
+                                    word-spacing:332px;
+                                }
+                                .align1{
+                                    word-spacing:342px;
+                                }
+                                .align3{
+                                    float:right;
+                                }
+                                .net{
+                                    margin-right:31px;
+                                }
+                            </style>
 
                             <br>
                             <table border="1" cellspacing="0" style="height: 100%;">
@@ -654,18 +661,17 @@ error_reporting(0);
                             </td>
                             </tr>
                             </tr>
-                            <tr style="display: flex;
-    justify-content: space-between;">
-                                <td class="align2"><b style="margin-right: 10px;">Gross Pay <div class="align3"> <?php
+                            <tr style="display: flex; justify-content: space-between;">
+                                <td class="align2"><b style="margin-right: 20px;">Gross Pay <div class="align3"> <?php
 
                                                                                                                     echo number_format("$gross", 2); ?></div></b>
 
                                 </td>
-                                <td><b>Total Deductions <div class="align3"> <?php
-                                                                                $totalDeductions = $total_tax_paid + $napsa +
-                                                                                    $advances + $insurance + $loanAmnt + $nhema + $recurringDeductTotal + $deductionsTotal;
-                                                                                echo number_format("$totalDeductions", 2);
-                                                                                ?></div></b></td>
+                                <td><b style="margin-right: 20px;">Total Deductions <div class="align3"> <?php
+                                                                                                            $totalDeductions = $total_tax_paid + $napsa +
+                                                                                                                $advances + $insurance + $loanAmnt + $nhema + $recurringDeductTotal + $deductionsTotal;
+                                                                                                            echo number_format("$totalDeductions", 2);
+                                                                                                            ?></div></b></td>
                             </tr>
                         </table>
                         </br>

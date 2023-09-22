@@ -97,7 +97,8 @@
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="../leave/people-on-leave"><i class="fa fa-circle-o"></i>People on Leave</a></li>
-                        <li><a href="../leave/pending-leaves"><i class="fa fa-circle-o"></i>Pending Leaves</a></li>               
+                        <li><a href="../leave/pending-leaves"><i class="fa fa-circle-o"></i>Pending Leaves</a></li>
+                        <li><a href="../loan/pending-loans"><i class="fa fa-circle-o"></i>Pending Loans</a></li>               
                     </ul>
                 </li>';
             }

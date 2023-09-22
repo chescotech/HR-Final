@@ -164,8 +164,7 @@ class Department
 
     public function AddApprovers($empno, $level, $workflow_id)
     {
-        $result = mysql_query("INSERT INTO appover_groups(work_flow_id,level,empno)"
-            . " VALUES('$workflow_id','$level','$empno')");
+        $result = mysql_query("INSERT INTO appover_groups(work_flow_id,level,empno) VALUES('$workflow_id','$level','$empno')");
         return $result;
     }
 
