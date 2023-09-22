@@ -72,7 +72,7 @@ error_reporting(0);
             $date_left_timestamp = strtotime($_POST['date_left']);
             $date_left = date('Y-m-d', $date_joined_timestamp);
 
-            $basic_pay = $_POST['basic_pay'];
+            $basic_pay = $_POST['earning_basic_pay'];
             $payment_method = $_POST['payment_method'];
 
             $house_allowance = $_POST['house_allowance'];
@@ -321,6 +321,7 @@ error_reporting(0);
 
                         while ($rows = mysql_fetch_array($empQuery)) {
                             $image = $rows['photo'];
+                            $basic_pay = $rows['basic_pay'];
                         ?>
                             <form enctype="multipart/form-data" method="post">
                                 <div class="box box-primary">
@@ -645,25 +646,29 @@ error_reporting(0);
                                                 $earnings = mysql_query("SELECT * FROM earnings WHERE company_id = '$companyId'");
                                                 ?>
                                                 <div class="modal-body" style="overflow-y: scroll;">
-                                                    <?php
-                                                    while ($row = mysql_fetch_array($earnings)) {
-                                                        $earningName = $row['name'];
-                                                        $sanitizedEarningName = strtolower(str_replace(" ", "_", $earningName));
-                                                        $earningAmount = isset($earningsData[$sanitizedEarningName]) ? $earningsData[$sanitizedEarningName] : ''; // Get the amount from the data array if available
+                                                    <div class="box-body">
+                                                        <div class="form-horizontal">
+                                                            <label for="earning_0">Basic Pay</label>
+                                                            <input type="text" id="earning_0" name="earning_basic_pay" class="form-control" value="<?= $basic_pay ?>">
+                                                        </div>
+                                                        <?php
+                                                        while ($row = mysql_fetch_array($earnings)) {
+                                                            $earningName = $row['name'];
+                                                            $sanitizedEarningName = strtolower(str_replace(" ", "_", $earningName));
+                                                            $earningAmount = isset($earningsData[$sanitizedEarningName]) ? $earningsData[$sanitizedEarningName] : ''; // Get the amount from the data array if available
 
-                                                        // Render the form inputs
-                                                    ?>
-                                                        <div class="box-body">
+                                                            // Render the form inputs
+                                                        ?>
                                                             <label><input type="checkbox" name="earning_<?= $row['name'] ?>" id="" value="<?= $row['id'] ?>" onchange="toggleInput(this)"> <?= $row['name'] ?><br></label>
                                                             <div class="form-horizontal">
                                                                 <input type="text" id="earning_<?= $row['id'] ?>" name="earning_<?= $row['name'] ?>" class="form-control" placeholder="<?= $row['name'] ?>" value="<?= $earningAmount ?>" <?php if (!$earningAmount) {
                                                                                                                                                                                                                                                 echo 'disabled';
                                                                                                                                                                                                                                             } ?>>
                                                             </div>
-                                                        </div>
-                                                    <?php
-                                                    }
-                                                    ?>
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                    </div>
                                                 </div>
 
 

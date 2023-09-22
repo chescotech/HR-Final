@@ -399,7 +399,7 @@ error_reporting(0);
             $overtime_rate_hour1 = $_POST['overtime_rate_hour'];
             $days_worked1 = $_POST['days_worked'];
 
-            $Grosspay = $DepartmentObject->getBasicPay($empno1) + $DepartmentObject->getAllowances($empno1);
+            $Grosspay = $PaySlipsObject->getEmployeeEarnings($empno1);
             // Hide
             //echo '$Grosspay'.$Grosspay;
             $totalpay = ($Grosspay / 26) * $days_worked1;

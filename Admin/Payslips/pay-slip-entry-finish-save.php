@@ -136,7 +136,7 @@ error_reporting(0);
                     // return var_dump($staffer1);
                     global $DepartmentObject, $TaxObject, $compId, $PaySlipsObject, $LoanObject, $RecurringDeductionsObject, $time;
 
-                    $Grosspay = $DepartmentObject->getBasicPay($empno1) + $DepartmentObject->getAllowances($empno1);
+                    $Grosspay = $PaySlipsObject->getEmployeeEarnings($empno1);
                     // Hide
                     //echo '$Grosspay'.$Grosspay;
                     $totalpay = ($Grosspay / 26) * $days_worked1;

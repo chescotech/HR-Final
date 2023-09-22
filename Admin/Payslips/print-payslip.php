@@ -306,7 +306,7 @@ error_reporting(0);
                             $empno = $row['empno'];
 
                             // get the total NHIMA paid to date..
-                            $query_ = "SELECT SUM(health_insurance) AS totalNhima FROM `employee` where  empno='$empno' ";
+                            $query_ = "SELECT pension, SUM(health_insurance) AS totalNhima FROM `employee` where  empno='$empno' ";
                             $result_ = mysql_query($query_, $link) or die(mysql_error());
                             $row_ = mysql_fetch_array($result_, MYSQL_ASSOC);
                             $totalNhima = $row_['totalNhima'];
@@ -314,6 +314,7 @@ error_reporting(0);
                             // $dayswork = 16;
                             $otrate = $row['otrate'];
                             $othrs = $row['othrs'];
+                            $pension = $row['pension'];
                             // $allow = $row['allow'];
                             // $advances = $row['advances'];
                             // $insurance = $row['insurance'];
@@ -323,6 +324,7 @@ error_reporting(0);
 
                             $overtime = $otrate * $othrs;
 
+                            $basic_pay = $row['pay'];
                             $pay = $row['pay'] + $row['allow'] + $overtime + $comission;
                         }
                     }
@@ -349,7 +351,6 @@ error_reporting(0);
                                 $advances = $_POST['advances'];
                                 $insurance = $_POST['insurance'];
                                 $comission = $_POST['comission'];
-                                $nhema = $row['health_insurance'];
                                 if ($insert) {
 
                                     $query = "INSERT INTO employee VALUES ($id,'$empno',',$pay,$dayswork,$otrate,$othrs,$allow,$advances,$insurance,$comission)";
@@ -427,7 +428,12 @@ error_reporting(0);
                                     <tr>
                                         <td>
                                             <table border="0" width="417" style="">
-
+                                                <tr>
+                                                    <td align="left">
+                                                        Basic Pay
+                                                    </td>
+                                                    <td align="right" style='vertical-align: top;'><?= number_format($basic_pay, 2) ?></td>
+                                                </tr>
 
                                                 <?php
                                                 $query2 = "SELECT * FROM employee_earnings WHERE employee_no ='$emp_no'";
@@ -490,9 +496,9 @@ error_reporting(0);
                                     $band3_rate = $TaxObject->getBandRate3($compId) / 100;
                                     $band4_rate = $TaxObject->getBandRate4($compId) / 100;
 
-                                    $emp_pay = $earningsTotal + $overtime;
+                                    $emp_pay = $basic_pay + $earningsTotal + $overtime;
 
-                                    $starting_income = $income = $emp_pay - $napsa;
+                                    $starting_income = $income = $basic_pay - $napsa;
 
                                     $band1 = $band2 = $band3 = $band4 = 0;
 
@@ -513,7 +519,7 @@ error_reporting(0);
 
                                     $band1 = $income * $band1_rate;
 
-                                    $total_tax_paid = $TaxObject->TaxCal($emp_pay, $compId);
+                                    $total_tax_paid = $TaxObject->TaxCal($basic_pay, $compId);
 
                                     $taxable = $earningsTotal - $income;
 
@@ -521,7 +527,7 @@ error_reporting(0);
                                     $netpay = $emp_pay - $totdeduct;
 
                                     $loanAmnt = $LoanObject->getLoanMonthDedeductAmounts($empno, $dateIssued) === "" ? "0" : $LoanObject->getLoanMonthDedeductAmounts($empno, $dateIssued);
-
+                                    $nhema = $row['health_insurance'];
                                     ?>
                                     <script>
                                         console.log(<?php json_encode($emp_pay); ?>);
@@ -632,7 +638,7 @@ error_reporting(0);
                                         <td class="box">National Health Insurance</td>
                                         <td align="right">
                                             <?php
-                                            echo $nhema;
+                                            echo $totalNhima;
                                             ?>
                                         </td>
                                     </tr>
@@ -658,14 +664,14 @@ error_reporting(0);
                             </tr>
                             <tr style="display: flex;
     justify-content: space-between;">
-                                <td class="align2"><b style="margin-right: 20px;">Gross Pay <div class="align3"><?php
-                                                                                                                $totalPay = $earningsTotal + $overtime;
-                                                                                                                echo number_format($totalPay, 2); ?></div></b>
+                                <td class="align2"><b style="margin-right: 333px;">Gross Pay <div class="align3"><?php
+                                                                                                                    $totalPay = $basic_pay + $earningsTotal + $overtime;
+                                                                                                                    echo number_format($totalPay, 2); ?></div></b>
 
                                 </td>
-                                <td><b style="margin-right: 20px;">Total Deductions <div class="align3"> <?php
+                                <td><b style="margin-right: 310px;">Total Deductions <div class="align3"> <?php
                                                                                                             $totalDeductions = $total_tax_paid + $napsa +
-                                                                                                                $advances + $insurance + $loanAmnt + $nhema + $pension + $recurringDeductTotal + $deductionsTotal;
+                                                                                                                $advances + $insurance + $loanAmnt + $totalNhima + $pension + $recurringDeductTotal + $deductionsTotal;
                                                                                                             echo number_format("$totalDeductions", 2);
                                                                                                             ?></div></b></td>
                             </tr>

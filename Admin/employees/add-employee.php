@@ -178,21 +178,7 @@
             $transport_allowance = $_POST['transport_allowance'];
             $lunch_allowance = $_POST['lunch_allowance'];
             // $gross_pay = $_POST['gross_pay'] + $house_allowance + $transport_allowance + $lunch_allowance;
-            $basicPay = 0;
-            foreach ($_POST as $key => $value) {
-                $searchTerms = ['basic', 'pay', 'salary'];
-
-                // Convert both the key and value to lowercase for case-insensitive search
-                $lowercaseKey = strtolower($key);
-                $lowercaseValue = strtolower($value);
-
-                foreach ($searchTerms as $term) {
-                    if (stripos($lowercaseKey, $term) !== false || stripos($lowercaseValue, $term) !== false) {
-                        // Found a match with one of the search terms
-                        $basicPay = $value;
-                    }
-                }
-            }
+            $basicPay = $_POST['earning_basic_pay'];
             $branch_code = $_POST['branch_code'];
             $has_gratuity = $_POST['has_gratuity'];
 
@@ -603,19 +589,24 @@
                                             $earnings = mysql_query("SELECT * FROM earnings WHERE company_id = '$companyId'");
                                             ?>
                                             <div class="modal-body" style="overflow-y: scroll;">
-                                                <?php
-                                                while ($row = mysql_fetch_array($earnings)) {
-                                                    # code...
-                                                ?>
-                                                    <div class="box-body">
+
+                                                <div class="box-body">
+                                                    <div class="form-horizontal">
+                                                        <label for="earning_0">Basic Pay</label>
+                                                        <input type="text" id="earning_0" name="earning_basic_pay" class="form-control" placeholder="<?= $row['basic_pay'] ?>">
+                                                    </div>
+                                                    <?php
+                                                    while ($row = mysql_fetch_array($earnings)) {
+                                                        # code...
+                                                    ?>
                                                         <label><input type="checkbox" name="earning_<?= $row['name'] ?>" id="" value="<?= $row['id'] ?>" onchange="toggleInput(this)"> <?= $row['name'] ?><br> </label></span>
                                                         <div class="form-horizontal">
                                                             <input type="text" id="earning_<?= $row['id'] ?>" name="earning_<?= $row['name'] ?>" class="form-control" placeholder="<?= $row['name'] ?>" disabled>
                                                         </div>
-                                                    </div>
-                                                <?php
-                                                }
-                                                ?>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                </div>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
