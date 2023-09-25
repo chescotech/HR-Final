@@ -254,9 +254,7 @@
                                                         <td>
                                                             <div>
                                                                 <p><?php
-                                                                    $earnings_id = $PayslipsObject->getEmployeeEarningsId($empno);
-                                                                    $basic = $PayslipsObject->getEmployeeBasicPay($earnings_id['id']);
-                                                                    echo $basic['basic_pay']; ?>.</p>
+                                                                    echo $row['basic_pay']; ?>.</p>
                                                             </div>
                                                         </td>
                                                     </tr>

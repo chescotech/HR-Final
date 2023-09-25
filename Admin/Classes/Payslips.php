@@ -141,22 +141,23 @@ class Payslips
         $pension = 0;
         $employer_share = 0;
         $employee_share = 0;
+        $basic_pay = $this->getBasicPay($empno);
 
         if ($this->checkNhimaStatus() == "true") {
-            $nhima = $this->CalclucateNhima($this->getBasicPay($empno), $this->getNhimaSettings());
+            $nhima = $this->CalclucateNhima($basic_pay, $this->getNhimaSettings());
             //$pay = $this->getBasicPay($empno);//$pay -$nhima;
             if ($empno != "") {
 
                 if ($this->checkPensionStatus() == "true") {
                     $pension = $this->pensionCalculations($empno);
-                    $employee_share = ($this->getEmployeePensionShareCal() / 100) * $this->getBasicPay($empno);
-                    $employer_share = ($this->getEmployerPensionShareCal() / 100) * $this->getBasicPay($empno);
+                    $employee_share = ($this->getEmployeePensionShareCal() / 100) * $basic_pay;
+                    $employer_share = ($this->getEmployerPensionShareCal() / 100) * $basic_pay;
                 }
 
                 // return var_dump($empno, $pay, $dayswork, $otrate, $othrs, $allow, $advances, $insurance, $time, $comission, $company_id, $deductions_id_arg, $earnings_id_arg);
                 $result = mysql_query("INSERT INTO employee(empno,pay,
                      dayswork,otrate,othrs
-                    ,allow,advances,insurance,time,comission,company_id,health_insurance,pension,employer_share,employee_share, earnings_id, deductions_id) VALUES('$empno','$pay','$dayswork'
+                    ,allow,advances,insurance,time,comission,company_id,health_insurance,pension,employer_share,employee_share, earnings_id, deductions_id) VALUES('$empno','$basic_pay','$dayswork'
                     ,'$otrate','$othrs', '$allow','$advances','$insurance', '$time','$comission','$company_id','$nhima','$pension','$employer_share' ,'$employee_share', '$earnings_id_arg', '$deductions_id_arg'  )") or die(mysql_error());
             }
             return $result;
