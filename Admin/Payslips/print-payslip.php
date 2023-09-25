@@ -435,24 +435,27 @@ error_reporting(0);
                                                     <td align="right" style='vertical-align: top;'><?= number_format($basic_pay, 2) ?></td>
                                                 </tr>
 
+
                                                 <?php
                                                 $query2 = "SELECT * FROM employee_earnings WHERE employee_no ='$emp_no'";
                                                 $result2 = mysql_query($query2, $link) or die(mysql_error());
                                                 $earningsTotal = 0;
                                                 $rows = array();
-                                                while ($row2 = mysql_fetch_assoc($result2)) {
-                                                    $rows[] = $row2;
-                                                }
+                                                if (mysql_num_rows($result2) > 0) {
+                                                    while ($row2 = mysql_fetch_assoc($result2)) {
+                                                        $rows[] = $row2;
+                                                    }
 
-                                                foreach (array_slice($columns, 4) as $columnName) {
-                                                    echo "<tr>";
-                                                    echo "<td align='left' valign='top' style='text-transform: capitalize;'>" . $columnName . "</td>";
+                                                    foreach (array_slice($columns, 4) as $columnName) {
+                                                        echo "<tr>";
+                                                        echo "<td align='left' style='text-transform: capitalize;'>" . $columnName . "</td>";
 
-                                                    foreach ($rows as $row) {
-                                                        $columnNameWithUnderscores = str_replace(' ', '_', $columnName);
-                                                        echo "<td align='right' style='vertical-align: top;'>" . (isset($row[$columnNameWithUnderscores]) ? number_format("$row[$columnNameWithUnderscores]", 2) : "0") . "</td>";
-                                                        echo "</tr>"; // Close the row after each value
-                                                        $earningsTotal += $row[$columnNameWithUnderscores];
+                                                        foreach ($rows as $row) {
+                                                            $columnNameWithUnderscores = str_replace(' ', '_', $columnName);
+                                                            echo "<td align='right' style='vertical-align: top;'>" . (isset($row[$columnNameWithUnderscores]) ? number_format("$row[$columnNameWithUnderscores]", 2) : "0") . "</td>";
+                                                            echo "</tr>"; // Close the row after each value
+                                                            $earningsTotal += $row[$columnNameWithUnderscores];
+                                                        }
                                                     }
                                                 }
 
@@ -472,7 +475,7 @@ error_reporting(0);
 
 
                                     <?php
-                                    $gross = ($DepartmentObject->TotalGrossPay($empno));
+                                    $gross = ($pay) + $row['allowance'] + $row['comission'] + $totalEarnings;
 
 
                                     if ($TaxObject->getEmployeeAge($empno) < 55) {
@@ -583,11 +586,11 @@ error_reporting(0);
                                         $deductionValue = isset($row[$deductionColumnName]) ? $row[$deductionColumnName] : 0;
                                         // return var_dump($deductionValue);
                                         if ($deductionValue == "1") {
-                                            $deductionsTotal += $PayslipObject->getDeductionValue($gross, $deductionDetailRow);
+                                            $deductionsTotal += $PayslipObject->getDeductionValue($pay, $deductionDetailRow);
                                     ?>
                                             <tr>
                                                 <td class="box"><?php echo $deductionDetailRow['name']; ?></td>
-                                                <td align="right"><?php echo number_format($PayslipObject->getDeductionValue($gross, $deductionDetailRow), 2); ?></td>
+                                                <td align="right"><?php echo number_format($PayslipObject->getDeductionValue($pay, $deductionDetailRow), 2); ?></td>
                                             </tr>
                                     <?php
                                         }
@@ -595,7 +598,7 @@ error_reporting(0);
                                     ?>
 
                                     <?php
-                                    $recurringDeductQuery = mysql_query("SELECT * FROM emp_recurring_deductions WHERE company_ID='$compId' AND employee_no ='$emp_no' AND status='Pending'");
+                                    $recurringDeductQuery = mysql_query("SELECT * FROM emp_recurring_deductions WHERE company_ID='$compId' AND employee_no ='$emp_no'");
                                     $recurringDeductTotal = 0;
                                     // Loop through each recurring deduction detail
                                     $recurringDeductRows = array();
@@ -613,13 +616,23 @@ error_reporting(0);
                                         $deductionName = $deductionTypeRow['name'];
                                         $status = $recurringDeductRow['status'];
                                         $deductionValue = $recurringDeductRow['monthly_deduct'];
+                                        $duration = $recurringDeductRow['duration'];
+                                        $deductionEndDate = $recurringDeductRow['date_completion'];
                                         $recurringDeductTotal += $deductionValue;
+                                        $DED = new DateTime($deductionEndDate);
+                                        $DI = new DateTime($dateIssued);
+
+                                        $interval = $DI->diff($DED);
+
+                                        if ($DI <= $DED) {
+
                                     ?>
-                                        <tr>
-                                            <td class="box"><?php echo $deductionName; ?></td>
-                                            <td align="right"><?php echo number_format($deductionValue, 2); ?></td>
-                                        </tr>
+                                            <tr>
+                                                <td class="box"><?php echo $deductionName; ?></td>
+                                                <td align="right"><?php echo number_format($deductionValue, 2); ?></td>
+                                            </tr>
                                     <?php
+                                        }
                                     }
                                     ?>
 
@@ -700,7 +713,7 @@ error_reporting(0);
                                 <td>Months Left</td>
                             </tr>
                             <?php
-                            $query = "SELECT * FROM loan where empno = '$empno' AND status='Pending' ";
+                            $query = "SELECT * FROM loan where empno = '$empno' ";
 
                             $result = mysql_query($query) or die($query . "<br/><br/>" . mysql_error());
 
@@ -716,7 +729,10 @@ error_reporting(0);
                                 <tr>
                                     <td>Personal Loans</td>
                                     <td><?php
-                                        $balance = $deduct * $months;
+                                        $interval = $DI->diff($deadLine);
+                                        $monthsBetween = $interval->y * 12 + $interval->m;
+
+                                        $balance = $deduct * $monthsBetween;
 
                                         echo number_format($balance, 2);
                                         ?></td>
@@ -728,7 +744,7 @@ error_reporting(0);
                                         }
                                         ?></td>
                                     <td><?php
-                                        echo $months;
+                                        echo $monthsBetween;
                                         ?></td>
                                 </tr>
                             <?php
@@ -753,17 +769,20 @@ error_reporting(0);
                                     $status = $recurringDeductRow['status'];
 
                                     $DED = new DateTime($deductionEndDate);
+                                    $DI = new DateTime($dateIssued);
 
-                                    if ($status == 'Pending') {
+                                    $interval = $DI->diff($DED);
+
+                                    if ($DI <= $DED) {
                                 ?>
                                         <td><?= $deductionName ?></td>
                                         <td><?php
-                                            echo number_format($deductionValue  * $monthsLeft, 2);
+                                            echo number_format($deductionValue  * $interval->m, 2);
                                             ?></td>
                                         <td>N/A</td>
                                         <td>
                                             <?php
-                                            echo $monthsLeft;
+                                            echo $interval->m;
                                             ?>
                                         </td>
                                 <?php

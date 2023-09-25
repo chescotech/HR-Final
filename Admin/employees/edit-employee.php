@@ -72,7 +72,7 @@ error_reporting(0);
             $date_left_timestamp = strtotime($_POST['date_left']);
             $date_left = date('Y-m-d', $date_joined_timestamp);
 
-            $basic_pay = $_POST['earning_basic_pay'];
+            $basic_pay = $_POST['basic_pay'];
             $payment_method = $_POST['payment_method'];
 
             $house_allowance = $_POST['house_allowance'];
@@ -649,7 +649,7 @@ error_reporting(0);
                                                     <div class="box-body">
                                                         <div class="form-horizontal">
                                                             <label for="earning_0">Basic Pay</label>
-                                                            <input type="text" id="earning_0" name="earning_basic_pay" class="form-control" value="<?= $basic_pay ?>">
+                                                            <input type="text" id="earning_0" name="basic_pay" class="form-control" value="<?= $basic_pay ?>">
                                                         </div>
                                                         <?php
                                                         while ($row = mysql_fetch_array($earnings)) {

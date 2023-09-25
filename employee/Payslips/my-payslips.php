@@ -138,7 +138,7 @@
                                                         <tr>  
                                                             <td>' . $datePeriod . '</td>  
                                                           
-                                                            <td><a target="_blank" href=' . "print.php?id=" . $id . "&empno=" . $employeeId . '>Print</a></td>
+                                                            <td><a target="_blank" href=' . "print.php?id=" . $id . "&empno=" . $employeeId . "&date=" . $datePeriod . '>Print</a></td>
                                                         </tr>  
 
                                                         ';

@@ -51,4 +51,31 @@ class MyPayslips
     {
         echo "Recurring";
     }
+
+    public function getMyDeductions($salary_arg, $emp_num_arg, $emp_ded_id_arg)
+    {
+        $query = mysql_query("SELECT * FROM employee_deductions WHERE id = '$emp_ded_id_arg'") or die(mysql_error());
+        $sum = 0;
+        $data = mysql_fetch_assoc($query);
+
+
+        foreach ($data as $key => $value) {
+            // key is the column name
+            $dQuery = mysql_query("SELECT * FROM deductions WHERE name LIKE '$key'");
+            $ded = mysql_fetch_assoc($dQuery);
+
+            if ($value === '1') {
+                $ded_value = $this->getDeductionValue($salary_arg, $ded);
+                $sum += $ded_value;
+            }
+        }
+
+        // recurring
+        $rdQuery = mysql_query("SELECT * FROM emp_recurring_deductions WHERE employee_no = '$emp_num_arg' && status = 'Pending'") or die(mysql_error());
+        $rdRow = mysql_fetch_assoc($rdQuery);
+
+        $sum += $rdRow['monthly_deduct'];
+
+        return $sum;
+    }
 }

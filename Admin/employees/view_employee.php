@@ -33,6 +33,7 @@
     <div class="wrapper">
 
         <?php
+        error_reporting(0);
         include_once '../Classes/Employee.php';
         include_once '../Classes/Payslips.php';
         $PayslipsObject = new Payslips();
@@ -47,7 +48,7 @@
             <section class="content-header">
                 <h1>
                     <?php
-                    echo $_SESSION['name'] . ' View Employee';
+                    // echo $_SESSION['name'] . ' View Employee';
                     ?>
                 </h1>
             </section>

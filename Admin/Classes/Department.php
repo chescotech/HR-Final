@@ -124,7 +124,7 @@ class Department
 
         $mp = trim($empno);
 
-        $res = mysql_query("INSERT emp_info(empno,fname,lname,init,gender
+        $res = mysql_query("INSERT INTO emp_info(empno,fname,lname,init,gender
                 ,bdate,dept,position,phone,address,email,bank,account,
                 date_joined,date_left,employee_grade,marital_status
                 ,payment_method,leave_days,company_id,password,gross_pay,
@@ -136,7 +136,7 @@ class Department
                 '$email', '$bank','$account','$dateJoined','$dateLeft'
                 ,'$EmployeeGrade','$mStatus','$payMethod' ,'$leaveDays',
                 '$companyId','$password','$gross_pay','$nok_name', '$nok_relationship', '$nok_email', '$nok_address', '$nok_phone','$NRC',
-                '$employment_type','$probation_deadline','$employee_type','$basicPay','$social','$branch_code','$has_gratuity','$gatuity_amount','$img','$nrc_file','$tpin' )");
+                '$employment_type','$probation_deadline','$employee_type','$basic_pay','$social','$branch_code','$has_gratuity','$gatuity_amount','$img','$nrc_file','$tpin' )") or die(mysql_error());
 
         return $res;
     }

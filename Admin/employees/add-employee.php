@@ -168,7 +168,8 @@
                 }
             }
 
-            $gross_pay = 0;
+            $basic_pay = $_POST['basic_pay'];
+            $gross_pay = $basic_pay;
             foreach ($columnValues as $key => $value) {
                 # code...
                 $gross_pay += $value;
@@ -178,7 +179,6 @@
             $transport_allowance = $_POST['transport_allowance'];
             $lunch_allowance = $_POST['lunch_allowance'];
             // $gross_pay = $_POST['gross_pay'] + $house_allowance + $transport_allowance + $lunch_allowance;
-            $basicPay = $_POST['earning_basic_pay'];
             $branch_code = $_POST['branch_code'];
             $has_gratuity = $_POST['has_gratuity'];
 
@@ -213,7 +213,7 @@
                 $leaveDays,
                 $companyId,
                 $password,
-                $basicPay,
+                $basic_pay,
                 $gross_pay,
                 $employment_type,
                 $nok_name,
@@ -241,7 +241,7 @@
 
             $cn_imploded = implode(", ", $columnNames);
             // $cv_imploded = implode(", ", $columnValues);
-            $cv_imploded = "'" . implode("', '", $columnValues) . "'";
+            $cv_imploded = "'" . implode(", ", $columnValues) . "'";
 
             // Arrays to hold deduction names and values
             $deductionColumns = array();
@@ -261,18 +261,29 @@
                     $deductionValues[] = "TRUE";
                 }
             }
-            // Build the SQL query
-            if (!empty($deductionColumns)) {
-                $columnsString = implode(", ", $deductionColumns);
-                $valuesString = implode(", ", $deductionValues);
 
-                $query = mysql_query("INSERT INTO employee_deductions(employee_id, employee_no, company_id, $columnsString) VALUES ('$new_emp_id', '$trim', '$companyId', $valuesString)") or die(mysql_error());
+            // If there are no deductions, set default values for columns and values
+            if (!isset($deductionColumns)) {
+                $deductionColumns = [];
+                $deductionValues = [];
             }
 
+            // Build the SQL query
+            $columnsString = implode(", ", $deductionColumns);
 
-            $earnings_item = mysql_query("INSERT INTO employee_earnings(employee_id, employee_no, company_id, $cn_imploded) VALUES('$new_emp_id', '$trim', '$companyId', $cv_imploded)") or die(mysql_error());
+            // If there are no deductions, use NULL for values
+            $valuesString = !empty($deductionValues) ? implode(", ", $deductionValues) : implode(", ", array_fill(0, count($deductionColumns), "NULL"));
 
-            // return var_dump($earnings_item);
+            // return var_dump($cv_imploded);
+
+            $cn_imploded = strlen($cn_imploded) > 0 ? "," . $cn_imploded : $cn_imploded;
+            $valuesString = strlen($valuesString) > 0 ? "," . $valuesString : $valuesString;
+            $columnsString = strlen($columnsString) > 0 ? "," . $columnsString : $columnsString;
+            $cv_imploded = strlen($cv_imploded) > 2 ? "," . $cv_imploded : $cv_imploded;
+
+            $query = mysql_query("INSERT INTO employee_deductions(employee_id, employee_no, company_id $columnsString) VALUES ('$new_emp_id', '$trim', '$companyId' $valuesString)") or die(mysql_error());
+
+            $earnings_item = mysql_query("INSERT INTO employee_earnings(employee_id, employee_no, company_id $cn_imploded) VALUES('$new_emp_id', '$trim', '$companyId' $cv_imploded)") or die(mysql_error());
 
             // log user creation
             $action = "Create Employee";
@@ -593,7 +604,7 @@
                                                 <div class="box-body">
                                                     <div class="form-horizontal">
                                                         <label for="earning_0">Basic Pay</label>
-                                                        <input type="text" id="earning_0" name="earning_basic_pay" class="form-control" placeholder="<?= $row['basic_pay'] ?>">
+                                                        <input type="text" id="earning_0" name="basic_pay" class="form-control" placeholder="<?= $row['basic_pay'] ?>" required>
                                                     </div>
                                                     <?php
                                                     while ($row = mysql_fetch_array($earnings)) {

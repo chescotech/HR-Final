@@ -25,6 +25,7 @@
     <div class="wrapper">
 
         <?php
+        error_reporting(0);
         include_once '../Classes/Employee.php';
         $EmployeeObject = new Employee();
         include '../navigation_panel/authenticated_user_header.php';
