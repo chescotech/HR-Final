@@ -23120,8 +23120,8 @@ CREATE TABLE `deductions` (
   `name` varchar(90) DEFAULT NULL,
   `company_ID` int(20) NOT NULL,
   `type` tinytext NOT NULL,
-  `emp_fixed` tinytext DEFAULT NULL,
-  `comp_fixed` tinytext DEFAULT NULL,
+  `emp_fixed` decimal(10,2) DEFAULT NULL,
+  `comp_fixed` decimal(10,2) DEFAULT NULL,
   `status` text DEFAULT NULL,
   `percent` text DEFAULT NULL,
   `percent_of` text DEFAULT NULL,
@@ -23141,9 +23141,10 @@ CREATE TABLE `deductions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 INSERT INTO `deductions` (`ded_id`, `name`, `company_ID`, `type`, `emp_fixed`, `comp_fixed`, `status`, `percent`, `percent_of`, `emp_calc_num`, `emp_calc_deno`, `comp_calc_num`, `comp_calc_deno`, `comp_lower_bound`, `comp_lower_bound_amnt`, `emp_lower_bound`, `emp_lower_bound_amnt`, `comp_upper_bound`, `comp_upper_bound_amnt`, `emp_upper_bound`, `emp_upper_bound_amnt`) VALUES
-(12,	'FIXED_1k_1k',	4,	'fixed',	'1000',	'1000',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	0,	0,	0,	0,	0,	0),
+(12,	'FIXED_1k_1k',	4,	'fixed',	1000.00,	1000.00,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	0,	0,	0,	0,	0,	0),
 (14,	'Monthly_Deduction',	4,	'calculated',	NULL,	NULL,	NULL,	NULL,	NULL,	10,	100,	5,	100,	500,	500,	500,	500,	1500,	1500,	1500,	1500),
-(15,	'Office Party',	4,	'fixed',	'200',	'200',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	0,	0,	0,	0,	0,	0);
+(15,	'Office Party',	4,	'fixed',	200.00,	200.00,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	0,	0,	0,	0,	0,	0),
+(17,	'Random Deduct',	4,	'fixed',	256.32,	341.42,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	0,	0,	0,	0,	0,	0);
 
 DROP TABLE IF EXISTS `department`;
 CREATE TABLE `department` (
@@ -23190,7 +23191,8 @@ INSERT INTO `earnings` (`id`, `name`, `company_ID`, `slug`) VALUES
 (15,	'Basic Pay',	'4',	'BAPA'),
 (16,	'Housing Allowance',	'4',	'HOUALL'),
 (17,	'Transport Allowance',	'4',	'TRAL'),
-(19,	'Lunch Allowance',	'4',	'LUNALL');
+(19,	'Lunch Allowance',	'4',	'LUNALL'),
+(20,	'Special Allowance',	'4',	'SPAL');
 
 DROP TABLE IF EXISTS `employee`;
 CREATE TABLE `employee` (
@@ -23217,7 +23219,7 @@ CREATE TABLE `employee` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 INSERT INTO `employee` (`id`, `empno`, `pay`, `dayswork`, `otrate`, `othrs`, `allow`, `advances`, `insurance`, `time`, `comission`, `company_id`, `health_insurance`, `pension`, `employer_share`, `employee_share`, `group_id`, `earnings_id`, `deductions_id`) VALUES
-(13,	'LMP02',	0.00,	26,	0.00,	0,	0.00,	0.00,	0.00,	'2023-09-30',	0,	'4',	'0',	'0',	'0',	'0',	0,	1,	1);
+(17,	'LMP03',	0.00,	26,	0.00,	0,	0.00,	0.00,	0.00,	'2023-09-30',	0,	'4',	'0',	'0',	'0',	'0',	0,	2,	2);
 
 DROP TABLE IF EXISTS `employee_deductions`;
 CREATE TABLE `employee_deductions` (
@@ -23228,13 +23230,14 @@ CREATE TABLE `employee_deductions` (
   `fixed_1k_1k` varchar(20) DEFAULT NULL,
   `monthly_deduction` int(20) DEFAULT NULL,
   `office_party` int(20) DEFAULT NULL,
+  `random_deduct` double(10,2) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `employee_deductions` (`id`, `employee_id`, `employee_no`, `company_id`, `fixed_1k_1k`, `monthly_deduction`, `office_party`) VALUES
-(1,	2,	'LMP02',	4,	'1',	NULL,	NULL),
-(2,	3,	'LMP03',	4,	'1',	1,	1),
-(3,	4,	'LMP04',	4,	NULL,	1,	NULL);
+INSERT INTO `employee_deductions` (`id`, `employee_id`, `employee_no`, `company_id`, `fixed_1k_1k`, `monthly_deduction`, `office_party`, `random_deduct`) VALUES
+(1,	2,	'LMP02',	4,	'1',	NULL,	NULL,	NULL),
+(2,	3,	'LMP03',	4,	NULL,	NULL,	NULL,	NULL),
+(3,	4,	'LMP04',	4,	NULL,	1,	NULL,	NULL);
 
 DROP TABLE IF EXISTS `employee_discplinary_records`;
 CREATE TABLE `employee_discplinary_records` (
@@ -23257,17 +23260,18 @@ CREATE TABLE `employee_earnings` (
   `employee_id` int(10) NOT NULL,
   `employee_no` varchar(10) NOT NULL,
   `company_id` int(10) NOT NULL,
-  `basic_pay` int(10) DEFAULT NULL,
-  `housing_allowance` int(10) DEFAULT NULL,
-  `transport_allowance` int(10) DEFAULT NULL,
-  `lunch_allowance` int(10) DEFAULT NULL,
+  `basic_pay` decimal(10,2) DEFAULT NULL,
+  `housing_allowance` decimal(10,2) DEFAULT NULL,
+  `transport_allowance` decimal(10,2) DEFAULT NULL,
+  `lunch_allowance` decimal(10,2) DEFAULT NULL,
+  `special_allowance` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `employee_earnings` (`id`, `employee_id`, `employee_no`, `company_id`, `basic_pay`, `housing_allowance`, `transport_allowance`, `lunch_allowance`) VALUES
-(1,	2,	'LMP02',	4,	3000,	4000,	NULL,	NULL),
-(2,	3,	'LMP03',	4,	4000,	1000,	1000,	NULL),
-(3,	4,	'LMP04',	4,	6000,	2500,	NULL,	NULL);
+INSERT INTO `employee_earnings` (`id`, `employee_id`, `employee_no`, `company_id`, `basic_pay`, `housing_allowance`, `transport_allowance`, `lunch_allowance`, `special_allowance`) VALUES
+(1,	2,	'LMP02',	4,	3000.00,	4000.00,	NULL,	NULL,	NULL),
+(2,	3,	'LMP03',	4,	2550.00,	609.00,	154.00,	NULL,	1649.00),
+(3,	4,	'LMP04',	4,	6000.00,	2500.00,	NULL,	NULL,	NULL);
 
 DROP TABLE IF EXISTS `employee_exits_tb`;
 CREATE TABLE `employee_exits_tb` (
@@ -23465,7 +23469,7 @@ CREATE TABLE `emp_info` (
 INSERT INTO `emp_info` (`id`, `empno`, `photo`, `lname`, `fname`, `init`, `gender`, `bdate`, `dept`, `position`, `phone`, `address`, `email`, `personal_email`, `bank`, `account`, `date_joined`, `date_left`, `employee_grade`, `marital_status`, `payment_method`, `leave_days`, `company_id`, `password`, `basic_pay`, `gross_pay`, `nok_phone`, `nok_name`, `nok_relationship`, `nok_email`, `nok_address`, `NRC`, `employment_type`, `probation_deadline`, `status`, `employee_type`, `social`, `branch_code`, `has_gratuity`, `gatuity_amount`, `leaveworkflow_id`, `nrc_file`, `next_kin_phone`, `Dept_Name`, `nhima`, `tpin`, `has_timesheets`) VALUES
 (2,	'LMP02',	'zuckerberg.jpg',	'Zuckerberg',	'Mark',	' Mr',	'male',	'1999-01-01',	'40',	'CEO',	'+183889293',	'On a Yatch',	'mark@fb.com',	'',	'Bank of America',	'10293919010',	'2023-08-01',	'2023-08-01',	'',	'Single',	'Cash',	0,	'4',	'ba21817627bf2368e0bd2db2c4742847',	'',	'7000',	'+17289029393',	'Linda Zuckerberg',	'Wife',	'linda@fb.com',	'The same',	'JN8788361',	'Permanent',	'',	'',	'Full Time',	'99729012',	'GH62782',	'--Is Employee Eligible for Gratuity ?--',	'',	4,	'zuckerberg.jpg',	'',	NULL,	'',	'403',	'true'),
 (4,	'LMP04',	'janedoe.jpg',	'Doe',	'Jane',	' Ms',	'male',	'1995-05-05',	'40',	'CTO',	'+26078812919',	'5230 Penfield Avenue',	'hane@example.com',	'',	'SVB',	'37173712324',	'2023-09-01',	'2023-09-01',	'',	'Married',	'Bank',	0,	'4',	'ba21817627bf2368e0bd2db2c4742847',	'',	'8500',	'+260789129931',	'John Doe',	'Husband',	'john@example.com',	'The same',	'HF738293',	'Permanent',	'',	'',	'Full Time',	'90319201',	'OP08288',	'--Is Employee Eligible for Gratuity ?--',	'',	4,	'janedoe.jpg',	'',	NULL,	'',	'201',	'true'),
-(3,	'LMP03',	'hendricks.png',	'Hendricks',	'Richard',	' Mr',	'male',	'1978-03-13',	'38',	'CEO',	'+19299884',	'5230 Penfield Avenue',	'rich@piedpiper.com',	'',	'SVB',	'37173710288',	'2014-01-01',	'2014-01-01',	'',	'Single',	'Bank',	0,	'4',	'ba21817627bf2368e0bd2db2c4742847',	'',	'6000',	'+1883900223',	'Erlich Bachman',	'Landlord',	'erlich@aviato.com',	'The same',	'JU78891',	'Permanent',	'',	'',	'Full Time',	'7912881',	'OP08288',	'--Is Employee Eligible for Gratuity ?--',	'',	0,	'hendricks.png',	'',	NULL,	'',	'782',	'false');
+(3,	'LMP03',	'hendricks.png',	'Hendricks',	'Richard',	' Mr',	'male',	'1978-03-13',	'38',	'CEO',	'+19299884',	'5230 Penfield Avenue',	'rich@piedpiper.com',	'',	'SVB',	'37173710288',	'2014-01-01',	'2014-01-01',	'',	'Single',	'Bank',	0,	'4',	'ba21817627bf2368e0bd2db2c4742847',	'',	'4962',	'+1883900223',	'Erlich Bachman',	'Landlord',	'erlich@aviato.com',	'The same',	'JU78891',	'Permanent',	'',	'',	'Full Time',	'7912881',	'OP08288',	'--Is Employee Eligible for Gratuity ?--',	'',	0,	'hendricks.png',	'',	NULL,	'',	'782',	'false');
 
 DROP TABLE IF EXISTS `emp_log`;
 CREATE TABLE `emp_log` (
@@ -23520,15 +23524,18 @@ INSERT INTO `emp_log` (`id`, `company_id`, `action`, `action_user`, `date`) VALU
 (40,	4,	'Edit Employee',	'10',	'2023-09-16 09:07:31'),
 (41,	4,	'Edit Employee',	'10',	'2023-09-19 06:58:31'),
 (42,	4,	'Edit Employee',	'10',	'2023-09-19 12:47:05'),
-(43,	4,	'Edit Employee',	'10',	'2023-09-19 12:53:09');
+(43,	4,	'Edit Employee',	'10',	'2023-09-19 12:53:09'),
+(44,	4,	'Edit Employee',	'10',	'2023-09-21 12:45:04'),
+(45,	4,	'Edit Employee',	'10',	'2023-09-21 12:46:20'),
+(46,	4,	'Edit Employee',	'10',	'2023-09-21 12:55:55');
 
 DROP TABLE IF EXISTS `emp_recurring_deductions`;
 CREATE TABLE `emp_recurring_deductions` (
   `id` int(6) NOT NULL AUTO_INCREMENT,
   `employee_id` int(90) NOT NULL,
   `employee_no` varchar(10) NOT NULL,
-  `deduction_total` int(200) NOT NULL,
-  `monthly_deduct` text NOT NULL,
+  `deduction_total` decimal(10,2) NOT NULL,
+  `monthly_deduct` decimal(10,2) NOT NULL,
   `duration` int(200) NOT NULL,
   `company_ID` int(20) NOT NULL,
   `deduction_date` text NOT NULL,
@@ -23539,8 +23546,10 @@ CREATE TABLE `emp_recurring_deductions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 INSERT INTO `emp_recurring_deductions` (`id`, `employee_id`, `employee_no`, `deduction_total`, `monthly_deduct`, `duration`, `company_ID`, `deduction_date`, `date_completion`, `status`, `deduction_type`) VALUES
-(3,	0,	'LMP02',	1000,	'200',	4,	4,	'2023-08-01',	'2023-10-31',	'Cleared',	2),
-(4,	2,	'LMP02',	1000,	'250',	4,	4,	'2023-01-09',	'2023-12-31',	'Pending',	2);
+(3,	0,	'LMP02',	1000.00,	200.00,	4,	4,	'2023-08-01',	'2023-10-31',	'Cleared',	2),
+(4,	2,	'LMP02',	1000.00,	250.00,	4,	4,	'2023-01-09',	'2023-12-31',	'Pending',	2),
+(5,	3,	'LMP03',	1200.00,	300.00,	2,	4,	'2023-09-01',	'2023-12-31',	'Pending',	3),
+(6,	3,	'LMP03',	3500.00,	700.00,	3,	4,	'2023-09-01',	'2024-01-31',	'Pending',	4);
 
 DROP TABLE IF EXISTS `grade`;
 CREATE TABLE `grade` (
@@ -27202,7 +27211,8 @@ INSERT INTO `leave_days` (`ID`, `available`, `empno`) VALUES
 (139,	9.5,	'LMP0379'),
 (140,	2,	'LMP0380'),
 (141,	11,	'LMP02'),
-(142,	2,	'LMP04');
+(142,	2,	'LMP04'),
+(143,	2,	'LMP03');
 
 DROP TABLE IF EXISTS `leave_ratings_tb`;
 CREATE TABLE `leave_ratings_tb` (
@@ -27437,7 +27447,8 @@ INSERT INTO `login_log` (`id`, `empno`, `action`, `time`, `company_id`) VALUES
 (118,	'LMP02',	'LOGOUT',	'2023-09-19 14:44:35',	4),
 (119,	'LMP04',	'LOGIN',	'2023-09-19 14:44:37',	4),
 (120,	'LMP04',	'LOGIN',	'2023-09-20 10:39:20',	4),
-(121,	'LMP04',	'LOGIN',	'2023-09-20 12:22:28',	4);
+(121,	'LMP04',	'LOGIN',	'2023-09-20 12:22:28',	4),
+(122,	'LMP04',	'LOGIN',	'2023-09-21 13:21:40',	4);
 
 DROP TABLE IF EXISTS `nhima_tb`;
 CREATE TABLE `nhima_tb` (
@@ -27564,7 +27575,9 @@ CREATE TABLE `recurring_deduction_types` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 INSERT INTO `recurring_deduction_types` (`id`, `company_id`, `name`, `short_name`) VALUES
-(2,	4,	'MTN Phone',	'MTN_PHNS');
+(2,	4,	'MTN Phone',	'MTN_PHNS'),
+(3,	4,	'Recoverables',	'RCVS'),
+(4,	4,	'Salary Advance',	'SAAD');
 
 DROP TABLE IF EXISTS `sms_credits_tb`;
 CREATE TABLE `sms_credits_tb` (
@@ -27761,4 +27774,4 @@ INSERT INTO `workflows` (`id`, `name`) VALUES
 (15,	'BRANCH OPERATIONS-NDOLA'),
 (16,	'BRANCH OPERATIONS-INDUSTRIAL');
 
--- 2023-09-21 08:25:59
+-- 2023-09-22 08:19:09
