@@ -11,7 +11,7 @@ session_start();
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
-    <link rel="stylesheet" href="Admin/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/bootstrap-5.3.2-dist/css/bootstrap.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Ionicons -->
@@ -122,45 +122,67 @@ if (isset($_POST['sign_in'])) {
      */
 ?>
 
-<body background="img/sapamahrm_banner.png">
-    <div class="login-box">
-        <div hidden="hidden" id="error_block" class="login-logo">
-            <center>
-                <img src="img/sapamahrm_banner.png">
-            </center>
-        </div>
-        <div class="login-box-body">
-            <center><img src="img/my-logo.PNG" class="img-responsive" alt="" /></center>
-            <?php
-            if (isset($_POST['sign_in'])) {
-                echo $message;
-            }
-            ?>
-            <form method="post">
-                <div class="form-group has-feedback">
-                    <input id="username" name="username" type="text" required="required" class="form-control" placeholder="Username">
-                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                </div>
-                <div class="form-group has-feedback">
-                    <input name="password" type="password" required="required" class="form-control" placeholder="Password">
-                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                </div>
-                <div class="row">
-                    <div class="col-xs-8">
-                        <a href="recover-password">Forgot password?</a>
-                    </div><!-- /.col -->
-                    <div class="col-xs-4">
-                        <center><button name="sign_in" onclick="error_message()" type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button></center>
-                    </div><!-- /.col -->
-                </div>
-            </form>
-        </div><!-- /.login-box-body -->
-    </div><!-- /.login-box -->
+<!-- <body background="img/sapamahrm_banner.png"> -->
 
+<body>
+    <section class="d-flex flex-column align-items-center justify-content-center">
+        <nav class="navbar w-100" style="background-color: #8cc63f;">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="img/my-logo.PNG" alt="Bootstrap" width="48" height="48">
+                </a>
+                <div class="navbar-text">
+                    <a href="http://www.chesco-tech.com" class="btn btn-default">Chesco Home</a>
+                </div>
+            </div>
+        </nav>
+        <div class="container p-5 h-100" style="background-color: white;">
+            <div class="row d-flex justify-content-center align-items-center h-75">
+                <div class="col col-xl-10">
+                    <div class="card" style="border-radius: 1rem;">
+                        <div class="row g-0">
+                            <div class="col-md-6 col-lg-5 d-none d-md-block my-auto">
+                                <img src="img/my-logo.PNG" style="width:20rem; margin-left:5rem;" alt="login form" class="img-fluid" />
+                            </div>
+                            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                                <div class="card-body p-4 p-lg-5 text-black">
+                                    <?php
+                                    if (isset($_POST['sign_in'])) {
+                                        echo $message;
+                                    }
+                                    ?>
+                                    <form method="post">
+                                        <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign in to your account</h5>
+
+                                        <div class="form-outline mb-4">
+                                            <label class="form-label" for="username">Username</label>
+                                            <input id="username" name="username" type="text" required="required" class="form-control" placeholder="Username">
+                                        </div>
+
+                                        <div class="form-outline mb-4">
+                                            <label class="form-label" for="password">Password</label>
+                                            <input name="password" type="password" required="required" class="form-control" placeholder="Password">
+                                        </div>
+
+                                        <div class="pt-1 mb-4">
+                                            <button name="sign_in" onclick="error_message()" class="btn btn-lg btn-block" type="submit" style="background-color: #8cc63f;">Sign In</button>
+                                        </div>
+
+                                        <a class="mb-1 small text-muted" href="recover-password">Forgot password?</a>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <!-- jQuery 2.1.4 -->
     <script src="Admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <!-- Bootstrap 3.3.5 -->
-    <script src="Admin/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/bootstrap-5.3.2-dist/js/bootstrap.min.js"></script>
     <!-- iCheck -->
     <script src="Admin/plugins/iCheck/icheck.min.js"></script>
     <script>
@@ -173,5 +195,6 @@ if (isset($_POST['sign_in'])) {
         });
     </script>
 </body>
+
 
 </html>

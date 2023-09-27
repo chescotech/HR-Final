@@ -30,6 +30,7 @@
 <body class="hold-transition skin-green-light sidebar-mini">
     <div class="wrapper">
         <?php
+        error_reporting(0);
         include_once '../Classes/Loans.php';
         $LoanObject = new Loans();
 

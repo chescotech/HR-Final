@@ -613,7 +613,7 @@ error_reporting(0);
                                         if ($DI <= $DED) {
                                     ?>
                                             <tr>
-                                                <td class="box"><?php echo $deductionName; ?></td>
+                                                <td class="box"><?php echo  str_replace("_", " ", $deductionName); ?></td>
                                                 <td align="right"><?php echo number_format($deductionValue, 2); ?></td>
                                             </tr>
                                     <?php

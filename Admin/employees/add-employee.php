@@ -240,8 +240,8 @@
 
 
             $cn_imploded = implode(", ", $columnNames);
-            // $cv_imploded = implode(", ", $columnValues);
-            $cv_imploded = "'" . implode(", ", $columnValues) . "'";
+
+            $cv_imploded = implode(", ", $columnValues);
 
             // Arrays to hold deduction names and values
             $deductionColumns = array();
@@ -281,9 +281,12 @@
             $columnsString = strlen($columnsString) > 0 ? "," . $columnsString : $columnsString;
             $cv_imploded = strlen($cv_imploded) > 2 ? "," . $cv_imploded : $cv_imploded;
 
-            $query = mysql_query("INSERT INTO employee_deductions(employee_id, employee_no, company_id $columnsString) VALUES ('$new_emp_id', '$trim', '$companyId' $valuesString)") or die(mysql_error());
 
-            $earnings_item = mysql_query("INSERT INTO employee_earnings(employee_id, employee_no, company_id $cn_imploded) VALUES('$new_emp_id', '$trim', '$companyId' $cv_imploded)") or die(mysql_error());
+            $earn_query = "INSERT INTO employee_deductions(employee_id, employee_no, company_id $columnsString) VALUES ('$new_emp_id', '$trim', '$companyId' $valuesString)";
+            $deductions_query_result = mysql_query($earn_query) or die(mysql_error());
+
+            $deduct_query = "INSERT INTO employee_earnings(employee_id, employee_no, company_id $cn_imploded) VALUES('$new_emp_id', '$trim', '$companyId' $cv_imploded)";
+            $deduct_result = mysql_query($deduct_query) or die(mysql_error());
 
             // log user creation
             $action = "Create Employee";

@@ -33,6 +33,7 @@
     <div class="wrapper">
 
         <?php
+        error_reporting(0);
         include_once '../Classes/Department.php';
         include_once '../Classes/Payslips.php';
         include_once '../Classes/Loans.php';

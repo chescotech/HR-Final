@@ -23,6 +23,7 @@
      <div class="wrapper">
 
          <?php
+            error_reporting(0);
             include_once '../Classes/Department.php';
             $DepartmentObject = new Department();
             include '../navigation_panel/authenticated_user_header.php';
@@ -80,7 +81,7 @@
                     $comp_lb_amnt = doubleval($_POST['comp_lower_bound_amnt']);
                     $comp_ub = doubleval($_POST['comp_upper_bound']);
                     $comp_ub_amnt = doubleval($_POST['comp_upper_bound_amnt']);
-                    $name = $_POST['short_desc'];
+                    $name = str_replace(" ", "_", $_POST['short_desc']);
                     // if fixed amount is set
                     $variable = "not set";
                     if ($type == 'fixed') {
@@ -95,7 +96,7 @@
                     // add to employee_deductions table
                     // add column to employee_earnings table
                     $sanitized_name = str_replace(" ", "_", strtolower($name));
-                    $update_table = mysql_query("ALTER TABLE `employee_deductions` ADD `$sanitized_name` double(10,2) NULL;");
+                    $update_table = mysql_query("ALTER TABLE `employee_deductions` ADD `$sanitized_name` INT(10) NULL;");
 
                     // if 
                 }
@@ -145,7 +146,7 @@
                                             while ($row = mysql_fetch_array($query)) {
                                             ?>
                                              <tr>
-                                                 <td><?php echo $row['name']; ?></td>
+                                                 <td><?php echo str_replace("_", " ", $row['name']); ?></td>
                                                  <td><?php echo $row['type']; ?></td>
                                                  <td><?php echo $row['comp_fixed']; ?></td>
                                                  <td><?php echo $row['emp_fixed']; ?></td>
@@ -175,7 +176,7 @@
                                                              <h4 class="modal-title">Update Deductions</h4>
                                                          </div>
                                                          <div class="modal-body">
-                                                             <form action="#" method="post">
+                                                             <form action="" method="post">
                                                                  <div class="container">
                                                                      <p>
                                                                          Method (*Select One)
@@ -206,13 +207,6 @@
                                                                                      <input class="form-control" type="text" name="fixed_amount_emp" id="fixed_amount_emp">
                                                                                  </div>
                                                                              </div>
-
-                                                                             <!-- <div class="row">
-                                                 <div class="form-group">
-                                                     +
-                                                     <input class="form-control" type="text" name="plus_emp" id="">
-                                                 </div>
-                                             </div> -->
                                                                              <div class="row">
                                                                                  <div class="form-group">
                                                                                      <input class="form-control" type="text" name="numerator_emp" id="numerator_emp" placeholder="1.0000">
@@ -305,7 +299,7 @@
                                                                                  <button type="submit" name="create_" class="btn btn-primary">
                                                                                      Save
                                                                                  </button>
-                                                                                 <button type="submit" class="btn btn-danger">
+                                                                                 <button type="button" class="btn btn-danger">
                                                                                      Clear
                                                                                  </button>
                                                                              </div>
@@ -334,7 +328,7 @@
                                                                              </div>
                                                                              <div class="row">
                                                                                  <div class="form-group">
-                                                                                     <input name="short_desc" class="form-control" type="text" name="" id="">
+                                                                                     <input id="short_desc" name="short_desc" class="form-control" type="text" required>
                                                                                  </div>
                                                                              </div>
                                                                          </div>
@@ -582,7 +576,7 @@
                                                          </div>
                                                          <div class="row">
                                                              <div class="form-group">
-                                                                 <input name="short_desc" class="form-control" type="text" name="" id="">
+                                                                 <input name="short_desc" class="form-control" type="text" name="" id="" required>
                                                              </div>
                                                          </div>
                                                      </div>
@@ -637,11 +631,6 @@
      <!-- AdminLTE for demo purposes -->
      <script src="../dist/js/demo.js"></script>
      <!-- page script -->
-     <script>
-         $(document).ready(function() {
-             $('#employee_data').DataTable();
-         });
-     </script>
      <script>
          $(document).ready(function() {
              // Initial state

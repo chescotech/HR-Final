@@ -581,7 +581,6 @@ error_reporting(0);
 
                                     // Loop through each deduction detail and add a row for it if value is 1
                                     while ($deductionDetailRow = mysql_fetch_assoc($deductionDetailsResult)) {
-
                                         $deductionColumnName = strtolower($deductionDetailRow['name']); // Transform name to uppercase
                                         $deductionValue = isset($row[$deductionColumnName]) ? $row[$deductionColumnName] : 0;
                                         // return var_dump($deductionValue);
@@ -589,7 +588,7 @@ error_reporting(0);
                                             $deductionsTotal += $PayslipObject->getDeductionValue($pay, $deductionDetailRow);
                                     ?>
                                             <tr>
-                                                <td class="box"><?php echo $deductionDetailRow['name']; ?></td>
+                                                <td class="box"><?php echo str_replace("_", " ", $deductionDetailRow['name']); ?></td>
                                                 <td align="right"><?php echo number_format($PayslipObject->getDeductionValue($pay, $deductionDetailRow), 2); ?></td>
                                             </tr>
                                     <?php
