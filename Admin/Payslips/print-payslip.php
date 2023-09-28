@@ -475,7 +475,7 @@ error_reporting(0);
 
 
                                     <?php
-                                    $gross = ($pay) + $row['allowance'] + $row['comission'] + $totalEarnings;
+                                    $gross = ($pay) + $earningsTotal;
 
 
                                     if ($TaxObject->getEmployeeAge($empno) < 55) {

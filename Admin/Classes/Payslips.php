@@ -130,7 +130,8 @@ class Payslips
 
         $allowance = $this->getEmployeeAllowance($empno, 'basic_pay');
 
-        $pension = (($employee_share + $employer_share) / 100) * $allowance;
+        // $pension = (($employee_share + $employer_share) / 100) * $allowance;
+        $pension = (($employee_share) / 100) * $allowance;
 
         return $pension;
     }

@@ -144,7 +144,7 @@
                                                 while ($row = mysql_fetch_array($result)) {
                                                     $earnings = $PayslipsObject->getEmployeeEarnings($row['earnings_id']);
 
-                                                    $gross = $earnings + ($row['otrate'] * $row['othrs']) + $row['allow'] + $row['comission'];
+                                                    $gross = $earnings + $row['pay'] + ($row['otrate'] * $row['othrs']) + $row['allow'] + $row['comission'];
 
                                                     $empoyeeNo = $row['empno'];
                                                     $natureEmployement = $row['employment_type'];

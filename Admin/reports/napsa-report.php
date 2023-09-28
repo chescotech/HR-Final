@@ -158,7 +158,7 @@ error_reporting(0);
                                             while ($row = mysql_fetch_array($result)) {
                                                 $earnings = $PayslipObject->getEmployeeEarnings($row['earnings_id']);
 
-                                                $gross = $earnings + ($row['otrate'] * $row['othrs']) + $row['allow'] + $row['comission'];
+                                                $gross = $row['basic_pay'] + $earnings + ($row['otrate'] * $row['othrs']) + $row['allow'] + $row['comission'];
 
 
 

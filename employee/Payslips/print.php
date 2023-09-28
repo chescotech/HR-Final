@@ -466,7 +466,7 @@ error_reporting(0);
                                     </tr>
                                     <?php
 
-                                    $gross = ($pay) + $row['allowance'] + $row['comission'] + $totalEarnings;
+                                    $gross = ($pay) + $row['allowance'] + $row['comission'] + $totalEarnings + $overtime;
 
                                     if ($TaxObject->getEmployeeAge($row['empno']) < 55) {
                                         $napsa = $gross * 0.05;
@@ -678,7 +678,7 @@ error_reporting(0);
                             </tr>
                             <tr style="display: flex; justify-content: space-between;">
                                 <td class="align2"><b style="margin-right: 333px;">Gross Pay <div class="align3"> <?php
-                                                                                                                    $gross = $gross + $overtime;
+
                                                                                                                     echo number_format("$gross", 2); ?></div></b>
 
                                 </td>

@@ -54,7 +54,7 @@
                 if ($add_q) {
                     // add column to employee_earnings table
                     $sanitized_name = str_replace(" ", "_", strtolower($name));
-                    $update_table = mysql_query("ALTER TABLE `employee_earnings` ADD `$sanitized_name` double(10, 2) NULL");
+                    $update_table = mysql_query("ALTER TABLE `employee_earnings` ADD `$sanitized_name` INT(10) NULL");
                     echo "<script> alert('Added Successfuly') </script>";
                     echo "<script> window.location.href='earnings' </script>";
                 }
@@ -63,10 +63,18 @@
                 // return var_dump($_POST);
                 $name = $_POST['name'];
                 $slug = $_POST['slug'];
+                $original_name = $_POST['orig_name'];
                 $id = $_POST['id'];
 
                 $add_q = mysql_query("UPDATE earnings SET name = '$name',slug='$slug'
                         WHERE id = '$id' ") or die(mysql_error());
+
+                // update employee earnings rename column
+                $sanitized_name =  str_replace(" ", "_", strtolower($name));
+                $original_sanitized = str_replace(" ", "_", strtolower($original_name));
+                $upd_query = "ALTER TABLE `employee_earnings` CHANGE `$original_sanitized` `$sanitized_name` INT(10) NULL DEFAULT NULL";
+                var_dump($upd_query);
+                $update_earn = mysql_query($upd_query) or die(mysql_error());
 
                 if ($add_q) {
                     echo "<script> alert('Updated Successfuly') </script>";
@@ -144,6 +152,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['id']; ?>" required>
+                                                                <input type="hidden" class="form-control pull-right" id="orig_name" name="orig_name" value="<?php echo $row['name'] ?>">
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="submit" class="btn btn-primary" name="update">Save changes</button>
@@ -162,7 +171,7 @@
                                                         <div class="modal-header">
                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                 <span aria-hidden="true">×</span></button>
-                                                            <h4 class="modal-title">Are u sure you want to delete this field ??
+                                                            <h4 class="modal-title">Are you sure you want to delete this field ??
                                                             </h4>
                                                         </div>
                                                         <div class="modal-body" hidden="">
