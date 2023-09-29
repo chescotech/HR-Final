@@ -585,7 +585,7 @@ error_reporting(0);
                                         $deductionValue = isset($row[$deductionColumnName]) ? $row[$deductionColumnName] : 0;
                                         // return var_dump($deductionValue);
                                         if ($deductionValue == "1") {
-                                            $deductionsTotal += $PayslipObject->getDeductionValue($pay, $deductionDetailRow);
+                                            $deductionsTotal += $PayslipObject->getDeductionValue($basic_pay, $deductionDetailRow);
                                     ?>
                                             <tr>
                                                 <td class="box"><?php echo str_replace("_", " ", $deductionDetailRow['name']); ?></td>

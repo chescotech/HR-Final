@@ -221,8 +221,6 @@ error_reporting(0);
 
             // return var_dump($updateQuery);
 
-            var_dump($updateQuery);
-
             // Execute the query
             $earnings_item = mysql_query($updateQuery) or die(mysql_error());
 
