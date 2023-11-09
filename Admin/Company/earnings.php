@@ -24,9 +24,9 @@
     <div class="wrapper">
 
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Department.php';
         $DepartmentObject = new Department();
-        include '../navigation_panel/authenticated_user_header.php';
         ?>
 
         <?php include '../navigation_panel/side_navigation_bar.php'; ?>
@@ -48,13 +48,13 @@
                 $company_id = $_POST['company_id'];
 
 
-                $add_q = mysql_query("INSERT INTO earnings (name,slug, company_ID)
-                        VALUES('$name','$slug', '$company_id')") or die(mysql_error());
+                $add_q = mysqli_query($link, "INSERT INTO earnings (name,slug, company_ID)
+                        VALUES('$name','$slug', '$company_id')") or die(mysqli_error($link));
 
                 if ($add_q) {
                     // add column to employee_earnings table
                     $sanitized_name = str_replace(" ", "_", strtolower($name));
-                    $update_table = mysql_query("ALTER TABLE `employee_earnings` ADD `$sanitized_name` INT(10) NULL");
+                    $update_table = mysqli_query($link, "ALTER TABLE `employee_earnings` ADD `$sanitized_name` INT(10) NULL");
                     echo "<script> alert('Added Successfuly') </script>";
                     echo "<script> window.location.href='earnings' </script>";
                 }
@@ -66,15 +66,15 @@
                 $original_name = $_POST['orig_name'];
                 $id = $_POST['id'];
 
-                $add_q = mysql_query("UPDATE earnings SET name = '$name',slug='$slug'
-                        WHERE id = '$id' ") or die(mysql_error());
+                $add_q = mysqli_query($link, "UPDATE earnings SET name = '$name',slug='$slug'
+                        WHERE id = '$id' ") or die(mysqli_error($link));
 
                 // update employee earnings rename column
                 $sanitized_name =  str_replace(" ", "_", strtolower($name));
                 $original_sanitized = str_replace(" ", "_", strtolower($original_name));
                 $upd_query = "ALTER TABLE `employee_earnings` CHANGE `$original_sanitized` `$sanitized_name` INT(10) NULL DEFAULT NULL";
                 var_dump($upd_query);
-                $update_earn = mysql_query($upd_query) or die(mysql_error());
+                $update_earn = mysqli_query($link, $upd_query) or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Updated Successfuly') </script>";
@@ -85,11 +85,11 @@
                 $id = $_POST['id'];
                 $name = $_POST['name'];
 
-                $add_q = mysql_query("DELETE FROM earnings WHERE id = '$id' ") or die(mysql_error());
+                $add_q = mysqli_query($link, "DELETE FROM earnings WHERE id = '$id' ") or die(mysqli_error($link));
 
                 if ($add_q) {
                     $sanitized_name = str_replace(" ", "_", strtolower($name));
-                    $update_table = mysql_query("ALTER TABLE `employee_earnings` DROP `$sanitized_name`;");
+                    $update_table = mysqli_query($link, "ALTER TABLE `employee_earnings` DROP `$sanitized_name`;");
                     echo "<script> alert('Deleted Successfuly') </script>";
                     echo "<script> window.location.href='earnings' </script>";
                 }
@@ -115,8 +115,8 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $query = mysql_query("SELECT * FROM earnings WHERE company_ID='$compID'") or die(mysql_error());
-                                        while ($row = mysql_fetch_array($query)) {
+                                        $query = mysqli_query($link, "SELECT * FROM earnings WHERE company_ID='$compID'") or die(mysqli_error($link));
+                                        while ($row = mysqli_fetch_array($query)) {
                                         ?>
                                             <tr>
                                                 <td><?php echo $row['name']; ?></td>

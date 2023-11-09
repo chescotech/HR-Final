@@ -34,8 +34,8 @@
                 <tbody>
                     <?php
 
-                    $user_q = mysql_query("SELECT * FROM jobs_postings INNER JOIN department ON jobs_postings.dep_id = department.dep_id ") or die(mysql_error());
-                    while ($row = mysql_fetch_array($user_q)) {
+                    $user_q = mysqli_query($link, "SELECT * FROM jobs_postings INNER JOIN department ON jobs_postings.dep_id = department.dep_id ") or die(mysqli_error($link));
+                    while ($row = mysqli_fetch_array($user_q)) {
                         $id = $row['id'];
                         $title = $row['title'];
                         $department = $row['department'];
@@ -93,15 +93,15 @@
 <script type="text/javascript" src="../../js/buttons.colVis.min.js"></script>
 
 <script>
-   $(document).ready(function() {
-    var table = $('#maintable').DataTable();
- 
-    $('#maintable tbody').on( 'click', 'tr', function () {
-        $(this).toggleClass('selected');
-    } );
- 
-    $('#button').click( function () {
-        alert( table.rows('.selected').data().length +' row(s) selected' );
-    } );
-} );
+    $(document).ready(function() {
+        var table = $('#maintable').DataTable();
+
+        $('#maintable tbody').on('click', 'tr', function() {
+            $(this).toggleClass('selected');
+        });
+
+        $('#button').click(function() {
+            alert(table.rows('.selected').data().length + ' row(s) selected');
+        });
+    });
 </script>

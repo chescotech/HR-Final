@@ -23,8 +23,8 @@ $printdate = date('F d, Y', $mydate);
 
 $em = new email();
 
-$query = mysql_query("SELECT * FROM emp_info WHERE empno = '$empno'");
-$employeeRows = mysql_fetch_array($query);
+$query = mysqli_query($link,"SELECT * FROM emp_info WHERE empno = '$empno'");
+$employeeRows = mysqli_fetch_array($query);
 $fname = $employeeRows['fname'];
 $lname = $employeeRows['lname'];
 
@@ -56,4 +56,3 @@ if ($PaySlipsObject->checkIfUploadExsists($empno, $date) == "true") {
 }
 
 echo "<script>window.close();</script>";
-?>

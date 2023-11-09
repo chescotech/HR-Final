@@ -24,9 +24,9 @@
     <div class="wrapper">
 
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Department.php';
         $DepartmentObject = new Department();
-        include '../navigation_panel/authenticated_user_header.php';
         ?>
 
         <?php include '../navigation_panel/side_navigation_bar.php'; ?>
@@ -50,8 +50,8 @@
 
                 // return var_dump($date);
 
-                $add_q = mysql_query("INSERT INTO holidays (name,date)
-                        VALUES('$name','$date')") or die(mysql_error());
+                $add_q = mysqli_query($link, "INSERT INTO holidays (name,date)
+                        VALUES('$name','$date')") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Added Successfuly') </script>";
@@ -63,8 +63,8 @@
                 $date = $_POST['date'];
                 $id = $_POST['id'];
 
-                $add_q = mysql_query("UPDATE holidays SET name = '$name',date='$date'
-                        WHERE id = '$id' ") or die(mysql_error());
+                $add_q = mysqli_query($link, "UPDATE holidays SET name = '$name',date='$date'
+                        WHERE id = '$id' ") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Updated Successfuly') </script>";
@@ -74,7 +74,7 @@
             if (isset($_POST['delete'])) {
                 $id = $_POST['id'];
 
-                $add_q = mysql_query("DELETE FROM holidays WHERE id = '$id' ") or die(mysql_error());
+                $add_q = mysqli_query($link, "DELETE FROM holidays WHERE id = '$id' ") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Deleted Successfuly') </script>";
@@ -102,8 +102,8 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $query = mysql_query("SELECT * FROM holidays") or die(mysql_error());
-                                        while ($row = mysql_fetch_array($query)) {
+                                        $query = mysqli_query($link, "SELECT * FROM holidays") or die(mysqli_error($link));
+                                        while ($row = mysqli_fetch_array($query)) {
                                         ?>
                                             <tr>
                                                 <td><?php echo $row['name']; ?></td>

@@ -89,8 +89,8 @@
                         $query = "SELECT * FROM postings 
                             LEFT JOIN department ON department.dep_id = postings.dep_id
                             WHERE status = 'Published' ";
-                        $result = mysql_query($query) or die(mysql_error());
-                        while ($row = mysql_fetch_array($result)) {
+                        $result = mysqli_query($link, $query) or die(mysqli_error($link));
+                        while ($row = mysqli_fetch_array($result)) {
                             $id_ = $row['id'];
                             $title = $row['title'];
                             $department = $row['department'];

@@ -2,39 +2,45 @@
 
 include_once 'DBClass.php';
 
-class Leave {
+class Leave
+{
 
-    function __construct() {
-        $conn = mysql_connect(DB_SERVER, DB_USER, DB_PASS) or die('db connection problem' . mysql_error());
+    function __construct()
+    {
+        $conn = mysql_connect(DB_SERVER, DB_USER, DB_PASS) or die('db connection problem' . mysqli_error($link));
         mysql_select_db(DB_NAME, $conn);
     }
 
-    public function applyLeave($startLeave, $endLeave, $leaveType, $empNo, $reasonLeave, $contact, $contact_person, $address_on_leave, $file, $leaveDays) {
+    public function applyLeave($startLeave, $endLeave, $leaveType, $empNo, $reasonLeave, $contact, $contact_person, $address_on_leave, $file, $leaveDays)
+    {
         $status = "Pending Approval";
         $today = date("Y-m-d");
-        $res = mysql_query("INSERT INTO leave_applications_tb(leave_start_date,leave_end_date,"
-                . "leave_type,empno,status,reason_leave,contact,contact_person,address_on_leave,file_proof,application_date,level,days)"
-                . " VALUES('$startLeave','$endLeave','$leaveType','$empNo','$status'"
-                . ",'$reasonLeave','$contact','$contact_person','$address_on_leave','$file','$today','1','$leaveDays')");
+        $res = mysqli_query($link, "INSERT INTO leave_applications_tb(leave_start_date,leave_end_date,"
+            . "leave_type,empno,status,reason_leave,contact,contact_person,address_on_leave,file_proof,application_date,level,days)"
+            . " VALUES('$startLeave','$endLeave','$leaveType','$empNo','$status'"
+            . ",'$reasonLeave','$contact','$contact_person','$address_on_leave','$file','$today','1','$leaveDays')");
         return $res;
     }
 
-    public function getLeaveDaysAppliedFor($empno, $application_id) {
-        $res = mysql_query("SELECT * FROM `leave_applications_tb` WHERE empno='$empno' AND application_id='$application_id')");
-        $rows = mysql_fetch_array($res);
+    public function getLeaveDaysAppliedFor($empno, $application_id)
+    {
+        $res = mysqli_query($link, "SELECT * FROM `leave_applications_tb` WHERE empno='$empno' AND application_id='$application_id')");
+        $rows = mysqli_fetch_array($res);
         $days = $rows['days'];
         return $days;
     }
 
-    public function getEmployeeFinalLevelApprovals($empno) {
-        $res = mysql_query("SELECT MAX(level) AS level FROM `appover_groups` WHERE work_flow_id ="
-                . " (SELECT leaveworkflow_id FROM `emp_info` WHERE empno='$empno')");
-        $rows = mysql_fetch_array($res);
+    public function getEmployeeFinalLevelApprovals($empno)
+    {
+        $res = mysqli_query($link, "SELECT MAX(level) AS level FROM `appover_groups` WHERE work_flow_id ="
+            . " (SELECT leaveworkflow_id FROM `emp_info` WHERE empno='$empno')");
+        $rows = mysqli_fetch_array($res);
         $level = $rows['level'];
         return $level;
     }
 
-    public function getAttendanceLogList($logDate, $empno) {
+    public function getAttendanceLogList($logDate, $empno)
+    {
 
         $arr = explode("/", $logDate);
         list($Getmonth, $Getday, $GetYear) = $arr;
@@ -46,15 +52,16 @@ class Leave {
         $firstDate = $year . "/" . $month . "/" . "01";
         $endDate = $year . "/" . $month . "/" . "31";
 
-        $res = mysql_query("SELECT * FROM attendance_logs WHERE log_date BETWEEN '$firstDate' AND '$endDate' AND "
-                . " empno = '$empno'");
+        $res = mysqli_query($link, "SELECT * FROM attendance_logs WHERE log_date BETWEEN '$firstDate' AND '$endDate' AND "
+            . " empno = '$empno'");
         return $res;
     }
 
-    function checkIfApplicatantisHod($empno) {
+    function checkIfApplicatantisHod($empno)
+    {
         $status = "";
-        $query = mysql_query(" SELECT * FROM hod_tb WHERE empno  = '$empno' ");
-        if (mysql_num_rows($query) > 0) {
+        $query = mysqli_query($link, " SELECT * FROM hod_tb WHERE empno  = '$empno' ");
+        if (mysqli_num_rows($query) > 0) {
             $status = "true";
         } else {
             $status = "false";
@@ -62,26 +69,30 @@ class Leave {
         return $status;
     }
 
-    function getCheckInTime($id) {
-        $query = mysql_query("SELECT * FROM  attendance_logs WHERE status = 'in' AND id= '$id' ");
-        $rows = mysql_fetch_array($query);
+    function getCheckInTime($id)
+    {
+        $query = mysqli_query($link, "SELECT * FROM  attendance_logs WHERE status = 'in' AND id= '$id' ");
+        $rows = mysqli_fetch_array($query);
         $loginTime = $rows['log_time'];
         return $loginTime;
     }
 
-    function getCheckOutTime($id) {
-        $query = mysql_query("SELECT * FROM  attendance_logs WHERE status = 'out' AND id= '$id'");
-        $rows = mysql_fetch_array($query);
+    function getCheckOutTime($id)
+    {
+        $query = mysqli_query($link, "SELECT * FROM  attendance_logs WHERE status = 'out' AND id= '$id'");
+        $rows = mysqli_fetch_array($query);
         $loginTime = $rows['log_time'];
         return $loginTime;
     }
 
-    public function getLeaveTypes($companyId) {
-        $result = mysql_query("SELECT * FROM leave_tb WHERE companyID = '$companyId' ");
+    public function getLeaveTypes($companyId)
+    {
+        $result = mysqli_query($link, "SELECT * FROM leave_tb WHERE companyID = '$companyId' ");
         return $result;
     }
 
-    function timeDiff($firstTime, $lastTime) {
+    function timeDiff($firstTime, $lastTime)
+    {
         $firstTime = strtotime($firstTime);
         $lastTime = strtotime($lastTime);
 
@@ -101,50 +112,57 @@ class Leave {
         return $timeworked;
     }
 
-    public function getWorkFlowApprovers($empno) {
-        $res = mysql_query("SELECT * FROM `workflows` INNER JOIN appover_groups on appover_groups.work_flow_id=workflows.id
+    public function getWorkFlowApprovers($empno)
+    {
+        $res = mysqli_query($link, "SELECT * FROM `workflows` INNER JOIN appover_groups on appover_groups.work_flow_id=workflows.id
         INNER join emp_info on  emp_info.empno=appover_groups.empno
         WHERE  workflows.id IN ( SELECT emp_info.leaveworkflow_id from emp_info where empno='$empno') AND appover_groups.level=1");
 
-        $rows = mysql_fetch_array($res);
+        $rows = mysqli_fetch_array($res);
         $email = $rows['email'];
         return $email;
     }
 
-    public function applyLeaveWithoutAtatachments($startLeave, $endLeave, $leaveType, $empNo, $reasonLeave, $contact, $contact_person, $address_on_leave, $leaveDays) {
+    public function applyLeaveWithoutAtatachments($startLeave, $endLeave, $leaveType, $empNo, $reasonLeave, $contact, $contact_person, $address_on_leave, $leaveDays)
+    {
         $status = "Pending Approval";
         $today = date("Y-m-d");
-        $res = mysql_query("INSERT INTO leave_applications_tb(leave_start_date,leave_end_date,"
-                . "leave_type,empno,status,reason_leave,contact,contact_person,address_on_leave,file_proof,application_date,level,days)"
-                . " VALUES('$startLeave','$endLeave','$leaveType','$empNo','$status'"
-                . ",'$reasonLeave','$contact','$contact_person','$address_on_leave','','$today','1','$leaveDays')");
+        $res = mysqli_query($link, "INSERT INTO leave_applications_tb(leave_start_date,leave_end_date,"
+            . "leave_type,empno,status,reason_leave,contact,contact_person,address_on_leave,file_proof,application_date,level,days)"
+            . " VALUES('$startLeave','$endLeave','$leaveType','$empNo','$status'"
+            . ",'$reasonLeave','$contact','$contact_person','$address_on_leave','','$today','1','$leaveDays')");
         return $res;
     }
 
-    public function veiwLeave($empno) {
-        $res = mysql_query("SELECT * FROM leave_applications_tb WHERE empno='$empno' ");
+    public function veiwLeave($empno)
+    {
+        $res = mysqli_query($link, "SELECT * FROM leave_applications_tb WHERE empno='$empno' ");
         return $res;
     }
 
-    public function GetAllDepartmentsByCompany($companyID) {
-        $result = mysql_query("SELECT * FROM department WHERE company_ID='$companyID'");
+    public function GetAllDepartmentsByCompany($companyID)
+    {
+        $result = mysqli_query($link, "SELECT * FROM department WHERE company_ID='$companyID'");
         return $result;
     }
 
-    public function veiwPendingLeave($empno) {
-        $res = mysql_query("SELECT * FROM leave_applications_tb  ");
+    public function veiwPendingLeave($empno)
+    {
+        $res = mysqli_query($link, "SELECT * FROM leave_applications_tb  ");
         return $res;
     }
 
-    public function checkifHod($empno) {
-        $res = mysql_query("SELECT * FROM hod_tb WHERE empno='$empno'");
+    public function checkifHod($empno)
+    {
+        $res = mysqli_query($link, "SELECT * FROM hod_tb WHERE empno='$empno'");
         return $res;
     }
 
-    public function checkIfLeaveApprover($empno) {
+    public function checkIfLeaveApprover($empno)
+    {
         $status = "";
-        $res = mysql_query("SELECT * FROM `appover_groups` WHERE empno='$empno'");
-        if (mysql_num_rows($res) != 0) {
+        $res = mysqli_query($link, "SELECT * FROM `appover_groups` WHERE empno='$empno'");
+        if (mysqli_num_rows($res) != 0) {
             $status = "true";
         } else {
             $status = "false";
@@ -152,46 +170,52 @@ class Leave {
         return $status;
     }
 
-    public function veiwLeaveBalance($empno) {
-        $res = mysql_query("SELECT * FROM leave_applications_tb WHERE empno='$empno' AND status ='Approved' ORDER BY application_id DESC ");
+    public function veiwLeaveBalance($empno)
+    {
+        $res = mysqli_query($link, "SELECT * FROM leave_applications_tb WHERE empno='$empno' AND status ='Approved' ORDER BY application_id DESC ");
         return $res;
     }
 
-    public function checkLeaveDays($empono) {
-        $res = mysql_query("SELECT * FROM leave_days WHERE empno='$empono'");
+    public function checkLeaveDays($empono)
+    {
+        $res = mysqli_query($link, "SELECT * FROM leave_days WHERE empno='$empono'");
         return $res;
     }
 
-    public function getEmployeeSupervisor($employeeId) {
-        $res = mysql_query("SELECT * FROM emp_info WHERE empno='$employeeId'");
-        $rows = mysql_fetch_array($res);
+    public function getEmployeeSupervisor($employeeId)
+    {
+        $res = mysqli_query($link, "SELECT * FROM emp_info WHERE empno='$employeeId'");
+        $rows = mysqli_fetch_array($res);
         $department = $rows['dept'];
 
-        $hodQuery = mysql_query("SELECT * FROM hod_tb WHERE departmentId='$department'");
-        $hodRows = mysql_fetch_array($hodQuery);
+        $hodQuery = mysqli_query($link, "SELECT * FROM hod_tb WHERE departmentId='$department'");
+        $hodRows = mysqli_fetch_array($hodQuery);
         $hodsEmpno = $hodRows['empno'];
 
-        $getHodDataQuery = mysql_query("SELECT * FROM emp_info WHERE empno='$hodsEmpno'");
-        $hodsInfoRows = mysql_fetch_array($getHodDataQuery);
+        $getHodDataQuery = mysqli_query($link, "SELECT * FROM emp_info WHERE empno='$hodsEmpno'");
+        $hodsInfoRows = mysqli_fetch_array($getHodDataQuery);
         $hodsEmail = $hodsInfoRows['email'];
         return $hodsEmail;
     }
 
-    public function getLeaveApplicantDetails($empono) {
-        $res = mysql_query("SELECT * FROM emp_info WHERE empno='$empono'");
+    public function getLeaveApplicantDetails($empono)
+    {
+        $res = mysqli_query($link, "SELECT * FROM emp_info WHERE empno='$empono'");
         return $res;
     }
 
-    public function getPendingApprovals($supervisorsDeptId) {
-        $res = mysql_query("SELECT * FROM leave_applications_tb lv, emp_info em WHERE lv.empno IN "
-                . "(SELECT em.empno FROM pay.emp_info WHERE dept='$supervisorsDeptId') AND lv.status !='Approved' AND lv.status!='Declined';");
+    public function getPendingApprovals($supervisorsDeptId)
+    {
+        $res = mysqli_query($link, "SELECT * FROM leave_applications_tb lv, emp_info em WHERE lv.empno IN "
+            . "(SELECT em.empno FROM pay.emp_info WHERE dept='$supervisorsDeptId') AND lv.status !='Approved' AND lv.status!='Declined';");
         return $res;
     }
 
-    public function checkIfAttachmentExsists($applicationId) {
+    public function checkIfAttachmentExsists($applicationId)
+    {
         $status = "";
-        $res = mysql_query("SELECT * FROM leave_applications_tb WHERE application_id = '$applicationId'");
-        $rows = mysql_fetch_array($res);
+        $res = mysqli_query($link, "SELECT * FROM leave_applications_tb WHERE application_id = '$applicationId'");
+        $rows = mysqli_fetch_array($res);
         $fileProof = $rows['file_proof'];
         if ($fileProof == "") {
             $status = "false";
@@ -201,25 +225,29 @@ class Leave {
         return $status;
     }
 
-    public function peopleOnleave($supervisorsDeptId) {
-        $res = mysql_query("SELECT * FROM leave_applications_tb lv, emp_info em WHERE lv.empno IN "
-                . "(SELECT em.empno FROM pay.emp_info WHERE dept='$supervisorsDeptId') AND lv.status ='Approved' ;");
+    public function peopleOnleave($supervisorsDeptId)
+    {
+        $res = mysqli_query($link, "SELECT * FROM leave_applications_tb lv, emp_info em WHERE lv.empno IN "
+            . "(SELECT em.empno FROM pay.emp_info WHERE dept='$supervisorsDeptId') AND lv.status ='Approved' ;");
         return $res;
     }
 
-    public function getPeopleAbsent($companyId) {
-        $res = mysql_query("SELECT * FROM leave_applications_tb WHERE empno = (SELECT empno FROM emp_info WHERE company_id = '$companyId' ) AND status ='Approved'");
+    public function getPeopleAbsent($companyId)
+    {
+        $res = mysqli_query($link, "SELECT * FROM leave_applications_tb WHERE empno = (SELECT empno FROM emp_info WHERE company_id = '$companyId' ) AND status ='Approved'");
         return $res;
     }
 
-    public function getDeptLeaveName($supervisorsDeptId) {
-        $res = mysql_query("SELECT * FROM department WHERE dep_id='$supervisorsDeptId'");
-        $row = mysql_fetch_array($res);
+    public function getDeptLeaveName($supervisorsDeptId)
+    {
+        $res = mysqli_query($link, "SELECT * FROM department WHERE dep_id='$supervisorsDeptId'");
+        $row = mysqli_fetch_array($res);
         $deptname = $row['department'];
         return $deptname;
     }
 
-    public function checkForExpiredLeaves($LeaveEndDate) {
+    public function checkForExpiredLeaves($LeaveEndDate)
+    {
         $EndDateConverted = date('Y-m-d', strtotime($LeaveEndDate));
         $state = "";
         $todaysDate = date("Y-m-d");
@@ -231,22 +259,23 @@ class Leave {
         return $state;
     }
 
-    public function checkIfCvExsists($empno) {
-        $res = mysql_query(" SELECT * FROM certificates_tb where empno='$empno' AND id = ( SELECT MAX(id) FROM certificates_tb WHERE empno='$empno' ) ");
-        $rows = mysql_fetch_array($res);
-        if (mysql_num_rows($res) != 0) {
+    public function checkIfCvExsists($empno)
+    {
+        $res = mysqli_query($link, " SELECT * FROM certificates_tb where empno='$empno' AND id = ( SELECT MAX(id) FROM certificates_tb WHERE empno='$empno' ) ");
+        $rows = mysqli_fetch_array($res);
+        if (mysqli_num_rows($res) != 0) {
             $cv = $rows['cv'];
             return $cv;
         }
     }
 
-    public function checkIfCertificateExsists($empno) {
-        $res = mysql_query(" SELECT * FROM certificates_tb where empno='$empno' AND id = ( SELECT MAX(id) FROM certificates_tb WHERE empno='$empno' ) ");
-        $rows = mysql_fetch_array($res);
-        if (mysql_num_rows($res) != 0) {
+    public function checkIfCertificateExsists($empno)
+    {
+        $res = mysqli_query($link, " SELECT * FROM certificates_tb where empno='$empno' AND id = ( SELECT MAX(id) FROM certificates_tb WHERE empno='$empno' ) ");
+        $rows = mysqli_fetch_array($res);
+        if (mysqli_num_rows($res) != 0) {
             $qualifications = $rows['qualifications'];
             return $qualifications;
         }
     }
-
 }

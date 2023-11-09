@@ -77,7 +77,7 @@ error_reporting(0);
                         <?php
                         $id = $_GET['id'];
                         $EditQuery = $LoanObject->getEmployeeToEdit($id);
-                        $rows = mysql_fetch_array($EditQuery);
+                        $rows = mysqli_fetch_array($EditQuery);
                         ?>
 
                         <form enctype="multipart/form-data" method="post">

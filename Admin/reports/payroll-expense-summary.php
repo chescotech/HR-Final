@@ -122,10 +122,10 @@
                                                         INNER JOIN emp_info n ON em.empno = n.empno                                                     
                                                         WHERE em.company_id =  '$compId' and em.time = '$year-$month-$day'";
 
-                                                $result = mysql_query($query, $link) or die(mysql_error());
+                                                $result = mysqli_query($link, $query) or die(mysqli_error($link));
 
                                                 $sum = 0;
-                                                while ($row = mysql_fetch_array($result)) {
+                                                while ($row = mysqli_fetch_array($result)) {
 
                                                     $empno = $row['empno'];
                                                     $ssNo = "";
@@ -179,8 +179,8 @@
                                                     $total_tax_paid = $band1 + $band2 + $band3 + $band4;
 
                                                     $date = $row['time'];
-                                                    $res = mysql_query("SELECT * FROM loan WHERE empno='$empoyeeNo' AND '$date' BETWEEN loan_date AND date_completion ");
-                                                    $LoanRows = mysql_fetch_array($res);
+                                                    $res = mysqli_query($link, "SELECT * FROM loan WHERE empno='$empoyeeNo' AND '$date' BETWEEN loan_date AND date_completion ");
+                                                    $LoanRows = mysqli_fetch_array($res);
                                                     $lAmount = $LoanRows['monthly_deduct'];
 
                                                     $totdeduct = $total_tax_paid + $row['advances'] + $row['insurance'] + $napsa + $lAmount + $row['health_insurance'];

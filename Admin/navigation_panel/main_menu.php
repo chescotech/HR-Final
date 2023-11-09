@@ -1,7 +1,11 @@
 <?php
 session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 if (!isset($_SESSION['company_ID'])) {
     header('Location:../logout.php');
+    exit();
 }
 
 include_once('../include/dbconnection.php');

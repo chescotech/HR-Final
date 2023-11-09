@@ -72,11 +72,11 @@
 
                                             <?php
                                             $Leave = $LeaveObject->veiwPendingLeave();
-                                            while ($row = mysql_fetch_array($Leave)) {
+                                            while ($row = mysqli_fetch_array($Leave)) {
                                                 $id_ = $row['application_id'];
                                                 $empno = $row['empno'];
                                                 $employees = $LoanObject->getEmpDetails($empno);
-                                                $empRows = mysql_fetch_array($employees);
+                                                $empRows = mysqli_fetch_array($employees);
 
                                                 if ($row['status'] == "Cleared") {
                                                     $status = '<span class="label label-success arrowed-in arrowed-in-right">' . $row['status'] . '</span>';

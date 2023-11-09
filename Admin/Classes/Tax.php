@@ -1,60 +1,79 @@
 <?php
 
-class Tax {
+include_once 'DBClass.php';
 
-    public function addtaxBand($band_top1, $band_top2, $band_top3, $band_rate1, $band_rate2, $band_rate3, $band_rate4, $company_ID) {
-        $res = mysql_query("INSERT INTO tax_bands(band_top1,band_top2,band_top3,band_rate1,"
-                . "band_rate2,band_rate3,band_rate4,company_ID) "
-                . "VALUES('$band_top1','$band_top2','$band_top3','$band_rate1','$band_rate2',"
-                . "'$band_rate3','$band_rate4','$company_ID')");
+class Tax
+{
+    private $link;
+
+    function __construct()
+    {
+        $this->link = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME) or die('db connection problem' . mysqli_connect_error());
+    }
+
+
+    public function addtaxBand($band_top1, $band_top2, $band_top3, $band_rate1, $band_rate2, $band_rate3, $band_rate4, $company_ID)
+    {
+        $res = mysqli_query($this->link, "INSERT INTO tax_bands(band_top1,band_top2,band_top3,band_rate1,"
+            . "band_rate2,band_rate3,band_rate4,company_ID) "
+            . "VALUES('$band_top1','$band_top2','$band_top3','$band_rate1','$band_rate2',"
+            . "'$band_rate3','$band_rate4','$company_ID')");
         return $res;
     }
 
-    public function updatetaxbands() {
-        
+    public function updatetaxbands()
+    {
     }
 
-    function updateGratuity($amount) {
-        $result = mysql_query("UPDATE gratuity_settings_tb SET rating='$amount'");
+    function updateGratuity($amount)
+    {
+        $result = mysqli_query($this->link, "UPDATE gratuity_settings_tb SET rating='$amount'");
         return $result;
     }
 
-    function updateNhimaSettings($amount, $status) {
-        $result = mysql_query("UPDATE  nhima_tb SET amount='$amount',status='$status' ");
+    function updateNhimaSettings($amount, $status)
+    {
+        $result = mysqli_query($this->link, "UPDATE  nhima_tb SET amount='$amount',status='$status' ");
         return $result;
     }
 
-    public function updateTaxBand($band_top1, $band_top2, $band_top3, $band_rate1, $band_rate2, $band_rate3, $band_rate4, $company_ID,$napsa_ceiling) {
-        $result = mysql_query("UPDATE tax_bands SET band_top1 ='$band_top1',band_top2='$band_top2',"
-                . "band_top3='$band_top3',band_rate1='$band_rate1',band_rate2='$band_rate2', band_rate3='$band_rate3',"
-                . "band_rate4='$band_rate4', napsa_ceiling='$napsa_ceiling' WHERE company_ID= '$company_ID'");
+    public function updateTaxBand($band_top1, $band_top2, $band_top3, $band_rate1, $band_rate2, $band_rate3, $band_rate4, $company_ID, $napsa_ceiling)
+    {
+        $result = mysqli_query($this->link, "UPDATE tax_bands SET band_top1 ='$band_top1',band_top2='$band_top2',"
+            . "band_top3='$band_top3',band_rate1='$band_rate1',band_rate2='$band_rate2', band_rate3='$band_rate3',"
+            . "band_rate4='$band_rate4', napsa_ceiling='$napsa_ceiling' WHERE company_ID= '$company_ID'");
         return $result;
     }
 
-    public function getTaxDetails($company_ID) {
-        $query = mysql_query("SELECT * FROM tax_bands WHERE company_ID = '$company_ID'");
+    public function getTaxDetails($company_ID)
+    {
+        $query = mysqli_query($this->link, "SELECT * FROM tax_bands WHERE company_ID = '$company_ID'");
         return $query;
     }
 
-    public function getGratuitySettings() {
-        $query = mysql_query("SELECT * FROM gratuity_settings_tb ");
+    public function getGratuitySettings()
+    {
+        $query = mysqli_query($this->link, "SELECT * FROM gratuity_settings_tb ");
         return $query;
     }
 
-    public function getNationalHealthSchemeSettings() {
-        $query = mysql_query("SELECT * FROM nhima_tb ");
-        return $query;
-    }
-    
-    public function getPensions() {
-         $query = mysql_query("SELECT * FROM pensions_tb ");
+    public function getNationalHealthSchemeSettings()
+    {
+        $query = mysqli_query($this->link, "SELECT * FROM nhima_tb ");
         return $query;
     }
 
-    public function checkIfTaxExsists($company_ID) {
+    public function getPensions()
+    {
+        $query = mysqli_query($this->link, "SELECT * FROM pensions_tb ");
+        return $query;
+    }
+
+    public function checkIfTaxExsists($company_ID)
+    {
         $status = "";
-        $query = mysql_query("SELECT * FROM tax_bands WHERE company_ID = '$company_ID'");
-        if (mysql_num_rows($query) == 0) {
+        $query = mysqli_query($this->link, "SELECT * FROM tax_bands WHERE company_ID = '$company_ID'");
+        if (mysqli_num_rows($query) == 0) {
             $status = "false";
         } else {
             $status = "true";
@@ -62,25 +81,28 @@ class Tax {
         return $status;
     }
 
-    public function getTopBand1($company_ID) {
-        $query = mysql_query("SELECT * FROM tax_bands WHERE company_ID = '$company_ID'");
-        $row = mysql_fetch_array($query);
+    public function getTopBand1($company_ID)
+    {
+        $query = mysqli_query($this->link, "SELECT * FROM tax_bands WHERE company_ID = '$company_ID'");
+        $row = mysqli_fetch_array($query);
         $bandTop1 = $row['band_top1'];
         return $bandTop1;
     }
-    
-  
 
-    public function getNapsaCeiling($company_ID) {
-        $query = mysql_query("SELECT * FROM tax_bands WHERE company_ID = '$company_ID'");
-        $row = mysql_fetch_array($query);
+
+
+    public function getNapsaCeiling($company_ID)
+    {
+        $query = mysqli_query($this->link, "SELECT * FROM tax_bands WHERE company_ID = '$company_ID'");
+        $row = mysqli_fetch_array($query);
         $napsa_ceiling = $row['napsa_ceiling'];
         return $napsa_ceiling;
     }
 
-    public function getEmployeeAge($empno) {
-        $query = mysql_query("SELECT bdate FROM emp_info WHERE empno = '$empno'");
-        $row = mysql_fetch_array($query);
+    public function getEmployeeAge($empno)
+    {
+        $query = mysqli_query($this->link, "SELECT bdate FROM emp_info WHERE empno = '$empno'");
+        $row = mysqli_fetch_array($query);
         $dob = $row['bdate'];
         $from = new DateTime($dob);
         $to = new DateTime('today');
@@ -88,37 +110,42 @@ class Tax {
         return $age;
     }
 
-    public function getTopBand2($company_ID) {
-        $query = mysql_query("SELECT * FROM tax_bands WHERE company_ID = '$company_ID'");
-        $row = mysql_fetch_array($query);
+    public function getTopBand2($company_ID)
+    {
+        $query = mysqli_query($this->link, "SELECT * FROM tax_bands WHERE company_ID = '$company_ID'");
+        $row = mysqli_fetch_array($query);
         $bandTop1 = $row['band_top2'];
         return $bandTop1;
     }
 
-    public function getTopBand3($company_ID) {
-        $query = mysql_query("SELECT * FROM tax_bands WHERE company_ID = '$company_ID'");
-        $row = mysql_fetch_array($query);
+    public function getTopBand3($company_ID)
+    {
+        $query = mysqli_query($this->link, "SELECT * FROM tax_bands WHERE company_ID = '$company_ID'");
+        $row = mysqli_fetch_array($query);
         $bandTop1 = $row['band_top3'];
         return $bandTop1;
     }
 
-    public function getBandRate1($company_ID) {
-        $query = mysql_query("SELECT * FROM tax_bands WHERE company_ID = '$company_ID'");
-        $row = mysql_fetch_array($query);
+    public function getBandRate1($company_ID)
+    {
+        $query = mysqli_query($this->link, "SELECT * FROM tax_bands WHERE company_ID = '$company_ID'");
+        $row = mysqli_fetch_array($query);
         $band_rate1 = $row['band_rate1'];
         return $band_rate1;
     }
 
-    public function getBandRate2($company_ID) {
-        $query = mysql_query("SELECT * FROM tax_bands WHERE company_ID = '$company_ID'");
-        $row = mysql_fetch_array($query);
+    public function getBandRate2($company_ID)
+    {
+        $query = mysqli_query($this->link, "SELECT * FROM tax_bands WHERE company_ID = '$company_ID'");
+        $row = mysqli_fetch_array($query);
         $band_rate2 = $row['band_rate2'];
         return $band_rate2;
     }
 
-    public function getCompanyLogo($companyId) {
-        $user_query = mysql_query("SELECT * FROM company where company_ID='$companyId'") or die(mysql_error());
-        $row = mysql_fetch_array($user_query);
+    public function getCompanyLogo($companyId)
+    {
+        $user_query = mysqli_query($this->link, "SELECT * FROM company where company_ID='$companyId'") or die(mysqli_error($this->link));
+        $row = mysqli_fetch_array($user_query);
 
         $photo = "../company_logos/" . $row['logo'];
         $check_pic = $row['logo'];
@@ -128,21 +155,24 @@ class Tax {
         return $photo;
     }
 
-    public function getBandRate3($company_ID) {
-        $query = mysql_query("SELECT * FROM tax_bands WHERE company_ID = '$company_ID'");
-        $row = mysql_fetch_array($query);
+    public function getBandRate3($company_ID)
+    {
+        $query = mysqli_query($this->link, "SELECT * FROM tax_bands WHERE company_ID = '$company_ID'");
+        $row = mysqli_fetch_array($query);
         $band_rate3 = $row['band_rate3'];
         return $band_rate3;
     }
 
-    public function getBandRate4($company_ID) {
-        $query = mysql_query("SELECT * FROM tax_bands WHERE company_ID = '$company_ID'");
-        $row = mysql_fetch_array($query);
+    public function getBandRate4($company_ID)
+    {
+        $query = mysqli_query($this->link, "SELECT * FROM tax_bands WHERE company_ID = '$company_ID'");
+        $row = mysqli_fetch_array($query);
         $band_rate4 = $row['band_rate4'];
         return $band_rate4;
     }
 
-    function TaxCal($pay, $compId) {
+    function TaxCal($pay, $compId)
+    {
 
         $band2_total = 0;
         $band3_total = 0;
@@ -192,5 +222,4 @@ class Tax {
         $totalTax = $band2_total + $band3_total + $band4_total + $band5_total;
         return $totalTax;
     }
-
 }

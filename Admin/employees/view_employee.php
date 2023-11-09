@@ -1,3 +1,11 @@
+<?php
+include_once '../Classes/Employee.php';
+include_once '../Classes/Payslips.php';
+include_once '../Classes/Asset.php';
+$AssetObject = new Asset();
+$PayslipsObject = new Payslips();
+$EmployeeObject = new Employee();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -29,15 +37,27 @@
     </style>
 </head>
 
+<?php
+if (isset($_POST['return'])) {
+    $asset_id = $_POST['asset_id'];
+    $comments = $_POST['comments'];
+    $admin_id = $_SESSION['user_session'];
+    $company_id = $_POST['company_id'];
+
+    $result = $AssetObject->returnAsset($admin_id, $asset_id, $comments, $company_id);
+
+    if (!$result) {
+        echo '<script>alert("Something went wrong. Please try again.")</script>';
+    }
+
+    echo '<script>window.location = "view-employee.php"</script>';
+}
+?>
+
 <body class="hold-transition skin-green-light sidebar-mini">
     <div class="wrapper">
 
         <?php
-        error_reporting(0);
-        include_once '../Classes/Employee.php';
-        include_once '../Classes/Payslips.php';
-        $PayslipsObject = new Payslips();
-        $EmployeeObject = new Employee();
         include '../navigation_panel/authenticated_user_header.php';
         ?>
 
@@ -67,13 +87,13 @@
                             $emp_id = $_GET['id'];
                             $query = "SELECT  * from emp_info where id = '$emp_id' ";
 
-                            $result = mysql_query($query) or die(mysql_error());
+                            $result = mysqli_query($link, $query) or die(mysqli_error($link));
                             $count = 1;
                             $available_leave_days = 0;
-                            if (mysql_num_rows($result) > 0) {
+                            if (mysqli_num_rows($result) > 0) {
                                 // $images_dir = "../../../utils/images/students/";
 
-                                while ($row = mysql_fetch_assoc($result)) {
+                                while ($row = mysqli_fetch_assoc($result)) {
                                     if ($row["photo"] != "") {
                                         $picname = $row["photo"];
                                     } else {
@@ -81,8 +101,8 @@
                                     }
                                     $empno = $row['empno'];
                                     $nrc_file = $row['nrc_file'];
-                                    $MyLeave = mysql_query("SELECT * FROM leave_days WHERE empno='$empno'");
-                                    while ($leaverow = mysql_fetch_array($MyLeave)) {
+                                    $MyLeave = mysqli_query($link, "SELECT * FROM leave_days WHERE empno='$empno'");
+                                    while ($leaverow = mysqli_fetch_array($MyLeave)) {
                                         $available_leave_days = $leaverow['available'];
                                     }
                             ?>
@@ -271,6 +291,103 @@
                                                     </tr>
                                                     <tr>
                                                         <td>
+                                                            <p>Assets</p>
+                                                        </td>
+                                                        <td>
+                                                            <div>
+                                                                <?php
+                                                                $assetsResult = $EmployeeObject->getEmployeeAssets($empno);
+
+                                                                if (mysqli_num_rows($assetsResult) > 0) {
+                                                                ?>
+                                                                    <ul>
+                                                                        <?php
+                                                                        while ($assetsRow = mysqli_fetch_array($assetsResult)) {
+                                                                        ?>
+                                                                            <li><?php echo $assetsRow['name'] . ", " . $assetsRow['identifier']; ?><button class="btn btn-warning" style="float: right;" data-toggle="modal" data-target="#returnAssetModal">Return</button></li>
+                                                                            <div class="modal fade" id="returnAssetModal" tabindex="-1" role="dialog" aria-labelledby="returnModalLabel" aria-hidden="true">
+                                                                                <div class="modal-dialog" role="document">
+                                                                                    <div class="modal-content">
+                                                                                        <form action="" method="post">
+                                                                                            <div class="modal-header">
+                                                                                                <h5 class="modal-title" id="deleteAssetModalLabel">Return Asset</h5>
+                                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                                </button>
+                                                                                            </div>
+                                                                                            <div class="modal-body">
+                                                                                                <p class="alert alert-danger">Are you sure you want to return this asset?</p>
+                                                                                                <div class="form-group">
+                                                                                                    <label htmlFor="comments">Comments</label>
+                                                                                                    <textarea class="form-control" name="comments" id="comments" required></textarea>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <input type="hidden" name="asset_id" value="<?= $assetsRow['id']; ?>">
+                                                                                            <input type="hidden" name="company_id" value="<?= $companyId ?>">
+
+                                                                                            <div class="modal-footer">
+                                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                                                <button type="submit" class="btn btn-danger" name="return">Return</button>
+                                                                                            </div>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        <?php
+                                                                        }
+                                                                        ?>
+                                                                    </ul>
+                                                                <?php
+                                                                } else {
+                                                                    echo 'No Assets Assigned to this Employee';
+                                                                    echo '<button class="btn btn-success" data-toggle="modal" data-target="#assignAssetModal" style="float: right;">Assign</button>';
+                                                                    echo '
+                                                                        <div class="modal fade" id="assignAssetModal" tabindex="-1" role="dialog" aria-labelledby="returnAssetModalLabel" aria-hidden="true">
+                                                                            <div class="modal-dialog" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <form method="post" action="">
+                                                                                        <div class="modal-header">
+                                                                                            <h5 class="modal-title" id="assignAssetModalLabel">Add Asset</h5>
+                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                <span aria-hidden="true">&times;</span>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                        <div class="modal-body">
+                                                                                            <div class="form-group">
+                                                                                                <label for="asset_select">Select Employee</label>
+                                                                                                <select name="asset_select" class="form-control" id="asset_select" required>
+                                                                                                    <option value="" style="text-transform: capitalize;">--- Select an Asset ---</option>';
+
+                                                                    $allAssetsResult = $AssetObject->getAssets($companyId);
+                                                                    while ($allAssetsRow = mysqli_fetch_assoc($allAssetsResult)) {
+                                                                        echo '
+                                                                                                                                                                    <option value="' . $allAssetsRow['id'] . '">
+                                                                                                                                                                        ' . $allAssetsRow['identifier'] . ' ' . $allAssetsRow['name'] . '
+                                                                                                                                                                    </option>';
+                                                                    }
+
+                                                                    echo '
+                                                                                                </select>
+                                                                                            </div>
+                                                                                            <input type="hidden" name="company_id" value="' . $companyId . '">
+                                                                                            <input type="hidden" name="asset_id" value="' . $row['id'] . '">
+                                                                                        </div>
+                                                                                        <div class="modal-footer">
+                                                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                                            <button type="submit" class="btn btn-primary" name="return">Save</button>
+                                                                                        </div>
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        ';
+                                                                }
+                                                                ?>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
                                                             <p>Employment Type</p>
                                                         </td>
                                                         <td>
@@ -298,8 +415,8 @@
                                                                 <?php
                                                                 $dept = $row['dept'];
                                                                 $q_dept = "SELECT department, dep_id FROM department WHERE dep_id = '$dept' ";
-                                                                $res_dept = mysql_query($q_dept);
-                                                                $r_dept = mysql_fetch_assoc($res_dept);
+                                                                $res_dept = mysqli_query($link, $q_dept);
+                                                                $r_dept = mysqli_fetch_assoc($res_dept);
                                                                 ?>
                                                                 <p><?php echo $r_dept['department']; ?>.</p>
                                                             </div>
@@ -374,11 +491,11 @@
         <div class="col-lg-5">
             <div class="">
                 <?php
-                if ($nrc_file != "") {
+                if (isset($row['nrc_file'])) {
                     $file = $row['nrc_file'];
                     echo '<a href="../../images/employees/' . $nrc_file . '">Click here to view</a>';
                 } else {
-                    echo '<a href="">No File Found</a>';
+                    echo '<span href="">No File Found</span>';
                 }
                 ?>
             </div>
@@ -408,9 +525,9 @@
             <div class="">
 
                 <?php
-                $perf_q = mysql_query("SELECT date FROM ass_periods GROUP BY YEAR(date)
-                            ") or die(mysql_error());
-                while ($perf_r = mysql_fetch_array($perf_q)) {
+                $perf_q = mysqli_query($link, "SELECT date FROM ass_periods GROUP BY YEAR(date)
+                            ") or die(mysqli_error($link));
+                while ($perf_r = mysqli_fetch_array($perf_q)) {
                     $date = $perf_r['date'];
                     $year = date("Y", strtotime($date));
                 ?>

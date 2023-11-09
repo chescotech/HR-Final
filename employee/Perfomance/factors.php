@@ -45,8 +45,8 @@
                 $name = $_POST['name'];
                 $target = $_POST['target'];
 
-                $add_q = mysql_query("INSERT INTO ass_factors (name,target,dept)
-                        VALUES('$name','$target','$dept')") or die(mysql_error());
+                $add_q = mysqli_query($link, "INSERT INTO ass_factors (name,target,dept)
+                        VALUES('$name','$target','$dept')") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Added Successfuly') </script>";
@@ -58,8 +58,8 @@
                 $target = $_POST['target'];
                 $id = $_POST['id'];
 
-                $add_q = mysql_query("UPDATE ass_factors SET name = '$name',target='$target'
-                        WHERE id = '$id' ") or die(mysql_error());
+                $add_q = mysqli_query($link, "UPDATE ass_factors SET name = '$name',target='$target'
+                        WHERE id = '$id' ") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Updated Successfuly') </script>";
@@ -69,7 +69,7 @@
             if (isset($_POST['delete'])) {
                 $id = $_POST['id'];
 
-                $add_q = mysql_query("DELETE FROM ass_factors WHERE id = '$id' ") or die(mysql_error());
+                $add_q = mysqli_query($link, "DELETE FROM ass_factors WHERE id = '$id' ") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Deleted Successfuly') </script>";
@@ -97,8 +97,8 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $query = mysql_query("SELECT * FROM ass_factors WHERE dept='$dept' ") or die(mysql_error());
-                                        while ($row = mysql_fetch_array($query)) {
+                                        $query = mysqli_query($link, "SELECT * FROM ass_factors WHERE dept='$dept' ") or die(mysqli_error($link));
+                                        while ($row = mysqli_fetch_array($query)) {
                                         ?>
                                             <tr>
                                                 <td><?php echo $row['name']; ?></td>

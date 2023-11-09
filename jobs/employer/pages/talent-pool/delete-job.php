@@ -8,8 +8,8 @@ if (isset($_GET['id'])) {
     // delete the talent pool
     $query = "DELETE FROM `talent_pool` WHERE id = ' $id '";
 
-    $resultUpdate = mysql_query($updateQuery, $link) or die(mysql_error());
-    $resultDelete = mysql_query($query, $link) or die(mysql_error());
+    $resultUpdate = mysqli_query($link, $updateQuery) or die(mysqli_error($link));
+    $resultDelete = mysqli_query($link, $query) or die(mysqli_error($link));
 
     // Redirect to the desired page after successful execution
     // Redirect back to the previous page

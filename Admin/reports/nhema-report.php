@@ -138,7 +138,9 @@ error_reporting(0);
                                                     <th>Last Name</th>
                                                     <th>Date of Contribution.</th>
                                                     <th>Date of Birth.</th>
-                                                    <th>Total Contribution</th>
+                                                    <!-- <th>Total Contribution</th> -->
+                                                    <th>Employee Contribution</th>
+                                                    <th>Employer Contribution</th>
                                                 </tr>
                                             </thead>
 
@@ -164,12 +166,12 @@ error_reporting(0);
                                                 $query = "SELECT emp_info.nhima,employee.empno,emp_info.nrc,emp_info.bdate,health_insurance,emp_info.fname,emp_info.lname,employee.time,emp_info.basic_pay, employee.earnings_id, employee.deductions_id FROM `employee` INNER JOIN emp_info on emp_info.empno=employee.empno
                                                     WHERE employee.time BETWEEN '$year-$month-$day'  AND  '$year2-$month2-$day2' ";
 
-                                                $result2 = mysql_query($query, $link) or die(mysql_error());
+                                                $result2 = mysqli_query($link, $query) or die(mysqli_error($link));
 
                                                 $sum = 0;
-                                                while ($row = mysql_fetch_array($result2)) {
+                                                while ($row = mysqli_fetch_array($result2)) {
                                                     $empno = $row['empno'];
-                                                    $basic_pay = $PayslipsObject->getEmployeeEarnings($row['earnings_id']);
+                                                    $basic_pay = $row['basic_pay'];
 
                                                     //$AnnualTax = $loanObj->getEmployeeAnnualtax($compId, $reportDate, $toDate, $empno,$compId);
 
@@ -183,7 +185,9 @@ error_reporting(0);
                                                             <td>' . $row['lname'] . '</td> 
                                                             <td>' . $row['time'] . '</td> 
                                                                  <td>' . $row['bdate'] . '</td> 
-                                                            <td>' . $row['health_insurance'] . '</td>                                                          
+                                                            
+                                                                 <td>' . $row['health_insurance'] / 2 . '</td>
+                                                                 <td>' . $row['health_insurance'] / 2 . '</td>                                                            
                                                         </tr>  
                                                         ';
                                                 }

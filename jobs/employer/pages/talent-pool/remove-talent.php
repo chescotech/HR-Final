@@ -6,7 +6,7 @@ if (isset($_GET['id'])) {
     $pool = $_GET['pool'];
 
     $query = "UPDATE `jobs_user_applications` SET talent_pool_id='0' WHERE user_id='$id'";
-    $result = mysql_query($query, $link) or die(mysql_error());
+    $result = mysqli_query($link, $query) or die(mysqli_error($link));
 
     echo "<script> window.location='talent-pool-candidates.php?pool_id=$pool' </script>";
 }

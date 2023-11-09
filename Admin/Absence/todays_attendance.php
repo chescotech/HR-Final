@@ -81,10 +81,10 @@
                                                         </tr>
                                                     </thead>
                                                     <?php
-                                                    $AbsentQuery = mysql_query("SELECT * FROM `attendance_logs` WHERE DATE(log_date) = DATE(NOW()) 
-                                                                AND  company_id = '$compID' AND login_time != '' AND logout_time = '' ") or die(mysql_error());
+                                                    $AbsentQuery = mysqli_query($link, "SELECT * FROM `attendance_logs` WHERE DATE(log_date) = DATE(NOW()) 
+                                                                AND  company_id = '$compID' AND login_time != '' AND logout_time = '' ") or die(mysqli_error($link));
 
-                                                    while ($row = mysql_fetch_array($AbsentQuery)) {
+                                                    while ($row = mysqli_fetch_array($AbsentQuery)) {
 
                                                         $EmployeeName = $leaveObject->getEmployeeDetails($row['empno']);
 
@@ -134,12 +134,12 @@
                                                         </tr>
                                                     </thead>
                                                     <?php
-                                                    $AbsentQuery = mysql_query("SELECT * FROM `emp_info`
+                                                    $AbsentQuery = mysqli_query($link, "SELECT * FROM `emp_info`
                                                                     WHERE empno NOT IN (SELECT empno FROM `attendance_logs` WHERE DATE(log_date) = DATE(NOW()) 
                                                                     AND  company_id = '$compID' AND login_time != '' AND logout_time = '' )
-                                                                    ") or die(mysql_error());
+                                                                    ") or die(mysqli_error($link));
 
-                                                    while ($row = mysql_fetch_array($AbsentQuery)) {
+                                                    while ($row = mysqli_fetch_array($AbsentQuery)) {
 
                                                         $EmployeeName = $leaveObject->getEmployeeDetails($row['empno']);
 

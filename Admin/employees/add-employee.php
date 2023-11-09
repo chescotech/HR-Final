@@ -52,6 +52,7 @@
         <?php
         error_reporting(1);
 
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Department.php';
         include_once '../Classes/Company.php';
         require_once('../../PHPmailer/sendmail.php');
@@ -59,7 +60,6 @@
         $DepartmentObject = new Department();
         $CompanyObject = new Company();
 
-        include '../navigation_panel/authenticated_user_header.php';
         $_key = $_SESSION['_key'];
         $companyId = $_SESSION['company_ID'];
 
@@ -175,9 +175,9 @@
                 $gross_pay += $value;
             }
 
-            $house_allowance = $_POST['house_allowance'];
-            $transport_allowance = $_POST['transport_allowance'];
-            $lunch_allowance = $_POST['lunch_allowance'];
+            // $house_allowance = $_POST['house_allowance'];
+            // $transport_allowance = $_POST['transport_allowance'];
+            // $lunch_allowance = $_POST['lunch_allowance'];
             // $gross_pay = $_POST['gross_pay'] + $house_allowance + $transport_allowance + $lunch_allowance;
             $branch_code = $_POST['branch_code'];
             $has_gratuity = $_POST['has_gratuity'];
@@ -223,7 +223,6 @@
                 $nok_phone,
                 $probation_deadline,
                 $employee_type,
-                $basicPay,
                 $social,
                 $branch_code,
                 $has_gratuity,
@@ -235,7 +234,7 @@
             );
 
             // save employee earnings
-            $new_emp_id = mysql_insert_id();
+            $new_emp_id = mysqli_insert_id($link);
 
 
 
@@ -283,16 +282,16 @@
 
 
             $earn_query = "INSERT INTO employee_deductions(employee_id, employee_no, company_id $columnsString) VALUES ('$new_emp_id', '$trim', '$companyId' $valuesString)";
-            $deductions_query_result = mysql_query($earn_query) or die(mysql_error());
+            $deductions_query_result = mysqli_query($link, $earn_query) or die(mysqli_error($link));
 
             $deduct_query = "INSERT INTO employee_earnings(employee_id, employee_no, company_id $cn_imploded) VALUES('$new_emp_id', '$trim', '$companyId' $cv_imploded)";
-            $deduct_result = mysql_query($deduct_query) or die(mysql_error());
+            $deduct_result = mysqli_query($link, $deduct_query) or die(mysqli_error($link));
 
             // log user creation
             $action = "Create Employee";
             $empl = $_SESSION['user_session'];
             // return var_dump($_SESSION);
-            $emp_log = mysql_query("INSERT INTO emp_log(company_id, action, action_user) VALUES('$companyId','$action','$empl')") or die(mysql_error());
+            $emp_log = mysqli_query($link, "INSERT INTO emp_log(company_id, action, action_user) VALUES('$companyId','$action','$empl')") or die(mysqli_error($link));
 
             $DepartmentObject->addEmployeeAllowances($companyId, $house_allowance, $transport_allowance, $lunch_allowance, $empno);
 
@@ -508,7 +507,7 @@
                                             <option>--Select Department--</option>
                                             <?php
                                             $departmentquery = $DepartmentObject->GetAllDepartmentsByCompany($compId);
-                                            while ($row = mysql_fetch_array($departmentquery)) {
+                                            while ($row = mysqli_fetch_array($departmentquery)) {
                                             ?>
                                                 <option value="<?php echo $row['dep_id']; ?>"> <?php echo $row['department']; ?></option>
                                             <?php
@@ -533,7 +532,7 @@
                                             <?php
                                             $compName = $_SESSION['username'];
                                             $CompanyQuery = $CompanyObject->getEmployeGrade($compId);
-                                            while ($row = mysql_fetch_array($CompanyQuery)) {
+                                            while ($row = mysqli_fetch_array($CompanyQuery)) {
                                             ?>
                                                 <option value="<?php echo $row['grade']; ?>"> <?php echo $row['grade']; ?></option>
                                             <?php
@@ -600,17 +599,17 @@
                                                 </button>
                                             </div>
                                             <?php
-                                            $earnings = mysql_query("SELECT * FROM earnings WHERE company_id = '$companyId'");
+                                            $earnings = mysqli_query($link, "SELECT * FROM earnings WHERE company_id = '$companyId'");
                                             ?>
                                             <div class="modal-body" style="overflow-y: scroll;">
 
                                                 <div class="box-body">
                                                     <div class="form-horizontal">
                                                         <label for="earning_0">Basic Pay</label>
-                                                        <input type="text" id="earning_0" name="basic_pay" class="form-control" placeholder="<?= $row['basic_pay'] ?>" required>
+                                                        <input type="text" id="earning_0" name="basic_pay" class="form-control" placeholder="" required>
                                                     </div>
                                                     <?php
-                                                    while ($row = mysql_fetch_array($earnings)) {
+                                                    while ($row = mysqli_fetch_array($earnings)) {
                                                         # code...
                                                     ?>
                                                         <label><input type="checkbox" name="earning_<?= $row['name'] ?>" id="" value="<?= $row['id'] ?>" onchange="toggleInput(this)"> <?= $row['name'] ?><br> </label></span>
@@ -649,11 +648,12 @@
                                             </div>
                                             <div class="modal-body">
                                                 <?php
-                                                $deductions = mysql_query(
-                                                    "SELECT * from `deductions` WHERE company_ID = '$companyId  '"
+                                                $deductions = mysqli_query(
+                                                    $link,
+                                                    "SELECT * from `deductions` WHERE company_ID = '$companyId'"
                                                 );
 
-                                                while ($ded_row = mysql_fetch_array($deductions)) {
+                                                while ($ded_row = mysqli_fetch_assoc($deductions)) {
                                                 ?>
                                                     <p><label><input type="checkbox" name="deduction_<?= $ded_row['name'] ?>" id="" value="<?= $ded_row['ded_id'] ?>"> <?= $ded_row['name'] ?><br> </label></p>
                                                 <?php

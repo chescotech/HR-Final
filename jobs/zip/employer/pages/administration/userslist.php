@@ -34,8 +34,8 @@
                 <tbody>
                     <?php
 
-                    $user_q = mysql_query("SELECT * FROM jobs_users WHERE user_type='admin' ") or die(mysql_error());
-                    while ($row = mysql_fetch_array($user_q)) {
+                    $user_q = mysqli_query($link, "SELECT * FROM jobs_users WHERE user_type='admin' ") or die(mysqli_error($link));
+                    while ($row = mysqli_fetch_array($user_q)) {
                         $fname = $row['fname'];
                         $lname = $row['lname'];
                         $email = $row['email'];

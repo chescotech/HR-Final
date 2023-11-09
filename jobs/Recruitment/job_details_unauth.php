@@ -38,13 +38,13 @@ ini_set('display_errors', 0);
                                             </tr>
                                         </thead>
                 <?php
-                $result = mysql_query("SELECT * FROM jobs_postings 
+                $result = mysqli_query($link, "SELECT * FROM jobs_postings 
                                                 LEFT JOIN department ON department.dep_id = jobs_postings.dep_id
                                                 WHERE status = 'Published'
                                                 AND DATE(expires) > DATE(NOW())
-                                                ") or die(mysql_error());
+                                                ") or die(mysqli_error($link));
                 $view_details = "";
-                while ($row = mysql_fetch_array($result)) {
+                while ($row = mysqli_fetch_array($result)) {
                     $id_ = $row['id'];
                     $title = $row['title'];
                     $department = $row['department'];
@@ -99,8 +99,8 @@ ini_set('display_errors', 0);
                             LEFT JOIN department ON department.dep_id = jobs_postings.dep_id
                             LEFT JOIN employer ON employer.id = jobs_postings.emp_id
                             WHERE jobs_postings.id = $id_ ";
-                            $result = mysql_query($query) or die(mysql_error());
-                            while ($row = mysql_fetch_array($result)) {
+                            $result = mysqli_query($link, $query) or die(mysqli_error($link));
+                            while ($row = mysqli_fetch_array($result)) {
                                 $title = $row['title'];
                                 $department = $row['department'];
                                 $vacancies = $row['vacancies'];
@@ -125,10 +125,10 @@ ini_set('display_errors', 0);
                                 $expires = date("d M, Y", strtotime($rawExpires));
                             }
                             // Check if we done applied this before
-                            $ck_q = mysql_query("SELECT id FROM jobs_user_applications WHERE jobs_job_id = '$id_'
-                                                AND user_id = '$user_id' ") or die(mysql_error());
+                            $ck_q = mysqli_query($link, "SELECT id FROM jobs_user_applications WHERE jobs_job_id = '$id_'
+                                                AND user_id = '$user_id' ") or die(mysqli_error($link));
 
-                            if (mysql_num_rows($ck_q) > 0) {
+                            if (mysqli_num_rows($ck_q) > 0) {
                                 $apply_txt = "Already Applied";
                                 $apply_class = "disabled";
                                 $apply_color = "style='background-color:#fc6603'";
@@ -165,23 +165,23 @@ ini_set('display_errors', 0);
                                                     </a>
                                                 </div>
                                                 <br>
-                                                <strong style="margin:1.5rem;"><?php echo $compname; ?>: <span style ="margin:0.5rem;"><?php echo $title; ?> </span> <span style="float: right; color:<?php echo "red" ?>"> 
-                                                          
-                                                          
-                                                    
+                                                <strong style="margin:1.5rem;"><?php echo $compname; ?>: <span style="margin:0.5rem;"><?php echo $title; ?> </span> <span style="float: right; color:<?php echo "red" ?>">
+
+
+
                                                         <button id="loginBtn" <?php echo $apply_class ?> <?php echo $apply_color ?> type="button" class="btn btn-primary btn-block" style="width:20rem;" data-toggle="modal" data-target="#exampleModal">
                                                             <?php echo $apply_txt ?>
                                                         </button></span>
                                                 </strong>
                                                 <br><br>
                                             </div>
-                                            
-                                            <?php 
-                                              if (!empty($website)) {
+
+                                            <?php
+                                            if (!empty($website)) {
                                                 $site = $website;
-                                              } else {
+                                            } else {
                                                 $site = 'N/A';
-                                              }
+                                            }
                                             ?>
 
                                             <div class="panel-body form-horizontal">

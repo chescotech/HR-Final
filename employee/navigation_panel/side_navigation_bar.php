@@ -63,6 +63,13 @@
                 </a>
             </li>
 
+            <li>
+                <a href="../assets/my-assets">
+                    <i class="fa fa-briefcase"></i> <span>My Assets</span>
+                    <small class="label pull-right bg-red"></small>
+                </a>
+            </li>
+
             <?php
             if ($_SESSION['has_timesheets'] === "true") {
             ?>
@@ -103,8 +110,8 @@
                 </li>';
             }
 
-            if (mysql_num_rows($chekcIfSupervisor) != 0) {
-                $row = mysql_fetch_array($chekcIfSupervisor);
+            if (mysqli_num_rows($chekcIfSupervisor) != 0) {
+                $row = mysqli_fetch_array($chekcIfSupervisor);
                 $_SESSION['supervisorDepartmentId'] = 1;
 
 

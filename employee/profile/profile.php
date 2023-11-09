@@ -102,23 +102,23 @@
 
 
             if ($leaveworkflow_id == "") {
-                $result = mysql_query("UPDATE emp_info SET fname ='$fname',lname='$lname',
+                $result = mysqli_query($link, "UPDATE emp_info SET fname ='$fname',lname='$lname',
                 init='$init',bdate='$bdate',position='$position', bank='$bank',
                 account='$account',date_joined='$dateJoined',date_left='$date_left'
                 ,gross_pay='$gross_pay',payment_method='$payment_method',basic_pay='$basic_pay',
                 social='$social',branch_code='$branch_code',photo = '$img',
                 nok_name='$nok_name', nok_relationship='$nok_relationship', nok_email='$nok_email', nok_address='$nok_address', nok_phone='$nok_phone',
                 gatuity_amount='$gatuity_amount',phone='$phone', NRC = '$NRC', email='$email', personal_email='$personal_email',nrc_file='$nrc_file'
-                 WHERE id= '$id'") or die("Error.." . mysql_error());
+                 WHERE id= '$id'") or die("Error.." . mysqli_error($link));
             } else {
-                $result = mysql_query("UPDATE emp_info SET fname ='$fname',lname='$lname',
+                $result = mysqli_query($link, "UPDATE emp_info SET fname ='$fname',lname='$lname',
                 init='$init',bdate='$bdate',position='$position', bank='$bank',
                 account='$account',date_joined='$dateJoined',date_left='$date_left'
                 ,gross_pay='$gross_pay',payment_method='$payment_method',basic_pay='$basic_pay',
                 social='$social',branch_code='$branch_code',leaveworkflow_id='$leaveworkflow_id',
                 nok_name='$nok_name', nok_relationship='$nok_relationship', nok_email='$nok_email', nok_address='$nok_address', nok_phone='$nok_phone',
                 photo = '$img', gatuity_amount='$gatuity_amount',phone='$phone', NRC = '$NRC', email='$email', personal_email='$personal_email',nrc_file='$nrc_file'
-                 WHERE id= '$id'") or die("Error.." . mysql_error());
+                 WHERE id= '$id'") or die("Error.." . mysqli_error($link));
             }
 
 
@@ -135,8 +135,8 @@
                         <div class="box box-primary">
                             <div class="box-body box-profile">
                                 <?php
-                                $result = mysql_query("SELECT * FROM emp_info where empno='$employeeId' ") or die(mysql_error());
-                                $row = mysql_fetch_array($result);
+                                $result = mysqli_query($link, "SELECT * FROM emp_info where empno='$employeeId' ") or die(mysqli_error($link));
+                                $row = mysqli_fetch_array($result);
                                 $position = $row['position'];
                                 if ($row["photo"] != "") {
                                     $picname = $row["photo"];
@@ -175,9 +175,9 @@
                                     }
                                     ?>
                                     <?php
-                                    $empQuery = mysql_query("SELECT * FROM emp_info where empno='$employeeId' ") or die(mysql_error());
+                                    $empQuery = mysqli_query($link, "SELECT * FROM emp_info where empno='$employeeId' ") or die(mysqli_error($link));
 
-                                    while ($rows = mysql_fetch_array($empQuery)) {
+                                    while ($rows = mysqli_fetch_array($empQuery)) {
                                         $image = $rows['photo'];
                                     ?>
                                         <form enctype="multipart/form-data" method="post">
@@ -186,8 +186,8 @@
                                                     <center>
                                                         <?php
                                                         $empno = $rows['empno'];
-                                                        $allowanceQuery = mysql_query("SELECT * FROM allowances_tb WHERE emp_no = '$empno'");
-                                                        $allowanceRows = mysql_fetch_array($allowanceQuery);
+                                                        $allowanceQuery = mysqli_query($link, "SELECT * FROM allowances_tb WHERE emp_no = '$empno'");
+                                                        $allowanceRows = mysqli_fetch_array($allowanceQuery);
                                                         if (isset($_POST['update'])) {
                                                             echo ' <center>
                                                                 <h3 style="color: green" class="box-title"><b>' . $stateMessage . '</b></h3>
@@ -375,7 +375,7 @@
                                                             <option value="<?php $rows['leaveworkflow_id'] ?>"><?php echo $CompanyObject->getApproverByID($rows['leaveworkflow_id']); ?></option>
                                                             <?php
                                                             $departmentquery = $CompanyObject->getApproverList();
-                                                            while ($row = mysql_fetch_array($departmentquery)) {
+                                                            while ($row = mysqli_fetch_array($departmentquery)) {
                                                             ?>
                                                                 <option value="<?php echo $row['id']; ?>"> <?php echo $row['name']; ?></option>
                                                             <?php

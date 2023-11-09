@@ -52,8 +52,8 @@
                             <select name="emp_fillter" class="form-control">
                                 <option value="all">-- All Employees --</option>
                                 <?php
-                                $qq1 = mysql_query("SELECT fname, lname,empno FROM emp_info");
-                                while ($rr1 = mysql_fetch_array($qq1)) {
+                                $qq1 = mysqli_query($link, "SELECT fname, lname,empno FROM emp_info");
+                                while ($rr1 = mysqli_fetch_array($qq1)) {
                                 ?>
                                     <option value="<?php echo $rr1['empno']; ?>"> <?php echo $rr1['fname'] . " " . $rr1['lname'] . "-" . $rr1['empno']; ?></option>
                                 <?php
@@ -65,8 +65,8 @@
                             <select name="dept_fillter" class="form-control">
                                 <option value="all">-- All Departments --</option>
                                 <?php
-                                $qq2 = mysql_query("SELECT dep_id, department FROM department");
-                                while ($rr2 = mysql_fetch_array($qq2)) {
+                                $qq2 = mysqli_query($link, "SELECT dep_id, department FROM department");
+                                while ($rr2 = mysqli_fetch_array($qq2)) {
                                 ?>
                                     <option value="<?php echo $rr2['dep_id']; ?>"> <?php echo $rr2['department']; ?></option>
                                 <?php
@@ -115,15 +115,15 @@
                                                 $filter_by_dept = " AND emp_info.dept = '$dept_fillter' ";
                                             }
                                         }
-                                        
-                                        $query = mysql_query(" SELECT fname, lname, emp_info.empno, position, dept, available
+
+                                        $query = mysqli_query($link, " SELECT fname, lname, emp_info.empno, position, dept, available
                                                     FROM emp_info
                                                     INNER JOIN leave_days ON leave_days.empno = emp_info.empno
                                                     $filter_by_dept
                                                     $filter_by_empno
-                                                    ") or die(mysql_error());
+                                                    ") or die(mysqli_error($link));
                                         $sum = 0;
-                                        while ($row = mysql_fetch_array($query)) {
+                                        while ($row = mysqli_fetch_array($query)) {
                                             $emp_name = $row['fname'] . " " . $row['lname'];
                                             $empno = $row['empno'];
                                             $available = $row['available'];

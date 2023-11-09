@@ -133,15 +133,15 @@
                             LEFT JOIN department ON department.dep_id = jobs_postings.dep_id
                              WHERE DATE(NOW()) <= expires
                             ";
-                            $result = mysql_query($query) or die(mysql_error());
-                            while ($row = mysql_fetch_array($result)) {
+                            $result = mysqli_query($link, $query) or die(mysqli_error($link));
+                            while ($row = mysqli_fetch_array($result)) {
                                 $id_ = $row['id'];
                                 $title = $row['title'];
                                 $department = $row['department'];
                                 $vacancies = $row['vacancies'];
                                 $type = $row['type'];
                                 $experience = $row['experience'];
-                                $salary = $row['salary_min']." - ".$row['salary_max'];
+                                $salary = $row['salary_min'] . " - " . $row['salary_max'];
                                 $info = $row['description'];
                                 $qualifications = $row['qualifications'];
                                 $status = $row['status'];
@@ -149,12 +149,12 @@
                                 $date = date("d M, Y", strtotime($rawdate));
                                 $rawExpires = $row['expires'];
                                 $expires = date("d M, Y", strtotime($rawExpires));
-                                $location = $row['city'].", ".$row['region'].", ".$row['country'];
+                                $location = $row['city'] . ", " . $row['region'] . ", " . $row['country'];
 
-                                $ck_q = mysql_query("SELECT id FROM jobs_user_applications WHERE jobs_job_id = '$id_'
-                                            AND user_id = '$user_id' ") or die(mysql_error());
+                                $ck_q = mysqli_query($link, "SELECT id FROM jobs_user_applications WHERE jobs_job_id = '$id_'
+                                            AND user_id = '$user_id' ") or die(mysqli_error($link));
 
-                                if (mysql_num_rows($ck_q) > 0) {
+                                if (mysqli_num_rows($ck_q) > 0) {
                                     $applied = '
                                         <div class="canvas canvas6">
                                             <div class="spinner6 p1"></div>
@@ -163,7 +163,7 @@
                                             <div class="spinner6 p4"></div>
                                         </div>
                                         ';
-                                }else{
+                                } else {
                                     $applied = "";
                                 }
                             ?>
@@ -189,7 +189,7 @@
                                                 <strong>Experience: <?php echo $experience; ?></strong>
 
                                             </p>
-                                         
+
                                             <p class="m0">
                                                 <strong>No. of Vacancies: <?php echo $vacancies; ?></strong>
                                             </p>

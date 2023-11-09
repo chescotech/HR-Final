@@ -117,7 +117,7 @@
                                                 <option>-- Select Employee to add --</option>
                                                 <?php
                                                 $departmentquery = $DepartmentObject->getAllEmployeesByCompany($compId);
-                                                while ($row = mysql_fetch_array($departmentquery)) {
+                                                while ($row = mysqli_fetch_array($departmentquery)) {
                                                     $fname = $row['fname'];
                                                     $lname = $row['lname'];
                                                     $position = $row['position'];

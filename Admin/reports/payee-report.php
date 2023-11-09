@@ -25,6 +25,7 @@
 <body class="hold-transition skin-green-light sidebar-mini">
     <div class="wrapper">
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Employee.php';
         include_once '../Classes/Tax.php';
         include_once '../Classes/Payslips.php';
@@ -32,7 +33,6 @@
         $EmployeeObject = new Employee();
         $TaxObject = new Tax();
 
-        include '../navigation_panel/authenticated_user_header.php';
 
         $compId = $_SESSION['company_ID'];
         ?>
@@ -138,13 +138,13 @@
                                                         INNER JOIN emp_info n ON em.empno = n.empno                                                     
                                                         WHERE em.company_id =  '$compId' and em.time = '$year-$month-$day'";
 
-                                                $result = mysql_query($query, $link) or die(mysql_error());
+                                                $result = mysqli_query($link, $query) or die(mysqli_error($link));
 
                                                 $sum = 0;
-                                                while ($row = mysql_fetch_array($result)) {
+                                                while ($row = mysqli_fetch_array($result)) {
                                                     $earnings = $PayslipsObject->getEmployeeEarnings($row['earnings_id']);
-
-                                                    $gross = $earnings + $row['pay'] + ($row['otrate'] * $row['othrs']) + $row['allow'] + $row['comission'];
+                                                    $formatDate = $year . '-' . $month . '-' . $day;
+                                                    $gross = $PayslipsObject->getEmployeeGrossPay($row['empno'], $formatDate);
 
                                                     $empoyeeNo = $row['empno'];
                                                     $natureEmployement = $row['employment_type'];
@@ -190,7 +190,9 @@
                                                     }
 
                                                     $band1 = $income * $band1_rate;
-                                                    $total_tax_paid = $TaxObject->TaxCal($gross, $compId); //$band1 + $band2 + $band3 + $band4;
+                                                    $total_tax_paid = $TaxObject->TaxCal($starting_income, $compId); //$band1 + $band2 + $band3 + $band4;
+
+
                                                     $totdeduct = $total_tax_paid + $row['advances'] + $row['insurance'] + $napsa;
 
                                                     if ($EmployeeObject->getSocialSSNO($row['empno']) == "") {
@@ -207,16 +209,16 @@
                                                     $chargbleEmTaxPeriod = $gross - $napsa;
 
                                                     echo '  
-                                                        <tr>  
+                                                    <tr>  
                                                             <td>NRC</td> 
                                                             <td>' . $row['tpin'] . '</td>
                                                             <td>' . $NRC . '</td>                                                            
                                                             <td>' . $row['fname'] . " " . $row['lname'] . '</td>
                                                             <td>' . $natureEmployement . '</td>
-                                                            <td>' . $gross . '</td>
-                                                            <td>' . $chargbleEmTaxPeriod . '</td>
+                                                            <td>' . number_format($gross, 2) . '</td>
+                                                            <td>' . number_format($chargbleEmTaxPeriod, 2) . '</td>
                                                             <td>0.00</td>
-                                                            <td>' . $total_tax_paid . '</td>
+                                                            <td>' . number_format($total_tax_paid, 2) . '</td>
                                                             <td>0.00</td>
                                                         </tr>  
                                                         ';

@@ -88,7 +88,7 @@
                                             ?>
 
                                             <?php
-                                            while ($row = mysql_fetch_assoc($timesheet)) {
+                                            while ($row = mysqli_fetch_assoc($timesheet)) {
                                                 // var_dump($row);
                                             ?>
                                                 <tr>

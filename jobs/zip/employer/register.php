@@ -33,13 +33,13 @@ $License = new License();
 
 <?php
 if (isset($_POST['register'])) {
-    $comp_name = mysql_real_escape_string($_POST['cname']);
-    $email = mysql_real_escape_string($_POST['email']);
-    $phone = mysql_real_escape_string($_POST['phone']);
-    $reg_num = mysql_real_escape_string($_POST['reg_number']);
-    $username = mysql_real_escape_string($_POST['username']);
-    $web_url = mysql_real_escape_string($_POST['web_url']);
-    $fb_url = mysql_real_escape_string($_POST['fb_url']);
+    $comp_name = ($_POST['cname']);
+    $email = ($_POST['email']);
+    $phone = ($_POST['phone']);
+    $reg_num = ($_POST['reg_number']);
+    $username = ($_POST['username']);
+    $web_url = ($_POST['web_url']);
+    $fb_url = ($_POST['fb_url']);
 
     $upload_id = round(microtime(true) * 1000);
     $file = $upload_id . "-" . $_FILES['file']['name'];
@@ -76,36 +76,37 @@ if (isset($_POST['register'])) {
     }
     $message = "";
 
-    $ck_q = mysql_query("
+    $ck_q = mysqli_query($link, "
     SELECT * FROM employer 
     WHERE username = '$username' AND email = '$email' 
     UNION 
     SELECT * FROM jobs_users 
-    WHERE username = '$username' AND email = '$email' ") or die(mysql_error());
+    WHERE username = '$username' AND email = '$email' ") or die(mysqli_error($link));
 
-    if (mysql_num_rows($ck_q) > 1) {
+    if (mysqli_num_rows($ck_q) > 1) {
         echo "<script> alert('The Email and Username Used Already Exist') </script>";
         echo "<script> window.location='register' </script>";
         return;
     } else {
-       
-        if (in_array($imgExt, $valid_extensions)) { 
-            if(move_uploaded_file($file_loc, $folder . $Certificate)) {
-            mysql_query("INSERT INTO employer (comp_name, reg_number, username, email, phone, web_url, fb_url,ref_id, password)
+
+        if (in_array($imgExt, $valid_extensions)) {
+            if (move_uploaded_file($file_loc, $folder . $Certificate)) {
+                mysqli_query($link, "INSERT INTO employer (comp_name, reg_number, username, email, phone, web_url, fb_url,ref_id, password)
     VALUES ('$comp_name', '$reg_num', '$username', '$email', '$phone', '$web_url', '$fb_url','$Certificate','$password')")
-                or die("Error Inserting: " . mysql_error());
+                    or die("Error Inserting: " . mysqli_error($link));
 
-            $comp_id = mysql_insert_id();
+                $comp_id = mysql_insert_id($link);
 
-            $_SESSION['comp_name'] = $comp_name;
-            $_SESSION['reg_num'] = $reg_num;
-            $_SESSION['comp_username'] = $username;
-            $_SESSION['empl_email'] = $email;
-            $_SESSION['empl_phone'] = $phone;
-            $_SESSION['empl_id'] = $comp_id;
-            $_SESSION['empl_logo'] = $Certificate;
-            echo "<script> window.location='../employer/pages/jobs/job-list' </script>";
-       } } else {
+                $_SESSION['comp_name'] = $comp_name;
+                $_SESSION['reg_num'] = $reg_num;
+                $_SESSION['comp_username'] = $username;
+                $_SESSION['empl_email'] = $email;
+                $_SESSION['empl_phone'] = $phone;
+                $_SESSION['empl_id'] = $comp_id;
+                $_SESSION['empl_logo'] = $Certificate;
+                echo "<script> window.location='../employer/pages/jobs/job-list' </script>";
+            }
+        } else {
             echo "<script> alert('Registration Failed Because Your Logo Could Not Be Uploaded.') </script>";
             // echo "<script> window.location='register' </script>";
             echo $Certificate;

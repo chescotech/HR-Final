@@ -75,9 +75,9 @@ $query = "SELECT *
                                                         INNER JOIN emp_info n ON em.empno = n.empno                                                     
                                                         WHERE em.company_id =  '$compId' and em.time = '$year-$month-$day'";
 
-$result = mysql_query($query);
+$result = mysqli_query($link,$query);
 $sum = 0;
-while ($row = mysql_fetch_array($result)) {
+while ($row = mysqli_fetch_array($result)) {
     $empno = $row['empno'];
     $fname = $row['fname'];
     $lname = $row['lname'];
@@ -180,4 +180,3 @@ $pdf->Cell(420, 5, "Printed On : " . $datePrint . " By " . $CompanyObject->getUs
 $pdf->Ln();
 
 $pdf->Output();
-?>

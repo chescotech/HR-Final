@@ -548,7 +548,7 @@ function SetLink($link, $y=0, $page=-1)
 	$this->links[$link] = array($page, $y);
 }
 
-function Link($x, $y, $w, $h, $link)
+function Link($x, $y, $w, $h)
 {
 	// Put a link on the page
 	$this->PageLinks[$this->page][] = array($x*$this->k, $this->hPt-$y*$this->k, $w*$this->k, $h*$this->k, $link);
@@ -1895,4 +1895,3 @@ protected function _enddoc()
 	$this->state = 3;
 }
 }
-?>

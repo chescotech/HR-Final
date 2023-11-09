@@ -53,11 +53,11 @@
         <?php
         if (isset($_POST['new_name'])) {
             $message = "";
-            $name = mysql_real_escape_string($_POST['new_name']);
-            $longi = mysql_real_escape_string($_POST['longi']);
-            $lati = mysql_real_escape_string($_POST['lati']);
+            $name = ($_POST['new_name']);
+            $longi = ($_POST['longi']);
+            $lati = ($_POST['lati']);
 
-            $insert = mysql_query("INSERT INTO branch SET name = '$name', lati = '$lati', longi = '$longi' ") or die(mysql_error());
+            $insert = mysqli_query($link, "INSERT INTO branch SET name = '$name', lati = '$lati', longi = '$longi' ") or die(mysqli_error($link));
 
             if ($insert) {
                 // $message = "";
@@ -68,9 +68,9 @@
 
         if (isset($_GET['del'])) {
             $message = "";
-            $id = mysql_real_escape_string($_GET['del']);
+            $id = ($_GET['del']);
 
-            $delete = mysql_query("DELETE FROM branch WHERE id = '$id' ") or die(mysql_error());
+            $delete = mysqli_query($link, "DELETE FROM branch WHERE id = '$id' ") or die(mysqli_error($link));
 
             if ($delete) {
                 echo "<script> alert('Record Deleted sucessfully') </script>";
@@ -124,8 +124,8 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $res_q = mysql_query("SELECT * FROM branch ");
-                                        while ($rows = mysql_fetch_array($res_q)) {
+                                        $res_q = mysqli_query($link, "SELECT * FROM branch ");
+                                        while ($rows = mysqli_fetch_array($res_q)) {
                                             $b_name = $rows['name'];
                                             $b_id = $rows['id'];
                                             $lati = $rows['lati'];

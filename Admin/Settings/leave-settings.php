@@ -88,8 +88,8 @@ error_reporting(0);
 
                                                 <?php
                                                 $query = "SELECT * FROM leave_ratings_tb WHERE companyID='$compId'  ";
-                                                $result = mysql_query($query, $link) or die(mysql_error());
-                                                while ($row = mysql_fetch_array($result)) {
+                                                $result = mysqli_query($link, $query) or die(mysqli_error($link));
+                                                while ($row = mysqli_fetch_array($result)) {
                                                 ?>
 
                                                     <?php

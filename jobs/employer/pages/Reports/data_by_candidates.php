@@ -6,7 +6,7 @@ session_start();
 
 $conn = mysql_connect("cloud204", "janazm_hr_fab", "c28T@xJ)))hR");
 if (!$conn) {
-    die("Connection failed: " . mysql_error());
+    die("Connection failed: " . mysqli_error($link));
 }
 
 mysql_select_db("janazm_hr_fab", $conn);
@@ -53,10 +53,10 @@ if ($_SESSION['fromdate'] == "today") {
     }
 }
 
-$result = mysql_query($sqlQuery, $conn);
+$result = mysqli_query($link, $sqlQuery, $conn);
 
 $data = array();
-while ($row = mysql_fetch_assoc($result)) {
+while ($row = mysqli_fetch_assoc($result)) {
     $data[] = $row;
 }
 

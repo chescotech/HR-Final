@@ -85,26 +85,26 @@
             $subject = $_POST['subject'];
             $category = $_POST['category'];
             $message = $_POST['message'];
-        
+
             // Handle uploaded file
             $targetDirectory = "../../files/"; // Create this directory and set appropriate permissions
             $targetFile = '';
-        
+
             if (!empty($_FILES["attachment"]["name"])) {
                 $filename = $_FILES["attachment"]["name"];
                 $fileExtension = pathinfo($filename, PATHINFO_EXTENSION);
                 $uniqueFilename = uniqid() . '.' . $fileExtension;
                 $targetFile = $targetDirectory . $uniqueFilename;
-        
+
                 if (!move_uploaded_file($_FILES["attachment"]["tmp_name"], $targetFile)) {
                     echo '<script>alert("Error uploading file.");</script>';
                     // Handle the error appropriately
                 }
             }
-        
+
             // Get current timestamp
             $timestamp = date('Y-m-d H:i:s');
-        
+
             // Perform SQL update operation on the publications table
             // Set the timestamp value directly in the SQL query
             if (!empty($targetFile)) {
@@ -114,33 +114,32 @@
                 // No file attached, update without the file column
                 $sql = "UPDATE publications SET category='$category', subject='$subject', message='$message', date='$timestamp' WHERE id='$id'";
             }
-        
+
             // Execute your SQL query here
-            $result = mysql_query($sql, $link); // Make sure you have $link defined
-        
+            $result = mysqli_query($link, $sql); // Make sure you have $link defined
+
             if ($result) {
                 echo '<script>alert("Publication updated successfully!");</script>';
             } else {
-                echo '<script>alert("Error updating publication: ' . mysql_error($link) . '");</script>';
+                echo '<script>alert("Error updating publication: ' . mysqli_error($link)($link) . '");</script>';
                 // Handle the error appropriately, e.g., output MySQL error
             }
         }
 
-        
 
-        
-            
 
-        $query0 = mysql_query("SELECT * FROM publications WHERE id = '$id' ORDER BY date DESC") or die(mysql_error);
-        $rowCount = 0; 
-        while ($row0 = mysql_fetch_array($query0)) {
 
-            
+
+
+        $query0 = mysqli_query($link, "SELECT * FROM publications WHERE id = '$id' ORDER BY date DESC") or die(mysqli_error($link));
+        $rowCount = 0;
+        while ($row0 = mysqli_fetch_array($query0)) {
+
+
             $files = $row0['file'];
             $message = $row0['message'];
             $subject = $row0['subject'];
             $category = $row0['category'];
-
         }
 
         ?>

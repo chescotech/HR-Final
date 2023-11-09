@@ -120,8 +120,8 @@ error_reporting(0);
                 $message = "valid";
                 $status = "Approved";
                 $leaveObject->applyLeave($startDateConverted, $EndDateConverted, $leave_type, $empno, "Leave by Admin on behalf of employee", "", "", "", "");
-                mysql_query("UPDATE leave_days SET available = available - '$days_leave' WHERE empno= '$empno'") or die(mysql_error());
-                mysql_query("UPDATE leave_applications_tb SET status ='$status' WHERE empno= '$empno'") or die(mysql_error());
+                mysqli_query($link, "UPDATE leave_days SET available = available - '$days_leave' WHERE empno= '$empno'") or die(mysqli_error($link));
+                mysqli_query($link, "UPDATE leave_applications_tb SET status ='$status' WHERE empno= '$empno'") or die(mysqli_error($link));
             } else {
                 $message = "You do not have suffient leave days to apply for a leave!!";
             }
@@ -165,9 +165,9 @@ error_reporting(0);
                                         <select name="empno" class="form-control">
                                             <option>-- Select Employee to add --</option>
                                             <?php
-                                            $result = mysql_query("SELECT * FROM emp_info  INNER JOIN leave_days on leave_days.empno=emp_info.empno WHERE company_id = '$compId'");
+                                            $result = mysqli_query($link, "SELECT * FROM emp_info  INNER JOIN leave_days on leave_days.empno=emp_info.empno WHERE company_id = '$compId'");
                                             $departmentquery = $DepartmentObject->getAllEmployeesByCompany($compId);
-                                            while ($row = mysql_fetch_array($result)) {
+                                            while ($row = mysqli_fetch_array($result)) {
                                                 $fname = $row['fname'];
                                                 $lname = $row['lname'];
                                                 $position = $row['position'];
@@ -199,7 +199,7 @@ error_reporting(0);
                                         <?php
                                         $comp_ID = $_SESSION['company_ID'];
                                         $AllDepartments = $leaveObject->getLeaveTypes($comp_ID);
-                                        while ($row = mysql_fetch_array($AllDepartments)) {
+                                        while ($row = mysqli_fetch_array($AllDepartments)) {
                                         ?>
                                             <option value="<?php echo $row['leave_type'] ?>">
                                                 <?php echo $row['leave_type']; ?>

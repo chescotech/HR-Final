@@ -25,9 +25,9 @@
     <div class="wrapper">
 
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Leave.php';
         $leaveObject = new Leave();
-        include '../navigation_panel/authenticated_user_header.php';
         $empno = $_SESSION['employee_id'];
         $companyId = $_SESSION['company_name'];
         $supervisorDepartmentId = $_SESSION['supervisorDepartmentId'];
@@ -77,17 +77,17 @@
                                             } else {
                                                 //$MyLeave = $leaveObject->getPendingApprovals($supervisorDepartmentId);
                                             }
-                                            $MyLeave = mysql_query("SELECT * FROM `leave_applications_tb`  AS lvapp
+                                            $MyLeave = mysqli_query($link, "SELECT * FROM `leave_applications_tb`  AS lvapp
                                             INNER JOIN emp_info AS empin on empin.empno=lvapp.empno
                                             where empin.empno IN ( SELECT empno from emp_info where  leaveworkflow_id IN (SELECT work_flow_id FROM `appover_groups` WHERE empno IN ('$empno')) 
                                                       AND  lvapp.level IN ( SELECT level FROM `appover_groups` WHERE empno IN ('$empno') ) )
                                                       AND lvapp.status !='Approved' AND lvapp.status!='Declined'  ");
-                                            if (mysql_num_rows($MyLeave) == 0) {
+                                            if (mysqli_num_rows($MyLeave) == 0) {
                                                 echo '<tr>
                                                     <td style="vertical-align:middle" align="left">You have no pending leave approvals to make.</td>
                                                     </tr>';
                                             }
-                                            while ($row = mysql_fetch_array($MyLeave)) {
+                                            while ($row = mysqli_fetch_array($MyLeave)) {
                                                 $id_ = $row['application_id'];
                                                 $employeeEmail = $row['email'];
 

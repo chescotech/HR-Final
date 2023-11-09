@@ -19,13 +19,13 @@ if (isset($_POST["create_posting"])) {
     $country = $_POST["country"];
     $region = $_POST["region"];
     $city = $_POST["city"];
-    $description = mysql_real_escape_string($_POST["description"]);
+    $description = ($_POST["description"]);
     $requirements = $_POST["requirements"];
     // $reg_number_padded = str_pad($reg_number, 3, '0', STR_PAD_LEFT); // Pad the registration number with leading zeros to a length of 3
 
-    mysql_query("INSERT INTO jobs_postings (title, dep_id, type, vacancies, salary_min, salary_max, experience, date, expires, salary_period, qualifications, status, currency, country, region, city, description, requirements, emp_id, show_salary)
+    mysqli_query($link, "INSERT INTO jobs_postings (title, dep_id, type, vacancies, salary_min, salary_max, experience, date, expires, salary_period, qualifications, status, currency, country, region, city, description, requirements, emp_id, show_salary)
         VALUES('$title', '$dep_id', '$type', '$vacancies', '$salary_min', '$salary_max', '$experience', '$date', '$expires', '$salary_period', '$qualifications','Unpublished','$currency','$country','$region','$city','$description','$requirements', '$comp_id', '$show_salary')")
-        or die("Err11 " . mysql_error());
+        or die("Err11 " . mysqli_error($link));
 
     echo "<script>document.location='job-list'</script>";
 }
@@ -64,8 +64,8 @@ if (isset($_POST["create_posting"])) {
                                 <select name="dep_id" class="form-control" required>
                                     <option>--Select Department--</option>
                                     <?php
-                                    $departmentquery = mysql_query("SELECT * FROM department ");
-                                    while ($row = mysql_fetch_array($departmentquery)) {
+                                    $departmentquery = mysqli_query($link, "SELECT * FROM department ");
+                                    while ($row = mysqli_fetch_array($departmentquery)) {
                                     ?>
                                         <option value="<?php echo $row['dep_id']; ?>"> <?php echo $row['department']; ?></option>
                                     <?php

@@ -15,5 +15,5 @@ $Subject = "Loan Request";
 
 $em->send_mail($empEmail, $message, $Subject);
 
-mysql_query("UPDATE loan_applications SET status ='$status' WHERE LOAN_NO = '$id'") or die(mysql_error());
+mysqli_query($link, "UPDATE loan_applications SET status ='$status' WHERE LOAN_NO = '$id'") or die(mysqli_error($link));
 header('location:pending-loans.php');

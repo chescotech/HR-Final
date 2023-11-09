@@ -76,11 +76,11 @@ error_reporting(0);
 
                                             <?php
                                             $Loans = $LoanObject->getAllEmpLoans($companyId);
-                                            while ($row = mysql_fetch_array($Loans)) {
+                                            while ($row = mysqli_fetch_array($Loans)) {
                                                 $id_ = $row['LOAN_NO'];
                                                 $empno = $row['empno'];
                                                 $employees = $LoanObject->getEmpDetails($empno);
-                                                $empRows = mysql_fetch_array($employees);
+                                                $empRows = mysqli_fetch_array($employees);
 
                                                 if ($row['status'] == "Cleared") {
                                                     $status = '<span class="label label-success arrowed-in arrowed-in-right">' . $row['status'] . '</span>';

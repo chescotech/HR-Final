@@ -57,8 +57,8 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $query = mysql_query("SELECT * FROM ass_periods WHERE dept='$dept'") or die(mysql_error());
-                                        while ($row = mysql_fetch_array($query)) {
+                                        $query = mysqli_query($link, "SELECT * FROM ass_periods WHERE dept='$dept'") or die(mysqli_error($link));
+                                        while ($row = mysqli_fetch_array($query)) {
                                         ?>
                                             <tr>
                                                 <td><?php echo $row['name']; ?></td>

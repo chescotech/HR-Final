@@ -29,11 +29,12 @@
 <body class="hold-transition skin-green-light sidebar-mini">
     <div class="wrapper">
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
+
         include_once '../Classes/Department.php';
 
         $DepartmentObject = new Department();
 
-        include '../navigation_panel/authenticated_user_header.php';
         ?>
 
         <?php include '../navigation_panel/side_navigation_bar.php'; ?>
@@ -72,8 +73,8 @@
 
                                     <?php
                                     $gradeId = $_GET['id'];
-                                    $result = mysql_query("SELECT * FROM grade WHERE company_ID='$comp_ID' AND grade_id = '$gradeId' ");
-                                    $row = mysql_fetch_array($result);
+                                    $result = mysqli_query($link, "SELECT * FROM grade WHERE company_ID='$comp_ID' AND grade_id = '$gradeId' ");
+                                    $row = mysqli_fetch_array($result);
                                     $grade = $row['grade'];
                                     $maximum = $row['maximum'];
                                     $minimum = $row['minimum'];

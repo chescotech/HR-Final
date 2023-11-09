@@ -57,8 +57,8 @@
                             <div class="box-body box-profile">
                                 <?php
                                 $compId = $_SESSION['company_ID'];
-                                $user_query = mysql_query("SELECT * FROM company where company_ID='$compId'") or die(mysql_error());
-                                while ($row = mysql_fetch_array($user_query)) {
+                                $user_query = mysqli_query($link, "SELECT * FROM company where company_ID='$compId'") or die(mysqli_error($link));
+                                while ($row = mysqli_fetch_array($user_query)) {
                                     $id = $row['company_ID'];
                                 ?>
 
@@ -80,8 +80,8 @@
                                     <a class="btn btn-primary btn-block"><b>
 
                                             <?php
-                                            $result = mysql_query("SELECT * FROM company where company_ID='$compId'") or die(mysql_error());
-                                            $row = mysql_fetch_array($result);
+                                            $result = mysqli_query($link, "SELECT * FROM company where company_ID='$compId'") or die(mysqli_error($link));
+                                            $row = mysqli_fetch_array($result);
                                             $companyName = $row['name'];
                                             echo $row['name'];
                                             ?>
@@ -114,8 +114,8 @@
                                     <?php
                                     $compId = $_SESSION['company_ID'];
                                     $sql = "SELECT * FROM company where company_ID='$compId'";
-                                    $result2 = mysql_query($sql);
-                                    $rows = mysql_fetch_array($result2);
+                                    $result2 = mysqli_query($link, $sql);
+                                    $rows = mysqli_fetch_array($result2);
                                     ?>
 
                                     <form method="post" enctype="multipart/form-data" class="form-horizontal">

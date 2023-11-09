@@ -65,8 +65,8 @@
                                     <?php
                                     $id = $_GET['id'];
                                     $message = $_GET['message'];
-                                    $query = mysql_query("SELECT * FROM emp_info WHERE id = '$id'");
-                                    $rows = mysql_fetch_array($query);
+                                    $query = mysqli_query($link, "SELECT * FROM emp_info WHERE id = '$id'");
+                                    $rows = mysqli_fetch_array($query);
                                     $fname = $rows['fname'];
                                     $lname = $rows['lname'];
                                     $names = $fname . " " . $lname;

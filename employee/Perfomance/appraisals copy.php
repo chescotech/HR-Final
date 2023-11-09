@@ -51,8 +51,8 @@
                 $total_score = $_POST['total_score'];
                 $comment = $_POST['comment'];
 
-                $add_q = mysql_query("INSERT INTO ass_appraisals (empno,params_id, period_id, factor_id, own_score, boss_score, total_score, comment)
-                        VALUES('$empno', '$params_id', '$period_id', '$factor_id', '$own_score', '$boss_score', '$total_score', '$comment')") or die(mysql_error());
+                $add_q = mysqli_query($link, "INSERT INTO ass_appraisals (empno,params_id, period_id, factor_id, own_score, boss_score, total_score, comment)
+                        VALUES('$empno', '$params_id', '$period_id', '$factor_id', '$own_score', '$boss_score', '$total_score', '$comment')") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Added Successfuly') </script>";
@@ -64,8 +64,8 @@
                 $target = $_POST['target'];
                 $id = $_POST['id'];
 
-                $add_q = mysql_query("UPDATE ass_appraisals SET name = '$name',target='$target'
-                        WHERE id = '$id' ") or die(mysql_error());
+                $add_q = mysqli_query($link, "UPDATE ass_appraisals SET name = '$name',target='$target'
+                        WHERE id = '$id' ") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Updated Successfuly') </script>";
@@ -75,7 +75,7 @@
             if (isset($_POST['delete'])) {
                 $id = $_POST['id'];
 
-                $add_q = mysql_query("DELETE FROM ass_appraisals WHERE id = '$id' ") or die(mysql_error());
+                $add_q = mysqli_query($link, "DELETE FROM ass_appraisals WHERE id = '$id' ") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Deleted Successfuly') </script>";
@@ -114,7 +114,7 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $query = mysql_query("SELECT own_score, boss_score, total_score, comment, ass_appraisals.date, ass_appraisals.id,
+                                        $query = mysqli_query($link, "SELECT own_score, boss_score, total_score, comment, ass_appraisals.date, ass_appraisals.id,
                                                         emp_info.fname AS fname , emp_info.lname AS lname, emp_info.position AS position, emp_info.empno AS empno,
                                                         ass_params.name AS params, ass_params.id AS params_id, ass_periods.name AS periods,
                                                         ass_periods.id AS periods_id, ass_factors.name AS factors, ass_factors.id AS factors_id
@@ -123,8 +123,8 @@
                                                     left JOIN ass_params ON ass_params.id = ass_appraisals.params_id 
                                                     left JOIN ass_periods ON ass_periods.id = ass_appraisals.period_id 
                                                     left JOIN ass_factors ON ass_factors.id = ass_appraisals.factor_id 
-                                                    ") or die("Error Getting Data " . mysql_error());
-                                        while ($row = mysql_fetch_array($query)) {
+                                                    ") or die("Error Getting Data " . mysqli_error($link));
+                                        while ($row = mysqli_fetch_array($query)) {
                                             $emp_name = $row['fname'] . " " . $row['lname'];
                                             $period = $row['periods'];
                                             $params = $row['params'];
@@ -244,8 +244,8 @@
                                                 <select name="empno" class="form-control">
                                                     <option>-- Select Employee --</option>
                                                     <?php
-                                                    $EmployeeQuery = mysql_query("SELECT * FROM emp_info ") or die(mysql_error());
-                                                    while ($row = mysql_fetch_array($EmployeeQuery)) {
+                                                    $EmployeeQuery = mysqli_query($link, "SELECT * FROM emp_info ") or die(mysqli_error($link));
+                                                    while ($row = mysqli_fetch_array($EmployeeQuery)) {
                                                     ?>
                                                         <option value="<?php echo $row['empno']; ?>"> <?php echo $row['fname'] . "-" . $row['lname'] . "-" . $row['position']; ?></option>
                                                     <?php
@@ -260,8 +260,8 @@
                                                 <select name="params" class="form-control">
                                                     <option>-- Select Parameters --</option>
                                                     <?php
-                                                    $Query = mysql_query("SELECT * FROM ass_params ") or die(mysql_error());
-                                                    while ($row1 = mysql_fetch_array($Query)) {
+                                                    $Query = mysqli_query($link, "SELECT * FROM ass_params ") or die(mysqli_error($link));
+                                                    while ($row1 = mysqli_fetch_array($Query)) {
                                                     ?>
                                                         <option value="<?php echo $row1['id']; ?>"> <?php echo $row1['name']; ?></option>
                                                     <?php
@@ -276,8 +276,8 @@
                                                 <select name="factor" class="form-control">
                                                     <option>-- Select Factor / Objective --</option>
                                                     <?php
-                                                    $Query2 = mysql_query("SELECT * FROM ass_factors ") or die(mysql_error());
-                                                    while ($row2 = mysql_fetch_array($Query2)) {
+                                                    $Query2 = mysqli_query($link, "SELECT * FROM ass_factors ") or die(mysqli_error($link));
+                                                    while ($row2 = mysqli_fetch_array($Query2)) {
                                                     ?>
                                                         <option value="<?php echo $row2['id']; ?>"> <?php echo $row2['name']; ?></option>
                                                     <?php
@@ -292,8 +292,8 @@
                                                 <select name="period" class="form-control">
                                                     <option>-- Select Period --</option>
                                                     <?php
-                                                    $Query2 = mysql_query("SELECT * FROM ass_periods ") or die(mysql_error());
-                                                    while ($row2 = mysql_fetch_array($Query2)) {
+                                                    $Query2 = mysqli_query($link, "SELECT * FROM ass_periods ") or die(mysqli_error($link));
+                                                    while ($row2 = mysqli_fetch_array($Query2)) {
                                                     ?>
                                                         <option value="<?php echo $row2['id']; ?>"> <?php echo $row2['name']; ?></option>
                                                     <?php

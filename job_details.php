@@ -70,8 +70,8 @@
             LEFT JOIN department ON department.dep_id = postings.dep_id
             WHERE id = '$id_' ";
         // return var_dump($query);
-        $result = mysql_query($query) or die(mysql_error());
-        while ($row = mysql_fetch_array($result)) {
+        $result = mysqli_query($link, $query) or die(mysqli_error($link));
+        while ($row = mysqli_fetch_array($result)) {
             $title = $row['title'];
             $department = $row['department'];
             $vacancies = $row['vacancies'];
@@ -297,9 +297,9 @@
         <?php
         // Apply Logic
         if (isset($_POST['apply'])) {
-            $name = mysql_real_escape_string($_POST['name']);
-            $email = mysql_real_escape_string($_POST['email']);
-            $mobile = mysql_real_escape_string($_POST['mobile']);
+            $name = ($_POST['name']);
+            $email = ($_POST['email']);
+            $mobile = ($_POST['mobile']);
             $cover = $_FILES["cover"]["name"];
             $cv = $_FILES["cv"]["name"];
             // return var_dump($cv);
@@ -322,8 +322,8 @@
                 return "Sorry, there was an error uploading your file.";
             }
 
-            $q = mysql_query("INSERT INTO applications (`posting_id`, `name`, `email`, `mobile`, `cover`, `cv`,`status`) 
-                                VALUES ('$id_', '$name', '$email', '$mobile', '$cover', '$cv','Unread')") or die("Err. " . mysql_error());
+            $q = mysqli_query($link, "INSERT INTO applications (`posting_id`, `name`, `email`, `mobile`, `cover`, `cv`,`status`) 
+                                VALUES ('$id_', '$name', '$email', '$mobile', '$cover', '$cv','Unread')") or die("Err. " . mysqli_error($link));
 
             echo "<script> alert('Application sent successfully.')</script>";
         }

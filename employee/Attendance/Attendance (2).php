@@ -41,8 +41,8 @@
         $compID = $_SESSION['company_ID'];
         // get boss department.
         $emp_no = $_SESSION['empno'];
-        $gt_dep = mysql_query("SELECT dept FROM emp_info WHERE empno = '$emp_no' ") or die(mysql_error());
-        $gt_dep_r = mysql_fetch_array($gt_dep);
+        $gt_dep = mysqli_query($link, "SELECT dept FROM emp_info WHERE empno = '$emp_no' ") or die(mysqli_error($link));
+        $gt_dep_r = mysqli_fetch_array($gt_dep);
         $dep_id = $gt_dep_r['dept'];
         ?>
 
@@ -66,8 +66,8 @@
                                         <select name="empno" class="form-control">
                                             <option value="all">Select All</option>
                                             <?php
-                                            $Query = mysql_query("SELECT * FROM `emp_info` WHERE dept = '$dep_id' ");
-                                            while ($row = mysql_fetch_array($Query)) {
+                                            $Query = mysqli_query($link, "SELECT * FROM `emp_info` WHERE dept = '$dep_id' ");
+                                            while ($row = mysqli_fetch_array($Query)) {
                                                 $fname = $row['fname'];
                                                 $lname = $row['lname'];
                                             ?>
@@ -127,10 +127,10 @@
 
                                                 $firstDate = $year . "/" . $month . "/" . "01";
                                                 $endDate = $year . "/" . $month . "/" . "31";
-                                                $AbsentQuery = mysql_query("SELECT * FROM attendance_logs WHERE
+                                                $AbsentQuery = mysqli_query($link, "SELECT * FROM attendance_logs WHERE
                                                 company_id = '$compID' AND log_date BETWEEN '$firstDate' AND '$endDate'
                                                 AND empno IN (select empno from emp_info WHERe dept='$dep_id')
-                                                 ") or die(mysql_error());
+                                                 ") or die(mysqli_error($link));
                                             } else {
 
                                                 $arr = explode("/", $convertedDate);
@@ -143,25 +143,25 @@
 
                                                 $firstDate = $year . "/" . $month . "/" . "01";
                                                 $endDate = $year . "/" . $month . "/" . "31";
-                                                $AbsentQuery = mysql_query("SELECT * FROM attendance_logs WHERE
+                                                $AbsentQuery = mysqli_query($link, "SELECT * FROM attendance_logs WHERE
                                                 company_id = '$compID' AND log_date BETWEEN '$firstDate' AND '$endDate'
                                                 AND empno = '$empno'
-                                                 ") or die(mysql_error());
+                                                 ") or die(mysqli_error($link));
                                             }
                                         } else {
-                                            // $AbsentQuery = mysql_query("SELECT * FROM `attendance_logs` WHERE DATE(log_date) = DATE(NOW()) AND  company_id = '$compID' ") or die(mysql_error());
-                                            $AbsentQuery = mysql_query("SELECT * FROM attendance_logs WHERE
+                                            // $AbsentQuery = mysqli_query($link,"SELECT * FROM `attendance_logs` WHERE DATE(log_date) = DATE(NOW()) AND  company_id = '$compID' ") or die(mysqli_error($link));
+                                            $AbsentQuery = mysqli_query($link, "SELECT * FROM attendance_logs WHERE
                                                   DATE(log_date) = DATE(NOW()) 
                                                 AND empno IN (select empno from emp_info WHERe dept='$dep_id')
-                                                 ") or die(mysql_error());
+                                                 ") or die(mysqli_error($link));
                                         }
 
 
-                                        while ($row = mysql_fetch_array($AbsentQuery)) {
+                                        while ($row = mysqli_fetch_array($AbsentQuery)) {
                                             $empno = $row['empno'];
 
-                                            $res = mysql_query("SELECT * FROM emp_info WHERE empno = '$empno'");
-                                            $rows = mysql_fetch_array($res);
+                                            $res = mysqli_query($link, "SELECT * FROM emp_info WHERE empno = '$empno'");
+                                            $rows = mysqli_fetch_array($res);
                                             $fname = $rows['fname'];
                                             $lname = $rows['lname'];
                                             $EmployeeName = $fname . " " . $lname;

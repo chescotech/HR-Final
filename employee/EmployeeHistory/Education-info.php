@@ -28,11 +28,11 @@
     <div class="wrapper">
 
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
         $mssage = "";
         include_once '../Classes/EmployeeHistory.php';
         $EmployeeHistoryObject = new EmployeeHistory();
 
-        include '../navigation_panel/authenticated_user_header.php';
         ?>
 
         <?php include '../navigation_panel/side_navigation_bar.php'; ?>
@@ -49,7 +49,7 @@
             $empno = $_SESSION['employee_id'];
             $sql = $EmployeeHistoryObject->getEduInfo($empno);
 
-            if (mysql_num_rows($sql) == 0) {
+            if (mysqli_num_rows($sql) == 0) {
                 $EmployeeHistoryObject->addEduInfo($employeeId, $highest_qualification, $qualifications, $university, $secondary_school);
             } else {
                 $EmployeeHistoryObject->updateEduInfo($employeeId, $highest_qualification, $qualifications, $university, $secondary_school);
@@ -93,7 +93,7 @@
                         <?php
                         $empno = $_SESSION['employee_id'];
                         $sql = $EmployeeHistoryObject->getEduInfo($empno);
-                        $rows = mysql_fetch_array($sql);
+                        $rows = mysqli_fetch_array($sql);
                         ?>
 
                         <ul class="nav nav-pills">
@@ -105,8 +105,8 @@
                         <div class="tab-content">
                             <div id="home" class="tab-pane fade in active">
                                 <?php
-                                $sql1 = mysql_query("SELECT * FROM emp_edu_info_tb where emp_id='$empno' ORDER BY id DESC ");
-                                while ($rows1 = mysql_fetch_array($sql1)) {
+                                $sql1 = mysqli_query($link, "SELECT * FROM emp_edu_info_tb where emp_id='$empno' ORDER BY id DESC ");
+                                while ($rows1 = mysqli_fetch_array($sql1)) {
                                         //echo 'ID' . $rows1['id'];
                                     ;
                                 ?>
@@ -162,7 +162,7 @@
 
                                 <?php
                                 $sql = $EmployeeHistoryObject->getHistoryInfo($empno);
-                                $rows = mysql_fetch_array($sql);
+                                $rows = mysqli_fetch_array($sql);
                                 ?>
 
                                 <div class="box-body">

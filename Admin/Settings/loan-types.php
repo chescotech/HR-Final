@@ -55,7 +55,7 @@ error_reporting(0);
 
             $id = $_POST['id'];
 
-            $add_q = mysql_query("UPDATE loan_tb SET loan_type = '$loan_type',max_repayment='$max_repayment_period',approver_email='$approver_email' WHERE id = '$id' ") or die(mysql_error());
+            $add_q = mysqli_query($link, "UPDATE loan_tb SET loan_type = '$loan_type',max_repayment='$max_repayment_period',approver_email='$approver_email' WHERE id = '$id' ") or die(mysqli_error($link));
 
             if ($add_q) {
                 echo "<script> alert('Updated Successfuly') </script>";
@@ -104,8 +104,8 @@ error_reporting(0);
                                             <tbody>
                                                 <?php
                                                 $query = "SELECT * FROM loan_tb WHERE company_ID='$compId'  ";
-                                                $result = mysql_query($query, $link) or die(mysql_error());
-                                                while ($row = mysql_fetch_array($result)) {
+                                                $result = mysqli_query($link, $query) or die(mysqli_error($link));
+                                                while ($row = mysqli_fetch_array($result)) {
 
                                                     $id = $row['id'];
                                                     $loan_type = $row['loan_type'];

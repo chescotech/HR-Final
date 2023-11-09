@@ -218,8 +218,8 @@
                                         <select name="filter" class="form-control">
                                             <option value="all">-- All Jobs --</option>
                                             <?php
-                                            $qq1 = mysql_query("SELECT * FROM `jobs_postings` WHERE reg_number = '$reg_num' ");
-                                            while ($rr1 = mysql_fetch_array($qq1)) {
+                                            $qq1 = mysqli_query($link, "SELECT * FROM `jobs_postings` WHERE reg_number = '$reg_num' ");
+                                            while ($rr1 = mysqli_fetch_array($qq1)) {
                                             ?>
                                                 <option value="<?php echo $rr1['id']; ?>">
                                                     <?php echo $rr1['title']; ?>
@@ -273,36 +273,36 @@
                                         $day2 = $Getday2;
 
                                         if ($filter == "all") {
-                                            $user_q = mysql_query("SELECT COUNT(*) as number,department FROM `jobs_user_applications`
+                                            $user_q = mysqli_query($link, "SELECT COUNT(*) as number,department FROM `jobs_user_applications`
                         inner join jobs_postings on jobs_postings.id=jobs_user_applications.jobs_job_id
                         inner join department on department.dep_id=jobs_postings.dep_id 
                         WHERE DATE(jobs_user_applications.date) AND jobs_postings.reg_number = '$reg_num' BETWEEN '$year-$month-$day'  AND  '$year2-$month2-$day2' 
                         GROUP BY department.department
-                    ") or die(mysql_error());
+                    ") or die(mysqli_error($link));
 
                                             // echo 'from '.$year.'-'.$month.'-'.$day;
                                         } else {
-                                            $user_q = mysql_query("SELECT COUNT(*) as number,department FROM `jobs_user_applications`
+                                            $user_q = mysqli_query($link, "SELECT COUNT(*) as number,department FROM `jobs_user_applications`
                         inner join jobs_postings on jobs_postings.id=jobs_user_applications.jobs_job_id
                         inner join department on department.dep_id=jobs_postings.dep_id 
                         WHERE jobs_postings.id='$filter' AND jobs_postings.reg_number = '$reg_num' AND DATE(jobs_user_applications.date) BETWEEN '$year-$month-$day'  AND  '$year2-$month2-$day2' 
                         GROUP BY department.department
 
-                    ") or die(mysql_error());
+                    ") or die(mysqli_error($link));
                                             //echo 'eh';
                                         }
                                     } else {
                                         $_SESSION['fromdate'] = "today";
 
 
-                                        $user_q = mysql_query("SELECT COUNT(*) as number,department FROM `jobs_user_applications`
+                                        $user_q = mysqli_query($link, "SELECT COUNT(*) as number,department FROM `jobs_user_applications`
                         inner join jobs_postings on jobs_postings.id=jobs_user_applications.jobs_job_id
                         inner join department on department.dep_id=jobs_postings.dep_id 
                         WHERE jobs_postings.reg_number = '$reg_num'
-                        GROUP BY department.department") or die(mysql_error());
+                        GROUP BY department.department") or die(mysqli_error($link));
                                     }
 
-                                    while ($row = mysql_fetch_array($user_q)) {
+                                    while ($row = mysqli_fetch_array($user_q)) {
                                         $number = $row['number'];
 
                                         $job_status = $row['department'];
@@ -365,23 +365,23 @@
 
                                         if ($filter == "all") {
 
-                                            $user_q = mysql_query("SELECT COUNT(*) AS number,job_status FROM `jobs_user_applications`
+                                            $user_q = mysqli_query($link, "SELECT COUNT(*) AS number,job_status FROM `jobs_user_applications`
                         WHERE DATE(jobs_user_applications.date) AND jobs_user_applications.reg_number = '$reg_num' BETWEEN '$year-$month-$day'  AND  '$year2-$month2-$day2'
-                        GROUP BY job_status ") or die(mysql_error());
+                        GROUP BY job_status ") or die(mysqli_error($link));
                                         } else {
 
-                                            $user_q = mysql_query("SELECT COUNT(*) AS number,job_status FROM `jobs_user_applications`
+                                            $user_q = mysqli_query($link, "SELECT COUNT(*) AS number,job_status FROM `jobs_user_applications`
                             WHERE DATE(jobs_user_applications.date) AND jobs_user_applications.reg_number = '$reg_num' BETWEEN '$year-$month-$day'  AND  '$year2-$month2-$day2'
                             AND jobs_job_id='$filter'
-                            GROUP BY job_status ") or die(mysql_error());
+                            GROUP BY job_status ") or die(mysqli_error($link));
                                         }
                                     } else {
 
-                                        $user_q = mysql_query("SELECT COUNT(*) AS number,job_status FROM `jobs_user_applications` WHERE reg_number = '$reg_num' GROUP BY job_status ") or die(mysql_error());
+                                        $user_q = mysqli_query($link, "SELECT COUNT(*) AS number,job_status FROM `jobs_user_applications` WHERE reg_number = '$reg_num' GROUP BY job_status ") or die(mysqli_error($link));
                                     }
 
                                     $total = 0;
-                                    while ($row = mysql_fetch_array($user_q)) {
+                                    while ($row = mysqli_fetch_array($user_q)) {
                                         $number = $row['number'];
                                         $total += $number;
 

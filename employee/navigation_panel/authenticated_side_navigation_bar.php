@@ -49,6 +49,13 @@
         </a>
     </li>
 
+    <li>
+        <a href="assets/my-assets">
+            <i class="fa fa-briefcase"></i> <span>My Assets</span>
+            <small class="label pull-right bg-red"></small>
+        </a>
+    </li>
+
     <?php
     if ($_SESSION['has_timesheets'] === "true") {
     ?>
@@ -75,7 +82,7 @@
     $leaveObject = new Leave();
     $empno = $_SESSION['employee_id'];
     $chekcIfSupervisor = $leaveObject->checkifHod($empno);
-    $row = mysql_fetch_array($chekcIfSupervisor);
+    $row = mysqli_fetch_array($chekcIfSupervisor);
     $_SESSION['supervisorDepartmentId'] = 1;
 
     if ($leaveObject->checkIfLeaveApprover($empno) == "true") {
@@ -92,7 +99,7 @@
                 </li>';
     }
 
-    if (mysql_num_rows($chekcIfSupervisor) != 0) {
+    if (mysqli_num_rows($chekcIfSupervisor) != 0) {
 
         echo '<li class="treeview">
                 <a href="#">

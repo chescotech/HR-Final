@@ -82,8 +82,8 @@
         $query = "SELECT * FROM jobs_postings 
             LEFT JOIN department ON department.dep_id = jobs_postings.dep_id
             WHERE id = $id_ ";
-        $result = mysql_query($query) or die(mysql_error());
-        while ($row = mysql_fetch_array($result)) {
+        $result = mysqli_query($link, $query) or die(mysqli_error($link));
+        while ($row = mysqli_fetch_array($result)) {
             $title = $row['title'];
             $department = $row['department'];
             $vacancies = $row['vacancies'];
@@ -344,8 +344,8 @@
                 return "Sorry, there was an error uploading your file.";
             }
 
-            $q = mysql_query("INSERT INTO applications (`posting_id`, `name`, `email`, `mobile`, `cover`, `cv`,`status`) 
-                                VALUES ('$id_', '$name', '$email', '$mobile', '$cover', '$cv','Unread')") or die("Err. " . mysql_error());
+            $q = mysqli_query($link, "INSERT INTO applications (`posting_id`, `name`, `email`, `mobile`, `cover`, `cv`,`status`) 
+                                VALUES ('$id_', '$name', '$email', '$mobile', '$cover', '$cv','Unread')") or die("Err. " . mysqli_error($link));
         }
         ?>
 

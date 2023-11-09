@@ -79,8 +79,8 @@
                             <div class="box box-primary">
                                 <div class="box-header with-border">
                                     <?php
-                                    $query = mysql_query("SELECT * FROM employee_discplinary_records");
-                                    $rows = mysql_fetch_array($query);
+                                    $query = mysqli_query($link, "SELECT * FROM employee_discplinary_records");
+                                    $rows = mysqli_fetch_array($query);
 
                                     if (isset($_POST['save'])) {
                                         echo ' <center>
@@ -101,7 +101,7 @@
                                             <option><?php echo $rows['empno']; ?></option>
                                             <?php
                                             $departmentquery = $DepartmentObject->getAllEmployeesByCompany($compId);
-                                            while ($row = mysql_fetch_array($departmentquery)) {
+                                            while ($row = mysqli_fetch_array($departmentquery)) {
                                                 $fname = $row['fname'];
                                                 $lname = $row['lname'];
                                                 $position = $row['position'];

@@ -72,7 +72,7 @@ error_reporting(0);
                                             <option>-- Select Employee --</option>
                                             <?php
                                             $departmentquery = $DepartmentObject->getAllEmployeesByCompany($companyId);
-                                            while ($row = mysql_fetch_array($departmentquery)) {
+                                            while ($row = mysqli_fetch_array($departmentquery)) {
 
                                                 $fname = $row['fname'];
                                                 $lname = $row['lname'];
@@ -119,11 +119,11 @@ error_reporting(0);
                                             $empno = $_POST['empno'];
                                             $query = "SELECT * FROM employee_discplinary_records WHERE empno = '$empno'  ";
 
-                                            $result = mysql_query($query, $link) or die(mysql_error());
+                                            $result = mysqli_query($link, $query) or die(mysqli_error($link));
 
                                             $sum = 0;
                                             $closeStatus = "";
-                                            while ($row = mysql_fetch_array($result)) {
+                                            while ($row = mysqli_fetch_array($result)) {
                                                 $id = $row['id'];
                                                 $datePrinted = strtoTime($row['date_charged']);
                                                 $datePrint = date('F d, Y', $datePrinted);

@@ -1,12 +1,17 @@
 <?php
-$dbhost="localhost";
-$dbname="hr_fab";
-$dbuser="root";
-$dbpasswd="";
+// if session not started
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+// $dbms = "mysql";
+// $dbhost="localhost";
+// $dbname="hr_fab";
+// $dbuser="root";
+$dbhost = $_SESSION['DB_SERVER'];
+$dbname = $_SESSION['DB_NAME'];
+$dbuser = $_SESSION['DB_USER'];
+$dbpasswd = "";
 
-$link = mysql_connect($dbhost, $dbuser, $dbpasswd) 
-or die (mysql_error());
-
-$status = mysql_select_db($dbname, $link) or die (mysql_error());
+$link = mysqli_connect($dbhost, $dbuser, $dbpasswd, $dbname) or die(mysqli_connect_error());
 
 //echo "Connected Successfully to ". $dbname.'<br>';

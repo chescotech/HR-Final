@@ -2,6 +2,10 @@
 include_once '../include/dbconnection.php';
 
 session_start();
+
+// retrieve client name
+$client = $_SESSION['CLIENT_NAME'];
+
 // if emplyee
 if (isset($_SESSION['empno'])) {
     // get session variables
@@ -10,16 +14,11 @@ if (isset($_SESSION['empno'])) {
 
     // log
     $action = "LOGOUT";
-    $log_logout = mysql_query("INSERT INTO login_log(empno, action, company_id) VALUES('$empnum', '$action', '$companyId')") or die(mysql_error());
+    $log_logout = mysqli_query($link, "INSERT INTO login_log(empno, action, company_id) VALUES('$empnum', '$action', '$companyId')") or die(mysqli_error($link));
 }
 // here is reset all the sessions so that the system contains no session .. 
 session_unset();
 session_destroy();
 
-?>
-<script>
-    window.location.href = '../index.php';
-</script>
-<?php
-
-?>
+header("Location: ../../{$client}");
+exit();

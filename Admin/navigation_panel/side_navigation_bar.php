@@ -5,7 +5,7 @@ $GroupObject = new Group();
 $groupID = $_SESSION['group_id'];
 
 $userGroup = $GroupObject->getGroupPermissions($groupID);
-$permissions = mysql_fetch_assoc($userGroup);
+$permissions = mysqli_fetch_assoc($userGroup);
 
 ?>
 
@@ -54,6 +54,17 @@ $permissions = mysql_fetch_assoc($userGroup);
                     <li><a href="../Company/change-password"><i class="fa fa-user-plus"></i>Change Password</a></li>
                     <li><a href="../Company/earnings"><i class="fa fa-user-plus"></i>Employee Earnings</a></li>
                     <li><a href="../Company/deductions"><i class="fa fa-user-plus"></i>Employee Deductions</a></li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-briefcase"></i> Assets
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="../Company/manage-assets"><i class="fa fa-user-plus"></i>Manage Assets</a></li>
+                            <li><a href="../Company/assets-type"><i class="fa fa-user-plus"></i>Asset Types</a></li>
+
+                        </ul>
+                    </li>
                 </ul>
             </li>
 

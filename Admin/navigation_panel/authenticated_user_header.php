@@ -2,8 +2,11 @@
 session_start();
 
 
+error_reporting(0);
+ini_set('display_errors', 1);
+
 $companyId = $_SESSION['company_ID'];
-include('../../include/dbconnection.php');
+include_once '../../include/dbconnection.php';
 include_once '../Classes/Reminders.php';
 include_once '../Classes/Company.php';
 include_once '../Classes/Group.php';
@@ -33,7 +36,7 @@ if ($hasPermission == 'false') {
         <span class="logo-mini"><b></b></span>
         <span class="logo-lg" style="color: black;"><b>
                 <?php
-                $name = $_SESSION['name'];            
+                $name = $_SESSION['name'];
                 ?>
             </b></span>
     </a>
@@ -122,7 +125,7 @@ if ($hasPermission == 'false') {
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li class="header"> <a style="color: black;"> Welcome Admin</a></li>                
+                <li class="header"> <a style="color: black;"> Welcome Admin</a></li>
                 <li class="header"> <a style="color: black;" class="fa fa-power-off" href="../logout.php"> <?php ?></a></li>
             </ul>
         </div>

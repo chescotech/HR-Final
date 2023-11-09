@@ -68,7 +68,7 @@ error_reporting(0);
                                 <?php
                                 $departmentquery = $DepartmentObject->getAllEmployeesByCompany($compId);
                                 $counter = 1;
-                                while ($row = mysql_fetch_array($departmentquery)) {
+                                while ($row = mysqli_fetch_array($departmentquery)) {
 
                                     $empno = $row['empno'];
                                     $status = $row['has_timesheets'];

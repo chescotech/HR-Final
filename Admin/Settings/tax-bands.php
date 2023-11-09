@@ -87,7 +87,7 @@
                     <div class="col-md-5">
 
                         <?php
-                        $rows = mysql_fetch_array($TaxObject->getTaxDetails($companyId));
+                        $rows = mysqli_fetch_array($TaxObject->getTaxDetails($companyId));
                         ?>
 
                         <form enctype="multipart/form-data" method="post">

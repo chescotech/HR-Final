@@ -69,8 +69,8 @@
                                         <?php
                                         $compID = $_SESSION['company_ID'];
                                         $query = "SELECT * FROM emp_info WHERE company_id ='$compID' ";
-                                        $result = mysql_query($query);
-                                        while ($row = mysql_fetch_array($result)) {
+                                        $result = mysqli_query($link, $query);
+                                        while ($row = mysqli_fetch_array($result)) {
                                             $deptId = $row['dept'];
                                             $id_ = $row['id'];
                                             $dept = $EmployeeObject->getDepartmentDetails($deptId);

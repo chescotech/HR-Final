@@ -15,6 +15,5 @@ $Subject = "Leave Request";
 
 $em->send_mail($empEmail, $message, $Subject);
 
-mysql_query("UPDATE leave_applications_tb SET status ='$status' WHERE application_id= '$id'") or die(mysql_error());
+mysqli_query($link,"UPDATE leave_applications_tb SET status ='$status' WHERE application_id= '$id'") or die(mysqli_error($link));
 header('location:pending-leaves.php');
-?>

@@ -24,9 +24,9 @@
     <div class="wrapper">
 
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Department.php';
         $DepartmentObject = new Department();
-        include '../navigation_panel/authenticated_user_header.php';
         ?>
 
         <?php include '../navigation_panel/side_navigation_bar.php'; ?>
@@ -66,10 +66,10 @@
 
                                         <?php
                                         $assnId = $_GET['id'];
-                                        $result = mysql_query("SELECT workflows.name,appover_groups.level,emp_info.fname,emp_info.lname,appover_groups.id FROM `appover_groups` inner JOIN workflows on workflows.id=appover_groups.work_flow_id
+                                        $result = mysqli_query($link, "SELECT workflows.name,appover_groups.level,emp_info.fname,emp_info.lname,appover_groups.id FROM `appover_groups` inner JOIN workflows on workflows.id=appover_groups.work_flow_id
                                                 INNER join emp_info on emp_info.empno=appover_groups.empno WHERE workflows.id='$assnId'  ");
                                         // $Departments = $DepartmentObject->getDepartmentByCompany($compID);
-                                        while ($row = mysql_fetch_array($result)) {
+                                        while ($row = mysqli_fetch_array($result)) {
                                             $id_ = $row['id'];
                                             $names =  $row['fname'] . ' ' . $row['lname'];
 

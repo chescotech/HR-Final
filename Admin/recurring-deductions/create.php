@@ -56,8 +56,8 @@
 
             $message = "";
             $empid = $_POST['empno'];
-            $empIDQ = mysql_query("SELECT id, empno FROM emp_info WHERE id='$empid'");
-            $empRow = mysql_fetch_array($empIDQ);
+            $empIDQ = mysqli_query($link, "SELECT id, empno FROM emp_info WHERE id='$empid'");
+            $empRow = mysqli_fetch_array($empIDQ);
             $empno = $empRow['empno'];
             $deduction_type = $_POST['deduction_type'];
             $deduction_amount = $_POST['deduction_amount'];
@@ -111,7 +111,7 @@
                                             <option>-- Select Employee to Add Recurring Deduction --</option>
                                             <?php
                                             $departmentquery = $DepartmentObject->getAllEmployeesByCompany($compID);
-                                            while ($row = mysql_fetch_array($departmentquery)) {
+                                            while ($row = mysqli_fetch_array($departmentquery)) {
 
                                                 $fname = $row['fname'];
                                                 $lname = $row['lname'];
@@ -135,7 +135,7 @@
                                             <option>-- Select Recurring Deduction Type --</option>
                                             <?php
                                             $typesquery = $RecurringDeductionsObject->getRecurringDeductionTypes($compID);
-                                            while ($row = mysql_fetch_array($typesquery)) {
+                                            while ($row = mysqli_fetch_array($typesquery)) {
 
                                                 $full_name = $row['name'];
                                                 $short_name = $row['short_name'];

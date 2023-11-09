@@ -66,7 +66,7 @@
                                         </thead>
                                         <?php
                                         $query = $qualificationsObject->getEmployeeQualifications();
-                                        while ($row = mysql_fetch_array($query)) {
+                                        while ($row = mysqli_fetch_array($query)) {
 
                                             $id_ = $row['id'];
                                             $empno = $row["empno"];

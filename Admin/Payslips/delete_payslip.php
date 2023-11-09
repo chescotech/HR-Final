@@ -174,18 +174,18 @@
                         // $PaySlipsObject->addEmpPayslipInfo($empno, $pay, $days_worked, $overtime_rate_hour, $overtime, $allowance, $advances, $insurance, $time, $commision, $compId);
 
                         $checkQuery = "SELECT * FROM tax where empno='$empno1'";
-                        $checkIfEmployeeExsist = mysql_query($checkQuery) or die("invalid query" . mysql_error());
+                        $checkIfEmployeeExsist = mysqli_query($link, $checkQuery) or die("invalid query" . mysqli_error($link));
 
-                        if (mysql_num_rows($checkIfEmployeeExsist) == 0) {
+                        if (mysqli_num_rows($checkIfEmployeeExsist) == 0) {
                             $PaySlipsObject->addTax($taxable, $total_tax_paid, $empno1, $compId, $time);
                         } else {
                             $PaySlipsObject->updateTax($taxable, $total_tax_paid, $empno1);
                         }
 
                         $checkForLeave = "SELECT * FROM leave_days where empno='$empno1'";
-                        $checkIfEmployeeLeaveExsist = mysql_query($checkForLeave) or die("invalid query" . mysql_error());
+                        $checkIfEmployeeLeaveExsist = mysqli_query($link, $checkForLeave) or die("invalid query" . mysqli_error($link));
 
-                        if (mysql_num_rows($checkIfEmployeeLeaveExsist) == 0) {
+                        if (mysqli_num_rows($checkIfEmployeeLeaveExsist) == 0) {
                             $PaySlipsObject->addLeave($empno1);
                         } else {
                             // $empno = $_POST['empno'];
@@ -214,7 +214,7 @@
             // return var_dump($month);
             array_map(function ($empno) {
                 global $time;
-                mysql_query("DELETE FROM employee where empno='$empno' AND DATE(time) ='$time' ") or die(mysql_error());
+                mysqli_query($link, "DELETE FROM employee where empno='$empno' AND DATE(time) ='$time' ") or die(mysqli_error($link));
             }, $empnos);
 
             echo "<script> alert('Deleted') </script>";
@@ -256,8 +256,8 @@
                                                 <?php
                                                 $compID = $_SESSION['company_ID'];
                                                 $query = "SELECT * FROM emp_info WHERE company_id ='$compID' ";
-                                                $result = mysql_query($query);
-                                                while ($row = mysql_fetch_array($result)) {
+                                                $result = mysqli_query($link, $query);
+                                                while ($row = mysqli_fetch_array($result)) {
                                                     $deptId = $row['dept'];
                                                     $id_ = $row['id'];
                                                     $empno = $row["empno"];

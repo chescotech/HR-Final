@@ -93,8 +93,8 @@
             <?php
             // Get applicant's info
             $user_id = $_GET['user_id'];
-            $gt_app_q = mysql_query("SELECT * FROM jobs_users WHERE id = '$user_id' ")or die(mysql_error());
-            $gt_app_r = mysql_fetch_array($gt_app_q);
+            $gt_app_q = mysqli_query($link, "SELECT * FROM jobs_users WHERE id = '$user_id' ") or die(mysqli_error($link));
+            $gt_app_r = mysqli_fetch_array($gt_app_q);
 
             $fname = $gt_app_r['fname'];
             $lname = $gt_app_r['lname'];
@@ -110,8 +110,8 @@
                 $name = $_POST['name'];
                 $level = $_POST['level'];
 
-                $add_q = mysql_query("INSERT INTO jobs_user_skills (category, name,level,user_id)
-            VALUES('$category', '$name','$level','$user_id')") or die(mysql_error());
+                $add_q = mysqli_query($link, "INSERT INTO jobs_user_skills (category, name,level,user_id)
+            VALUES('$category', '$name','$level','$user_id')") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Added Successfuly') </script>";
@@ -125,8 +125,8 @@
 
                 $id = $_POST['id'];
 
-                $add_q = mysql_query("UPDATE jobs_user_skills SET category = '$category', name = '$name',level='$level'
-            WHERE id = '$id' ") or die(mysql_error());
+                $add_q = mysqli_query($link, "UPDATE jobs_user_skills SET category = '$category', name = '$name',level='$level'
+            WHERE id = '$id' ") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Updated Successfuly') </script>";
@@ -136,7 +136,7 @@
             if (isset($_POST['delete'])) {
                 $id = $_POST['id'];
 
-                $add_q = mysql_query("DELETE FROM jobs_user_skills WHERE id = '$id' ") or die(mysql_error());
+                $add_q = mysqli_query($link, "DELETE FROM jobs_user_skills WHERE id = '$id' ") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Deleted Successfuly') </script>";
@@ -172,9 +172,9 @@
 
                                             <?php
 
-                                            $empQuery = mysql_query("SELECT * FROM jobs_user_info where user_id='$user_id' ") or die(mysql_error());
-                                            // echo mysql_num_rows($empQuery);
-                                            while ($empRows = mysql_fetch_array($empQuery)) {
+                                            $empQuery = mysqli_query($link, "SELECT * FROM jobs_user_info where user_id='$user_id' ") or die(mysqli_error($link));
+                                            // echo mysqli_num_rows($empQuery);
+                                            while ($empRows = mysqli_fetch_array($empQuery)) {
                                                 // Other Info
                                                 $location = $empRows['location'];
                                                 $lang1 = $empRows['lang1'];
@@ -220,8 +220,8 @@
 
                                             <?php
                                             // Skillz
-                                            $skillsQuery = mysql_query("SELECT * FROM jobs_user_skills WHERE user_id = '$user_id' ") or die(mysql_error());
-                                            while ($skillsRow = mysql_fetch_array($skillsQuery)) {
+                                            $skillsQuery = mysqli_query($link, "SELECT * FROM jobs_user_skills WHERE user_id = '$user_id' ") or die(mysqli_error($link));
+                                            while ($skillsRow = mysqli_fetch_array($skillsQuery)) {
                                                 $category = $skillsRow['category'];
                                                 $name = $skillsRow['name'];
                                                 $level = $skillsRow['level'];
@@ -256,8 +256,8 @@
 
                                         <?php
                                         // Work Xperience
-                                        $experienceQuery = mysql_query("SELECT * FROM jobs_user_experience WHERE user_id = '$user_id' ") or die(mysql_error());
-                                        while ($experienceRow = mysql_fetch_array($experienceQuery)) {
+                                        $experienceQuery = mysqli_query($link, "SELECT * FROM jobs_user_experience WHERE user_id = '$user_id' ") or die(mysqli_error($link));
+                                        while ($experienceRow = mysqli_fetch_array($experienceQuery)) {
                                             $employer = $experienceRow['employer'];
                                             $comp_name = $experienceRow['comp_name'];
                                             $phone = $experienceRow['phone'];
@@ -289,8 +289,8 @@
                                         <div class="w3-container">
                                             <?php
                                             // names - Accademic stuff
-                                            $qualificationsQuery = mysql_query("SELECT * FROM jobs_user_qualifications WHERE user_id = '$user_id' ") or die(mysql_error());
-                                            while ($qualificationsRow = mysql_fetch_array($qualificationsQuery)) {
+                                            $qualificationsQuery = mysqli_query($link, "SELECT * FROM jobs_user_qualifications WHERE user_id = '$user_id' ") or die(mysqli_error($link));
+                                            while ($qualificationsRow = mysqli_fetch_array($qualificationsQuery)) {
                                                 $school = $qualificationsRow['school'];
                                                 $qualification = $qualificationsRow['qualification'];
                                                 $award = $qualificationsRow['award'];
@@ -317,8 +317,8 @@
                                         <div class="w3-container">
                                             <?php
                                             // Qualifications - Accademic stuff
-                                            $refsQuery = mysql_query("SELECT * FROM jobs_user_refs WHERE user_id = '$user_id' ") or die(mysql_error());
-                                            while ($refsRow = mysql_fetch_array($refsQuery)) {
+                                            $refsQuery = mysqli_query($link, "SELECT * FROM jobs_user_refs WHERE user_id = '$user_id' ") or die(mysqli_error($link));
+                                            while ($refsRow = mysqli_fetch_array($refsQuery)) {
                                                 $ref_name = $refsRow['name'];
                                                 $ref_gender = $refsRow['gender'];
                                                 $ref_position = $refsRow['position'];

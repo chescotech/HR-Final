@@ -85,7 +85,7 @@ error_reporting(0);
 
                                         <?php
                                         $GroupMembers = $GroupObject->getGroupMembers($_GET['group'], $_SESSION['company_ID']);
-                                        while ($row = mysql_fetch_array($GroupMembers)) {
+                                        while ($row = mysqli_fetch_array($GroupMembers)) {
                                             $id = $row['id'];
                                         ?>
                                             <tr>

@@ -1,10 +1,10 @@
-<?php 
+<?php
 include('../../navigation_panel/dbconnection.php');
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $query = "DELETE FROM jobs_postings WHERE id ='$id'";
-    $result = mysql_query($query, $link) or die(mysql_error());
+    $result = mysqli_query($link, $query) or die(mysqli_error($link));
 
     echo "<script> window.location='job-list' </script>";
 }

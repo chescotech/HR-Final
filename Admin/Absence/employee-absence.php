@@ -30,12 +30,12 @@
     <div class="wrapper">
 
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Employee.php';
         $EmployeeObject = new Employee();
         include_once '../Classes/Leave.php';
         $leaveObject = new Leave();
 
-        include '../navigation_panel/authenticated_user_header.php';
         ?>
 
         <?php include '../navigation_panel/side_navigation_bar.php'; ?>
@@ -72,8 +72,8 @@
                                         <?php
                                         $compID = $_SESSION['company_ID'];
                                         $AbsentQuery = $leaveObject->getPeopleAbsent($compID);
-                                        if (mysql_num_rows($AbsentQuery) > 0) {
-                                            while ($row = mysql_fetch_array($AbsentQuery)) {
+                                        if (mysqli_num_rows($AbsentQuery) > 0) {
+                                            while ($row = mysqli_fetch_array($AbsentQuery)) {
                                                 if ($leaveObject->checkForActiveLeaves($row['leave_end_date']) == "false") {
 
                                                     $LeaveStartdate = $row['leave_start_date'];

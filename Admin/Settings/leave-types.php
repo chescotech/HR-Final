@@ -55,8 +55,8 @@ error_reporting(0);
             $is_deductible = $_POST['is_deductible'];
             $id = $_POST['id'];
 
-            $add_q = mysql_query("UPDATE leave_tb SET leave_type = '$leave_type',max_leave_days='$max_leave_days',
-                        required_atttachement = '$required_atttachement', is_deductible = '$is_deductible' WHERE id = '$id' ") or die(mysql_error());
+            $add_q = mysqli_query($link, "UPDATE leave_tb SET leave_type = '$leave_type',max_leave_days='$max_leave_days',
+                        required_atttachement = '$required_atttachement', is_deductible = '$is_deductible' WHERE id = '$id' ") or die(mysqli_error($link));
 
             if ($add_q) {
                 echo "<script> alert('Updated Successfuly') </script>";
@@ -106,8 +106,8 @@ error_reporting(0);
                                             <tbody>
                                                 <?php
                                                 $query = "SELECT * FROM leave_tb WHERE companyID='$compId'  ";
-                                                $result = mysql_query($query, $link) or die(mysql_error());
-                                                while ($row = mysql_fetch_array($result)) {
+                                                $result = mysqli_query($link, $query) or die(mysqli_error($link));
+                                                while ($row = mysqli_fetch_array($result)) {
 
                                                     $id = $row['id'];
                                                     $leave_type = $row['leave_type'];

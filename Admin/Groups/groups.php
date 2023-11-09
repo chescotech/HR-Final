@@ -102,7 +102,7 @@
 
                                         <?php
                                         $Groups = $GroupObject->getGroups($_SESSION['company_ID']);
-                                        while ($row = mysql_fetch_array($Groups)) {
+                                        while ($row = mysqli_fetch_array($Groups)) {
                                             $id = $row['id'];
                                             $grp_name = $row['name'];
                                         ?>
@@ -152,7 +152,7 @@
                                                             // TODO: Get group permissions
                                                             $permissions = $GroupObject->getGroupPermissions($id);
 
-                                                            $perm_row = mysql_fetch_array($permissions);
+                                                            $perm_row = mysqli_fetch_array($permissions);
                                                             //  company_setup	employee	hr_reports	payroll	payroll_reports	settings	recruitment	users
                                                             $comp_setup_perm = $perm_row['company_setup'];
                                                             $employee_perm = $perm_row['employee'];

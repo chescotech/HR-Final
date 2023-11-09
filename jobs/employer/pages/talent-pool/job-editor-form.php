@@ -2,8 +2,8 @@
 if (isset($_GET['id'])) {
     $from_jobs_id = $_GET['id'];
 
-    $user_q = mysql_query("SELECT * FROM talent_pool   WHERE id=$from_jobs_id ") or die(mysql_error());
-    while ($row = mysql_fetch_array($user_q)) {
+    $user_q = mysqli_query($link, "SELECT * FROM talent_pool   WHERE id=$from_jobs_id ") or die(mysqli_error($link));
+    while ($row = mysqli_fetch_array($user_q)) {
         $edit_title = $row["title"];
         $edit_dep_id = $row["department_id"];
         $description = $row["description"];
@@ -18,9 +18,9 @@ if (isset($_POST["updated_posting"])) {
     $description = $_POST["description"];
 
 
-    mysql_query("UPDATE talent_pool SET title='$title', department_id='$dep_id',description='$description'
+    mysqli_query($link, "UPDATE talent_pool SET title='$title', department_id='$dep_id',description='$description'
      WHERE id='$from_jobs_id'")
-        or die("Err11 " . mysql_error());
+        or die("Err11 " . mysqli_error($link));
 
     echo "<script>document.location='pool'</script>";
 }
@@ -59,8 +59,8 @@ if (isset($_POST["updated_posting"])) {
                                 <select name="dep_id" class="form-control" value="" required disabled>
                                     <option value="<?php echo isset($edit_dep_id) ? $edit_dep_id : '--- Select Department ---' ?>">
                                         <?php
-                                        $dep_query = mysql_query("SELECT * FROM department where dep_id = '$edit_dep_id'");
-                                        $item = mysql_fetch_array($dep_query);
+                                        $dep_query = mysqli_query($link, "SELECT * FROM department where dep_id = '$edit_dep_id'");
+                                        $item = mysqli_fetch_array($dep_query);
                                         if ($item['department']) {
                                             echo $item['department'];
                                         } else {
@@ -68,8 +68,8 @@ if (isset($_POST["updated_posting"])) {
                                         }
                                         ?></option>
                                     <?php
-                                    $departmentquery = mysql_query("SELECT * FROM department ");
-                                    while ($row = mysql_fetch_array($departmentquery)) {
+                                    $departmentquery = mysqli_query($link, "SELECT * FROM department ");
+                                    while ($row = mysqli_fetch_array($departmentquery)) {
                                     ?>
                                         <option value="<?php echo isset($edit_dep_id) ? $edit_dep_id : $row['dep_id']; ?>"> <?php echo $row['department']; ?></option>
                                     <?php

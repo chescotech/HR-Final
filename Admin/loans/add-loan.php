@@ -111,7 +111,7 @@ error_reporting(0);
                                             <option>-- Select Employee to Add Loan --</option>
                                             <?php
                                             $departmentquery = $DepartmentObject->getAllEmployeesByCompany($compID);
-                                            while ($row = mysql_fetch_array($departmentquery)) {
+                                            while ($row = mysqli_fetch_array($departmentquery)) {
 
                                                 $fname = $row['fname'];
                                                 $lname = $row['lname'];

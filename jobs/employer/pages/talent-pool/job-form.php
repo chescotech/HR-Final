@@ -7,9 +7,9 @@ if (isset($_POST["create_posting"])) {
     // $regno = $_SESSION["reg_num"];
     $comp_id = $_SESSION["company_ID"];
 
-    mysql_query("INSERT INTO talent_pool (title, department_id, description, emp_id)
+    mysqli_query($link, "INSERT INTO talent_pool (title, department_id, description, emp_id)
                                             VALUES('$title', '$dep_id', '$description', '$comp_id')")
-        or die("Err11 " . mysql_error());
+        or die("Err11 " . mysqli_error($link));
 
     echo "<script>document.location='pool'</script>";
 }
@@ -48,8 +48,8 @@ if (isset($_POST["create_posting"])) {
                                 <select name="dep_id" class="form-control" required>
                                     <option>--Select Department--</option>
                                     <?php
-                                    $departmentquery = mysql_query("SELECT * FROM department ");
-                                    while ($row = mysql_fetch_array($departmentquery)) {
+                                    $departmentquery = mysqli_query($link, "SELECT * FROM department ");
+                                    while ($row = mysqli_fetch_array($departmentquery)) {
                                     ?>
                                         <option value="<?php echo $row['dep_id']; ?>"> <?php echo $row['department']; ?></option>
                                     <?php

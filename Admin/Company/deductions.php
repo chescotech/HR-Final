@@ -51,8 +51,8 @@
                     $percent_of = $_POST['percent_of'];
 
                     // return var_dump($slug);
-                    $add_q = mysql_query("INSERT INTO deductions (name, type, status,percent,percent_of)
-                        VALUES('$name','$type','$status','$percent', '$percent_of' )") or die(mysql_error());
+                    $add_q = mysqli_query($link, "INSERT INTO deductions (name, type, status,percent,percent_of)
+                        VALUES('$name','$type','$status','$percent', '$percent_of' )") or die(mysqli_error($link));
 
                     if ($add_q) {
                         echo "<script> alert('Added Successfuly') </script>";
@@ -86,17 +86,17 @@
                     $variable = "not set";
                     if ($type == 'fixed') {
                         // insert fixed amounts into deductions
-                        $fixed_quer = mysql_query("INSERT INTO deductions(name, company_ID, type, emp_fixed, comp_fixed, comp_lower_bound, comp_lower_bound_amnt, comp_upper_bound, comp_upper_bound_amnt, emp_lower_bound, emp_lower_bound_amnt, emp_upper_bound, emp_upper_bound_amnt) VALUES('$name', '$compID', '$type', '$emp_fixed', '$comp_fixed', '$comp_lb','$comp_lb_amnt','$comp_ub','$comp_ub_amnt','$emp_lb', '$emp_lb_amnt','$emp_ub','$emp_ub_amnt')") or die(mysql_error());
+                        $fixed_quer = mysqli_query($link, "INSERT INTO deductions(name, company_ID, type, emp_fixed, comp_fixed, comp_lower_bound, comp_lower_bound_amnt, comp_upper_bound, comp_upper_bound_amnt, emp_lower_bound, emp_lower_bound_amnt, emp_upper_bound, emp_upper_bound_amnt) VALUES('$name', '$compID', '$type', '$emp_fixed', '$comp_fixed', '$comp_lb','$comp_lb_amnt','$comp_ub','$comp_ub_amnt','$emp_lb', '$emp_lb_amnt','$emp_ub','$emp_ub_amnt')") or die(mysqli_error($link));
                         // if calculating, save percentages
                     } else {
                         // insert calculation items
-                        $fixed_quer = mysql_query("INSERT INTO deductions(name, company_ID, type, emp_calc_num, emp_calc_deno, comp_calc_num, comp_calc_deno, comp_lower_bound, comp_lower_bound_amnt, comp_upper_bound, comp_upper_bound_amnt, emp_lower_bound, emp_lower_bound_amnt, emp_upper_bound, emp_upper_bound_amnt) VALUES('$name', '$compID', '$type', '$emp_numerator', '$emp_denominator', $comp_numerator, $comp_denominator, '$comp_lb','$comp_lb_amnt','$comp_ub','$comp_ub_amnt','$emp_lb', '$emp_lb_amnt','$emp_ub','$emp_ub_amnt')") or die(mysql_error());
+                        $fixed_quer = mysqli_query($link, "INSERT INTO deductions(name, company_ID, type, emp_calc_num, emp_calc_deno, comp_calc_num, comp_calc_deno, comp_lower_bound, comp_lower_bound_amnt, comp_upper_bound, comp_upper_bound_amnt, emp_lower_bound, emp_lower_bound_amnt, emp_upper_bound, emp_upper_bound_amnt) VALUES('$name', '$compID', '$type', '$emp_numerator', '$emp_denominator', $comp_numerator, $comp_denominator, '$comp_lb','$comp_lb_amnt','$comp_ub','$comp_ub_amnt','$emp_lb', '$emp_lb_amnt','$emp_ub','$emp_ub_amnt')") or die(mysqli_error($link));
                     }
 
                     // add to employee_deductions table
                     // add column to employee_earnings table
                     $sanitized_name = str_replace(" ", "_", strtolower($name));
-                    $update_table = mysql_query("ALTER TABLE `employee_deductions` ADD `$sanitized_name` INT(10) NULL;");
+                    $update_table = mysqli_query($link, "ALTER TABLE `employee_deductions` ADD `$sanitized_name` INT(10) NULL;");
 
                     // if 
                 }
@@ -106,12 +106,12 @@
                     $name = $_POST['name'];
                     $name = $_POST['name'];
 
-                    $add_q = mysql_query("DELETE FROM deductions WHERE ded_id = '$id' ") or die(mysql_error());
+                    $add_q = mysqli_query($link, "DELETE FROM deductions WHERE ded_id = '$id' ") or die(mysqli_error($link));
 
                     if ($add_q) {
 
                         $sanitized_name = str_replace(" ", "_", strtolower($name));
-                        $update_table = mysql_query("ALTER TABLE `employee_deductions` DROP `$sanitized_name`;");
+                        $update_table = mysqli_query($link, "ALTER TABLE `employee_deductions` DROP `$sanitized_name`;");
                         echo "<script> alert('Deleted Successfuly') </script>";
                         echo "<script> window.location.href='deductions' </script>";
                     }
@@ -142,8 +142,8 @@
                                      </thead>
                                      <tbody>
                                          <?php
-                                            $query = mysql_query("SELECT * FROM deductions WHERE company_ID = '$compID'") or die(mysql_error());
-                                            while ($row = mysql_fetch_array($query)) {
+                                            $query = mysqli_query($link, "SELECT * FROM deductions WHERE company_ID = '$compID'") or die(mysqli_error($link));
+                                            while ($row = mysqli_fetch_array($query)) {
                                             ?>
                                              <tr>
                                                  <td><?php echo str_replace("_", " ", $row['name']); ?></td>

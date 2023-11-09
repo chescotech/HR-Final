@@ -60,7 +60,7 @@
                     <div class="col-md-5">
 
                         <?php
-                        $rows = mysql_fetch_array($TaxObject->getGratuitySettings());
+                        $rows = mysqli_fetch_array($TaxObject->getGratuitySettings());
                         ?>
 
                         <form enctype="multipart/form-data" method="post">

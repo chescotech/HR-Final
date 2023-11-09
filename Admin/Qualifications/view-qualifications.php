@@ -50,8 +50,8 @@
                     ?>
                     <div class="col-md-9">
                         <?php
-                        $sql = mysql_query("SELECT * FROM emp_edu_info_tb where emp_id='$empno'");
-                        $rows = mysql_fetch_array($sql);
+                        $sql = mysqli_query($link, "SELECT * FROM emp_edu_info_tb where emp_id='$empno'");
+                        $rows = mysqli_fetch_array($sql);
                         ?>
                         <h3><?php echo 'Viewing Qualifications and Employment History for ' . $EmployeeObject->getEmployeeDetailsById($empno); ?>
                         </h3>
@@ -65,8 +65,8 @@
                         <div class="tab-content">
                             <div id="home" class="tab-pane fade in active">
                                 <?php
-                                $sql1 = mysql_query("SELECT * FROM emp_edu_info_tb where emp_id='$empno' ORDER BY id DESC ");
-                                while ($rows1 = mysql_fetch_array($sql1)) {
+                                $sql1 = mysqli_query($link, "SELECT * FROM emp_edu_info_tb where emp_id='$empno' ORDER BY id DESC ");
+                                while ($rows1 = mysqli_fetch_array($sql1)) {
                                 ?>
                                     <div class="box-body">
                                         <div class="form-group">
@@ -102,8 +102,8 @@
                             <div id="menu1" class="tab-pane fade">
 
                                 <?php
-                                $sql = mysql_query("SELECT * FROM emp_history_tb where emp_id='$empno'");
-                                $rows = mysql_fetch_array($sql);
+                                $sql = mysqli_query($link, "SELECT * FROM emp_history_tb where emp_id='$empno'");
+                                $rows = mysqli_fetch_array($sql);
                                 ?>
 
                                 <div class="box-body">
@@ -222,9 +222,9 @@
                                 $cv = "";
                                 $certificate = "";
 
-                                $res = mysql_query(" SELECT * FROM certificates_tb where empno='$empno' AND id = ( SELECT MAX(id) FROM certificates_tb WHERE empno='$empno' ) ");
-                                $rows = mysql_fetch_array($res);
-                                if (mysql_num_rows($res) != 0) {
+                                $res = mysqli_query($link, " SELECT * FROM certificates_tb where empno='$empno' AND id = ( SELECT MAX(id) FROM certificates_tb WHERE empno='$empno' ) ");
+                                $rows = mysqli_fetch_array($res);
+                                if (mysqli_num_rows($res) != 0) {
                                     $qualifications = $rows['qualifications'];
                                     // return $qualifications;
                                     $certificate = "../../employee/uploads/" . $qualifications;
@@ -236,9 +236,9 @@
                             <br>';
                                 }
 
-                                $res = mysql_query(" SELECT * FROM certificates_tb where empno='$empno' AND id = ( SELECT MAX(id) FROM certificates_tb WHERE empno='$empno' ) ");
-                                $rows = mysql_fetch_array($res);
-                                if (mysql_num_rows($res) != 0) {
+                                $res = mysqli_query($link, " SELECT * FROM certificates_tb where empno='$empno' AND id = ( SELECT MAX(id) FROM certificates_tb WHERE empno='$empno' ) ");
+                                $rows = mysqli_fetch_array($res);
+                                if (mysqli_num_rows($res) != 0) {
                                     $cv = $rows['cv'];
                                     // return $cv;
                                     $cv_file = "../../employee/uploads/" . $cv;

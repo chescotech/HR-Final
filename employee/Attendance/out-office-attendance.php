@@ -36,12 +36,12 @@
     <div class="wrapper">
 
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Leave.php';
         $leaveObject = new Leave();
         include_once '../../Admin/Classes/Company.php';
         $CompanyObject = new Company();
         require_once('../../PHPmailer/sendmail.php');
-        include '../navigation_panel/authenticated_user_header.php';
         $companyId = $_SESSION['company_ID'];
         ?>
 
@@ -82,9 +82,9 @@
 
             // check if the date has already been checked in...
 
-            $log_q = mysql_query("SELECT * FROM attendance_logs WHERE empno = '$empno' AND DATE(login_time) = '$checkLoginDate'  AND DATE(logout_time)='$checklogoutDate'
-            ") or die(mysql_error());
-            if (mysql_num_rows($log_q) > 0) {
+            $log_q = mysqli_query($link, "SELECT * FROM attendance_logs WHERE empno = '$empno' AND DATE(login_time) = '$checkLoginDate'  AND DATE(logout_time)='$checklogoutDate'
+            ") or die(mysqli_error($link));
+            if (mysqli_num_rows($log_q) > 0) {
                 // if records already exsist then show errors, 
 
                 echo '<center><h3 style="color: red" class="box-title"><b>                                                    

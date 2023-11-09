@@ -68,13 +68,13 @@ $query = "SELECT *
                                                         INNER JOIN emp_info n ON em.empno = n.empno                                                     
                                                         WHERE em.company_id =  '$compId' and em.time = '$year-$month-$day'";
 
-$result = mysql_query($query);
+$result = mysqli_query($link,$query);
 $sum = 0;
 $GrossTotal = 0;
 $chargableEmTotal = 0;
 $taxPaidTotal = 0;
 
-while ($row = mysql_fetch_array($result)) {
+while ($row = mysqli_fetch_array($result)) {
     $empno = $row['empno'];
     $ssNo = "";
     $fname = $row['fname'];
@@ -168,11 +168,10 @@ $pdf->Cell(40, 9, "");
 $pdf->Ln();
 $pdf->Cell(450, 7, "________________________________________________________________________________________________________________________________________________");
 $pdf->Ln();
-$totalNoRecords = mysql_num_rows($result);
+$totalNoRecords = mysqli_num_rows($result);
 
 $pdf->Cell(420, 5, "Printed On : " . $datePrint . " By ".$CompanyObject->getUserDetails($userId));
 
 $pdf->Ln();
 
 $pdf->Output();
-?>

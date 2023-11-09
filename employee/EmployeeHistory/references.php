@@ -71,7 +71,7 @@
 
             $sql = $EmployeeHistoryObject->getHistoryInfo($empno);
 
-            if (mysql_num_rows($sql) == 0) {
+            if (mysqli_num_rows($sql) == 0) {
                 $EmployeeHistoryObject->addEmpHistInfo(
                     $emp_id,
                     $employer_one,
@@ -114,7 +114,7 @@
                         $empno = $_SESSION['employee_id'];
                         $sql = $EmployeeHistoryObject->getHistoryInfo($empno);
 
-                        $rows = mysql_fetch_array($sql);
+                        $rows = mysqli_fetch_array($sql);
 
                         ?>
 

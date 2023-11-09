@@ -25,10 +25,10 @@
     <div class="wrapper">
 
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Employee.php';
         $EmployeeObject = new Employee();
 
-        include '../navigation_panel/authenticated_user_header.php';
         ?>
 
         <?php include '../navigation_panel/side_navigation_bar.php'; ?>
@@ -72,8 +72,8 @@
                                                 <select name="dep_id" class="form-control">
                                                     <option>--Select Department--</option>
                                                     <?php
-                                                    $departmentquery = mysql_query("SELECT * FROM department ");
-                                                    while ($row = mysql_fetch_array($departmentquery)) {
+                                                    $departmentquery = mysqli_query($link, "SELECT * FROM department ");
+                                                    while ($row = mysqli_fetch_array($departmentquery)) {
                                                     ?>
                                                         <option value="<?php echo $row['dep_id']; ?>"> <?php echo $row['department']; ?></option>
                                                     <?php
@@ -147,9 +147,9 @@
                                         $compID = $_SESSION['company_ID'];
                                         $query = "SELECT * FROM postings 
                                                 LEFT JOIN department ON department.dep_id = postings.dep_id";
-                                        $result = mysql_query($query);
+                                        $result = mysqli_query($link, $query);
                                         $view_details = "";
-                                        while ($row = mysql_fetch_array($result)) {
+                                        while ($row = mysqli_fetch_array($result)) {
                                             $id_ = $row['id'];
                                             $title = $row['title'];
                                             $department = $row['department'];
@@ -252,8 +252,8 @@
                                                                     <select name="dep_id" class="form-control">
                                                                         <option value="<?php echo $dep_id ?>"> <?php echo $department ?> </option>
                                                                         <?php
-                                                                        $departmentquery = mysql_query("SELECT * FROM department ");
-                                                                        while ($row = mysql_fetch_array($departmentquery)) {
+                                                                        $departmentquery = mysqli_query($link, "SELECT * FROM department ");
+                                                                        while ($row = mysqli_fetch_array($departmentquery)) {
                                                                         ?>
                                                                             <option value="<?php echo $row['dep_id']; ?>"> <?php echo $row['department']; ?></option>
                                                                         <?php
@@ -335,9 +335,9 @@
             $info = $_POST["info"];
             $qualifications = $_POST["qualifications"];
 
-            mysql_query("INSERT INTO postings (title, dep_id, type, vacancies, salary, experience, date, expires,info,qualifications,status)
+            mysqli_query($link, "INSERT INTO postings (title, dep_id, type, vacancies, salary, experience, date, expires,info,qualifications,status)
                                             VALUES('$title', '$dep_id', '$type', '$vacancies', '$salary', '$experience', '$date', '$expires', '$info','$qualifications','Unpublished')")
-                or die("Err11 " . mysql_error());
+                or die("Err11 " . mysqli_error($link));
 
             echo "<script>document.location='postings'</script>";
         }
@@ -347,15 +347,15 @@
             $app_id = $_POST["app_id"];
             // return var_dump($status,$app_id);
 
-            mysql_query("UPDATE postings SET status = '$status' WHERE id = '$app_id' ")
-                or die("Err11 " . mysql_error());
+            mysqli_query($link, "UPDATE postings SET status = '$status' WHERE id = '$app_id' ")
+                or die("Err11 " . mysqli_error($link));
 
             echo "<script> document.location='postings.php' </script>";
         }
 
         if (isset($_GET['del'])) {
             $id = $_GET['del'];
-            mysql_query("DELETE FROM postings WHERE id = '$id' ") or die(mysql_error());
+            mysqli_query($link, "DELETE FROM postings WHERE id = '$id' ") or die(mysqli_error($link));
 
             echo "<script>document.location='postings'</script>";
         }
@@ -374,10 +374,10 @@
             $qualifications = $_POST["qualifications"];
             $id_ = $_POST["id_"];
 
-            mysql_query("UPDATE postings SET title = '$title', dep_id='$dep_id', type='$type', vacancies='$vacancies',
+            mysqli_query($link, "UPDATE postings SET title = '$title', dep_id='$dep_id', type='$type', vacancies='$vacancies',
                             salary='$salary', experience='$experience', date='$date', expires='$expires', info='$info',
                             qualifications='$qualifications', status='Unpublished' WHERE id = '$id_' ")
-                or die("Err22 " . mysql_error());
+                or die("Err22 " . mysqli_error($link));
 
             echo "<script>document.location='postings'</script>";
         }

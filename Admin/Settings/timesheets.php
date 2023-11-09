@@ -139,7 +139,7 @@ error_reporting(0);
                                                     $timesheets_results = $TimesheetObject->getEmployeeTimesheets($empnum);
                                                 }
 
-                                                while ($row = mysql_fetch_assoc($timesheets_results)) {
+                                                while ($row = mysqli_fetch_assoc($timesheets_results)) {
                                                     $id_ = $row['id'];
                                                     $employee_no = $row['employee_no'];
 

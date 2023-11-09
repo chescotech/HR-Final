@@ -9,8 +9,6 @@ if($status == "Suspend"){
 }else{
      $set_status = "active";
 }
-mysql_query("UPDATE company SET status = '$set_status' where company_ID='$id'") or die(mysql_error());
+mysqli_query($link,"UPDATE company SET status = '$set_status' where company_ID='$id'") or die(mysqli_error($link));
 
 header('location:company-list.php');
-
-?>

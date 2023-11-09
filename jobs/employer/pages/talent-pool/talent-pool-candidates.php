@@ -115,7 +115,7 @@
                             // $regno = $_SESSION['reg_num'];
                             $comp_id = $_SESSION['company_ID'];
                             $pool_id = $_GET['pool_id'];
-                            $user_q = mysql_query("SELECT talent_pool.title,fname,lname, jobs_postings.title as job,
+                            $user_q = mysqli_query($link, "SELECT talent_pool.title,fname,lname, jobs_postings.title as job,
                         jobs_user_applications.date AS date_applied,job_status,jobs_user_applications.id as job_applied_id, 
                         jobs_user_applications.user_id AS appcant_user_id FROM `jobs_user_applications`
                         INNER JOIN jobs_users on jobs_users.id=jobs_user_applications.user_id
@@ -125,7 +125,7 @@
 
 
 
-                            while ($row = mysql_fetch_array($user_q)) {
+                            while ($row = mysqli_fetch_array($user_q)) {
                                 $id = $row['job_applied_id'];
                                 $appcant_user_id = $row['appcant_user_id'];
                                 $title = $row['job'];
@@ -243,8 +243,8 @@
                             $job_id = $_POST['job'];
                             //return var_dump($job_id,$app_id);
 
-                            mysql_query("UPDATE jobs_user_applications SET job_status = '$status' WHERE  id='$job_id' ")
-                                or die("Err11 " . mysql_error());
+                            mysqli_query($link, "UPDATE jobs_user_applications SET job_status = '$status' WHERE  id='$job_id' ")
+                                or die("Err11 " . mysqli_error($link));
 
                             echo "<script> document.location='applicant-list.php' </script>";
                         }

@@ -67,7 +67,7 @@ error_reporting(0);
                                             <option value="all"> All Employees </option>
                                             <?php
                                             $departmentquery = $DepartmentObject->getEmployeeByDepartment($dept_id);
-                                            while ($row = mysql_fetch_array($departmentquery)) {
+                                            while ($row = mysqli_fetch_array($departmentquery)) {
 
                                                 $fname = $row['fname'];
                                                 $lname = $row['lname'];
@@ -161,7 +161,7 @@ error_reporting(0);
                                                     }
                                                 }
 
-                                                while ($row = mysql_fetch_assoc($timesheets_results)) {
+                                                while ($row = mysqli_fetch_assoc($timesheets_results)) {
                                                     $id_ = $row['id'];
                                                     $employee_no = $row['employee_no'];
 

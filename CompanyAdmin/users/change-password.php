@@ -59,13 +59,13 @@
                 $reEnterPassword = $_POST['re_new_password'];
                 $Id = $_SESSION['user_id'];
                 $checkRecods = $companyObject->checkIfEmployeeExsists($oldPassword, $Id);
-                if (mysql_num_rows($checkRecods) > 0 && $newPassword == $reEnterPassword) {
+                if (mysqli_num_rows($checkRecods) > 0 && $newPassword == $reEnterPassword) {
                     $companyObject->changePasssword($newPassword, $Id);
                     $message = "Your Password has been changed Sucessfully!!";
                     ?>                  
                     <?php
                 }
-                if (mysql_num_rows($checkRecods) == 0) {
+                if (mysqli_num_rows($checkRecods) == 0) {
                     $message = "Invalid Old Password Entered!!";
                     ?>                    
                     <?php

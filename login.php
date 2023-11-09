@@ -1,6 +1,7 @@
 <?php
 ob_start();
 session_start();
+// var_dump($_SESSION);
 ?>
 <html>
 
@@ -25,8 +26,9 @@ session_start();
 </head>
 
 <?php
+$client = $_SESSION['CLIENT_NAME'];
 include('include/dbconnection.php');
-include('License.php');
+include("License.php");
 
 $License = new License();
 ?>
@@ -35,19 +37,18 @@ $License = new License();
 if (isset($_POST['sign_in'])) {
 
     $message = "";
-    include('include/dbconnection.php');
-    $login2 = mysql_query("SELECT * FROM company WHERE (username = '" . mysql_real_escape_string($_POST['username']) . "') and (password = '" . mysql_real_escape_string($_POST['password']) . "')");
-    // $usersQuery = mysql_query("SELECT * FROM users_tb WHERE (user_name = '" . mysql_real_escape_string($_POST['username']) . "') and (password = '" . md5(mysql_real_escape_string($_POST['password'])) . "')");
-    $EmployeeQuery = mysql_query("SELECT * FROM emp_info WHERE (empno = '" . mysql_real_escape_string($_POST['username']) . "') and (password = '" . md5(mysql_real_escape_string($_POST['password'])) . "')");
-    $employeeRows = mysql_fetch_array($EmployeeQuery);
+    $login2 = mysqli_query($link, "SELECT * FROM company WHERE (username = '" . ($_POST['username']) . "') and (password = '" . ($_POST['password']) . "')");
+    // $usersQuery = mysqli_query($link,"SELECT * FROM users_tb WHERE (user_name = '" . ($_POST['username']) . "') and (password = '" . md5(($_POST['password'])) . "')");
+    $EmployeeQuery = mysqli_query($link, "SELECT * FROM emp_info WHERE (empno = '" . ($_POST['username']) . "') and (password = '" . md5(($_POST['password'])) . "')");
+    $employeeRows = mysqli_fetch_array($EmployeeQuery);
     // user query..
-    $UserQuery = mysql_query("SELECT * FROM users_tb WHERE (user_name = '" . mysql_real_escape_string($_POST['username']) . "') and (password = '" . md5(mysql_real_escape_string($_POST['password'])) . "')");
-    $UserRows = mysql_fetch_array($UserQuery);
+    $UserQuery = mysqli_query($link, "SELECT * FROM users_tb WHERE (user_name = '" . ($_POST['username']) . "') and (password = '" . md5(($_POST['password'])) . "')");
+    $UserRows = mysqli_fetch_array($UserQuery);
 
     // check the keys for license first..
-    $login2_ = mysql_query("SELECT * FROM company ");
+    $login2_ = mysqli_query($link, "SELECT * FROM company ");
 
-    $Companyrow_ = mysql_fetch_array($login2_);
+    $Companyrow_ = mysqli_fetch_array($login2_);
 
     $_key = $Companyrow_['_key'];
     $name = $Companyrow_['name'];
@@ -56,15 +57,15 @@ if (isset($_POST['sign_in'])) {
     // check if license is valid...
 
     if ($License->checkExpiryDate($_key) == "valid") {
-        if (mysql_num_rows($EmployeeQuery) == 1) {
+        if (mysqli_num_rows($EmployeeQuery) == 1) {
             $_SESSION['employee_id'] = $_POST['username'];
             $_SESSION['empno'] = $employeeRows['empno'];
             $_SESSION['has_timesheets'] = $employeeRows['has_timesheets'];
             // log the log in
             $empnum = $_SESSION['empno'];
             $companyId = $employeeRows['company_id'];
-            $CompanyQuery = mysql_query("SELECT name from company WHERE company_ID = '$companyId' ");
-            $compRow = mysql_fetch_array($CompanyQuery);
+            $CompanyQuery = mysqli_query($link, "SELECT name from company WHERE company_ID = '$companyId' ");
+            $compRow = mysqli_fetch_array($CompanyQuery);
             $companyName = $compRow['name'];
             $_SESSION['company_name'] = $companyName;
             $_SESSION['dept'] = $employeeRows['dept'];
@@ -72,12 +73,12 @@ if (isset($_POST['sign_in'])) {
 
             // log
             $action = "LOGIN";
-            $log_login = mysql_query("INSERT INTO login_log(empno, action, company_id) VALUES('$empnum', '$action', '$companyId')");
+            $log_login = mysqli_query($link, "INSERT INTO login_log(empno, action, company_id) VALUES('$empnum', '$action', '$companyId')");
 
             header('Location:employee/index.php');
             exit();
         }
-        if (mysql_num_rows($UserQuery) == 1) {
+        if (mysqli_num_rows($UserQuery) == 1) {
             $userType = $UserRows['user_type'];
             if ($userType == "superadmin") {
                 $_SESSION['employee_id'] = $UserRows['empno'];
@@ -94,20 +95,20 @@ if (isset($_POST['sign_in'])) {
                 header('Location:CompanyAdmin/index.php');
                 exit();
             } else {
-                $Companyrow = mysql_fetch_array($login2);
+                $Companyrow = mysqli_fetch_array($login2);
                 $_SESSION['company_ID'] = $UserRows['company_id'];
                 $compId = $UserRows['company_id'];
                 $_SESSION['user_id'] = $UserRows['empno'];
                 $_SESSION['firstname'] = $UserRows['firstname'];
                 $_SESSION['user_session'] = $UserRows['id'];
                 $_SESSION['group_id'] = $UserRows['group_id'];
-                $query = mysql_query("SELECT name FROM company where company_ID = '$compId'");
-                $rows = mysql_fetch_array($query);
+                $query = mysqli_query($link, "SELECT name FROM company where company_ID = '$compId'");
+                $rows = mysqli_fetch_array($query);
                 $_SESSION['name'] = $rows['name'];
                 header('Location:Admin/index.php');
                 exit();
             }
-        } else if (mysql_num_rows($EmployeeQuery) == 0 && mysql_num_rows($UserQuery) == 0) {
+        } else if (mysqli_num_rows($EmployeeQuery) == 0 && mysqli_num_rows($UserQuery) == 0) {
             $message = '<div class="alert alert-danger">
                         Wrong username or password
                         </div>';

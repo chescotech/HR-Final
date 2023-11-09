@@ -35,13 +35,13 @@
             $newPassword = $_POST['new_password'];
             $reEnterPassword = $_POST['re_new_password'];
             $checkRecods = $EmployeeObject->checkIfEmployeeExsists($oldPassword, $empId);
-            if (mysql_num_rows($checkRecods) > 0 && $newPassword == $reEnterPassword) {
+            if (mysqli_num_rows($checkRecods) > 0 && $newPassword == $reEnterPassword) {
                 $EmployeeObject->changePasssword($newPassword, $empId);
                 $message = "Your Password has been changed Sucessfully!!";
         ?>
             <?php
             }
-            if (mysql_num_rows($checkRecods) == 0) {
+            if (mysqli_num_rows($checkRecods) == 0) {
                 $message = "Invalid Old Password Entered!!";
             ?>
             <?php
@@ -60,8 +60,8 @@
                         <div class="box box-primary">
                             <div class="box-body box-profile">
                                 <?php
-                                $result = mysql_query("SELECT * FROM emp_info where empno='$employeeId' ") or die(mysql_error());
-                                $row = mysql_fetch_array($result);
+                                $result = mysqli_query($link, "SELECT * FROM emp_info where empno='$employeeId' ") or die(mysqli_error($link));
+                                $row = mysqli_fetch_array($result);
                                 $position = $row['position'];
                                 if ($row["photo"] != "") {
                                     $picname = $row["photo"];

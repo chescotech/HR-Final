@@ -96,7 +96,7 @@
                                     }
                                     ?> </div>
                                 <?php
-                                $deduct = mysql_fetch_array($RecurringDeductionsObject->getRecurringDeductionByID($_GET['id']));
+                                $deduct = mysqli_fetch_array($RecurringDeductionsObject->getRecurringDeductionByID($_GET['id']));
                                 ?>
                                 <div class="box-body">
                                     <label>Deduction Amount:</label>

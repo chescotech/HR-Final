@@ -59,7 +59,7 @@
 
                                         <?php
                                         $Departments = $DepartmentObject->getDepartmentByCompany($compID);
-                                        while ($row = mysql_fetch_array($Departments)) {
+                                        while ($row = mysqli_fetch_array($Departments)) {
                                             $id_ = $row['dep_id'];
 
                                             echo '  

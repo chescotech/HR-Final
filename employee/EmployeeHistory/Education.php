@@ -28,10 +28,10 @@
     <div class="wrapper">
 
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
+
         include_once '../Classes/EmployeeHistory.php';
         $EmployeeHistoryObject = new EmployeeHistory();
-
-        include '../navigation_panel/authenticated_user_header.php';
         ?>
 
         <?php include '../navigation_panel/side_navigation_bar.php'; ?>
@@ -63,7 +63,7 @@
             $empno = $_SESSION['employee_id'];
             $sql = $EmployeeHistoryObject->getEduInfo($empno);
 
-            if (mysql_num_rows($sql) == 0) {
+            if (mysqli_num_rows($sql) == 0) {
                 $EmployeeHistoryObject->addEduInfo($employeeId, $highest_qualification, $qualifications, $university, $secondary_school);
             } else {
                 $EmployeeHistoryObject->updateEduInfo($employeeId, $highest_qualification, $qualifications, $university, $secondary_school);
@@ -97,7 +97,7 @@
                                 <?php
                                 $empno = $_SESSION['employee_id'];
                                 $sql = $EmployeeHistoryObject->getEduInfo($empno);
-                                $rows = mysql_fetch_array($sql);
+                                $rows = mysqli_fetch_array($sql);
                                 ?>
 
                                 <form enctype="multipart/form-data" method="post">
@@ -157,8 +157,8 @@
                     <div class="col-md-9">
                         <?php
                         $empno = $_SESSION['employee_id'];
-                        $sql = mysql_query("SELECT * FROM emp_edu_info_tb where emp_id='$empno' ORDER BY id DESC LIMIT 1");
-                        $rows = mysql_fetch_array($sql);
+                        $sql = mysqli_query($link, "SELECT * FROM emp_edu_info_tb where emp_id='$empno' ORDER BY id DESC LIMIT 1");
+                        $rows = mysqli_fetch_array($sql);
                         ?>
 
                         <form enctype="multipart/form-data" method="post">

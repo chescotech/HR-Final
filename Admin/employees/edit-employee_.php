@@ -102,7 +102,7 @@
                         <?php
                         $id = $_GET['id'];
                         $empQuery = $EmployeeObject->getEmployeeById($id);
-                        while ($rows = mysql_fetch_array($empQuery)) {
+                        while ($rows = mysqli_fetch_array($empQuery)) {
                         ?>
                             <form enctype="multipart/form-data" method="post">
                                 <div class="box box-primary">

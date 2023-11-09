@@ -38,11 +38,11 @@ error_reporting(0);
     <div class="wrapper">
 
         <?php
+        include_once '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Employee.php';
         $EmployeeObject = new Employee();
         include_once '../Classes/Company.php';
         $CompanyObject = new Company();
-        include_once '../navigation_panel/authenticated_user_header.php';
         $empl_id = $_GET['id'];
         $companyId = $_SESSION['company_ID'];
         ?>
@@ -222,7 +222,7 @@ error_reporting(0);
             // return var_dump($updateQuery);
 
             // Execute the query
-            $earnings_item = mysql_query($updateQuery) or die(mysql_error());
+            $earnings_item = mysqli_query($link, $updateQuery) or die(mysqli_error($link));
 
             // Parse the deductions
             $deductionValues = array();
@@ -235,7 +235,7 @@ error_reporting(0);
                     $deductionName = substr($key, strlen("deduction_"));
 
                     // Sanitize and format the deduction name
-                    $sanitizedDeductionName = mysql_real_escape_string(strtolower(str_replace(" ", "_", $deductionName)));
+                    $sanitizedDeductionName = (strtolower(str_replace(" ", "_", $deductionName)));
                     // Check if the deduction is selected (value is not empty)
                     $deductionValue = !empty($value) ? 'TRUE' : 'FALSE';
 
@@ -249,7 +249,7 @@ error_reporting(0);
 
             // Get the list of column names from the table
             $query = "SHOW COLUMNS FROM `employee_deductions`";
-            $result = mysql_query($query) or die(mysql_error());
+            $result = mysqli_query($link, $query) or die(mysqli_error($link));
 
             $update_columns = array();
 
@@ -259,7 +259,7 @@ error_reporting(0);
             $setClause = implode(", ", $deductionValues);
 
             if ($result) {
-                while ($row = mysql_fetch_assoc($result)) {
+                while ($row = mysqli_fetch_assoc($result)) {
 
                     $column_name = $row['Field'];
 
@@ -273,26 +273,26 @@ error_reporting(0);
                 $updateQuery = "UPDATE employee_deductions SET " . implode(", ", $clearClause) . " WHERE employee_id = '$id'";
 
                 // Execute the clear statement
-                $deductions_update = mysql_query($updateQuery) or die(mysql_error());
+                $deductions_update = mysqli_query($link, $updateQuery) or die(mysqli_error($link));
             } else {
-                echo "Error: " . mysql_error();
+                echo "Error: " . mysqli_error($link);
             }
 
             // update the relevant deductions
-            $updateQuery = mysql_query("UPDATE employee_deductions SET " . $setClause . " WHERE employee_id = '$id'");
+            $updateQuery = mysqli_query($link, "UPDATE employee_deductions SET " . $setClause . " WHERE employee_id = '$id'");
 
             // log user creation
             $action = "Edit Employee";
             $emp_id = $_SESSION['user_session'];
-            $emp_log = mysql_query("INSERT INTO emp_log(company_id, action, action_user) VALUES('$companyId','$action','$emp_id')") or die(mysql_error());
+            $emp_log = mysqli_query($link, "INSERT INTO emp_log(company_id, action, action_user) VALUES('$companyId','$action','$emp_id')") or die(mysqli_error($link));
 
 
-            $result = mysql_query("SELECT * FROM allowances_tb WHERE emp_no = '$empno' ");
-            if (mysql_num_rows($result) > 0) {
-                mysql_query("UPDATE allowances_tb SET house_allowance ='$house_allowance',transport_allowance='$transport_allowance',"
+            $result = mysqli_query($link, "SELECT * FROM allowances_tb WHERE emp_no = '$empno' ");
+            if (mysqli_num_rows($result) > 0) {
+                mysqli_query($link, "UPDATE allowances_tb SET house_allowance ='$house_allowance',transport_allowance='$transport_allowance',"
                     . "lunch_allowance='$lunch_allowance' WHERE emp_no= '$empno'");
             } else {
-                mysql_query("INSERT allowances_tb(house_allowance,transport_allowance,lunch_allowance,emp_no,company_id) "
+                mysqli_query($link, "INSERT allowances_tb(house_allowance,transport_allowance,lunch_allowance,emp_no,company_id) "
                     . "VALUES('$house_allowance','$transport_allowance','$lunch_allowance','$empno','4')");
             }
 
@@ -319,7 +319,7 @@ error_reporting(0);
                         $id = $_GET['id'];
                         $empQuery = $EmployeeObject->getEmployeeById($id);
 
-                        while ($rows = mysql_fetch_array($empQuery)) {
+                        while ($rows = mysqli_fetch_array($empQuery)) {
                             $image = $rows['photo'];
                             $basic_pay = $rows['basic_pay'];
                         ?>
@@ -329,8 +329,8 @@ error_reporting(0);
                                         <center>
                                             <?php
                                             $empno = $rows['empno'];
-                                            $allowanceQuery = mysql_query("SELECT * FROM allowances_tb WHERE emp_no = '$empno'");
-                                            $allowanceRows = mysql_fetch_array($allowanceQuery);
+                                            $allowanceQuery = mysqli_query($link, "SELECT * FROM allowances_tb WHERE emp_no = '$empno'");
+                                            $allowanceRows = mysqli_fetch_array($allowanceQuery);
                                             if (isset($_POST['update'])) {
                                                 echo ' <center>
                                                     <h3 style="color: green" class="box-title"><b>' . $stateMessage . '</b></h3>
@@ -450,7 +450,7 @@ error_reporting(0);
                                                 <option value="<?php $rows['leaveworkflow_id'] ?>"><?php echo $CompanyObject->getApproverByID($rows['leaveworkflow_id']); ?></option>
                                                 <?php
                                                 $departmentquery = $CompanyObject->getApproverList();
-                                                while ($row = mysql_fetch_array($departmentquery)) {
+                                                while ($row = mysqli_fetch_array($departmentquery)) {
                                                 ?>
                                                     <option value="<?php echo $row['id']; ?>"> <?php echo $row['name']; ?></option>
                                                 <?php
@@ -537,8 +537,8 @@ error_reporting(0);
                                             <select name="department" class="form-control">
                                                 <option value="<?php echo $rows['dept']; ?>">- Currently in <?php echo $EmployeeObject->getDepartmentDetails($rows['dept']); ?> -</option>
                                                 <?php
-                                                $departmentquery = mysql_query("SELECT * FROM department ");
-                                                while ($row = mysql_fetch_array($departmentquery)) {
+                                                $departmentquery = mysqli_query($link, "SELECT * FROM department ");
+                                                while ($row = mysqli_fetch_array($departmentquery)) {
                                                 ?>
                                                     <option value="<?php echo $row['dep_id']; ?>"> <?php echo $row['department']; ?></option>
                                                 <?php
@@ -562,8 +562,8 @@ error_reporting(0);
                                                 <option value="<?php echo $rows['grade']; ?>">- Currently in <?php echo $rows['employee_grade']; ?> -</option>
                                                 <?php
                                                 $compName = $_SESSION['username'];
-                                                $CompanyQuery = mysql_query("SELECT grade FROM grade where company_ID='$companyId'") or die(mysql_error());
-                                                while ($row = mysql_fetch_array($CompanyQuery)) {
+                                                $CompanyQuery = mysqli_query($link, "SELECT grade FROM grade where company_ID='$companyId'") or die(mysqli_error($link));
+                                                while ($row = mysqli_fetch_array($CompanyQuery)) {
                                                 ?>
                                                     <option value="<?php echo $row['grade']; ?>"> <?php echo $row['grade']; ?></option>
                                                 <?php
@@ -634,16 +634,16 @@ error_reporting(0);
                                                 <?php
                                                 // Assume $userId is the ID of the user you're editing
                                                 // Retrieve the user's earnings from the employee_earnings table
-                                                $earningsQuery = mysql_query("SELECT * FROM employee_earnings WHERE employee_id = '$empl_id '");
+                                                $earningsQuery = mysqli_query($link, "SELECT * FROM employee_earnings WHERE employee_id = '$empl_id '");
                                                 $earningsData = array();
 
-                                                if (mysql_num_rows($earningsQuery) > 0) {
-                                                    $earningsRow = mysql_fetch_assoc($earningsQuery);
+                                                if (mysqli_num_rows($earningsQuery) > 0) {
+                                                    $earningsRow = mysqli_fetch_assoc($earningsQuery);
                                                     $earningsData = $earningsRow;
                                                 }
 
                                                 // Retrieve all earnings available for selection
-                                                $earnings = mysql_query("SELECT * FROM earnings WHERE company_id = '$companyId'");
+                                                $earnings = mysqli_query($link, "SELECT * FROM earnings WHERE company_id = '$companyId'");
                                                 ?>
                                                 <div class="modal-body" style="overflow-y: scroll;">
                                                     <div class="box-body">
@@ -652,7 +652,7 @@ error_reporting(0);
                                                             <input type="text" id="earning_0" name="basic_pay" class="form-control" value="<?= $basic_pay ?>">
                                                         </div>
                                                         <?php
-                                                        while ($row = mysql_fetch_array($earnings)) {
+                                                        while ($row = mysqli_fetch_array($earnings)) {
                                                             $earningName = $row['name'];
                                                             $sanitizedEarningName = strtolower(str_replace(" ", "_", $earningName));
                                                             $earningAmount = isset($earningsData[$sanitizedEarningName]) ? $earningsData[$sanitizedEarningName] : ''; // Get the amount from the data array if available
@@ -706,17 +706,19 @@ error_reporting(0);
                                                 </div>
                                                 <div class="modal-body">
                                                     <?php
-                                                    $deductions = mysql_query(
+                                                    $deductions = mysqli_query(
+                                                        $link,
                                                         "SELECT * FROM `deductions` WHERE company_ID = '$companyId'"
-                                                    ) or die(mysql_error());
+                                                    ) or die(mysqli_error($link));
 
                                                     $deductionValues = array(); // Array to hold retrieved deduction values
                                                     // Retrieve deduction values for the employee from the database
 
-                                                    $employeeDeductions = mysql_query(
+                                                    $employeeDeductions = mysqli_query(
+                                                        $link,
                                                         "SELECT * FROM `employee_deductions` WHERE employee_id = '$empl_id' AND company_id = '$companyId'"
-                                                    ) or die(mysql_error());
-                                                    $deductionRow = mysql_fetch_assoc($employeeDeductions);
+                                                    ) or die(mysqli_error($link));
+                                                    $deductionRow = mysqli_fetch_assoc($employeeDeductions);
                                                     foreach ($deductionRow as $deductionColumn => $deductionValue) {
                                                         // Check if the deduction value is set
                                                         if ($deductionValue === '1') {
@@ -724,7 +726,7 @@ error_reporting(0);
                                                         }
                                                     }
 
-                                                    while ($ded_row = mysql_fetch_array($deductions)) {
+                                                    while ($ded_row = mysqli_fetch_array($deductions)) {
                                                     ?>
                                                         <p>
                                                             <label>

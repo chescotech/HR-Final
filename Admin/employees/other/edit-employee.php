@@ -75,7 +75,7 @@
             $EmployeeObject->updateEmpInfo($fname, $lname, $init, $bdate, $position, $bank, $account, $dateJoined, $date_left, $basic_pay, $payment_method, $id, $gross_pay);
             //$EmployeeObject->updateEmployeeeAllowance($empno, $house_allowance, $transport_allowance, $lunch_allowance);
 
-            mysql_query("UPDATE allowances_tb SET house_allowance ='$house_allowance',transport_allowance='$transport_allowance',"
+            mysqli_query($link, "UPDATE allowances_tb SET house_allowance ='$house_allowance',transport_allowance='$transport_allowance',"
                 . "lunch_allowance='$lunch_allowance' WHERE emp_no= '$empno'");
 
             $stateMessage = "Employee information Successully updated !!";
@@ -100,7 +100,7 @@
                         $id = $_GET['id'];
                         $empQuery = $EmployeeObject->getEmployeeById($id);
 
-                        while ($rows = mysql_fetch_array($empQuery)) {
+                        while ($rows = mysqli_fetch_array($empQuery)) {
                         ?>
                             <form enctype="multipart/form-data" method="post">
                                 <div class="box box-primary">
@@ -108,8 +108,8 @@
                                         <center>
                                             <?php
                                             $empno = $rows['empno'];
-                                            $allowanceQuery = mysql_query("SELECT * FROM allowances_tb WHERE emp_no = '$empno'");
-                                            $allowanceRows = mysql_fetch_array($allowanceQuery);
+                                            $allowanceQuery = mysqli_query($link, "SELECT * FROM allowances_tb WHERE emp_no = '$empno'");
+                                            $allowanceRows = mysqli_fetch_array($allowanceQuery);
                                             if (isset($_POST['update'])) {
                                                 echo ' <center>
                                                     <h3 style="color: green" class="box-title"><b>' . $stateMessage . '</b></h3>

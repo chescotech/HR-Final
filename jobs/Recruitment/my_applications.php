@@ -54,15 +54,15 @@
                             LEFT JOIN department ON department.dep_id = jobs_postings.dep_id
                             WHERE user_id = '$user_id' 
                             ";
-                            $result = mysql_query($query) or die(mysql_error());
-                            while ($row = mysql_fetch_array($result)) {
+                            $result = mysqli_query($link, $query) or die(mysqli_error($link));
+                            while ($row = mysqli_fetch_array($result)) {
                                 $id_ = $row['id'];
                                 $title = $row['title'];
                                 $department = $row['department'];
                                 $vacancies = $row['vacancies'];
                                 $type = $row['type'];
                                 $experience = $row['experience'];
-                                $salary = $row['salary_min']." - ".$row['salary_max'];
+                                $salary = $row['salary_min'] . " - " . $row['salary_max'];
                                 $info = $row['description'];
                                 $qualifications = $row['qualifications'];
                                 $status = $row['job_status'];
@@ -71,13 +71,13 @@
                                 $rawExpires = $row['expires'];
                                 $expires = date("d M, Y", strtotime($rawExpires));
 
-                                if($status == "Unread"){
+                                if ($status == "Unread") {
                                     $st_color = "#667372";
-                                }elseif($status == "Denied"){
+                                } elseif ($status == "Denied") {
                                     $st_color = "red";
-                                }elseif ($status == "Acceppted"){
+                                } elseif ($status == "Acceppted") {
                                     $st_color = "#1c782b";
-                                }elseif ($status == "Pending"){
+                                } elseif ($status == "Pending") {
                                     $st_color = "#fc6603";
                                 }
 
@@ -86,8 +86,8 @@
                                 <div class="col-md-4" style=" border-style: inset;">
                                     <div class="panel ">
                                         <div class="panel-heading panel-primary">
-                                            <strong><?php echo $title; ?> <span style="float: right; color:<?php echo $st_color ?>"> 
-                                            <i class="fa fa-circle" aria-hidden="true"></i> <?php echo $status; ?> </span> </strong>
+                                            <strong><?php echo $title; ?> <span style="float: right; color:<?php echo $st_color ?>">
+                                                    <i class="fa fa-circle" aria-hidden="true"></i> <?php echo $status; ?> </span> </strong>
                                         </div>
                                         <div class="panel-body" style="background-color: #f5f5f5;">
                                             <p class="m0">
@@ -102,7 +102,7 @@
                                                 <strong>Experience: <?php echo $experience; ?></strong>
 
                                             </p>
-                                       
+
                                             <p class="m0">
                                                 <strong>No. of Vacancies: <?php echo $vacancies; ?></strong>
                                             </p>

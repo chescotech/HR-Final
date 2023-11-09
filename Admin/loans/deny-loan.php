@@ -8,9 +8,9 @@ $status = "Denied";
 
 echo $id;
 
-$Query_ = mysql_query("SELECT * FROM `loan_applications` WHERE LOAN_NO='$id'") or die(mysql_error());
+$Query_ = mysqli_query($link, "SELECT * FROM `loan_applications` WHERE LOAN_NO='$id'") or die(mysqli_error($link));
 
-$loan = mysql_fetch_array($Query_);
+$loan = mysqli_fetch_array($Query_);
 
 $empno = $loan['empno'];
 echo $empno;
@@ -19,18 +19,18 @@ if ($loan) {
         // Delete the loan from loan_applications_tb
         $updateQuery = "UPDATE loan_applications 
                 SET status = '" . $status . "' 
-                WHERE LOAN_NO = '" . mysql_real_escape_string($loan['LOAN_NO']) . "'";
-    
-        $updateResult = mysql_query($updateQuery, $link);
+                WHERE LOAN_NO = '" . ($loan['LOAN_NO']) . "'";
+
+        $updateResult = mysqli_query($link, $updateQuery);
         if (!$updateResult) {
-            die("Update failed: " . mysql_error());
+                die("Update failed: " . mysqli_error($link));
         }
-        
+
         //       send email to employee
-        $emp_query = mysql_query("SELECT * FROM `emp_info` WHERE empno = '$empno'");
-        $employee = mysql_fetch_array($emp_query);
+        $emp_query = mysqli_query($link, "SELECT * FROM `emp_info` WHERE empno = '$empno'");
+        $employee = mysqli_fetch_array($emp_query);
         $EmployeeEmail = $employee['email'];
-        
+
         $em = new email();
 
         $message = "Greetings." . "<br>" . "<br>"
@@ -45,6 +45,5 @@ if ($loan) {
         header('Location: view-applications.php');
         exit;
 } else {
-    echo "Loan Application not found!";
+        echo "Loan Application not found!";
 }
-?>

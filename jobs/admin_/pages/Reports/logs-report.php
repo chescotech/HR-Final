@@ -135,8 +135,8 @@
                                         <!-- <select name="filter" class="form-control">
                                             <option value="all">-- All Jobs --</option>
                                             <?php
-                                            $qq1 = mysql_query("SELECT * FROM `jobs_postings`");
-                                            while ($rr1 = mysql_fetch_array($qq1)) {
+                                            $qq1 = mysqli_query($link, "SELECT * FROM `jobs_postings`");
+                                            while ($rr1 = mysqli_fetch_array($qq1)) {
                                             ?>
                                             <option value="<?php echo $rr1['id']; ?>"> <?php echo $rr1['title']; ?>
                                             </option>
@@ -175,19 +175,19 @@
                                 // $job_id = $_POST'job'];
                             } else {
                             }
-                            $user_q = mysql_query("SELECT trans_name, trans_on, fname, lname, date FROM jobs_logs 
+                            $user_q = mysqli_query($link, "SELECT trans_name, trans_on, fname, lname, date FROM jobs_logs 
                                                 INNER JOIN jobs_users ON jobs_users.id = jobs_logs.trans_by
-                                        ") or die(mysql_error());
+                                        ") or die(mysqli_error($link));
 
                             $total = 0;
-                            while ($row = mysql_fetch_array($user_q)) {
+                            while ($row = mysqli_fetch_array($user_q)) {
                                 $trans_name = $row['trans_name'];
                                 $trans_on = $row['trans_on'];
                                 $date = $row['date'];
                                 $admin = $row['fname'] . " " . $row['lname'];
 
-                                $user_q2 = mysql_query("SELECT fname, lname FROM jobs_users WHERE id = '$trans_on' ") or die(mysql_error());
-                                $row2 = mysql_fetch_array($user_q2);
+                                $user_q2 = mysqli_query($link, "SELECT fname, lname FROM jobs_users WHERE id = '$trans_on' ") or die(mysqli_error($link));
+                                $row2 = mysqli_fetch_array($user_q2);
                                 $candidate = $row2['fname'] . " " . $row2['lname'];
 
                                 echo '

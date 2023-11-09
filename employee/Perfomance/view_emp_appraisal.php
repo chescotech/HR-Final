@@ -55,8 +55,8 @@
                 $total_score = $_POST['total_score'];
                 $comment = $_POST['comment'];
 
-                $add_q = mysql_query("INSERT INTO ass_appraisals (empno,params_id, period_id, factor_id, own_score, boss_score, total_score, comment)
-                        VALUES('$empno', '$params_id', '$period_id', '$factor_id', '$own_score', '$boss_score', '$total_score', '$comment')") or die(mysql_error());
+                $add_q = mysqli_query($link, "INSERT INTO ass_appraisals (empno,params_id, period_id, factor_id, own_score, boss_score, total_score, comment)
+                        VALUES('$empno', '$params_id', '$period_id', '$factor_id', '$own_score', '$boss_score', '$total_score', '$comment')") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Added Successfuly') </script>";
@@ -68,8 +68,8 @@
                 $target = $_POST['target'];
                 $id = $_POST['id'];
 
-                $add_q = mysql_query("UPDATE ass_appraisals SET name = '$name',target='$target'
-                        WHERE id = '$id' ") or die(mysql_error());
+                $add_q = mysqli_query($link, "UPDATE ass_appraisals SET name = '$name',target='$target'
+                        WHERE id = '$id' ") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Updated Successfuly') </script>";
@@ -79,7 +79,7 @@
             if (isset($_POST['delete'])) {
                 $id = $_POST['id'];
 
-                $add_q = mysql_query("DELETE FROM ass_appraisals WHERE id = '$id' ") or die(mysql_error());
+                $add_q = mysqli_query($link, "DELETE FROM ass_appraisals WHERE id = '$id' ") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Deleted Successfuly') </script>";
@@ -99,9 +99,9 @@
                 array_map(function ($ass_app_id, $own_score, $comment) {
                     global $empno;
                     // return var_dump($empno);
-                    mysql_query("INSERT INTO ass_emp_appraisals (ass_app_id, empno, own_score, comment)
+                    mysqli_query($link, "INSERT INTO ass_emp_appraisals (ass_app_id, empno, own_score, comment)
                             VALUES('$ass_app_id', '$empno', '$own_score', '$comment')
-                        ") or die("Error Saving Data " . mysql_error());
+                        ") or die("Error Saving Data " . mysqli_error($link));
                     // return var_dump($mysql_query);
                 }, $ass_app_ids, $own_scores, $comments);
 
@@ -115,16 +115,16 @@
 
                 function getEmployeeSupervisor($employeeId)
                 {
-                    $res = mysql_query("SELECT * FROM emp_info WHERE empno='$employeeId'");
-                    $rows = mysql_fetch_array($res);
+                    $res = mysqli_query($link, "SELECT * FROM emp_info WHERE empno='$employeeId'");
+                    $rows = mysqli_fetch_array($res);
                     $department = $rows['dept'];
 
-                    $hodQuery = mysql_query("SELECT * FROM hod_tb WHERE departmentId='$department'");
-                    $hodRows = mysql_fetch_array($hodQuery);
+                    $hodQuery = mysqli_query($link, "SELECT * FROM hod_tb WHERE departmentId='$department'");
+                    $hodRows = mysqli_fetch_array($hodQuery);
                     $hodsEmpno = $hodRows['empno'];
 
-                    $getHodDataQuery = mysql_query("SELECT * FROM emp_info WHERE empno='$hodsEmpno'");
-                    $hodsInfoRows = mysql_fetch_array($getHodDataQuery);
+                    $getHodDataQuery = mysqli_query($link, "SELECT * FROM emp_info WHERE empno='$hodsEmpno'");
+                    $hodsInfoRows = mysqli_fetch_array($getHodDataQuery);
                     $hodsEmail = $hodsInfoRows['email'];
                     return $hodsEmail;
                 }
@@ -134,11 +134,11 @@
 
             if (isset($_POST['emp_expectation'])) {
                 $ass_app_id = $app_id;
-                $emp_expectation = mysql_real_escape_string($_POST['emp_expectation']);
+                $emp_expectation = ($_POST['emp_expectation']);
 
-                mysql_query(" UPDATE ass_emp_appraisals SET emp_expectation = '$emp_expectation'
+                mysqli_query($link, " UPDATE ass_emp_appraisals SET emp_expectation = '$emp_expectation'
                         WHERE ass_app_id = '$ass_app_id'  AND empno='$empno'
-                    ") or die("Error Saving Data " . mysql_error());
+                    ") or die("Error Saving Data " . mysqli_error($link));
             }
             ?>
             <div style="padding-left: 70px; padding-top: 20px;">
@@ -168,16 +168,16 @@
 
                                     <table id="example1" class="table table-bordered table-striped">
                                         <?php
-                                        $empq = mysql_query("SELECT emp_info.fname AS fname , emp_info.lname AS lname, emp_info.position AS position, emp_info.empno AS empno,
+                                        $empq = mysqli_query($link, "SELECT emp_info.fname AS fname , emp_info.lname AS lname, emp_info.position AS position, emp_info.empno AS empno,
                                         department.department FROM emp_info 
                                         LEFT JOIN department ON department.dep_id = emp_info.dept 
                                         WHERE emp_info.empno = '$empno' 
                                         ");
-                                        $empr = mysql_fetch_array($empq);
+                                        $empr = mysqli_fetch_array($empq);
 
 
 
-                                        $query1 = mysql_query("SELECT emp_info.fname AS fname , emp_info.lname AS lname, emp_info.position AS position, emp_info.empno AS empno,
+                                        $query1 = mysqli_query($link, "SELECT emp_info.fname AS fname , emp_info.lname AS lname, emp_info.position AS position, emp_info.empno AS empno,
                                                     department.department, ass_periods.name AS periods, ass_appraisals.date AS app_date,ass_appraisals.bossno ,
                                                     ass_periods.id AS periods_id,ass_periods.date AS p_to, ass_periods.date_from AS p_from
                                                 FROM ass_appraisals
@@ -185,16 +185,16 @@
                                                 LEFT JOIN department ON department.dep_id = emp_info.dept 
                                                 LEFT JOIN ass_periods ON ass_periods.id = ass_appraisals.period_id 
                                                 WHERE ass_appraisals.id = '$app_id' 
-                                                ") or die("Error Getting Data " . mysql_error());
+                                                ") or die("Error Getting Data " . mysqli_error($link));
 
                                         // get the employee group..
 
-                                        $queryGroup = mysql_query("SELECT * FROM `ass_group` where empno='$empno'
-                                                ") or die("Error Getting Data " . mysql_error());
+                                        $queryGroup = mysqli_query($link, "SELECT * FROM `ass_group` where empno='$empno'
+                                                ") or die("Error Getting Data " . mysqli_error($link));
 
-                                        $rowGroup = mysql_fetch_array($queryGroup);
+                                        $rowGroup = mysqli_fetch_array($queryGroup);
                                         $group = $rowGroup['name'];
-                                        while ($row1 = mysql_fetch_array($query1)) {
+                                        while ($row1 = mysqli_fetch_array($query1)) {
                                             $boss_name = $row1['fname'] . " " . $row1['lname'];
                                             $bossno = $row1['bossno'];
                                             $period = $row1['periods'];
@@ -250,7 +250,7 @@
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $query = mysql_query("SELECT ass_appraisals.id AS ass_app_id,
+                                            $query = mysqli_query($link, "SELECT ass_appraisals.id AS ass_app_id,
                                                         ass_params.name AS params, ass_params.id AS params_id, ass_params.weight AS weight,
                                                         ass_factors.name AS objective, ass_factors.target AS target,
                                                         ass_periods.name, emp_info.empno
@@ -265,17 +265,17 @@
                                                         AND ass_group='$group'
                                                     -- AND ass_emp_appraisals.empno = '$empno' AND weight>0
                                                     
-                                                    ") or die("Error Getting Data " . mysql_error());
+                                                    ") or die("Error Getting Data " . mysqli_error($link));
 
 
-                                            while ($row = mysql_fetch_array($query)) {
+                                            while ($row = mysqli_fetch_array($query)) {
                                                 $ass_app_id = $row['ass_app_id'];
-                                                $emp_q = mysql_query("SELECT own_score, boss_score, total_score, comment
+                                                $emp_q = mysqli_query($link, "SELECT own_score, boss_score, total_score, comment
                                                 FROM ass_emp_appraisals
                                                 INNER JOIN ass_appraisals ON ass_appraisals.id = ass_emp_appraisals.ass_app_id
                                                 WHERE empno = '$empno' 
                                                 AND ass_app_id = '$ass_app_id'
-                                                ") or die("Error Getting Data " . mysql_error());
+                                                ") or die("Error Getting Data " . mysqli_error($link));
 
 
                                                 $params = $row['params'];
@@ -290,8 +290,8 @@
                                                         <td><?php echo $params; ?></td>
                                                         <td><?php echo $target; ?></td>
                                                         <?php
-                                                        if (mysql_num_rows($emp_q) > 0) {
-                                                            while ($emp_r = mysql_fetch_array($emp_q)) {
+                                                        if (mysqli_num_rows($emp_q) > 0) {
+                                                            while ($emp_r = mysqli_fetch_array($emp_q)) {
                                                                 $own_score = $emp_r['own_score'];
                                                                 $boss_score = $emp_r['boss_score'];
                                                                 $total_score = $emp_r['total_score'];
@@ -311,10 +311,10 @@
                                                             }
                                                         } else {
                                                             $today = date("Y-m-d");
-                                                            $ck_date_q = mysql_query("SELECT date, id FROM ass_periods
+                                                            $ck_date_q = mysqli_query($link, "SELECT date, id FROM ass_periods
                                                             WHERE name = '$period' AND DATE(date) >= '$today'
-                                                            ") or die(mysql_error());
-                                                            if (mysql_num_rows($ck_date_q) > 0) {
+                                                            ") or die(mysqli_error($link));
+                                                            if (mysqli_num_rows($ck_date_q) > 0) {
                                                                 $readonly = "disabled";
                                                             } else {
                                                                 $readonly = "";
@@ -349,15 +349,15 @@
                 </section>
 
                 <?php
-                $emp_q1 = mysql_query("SELECT boss_score
+                $emp_q1 = mysqli_query($link, "SELECT boss_score
                     FROM ass_emp_appraisals
                     INNER JOIN ass_appraisals ON ass_appraisals.id = ass_emp_appraisals.ass_app_id
                     WHERE empno = '$empno' 
                     AND ass_app_id = '$ass_app_id'
                     AND boss_score != ''
-                ") or die("Error Getting Data " . mysql_error());
-                if (mysql_num_rows($emp_q1) > 0) {
-                    while ($emp_r1 = mysql_fetch_array($emp_q1)) {
+                ") or die("Error Getting Data " . mysqli_error($link));
+                if (mysqli_num_rows($emp_q1) > 0) {
+                    while ($emp_r1 = mysqli_fetch_array($emp_q1)) {
                 ?>
                         <section class="content container">
                             <br>
@@ -371,9 +371,9 @@
                                             <!-- Trigger the modal with a button -->
                                             <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Click here to appeal your appraisal</button>
                                             <?php
-                                            $app_exist_q = mysql_query("SELECT id FROM appeal_notices WHERE empno = '$empno' AND
-                                                app_id = '$app_id' ") or die(mysql_error());
-                                            if (mysql_num_rows($app_exist_q) > 0) {
+                                            $app_exist_q = mysqli_query($link, "SELECT id FROM appeal_notices WHERE empno = '$empno' AND
+                                                app_id = '$app_id' ") or die(mysqli_error($link));
+                                            if (mysqli_num_rows($app_exist_q) > 0) {
                                                 // echo "<script> alert('You have already appealed this appraisal. Kindly wait for the reasponse') </script>";
                                                 echo $appealed = "<center><h4 class='text-warning'>Already Appealed!</h4></center>";
                                             }
@@ -401,8 +401,8 @@
                                                                             <option>--Select superial To submit to--</option>
                                                                             <?php
                                                                             $company_id = $_SESSION['username'];
-                                                                            $query = mysql_query("SELECT * FROM emp_info ") or die(mysql_error());
-                                                                            while ($row = mysql_fetch_array($query)) {
+                                                                            $query = mysqli_query($link, "SELECT * FROM emp_info ") or die(mysqli_error($link));
+                                                                            while ($row = mysqli_fetch_array($query)) {
                                                                             ?>
 
                                                                                 <option value="<?php echo $row['empno']; ?>"> <?php echo $row['fname'] . "  " . $row['lname'] . " - " . $row['position']; ?></option>
@@ -438,21 +438,21 @@
                     $appeal_notice = $_POST['appeal_notice'];
                     $appeal_bossno = $_POST['appeal_bossno'];
                     // Get supervisor email..
-                    $sup_m_q = mysql_query("SELECT email FROM emp_info WHERE empno = '$appeal_bossno' ") or die(mysql_error());
-                    $sup_m_r = mysql_fetch_array($sup_m_q);
+                    $sup_m_q = mysqli_query($link, "SELECT email FROM emp_info WHERE empno = '$appeal_bossno' ") or die(mysqli_error($link));
+                    $sup_m_r = mysqli_fetch_array($sup_m_q);
                     $appeal_bossmail = $sup_m_r['email'];
 
                     //Check if appeal exixts
-                    $app_exist_q = mysql_query("SELECT id FROM appeal_notices WHERE empno = '$empno' AND
-                                app_id = '$app_id' ") or die(mysql_error());
-                    if (mysql_num_rows($app_exist_q) > 0) {
+                    $app_exist_q = mysqli_query($link, "SELECT id FROM appeal_notices WHERE empno = '$empno' AND
+                                app_id = '$app_id' ") or die(mysqli_error($link));
+                    if (mysqli_num_rows($app_exist_q) > 0) {
                         echo "<script> alert('You have already appealed this appraisal. Kindly wait for the reasponse') </script>";
                     } else {
 
                         // save to db
-                        mysql_query("INSERT INTO appeal_notices (appeal_notice, empno, bossno,bossmail,app_id)
+                        mysqli_query($link, "INSERT INTO appeal_notices (appeal_notice, empno, bossno,bossmail,app_id)
                                     VALUES ('$appeal_notice', '$empno','$bossno','$appeal_bossmail','$app_id')
-                        ") or die(mysql_error());
+                        ") or die(mysqli_error($link));
 
                         // send email
                         $Subject = "New Appraisal Appeal Alert!";
@@ -491,8 +491,8 @@
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $query = mysql_query("SELECT from_,to_ ,rank FROM `app_rating`") or die(mysql_error());
-                                            while ($row = mysql_fetch_array($query)) {
+                                            $query = mysqli_query($link, "SELECT from_,to_ ,rank FROM `app_rating`") or die(mysqli_error($link));
+                                            while ($row = mysqli_fetch_array($query)) {
                                             ?>
                                                 <tr>
                                                     <td><?php echo $row['from_'] . '-' . $row['to_']; ?></td>
@@ -588,7 +588,7 @@
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $query = mysql_query("SELECT ass_appraisals.id AS ass_app_id,
+                                            $query = mysqli_query($link, "SELECT ass_appraisals.id AS ass_app_id,
                                                             ass_params.name AS params, ass_params.id AS params_id, ass_params.weight AS weight,
                                                             ass_factors.name AS objective, ass_factors.target AS target,
                                                             ass_periods.name, emp_info.empno
@@ -604,9 +604,9 @@
                                                         
                                                         -- AND ass_emp_appraisals.empno = '$empno'
                                                         
-                                                        ") or die("Error Getting Data 3 " . mysql_error());
+                                                        ") or die("Error Getting Data 3 " . mysqli_error($link));
                                             $total_weight = 0;
-                                            while ($row = mysql_fetch_array($query)) {
+                                            while ($row = mysqli_fetch_array($query)) {
                                                 $ass_app_id = $row['ass_app_id'];
 
                                                 $params = $row['params'];
@@ -618,12 +618,12 @@
                                                     <td><?php echo $params; ?></td>
                                                     <td><?php echo $weight; ?></td>
                                                     <?php
-                                                    $emp_q = mysql_query("SELECT own_score, boss_score, total_score, comment 
+                                                    $emp_q = mysqli_query($link, "SELECT own_score, boss_score, total_score, comment 
                                                             FROM ass_emp_appraisals WHERE empno = '$empno' AND ass_app_id = '$ass_app_id'
-                                                        ") or die("Error Getting Data 4 " . mysql_error());
+                                                        ") or die("Error Getting Data 4 " . mysqli_error($link));
 
                                                     $total_archieved_score = 0;
-                                                    while ($emp_r = mysql_fetch_array($emp_q)) {
+                                                    while ($emp_r = mysqli_fetch_array($emp_q)) {
                                                         $total_score = $emp_r['total_score'];
                                                         $total_archieved_score += $total_score;
                                                         //Get Percentage
@@ -631,10 +631,10 @@
                                                         $total_score_percent = intval($total_score_percent);
                                                         $comment = $emp_r['comment'];
                                                         // Get Ranking
-                                                        $r_q = mysql_query("SELECT * FROM app_rating
+                                                        $r_q = mysqli_query($link, "SELECT * FROM app_rating
                                                                 WHERE from_ <= '$total_score_percent' AND to_ >= '$total_score_percent' 
-                                                                ") or die(mysql_error());
-                                                        $r_row = mysql_fetch_array($r_q);
+                                                                ") or die(mysqli_error($link));
+                                                        $r_row = mysqli_fetch_array($r_q);
                                                         $from_ = intval($r_row['from_']);
                                                         $to_ = intval($r_row['to_']);
 
@@ -692,9 +692,9 @@
                                 </div>
                                 <div class="box-body">
                                     <?php
-                                    $empex_q = mysql_query("SELECT emp_expectation FROM ass_emp_appraisals WHERE ass_app_id = '$app_id' 
-                                        ") or die("Error" . mysql_error());
-                                    $empex_r = mysql_fetch_array($empex_q);
+                                    $empex_q = mysqli_query($link, "SELECT emp_expectation FROM ass_emp_appraisals WHERE ass_app_id = '$app_id' 
+                                        ") or die("Error" . mysqli_error($link));
+                                    $empex_r = mysqli_fetch_array($empex_q);
                                     $empex_exists = $empex_r['emp_expectation'];
                                     // return var_dump($empex_exists);
                                     if ($empex_exists == '') {
@@ -722,9 +722,9 @@
                                 </div>
                                 <div class="box-body">
                                     <?php
-                                    $bosscom_q = mysql_query("SELECT boss_comment FROM ass_emp_appraisals WHERE ass_app_id = '$app_id' 
-                                        ") or die("Error" . mysql_error());
-                                    $bosscom_r = mysql_fetch_array($bosscom_q);
+                                    $bosscom_q = mysqli_query($link, "SELECT boss_comment FROM ass_emp_appraisals WHERE ass_app_id = '$app_id' 
+                                        ") or die("Error" . mysqli_error($link));
+                                    $bosscom_r = mysqli_fetch_array($bosscom_q);
                                     $bosscom_exists = $bosscom_r['boss_comment'];
 
                                     echo '

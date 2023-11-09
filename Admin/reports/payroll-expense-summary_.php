@@ -116,10 +116,10 @@
                                                         INNER JOIN emp_info n ON em.empno = n.empno                                                     
                                                         WHERE em.company_id =  '$compId' and em.time = '$year-$month-$day'";
 
-                                                $result = mysql_query($query, $link) or die(mysql_error());
+                                                $result = mysqli_query($link, $query) or die(mysqli_error($link));
 
                                                 $sum = 0;
-                                                while ($row = mysql_fetch_array($result)) {
+                                                while ($row = mysqli_fetch_array($result)) {
 
                                                     $gross = ($row['pay']) + ($row['otrate'] * $row['othrs']) + $row['allow'];
 

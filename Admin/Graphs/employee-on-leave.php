@@ -55,8 +55,8 @@ error_reporting(0);
                             <select name="emp_fillter" class="form-control">
                                 <option value="all">-- All Employees --</option>
                                 <?php
-                                $qq1 = mysql_query("SELECT fname, lname,empno FROM emp_info");
-                                while ($rr1 = mysql_fetch_array($qq1)) {
+                                $qq1 = mysqli_query($link, "SELECT fname, lname,empno FROM emp_info");
+                                while ($rr1 = mysqli_fetch_array($qq1)) {
                                 ?>
                                     <option value="<?php echo $rr1['empno']; ?>"> <?php echo $rr1['fname'] . " " . $rr1['lname'] . "-" . $rr1['empno']; ?></option>
                                 <?php
@@ -68,8 +68,8 @@ error_reporting(0);
                             <select name="dept_fillter" class="form-control">
                                 <option value="all">-- All Departments --</option>
                                 <?php
-                                $qq2 = mysql_query("SELECT dep_id, department FROM department");
-                                while ($rr2 = mysql_fetch_array($qq2)) {
+                                $qq2 = mysqli_query($link, "SELECT dep_id, department FROM department");
+                                while ($rr2 = mysqli_fetch_array($qq2)) {
                                 ?>
                                     <option value="<?php echo $rr2['dep_id']; ?>"> <?php echo $rr2['department']; ?></option>
                                 <?php
@@ -122,7 +122,7 @@ error_reporting(0);
                                             }
                                         }
 
-                                        $query = mysql_query(" SELECT days,fname, lname, emp_info.empno, position, dept,
+                                        $query = mysqli_query($link, " SELECT days,fname, lname, emp_info.empno, position, dept,
                                                         leave_applications_tb.status AS leave_status,leave_start_date, leave_end_date,leave_type
                                                     FROM emp_info
                                                     LEFT JOIN leave_applications_tb ON leave_applications_tb.empno = emp_info.empno
@@ -130,9 +130,9 @@ error_reporting(0);
                                                     AND leave_applications_tb.status = 'Approved'
                                                     $filter_by_dept
                                                     $filter_by_empno
-                                                    ") or die(mysql_error());
+                                                    ") or die(mysqli_error($link));
                                         $sum = 0;
-                                        while ($row = mysql_fetch_array($query)) {
+                                        while ($row = mysqli_fetch_array($query)) {
                                             $emp_name = $row['fname'] . " " . $row['lname'];
                                             $empno = $row['empno'];
                                             $leave_status = $row['leave_status'];

@@ -1,16 +1,14 @@
-<?php 
-
-// here is reset all the sessions so that the system contains no session .. 
-
+<?php
+// Inialize session
 session_start();
-session_unset();
+
+// retrieve client name
+$client = $_SESSION['CLIENT_NAME'];
+
+
+// Delete certain session
+unset($_SESSION['username']);
+// Delete all session variables
 session_destroy();
-
-?>
-    <script>   
-         window.location.href = '../index.php';
-    </script>
-    <?php
- 
-?>
-
+// Jump to login page
+header("Location: ../../{$client}");

@@ -45,8 +45,8 @@
             if (isset($_POST['add_'])) {
                 $name = $_POST['name'];
 
-                $add_q = mysql_query("INSERT INTO ass_periods (name,status, date, date_from,dept)
-                        VALUES('$name','$status','$date','$date_from','$dept')") or die(mysql_error());
+                $add_q = mysqli_query($link, "INSERT INTO ass_periods (name,status, date, date_from,dept)
+                        VALUES('$name','$status','$date','$date_from','$dept')") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Added Successfuly') </script>";
@@ -58,7 +58,7 @@
 
                 $id = $_POST['id'];
 
-                $add_q = mysql_query("UPDATE ass_group SET name = '$name' WHERE id = '$id' ") or die(mysql_error());
+                $add_q = mysqli_query($link, "UPDATE ass_group SET name = '$name' WHERE id = '$id' ") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Updated Successfuly') </script>";
@@ -69,7 +69,7 @@
                 $id = $_POST['id'];
                 $dept = $_SESSION['dept'];
 
-                $add_q = mysql_query("DELETE FROM ass_group WHERE name = '$id'  AND dept='$dept' ") or die(mysql_error());
+                $add_q = mysqli_query($link, "DELETE FROM ass_group WHERE name = '$id'  AND dept='$dept' ") or die(mysqli_error($link));
 
                 echo '$id' . $id;
 
@@ -99,8 +99,8 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $query = mysql_query("SELECT * FROM ass_group WHERE dept='$dept' GROUP BY name") or die(mysql_error());
-                                        while ($row = mysql_fetch_array($query)) {
+                                        $query = mysqli_query($link, "SELECT * FROM ass_group WHERE dept='$dept' GROUP BY name") or die(mysqli_error($link));
+                                        while ($row = mysqli_fetch_array($query)) {
                                             $grp_name = $row['name'];
                                         ?>
                                             <tr>

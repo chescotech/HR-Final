@@ -118,11 +118,11 @@ error_reporting(0);
                                         <?php
                                         $query = "SELECT * FROM employee_discplinary_records";
 
-                                        $result = mysql_query($query, $link) or die(mysql_error());
+                                        $result = mysqli_query($link, $query) or die(mysqli_error($link));
 
                                         $sum = 0;
                                         $closeStatus = "";
-                                        while ($row = mysql_fetch_array($result)) {
+                                        while ($row = mysqli_fetch_array($result)) {
                                             $id = $row['id'];
                                             $datePrinted = strtoTime($row['date_charged']);
                                             $datePrint = date('F d, Y', $datePrinted);
@@ -134,7 +134,7 @@ error_reporting(0);
                                             $today = date("m/d/Y");
                                             if (strtotime($today) >= strtotime($datePrint_till) && $caseStatus != "expired") {
                                                 // Update status
-                                                mysql_query("UPDATE employee_discplinary_records SET case_status = 'expired' WHERE id = '$id' ") or die(mysql_error());
+                                                mysqli_query($link, "UPDATE employee_discplinary_records SET case_status = 'expired' WHERE id = '$id' ") or die(mysqli_error($link));
                                                 echo "<script> window.location='view-disciplinary-records' </script>";
                                             }
                                             // return var_dump($caseStatus);

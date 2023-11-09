@@ -34,7 +34,7 @@
             $memberships = $_POST['memberships'];
             $awards = $_POST['awards'];
             $links = $_POST['links'];
-            
+
             $salary = $_POST['salary'];
             $currency = $_POST['currency'];
             $expected_benefits = $_POST['expected_benefits'];
@@ -43,13 +43,13 @@
             $notice_period = $_POST['notice_period'];
 
 
-            mysql_query("UPDATE `jobs_user_info` SET `location`='$location',`lang1`='$lang1',`lang2`='$lang2',`lang3`='$lang3',
+            mysqli_query($link, "UPDATE `jobs_user_info` SET `location`='$location',`lang1`='$lang1',`lang2`='$lang2',`lang3`='$lang3',
                     `marital_status`='$marital_status',`disabilities`='$disabilities',`memberships`='$memberships',
                     `awards`='$awards',`links`='$links',
                     `salary` = '$salary', `currency`='$currency',`expected_benefits` = '$expected_benefits',
                     `can_relocate`='$can_relocate', `can_travel`='$can_travel',`notice_period`='$notice_period'
                      WHERE user_id = '$user_id' 
-                ")or die("Error 101: ".mysql_error());
+                ") or die("Error 101: " . mysqli_error($link));
 
             $stateMessage = "Employee information Successully updated !!";
         }
@@ -70,9 +70,9 @@
                                 }
                                 ?>
                                 <?php
-                                $empQuery = mysql_query("SELECT * FROM jobs_user_info where user_id='$user_id' ") or die(mysql_error());
+                                $empQuery = mysqli_query($link, "SELECT * FROM jobs_user_info where user_id='$user_id' ") or die(mysqli_error($link));
 
-                                while ($rows = mysql_fetch_array($empQuery)) {
+                                while ($rows = mysqli_fetch_array($empQuery)) {
                                 ?>
                                     <form enctype="multipart/form-data" method="post">
                                         <div class="box box-primary">
@@ -135,9 +135,9 @@
                                             </div>
 
                                             <br>
-                                                <h3>If Currently in employment, enter your current info bellow </h3>
+                                            <h3>If Currently in employment, enter your current info bellow </h3>
                                             <br>
-                                            
+
                                             <div class="form-group has-feedback">
                                                 <label class="">Salary</label>
                                                 <input name="salary" type="text" value="<?php echo $rows['salary'] ?>" placeholder="" class="form-control">
@@ -148,11 +148,11 @@
                                             </div>
                                             <div class="form-group has-feedback">
                                                 <label class="">Expected Benefits</label>
-                                                <input name="expected_benefits" type="text" value="<?php echo $rows['expected_benefits'] ?>"  class="form-control">
+                                                <input name="expected_benefits" type="text" value="<?php echo $rows['expected_benefits'] ?>" class="form-control">
                                             </div>
                                             <div class="form-group has-feedback">
                                                 <label class="">Notice Period</label>
-                                                <input name="notice_period" type="text" value="<?php echo $rows['notice_period'] ?>"  class="form-control">
+                                                <input name="notice_period" type="text" value="<?php echo $rows['notice_period'] ?>" class="form-control">
                                             </div>
                                             <div class="form-group has-feedback">
                                                 <label class="">Are You Willing To Relocate</label>

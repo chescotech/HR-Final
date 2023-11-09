@@ -33,11 +33,11 @@
 
         <!-- Left side column. contains the logo and sidebar -->
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Department.php';
         include_once '../Classes/Group.php';
         $GroupObject = new Group();
         $DepartmentObject = new Department();
-        include '../navigation_panel/authenticated_user_header.php';
         ?>
 
         <?php include '../navigation_panel/side_navigation_bar.php'; ?>
@@ -68,12 +68,12 @@
                 group_id = '$usergroup'
                 WHERE user_name = '$user_name' AND company_id = '$company_id'";
 
-                $res = mysql_query($updateQuery);
+                $res = mysqli_query($link, $updateQuery);
 
                 if ($res) {
                     $stateMessage = "User has been updated successfully!";
                 } else {
-                    $stateMessage = "Error updating user: " . mysql_error();
+                    $stateMessage = "Error updating user: " . mysqli_error($link);
                 }
             } else {
                 $stateMessage = "The username selected does not exist. Please provide a valid username.";
@@ -86,9 +86,9 @@
                 <!-- fetch user -->
                 <?php
                 $user_id = $_GET["id"];
-                $user_query = mysql_query("SELECT * FROM users_tb WHERE id='$user_id'");
+                $user_query = mysqli_query($link, "SELECT * FROM users_tb WHERE id='$user_id'");
 
-                $user_row = mysql_fetch_array($user_query);
+                $user_row = mysqli_fetch_array($user_query);
                 ?>
             </section>
 
@@ -158,7 +158,7 @@
                                             $groupList = $GroupObject->getGroups($_SESSION['company_ID']);
 
 
-                                            while ($group_row = mysql_fetch_array($groupList)) {
+                                            while ($group_row = mysqli_fetch_array($groupList)) {
                                             ?>
                                                 <option class="list-menu-item" value="<?= $group_row['id'] ?>"><?= $group_row['name'] ?></option>
                                             <?php

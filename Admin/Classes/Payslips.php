@@ -1,17 +1,20 @@
 <?php
 
+include_once 'DBClass.php';
+
 class Payslips
 {
+    private $link;
+
 
     function __construct()
     {
-        $conn = mysql_connect(DB_SERVER, DB_USER, DB_PASS) or die('db connection problem' . mysql_error());
-        mysql_select_db(DB_NAME, $conn);
+        $this->link = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME) or die('db connection problem' . mysqli_connect_error());
     }
 
     public function addLoan($empno, $loan_amount, $monthly_deduction, $duration, $companyId, $principle, $interest_rate, $intrest)
     {
-        $result = mysql_query("INSERT INTO loan(empno,loan_amt,"
+        $result = mysqli_query($this->link, "INSERT INTO loan(empno,loan_amt,"
             . " monthly_deduct,duration,company_ID,principle"
             . ",interest_rate,interest) VALUES('$empno','$loan_amount','$monthly_deduction'"
             . ",'$duration','$companyId', '$principle','$interest_rate','$intrest')");
@@ -20,7 +23,7 @@ class Payslips
 
     function addDisplineRecord($empno, $date_charged, $charged_til, $offense_commited, $case_status, $punishment, $charged_by, $file)
     {
-        $result = mysql_query("INSERT INTO employee_discplinary_records(empno,date_charged,charged_til,"
+        $result = mysqli_query($this->link, "INSERT INTO employee_discplinary_records(empno,date_charged,charged_til,"
             . " offence_commited,case_status,punishment,charged_by,file) VALUES('$empno','$date_charged','$charged_til','$offense_commited'"
             . ",'$case_status','$punishment', '$charged_by','$file')");
         return $result;
@@ -28,7 +31,7 @@ class Payslips
 
     function updateDiscplineRecord($empno, $date_charged, $offense_commited, $case_status, $punishment, $charged_by, $id)
     {
-        $result = mysql_query("UPDATE employee_discplinary_records SET empno = '$empno', "
+        $result = mysqli_query($this->link, "UPDATE employee_discplinary_records SET empno = '$empno', "
             . "date_charged = '$date_charged',offence_commited = '$offense_commited', "
             . "case_status = '$case_status', punishment='$punishment',charged_by = '$charged_by'  WHERE id= '$id'");
         return $result;
@@ -37,8 +40,8 @@ class Payslips
     public function checkIfRecordExsists($empno, $date)
     {
         $status = "";
-        $query = mysql_query(" SELECT * FROM employee WHERE empno = '$empno' AND time = '$date' ");
-        if (mysql_num_rows($query) != 0) {
+        $query = mysqli_query($this->link, " SELECT * FROM employee WHERE empno = '$empno' AND time = '$date' ");
+        if (mysqli_num_rows($query) != 0) {
             $status = "true";
         } else {
             $status = "false";
@@ -49,12 +52,12 @@ class Payslips
     public function checkNhimaStatus()
     {
         $status = "";
-        $query = mysql_query(" SELECT * FROM nhima_tb");
-        $row = mysql_fetch_array($query);
+        $query = mysqli_query($this->link, " SELECT * FROM nhima_tb");
+        $row = mysqli_fetch_array($query);
         $nhema_status = $row['status'];
-        if (mysql_num_rows($query) == 0 || $nhema_status != "Active") {
+        if (mysqli_num_rows($query) == 0 || $nhema_status != "Active") {
             $status = "false";
-        } else if (mysql_num_rows($query) > 0 && $nhema_status == "Active") {
+        } else if (mysqli_num_rows($query) > 0 && $nhema_status == "Active") {
             $status = "true";
         }
         return $status;
@@ -62,16 +65,16 @@ class Payslips
 
     public function getNhimaSettings()
     {
-        $query = mysql_query(" SELECT * FROM nhima_tb");
-        $row = mysql_fetch_array($query);
+        $query = mysqli_query($this->link, " SELECT * FROM nhima_tb");
+        $row = mysqli_fetch_array($query);
         $nhema_percentage = $row['amount'];
         return $nhema_percentage;
     }
 
     public function getBasicPay($empno)
     {
-        $result = mysql_query("SELECT * FROM emp_info WHERE empno='$empno'");
-        $grossRows = mysql_fetch_array($result);
+        $result = mysqli_query($this->link, "SELECT * FROM emp_info WHERE empno='$empno'");
+        $grossRows = mysqli_fetch_array($result);
         $basic_pay = $grossRows['basic_pay'];
         return $basic_pay;
     }
@@ -85,12 +88,12 @@ class Payslips
     public function checkPensionStatus()
     {
         $status = "";
-        $query = mysql_query(" SELECT * FROM pensions_tb");
-        $row = mysql_fetch_array($query);
+        $query = mysqli_query($this->link, " SELECT * FROM pensions_tb");
+        $row = mysqli_fetch_array($query);
         $nhema_status = $row['status'];
-        if (mysql_num_rows($query) == 0 || $nhema_status != "Active") {
+        if (mysqli_num_rows($query) == 0 || $nhema_status != "Active") {
             $status = "false";
-        } else if (mysql_num_rows($query) > 0 && $nhema_status == "Active") {
+        } else if (mysqli_num_rows($query) > 0 && $nhema_status == "Active") {
             $status = "true";
         }
         return $status;
@@ -98,32 +101,51 @@ class Payslips
 
     function getEmployeeAllowance($empno, $type)
     {
-        $result = mysql_query("SELECT basic_pay FROM emp_info WHERE empno='$empno'  ");
-        $row = mysql_fetch_array($result);
+        $result = mysqli_query($this->link, "SELECT basic_pay FROM emp_info WHERE empno='$empno'  ");
+        $row = mysqli_fetch_array($result);
         $allowance_types = $row['basic_pay'];
         return $allowance_types;
     }
 
-    function getEmployeePensionShareCal($empno, $type)
+    function getEmployeePensionShareCal()
     {
-        $result = mysql_query("SELECT employee_share FROM pensions_tb ");
-        $row = mysql_fetch_array($result);
+        $result = mysqli_query($this->link, "SELECT employee_share FROM pensions_tb ");
+        $row = mysqli_fetch_array($result);
         $employee_shares = $row['employee_share'];
         return $employee_shares;
     }
 
-    function getEmployerPensionShareCal($empno, $type)
+    function getEmployerPensionShareCal()
     {
-        $result = mysql_query("SELECT employer_share FROM pensions_tb ");
-        $row = mysql_fetch_array($result);
+        $result = mysqli_query($this->link, "SELECT employer_share FROM pensions_tb ");
+        $row = mysqli_fetch_array($result);
         $employer_share = $row['employer_share'];
         return $employer_share;
     }
 
+    public function getEmployeeGrossPay($emp_no_arg, $date_arg)
+    {
+        // Get the month payslip from `employee` table
+        $payslipQuery = "SELECT * FROM employee WHERE empno = '$emp_no_arg' AND time = '$date_arg'";
+
+        $payslipResult = mysqli_query($this->link, $payslipQuery) or die("invalid query" . mysqli_error($this->link));
+        $payslipRow = mysqli_fetch_array($payslipResult);
+
+        $payslip = $payslipRow['pay'] + ($payslipRow['otrate'] * $payslipRow['othrs']) + $payslipRow['allow'] + $payslipRow['advances'] + $payslipRow['comission'];
+
+        // Get earnings from `getEmployeeEarnings` function
+        $earnings = $this->getEmployeeEarnings($emp_no_arg, $date_arg);
+
+        // Add them up
+        $gross = $payslip + $earnings;
+
+        return $gross;
+    }
+
     public function pensionCalculations($empno)
     {
-        $query = mysql_query(" SELECT * FROM pensions_tb");
-        $row = mysql_fetch_array($query);
+        $query = mysqli_query($this->link, " SELECT * FROM pensions_tb");
+        $row = mysqli_fetch_array($query);
         $allowance_types = $row['allowance_type'];
         $employee_share = $row['employee_share'];
         $employer_share = $row['employer_share'];
@@ -156,10 +178,10 @@ class Payslips
                 }
 
                 // return var_dump($empno, $pay, $dayswork, $otrate, $othrs, $allow, $advances, $insurance, $time, $comission, $company_id, $deductions_id_arg, $earnings_id_arg);
-                $result = mysql_query("INSERT INTO employee(empno,pay,
+                $result = mysqli_query($this->link, "INSERT INTO employee(empno,pay,
                      dayswork,otrate,othrs
                     ,allow,advances,insurance,time,comission,company_id,health_insurance,pension,employer_share,employee_share, earnings_id, deductions_id) VALUES('$empno','$basic_pay','$dayswork'
-                    ,'$otrate','$othrs', '$allow','$advances','$insurance', '$time','$comission','$company_id','$nhima','$pension','$employer_share' ,'$employee_share', '$earnings_id_arg', '$deductions_id_arg'  )") or die(mysql_error());
+                    ,'$otrate','$othrs', '$allow','$advances','$insurance', '$time','$comission','$company_id','$nhima','$pension','$employer_share' ,'$employee_share', '$earnings_id_arg', '$deductions_id_arg'  )") or die(mysqli_error($this->link));
             }
             return $result;
         } else {
@@ -171,10 +193,10 @@ class Payslips
                     $employer_share = $this->getEmployerPensionShareCal();
                 }
 
-                $result = mysql_query("INSERT INTO employee(empno,pay,
+                $result = mysqli_query($this->link, "INSERT INTO employee(empno,pay,
                      dayswork,otrate,othrs
                     ,allow,advances,insurance,time,comission,company_id,pension,employer_share,employee_share) VALUES('$empno','$pay','$dayswork'
-                    ,'$otrate','$othrs', '$allow','$advances','$insurance', '$time','$comission','$company_id','$pension','$employer_share','$employee_share'   )") or die(mysql_error());
+                    ,'$otrate','$othrs', '$allow','$advances','$insurance', '$time','$comission','$company_id','$pension','$employer_share','$employee_share'   )") or die(mysqli_error($this->link));
             }
             return $result;
         }
@@ -183,8 +205,8 @@ class Payslips
     public function checkIfUploadExsists($empno, $date)
     {
         $state = "";
-        $result = mysql_query("SELECT * FROM payslip_uploads WHERE empno = '$empno' AND date_period = '$date' ");
-        if (mysql_num_rows($result) == 0) {
+        $result = mysqli_query($this->link, "SELECT * FROM payslip_uploads WHERE empno = '$empno' AND date_period = '$date' ");
+        if (mysqli_num_rows($result) == 0) {
             $state = "false";
         } else {
             $state = "true";
@@ -195,8 +217,8 @@ class Payslips
     public function getPdfPayslip($empno, $date)
     {
         $query = "SELECT * FROM payslip_uploads WHERE empno = '$empno' AND date_period = '$date'";
-        $result = mysql_query($query) or die(mysql_error());
-        $row = mysql_fetch_array($result);
+        $result = mysqli_query($this->link, $query) or die(mysqli_error($this->link));
+        $row = mysqli_fetch_array($result);
         $pdfPayslip = "../uploads/" . $row['payslip'];
         return $pdfPayslip;
     }
@@ -204,27 +226,27 @@ class Payslips
     public function addTax($taxable, $total_tax_paid, $empno, $comp_ID, $date)
     {
         $socialSecNo = 0;
-        $result = mysql_query("INSERT INTO tax(taxable_to_date,tax_paid_to_date,empno,company_id,social,date) VALUES($taxable,$total_tax_paid,'$empno'"
+        $result = mysqli_query($this->link, "INSERT INTO tax(taxable_to_date,tax_paid_to_date,empno,company_id,social,date) VALUES($taxable,$total_tax_paid,'$empno'"
             . ",'$comp_ID',$socialSecNo,'$date')");
         return $result;
     }
 
     public function updateTax($taxable, $total_tax_paid, $empno)
     {
-        $result = mysql_query("UPDATE tax SET taxable_to_date = taxable_to_date + $taxable,tax_paid_to_date = tax_paid_to_date + $total_tax_paid WHERE empno= '$empno'");
+        $result = mysqli_query($this->link, "UPDATE tax SET taxable_to_date = taxable_to_date + $taxable,tax_paid_to_date = tax_paid_to_date + $total_tax_paid WHERE empno= '$empno'");
         return $result;
     }
 
     public function addLeave($empno)
     {
         $available = 2;
-        $result = mysql_query("INSERT INTO leave_days(available,empno) VALUES('$available' ,'$empno')");
+        $result = mysqli_query($this->link, "INSERT INTO leave_days(available,empno) VALUES('$available' ,'$empno')");
         return $result;
     }
 
     public function editPayslip($days_worked, $overtime_rate_hour, $overtime, $allowance, $advances, $insurance, $commision, $id, $time)
     {
-        $res = mysql_query("UPDATE employee SET dayswork = "
+        $res = mysqli_query($this->link, "UPDATE employee SET dayswork = "
             . " '$days_worked',otrate = '$overtime_rate_hour',"
             . "othrs='$overtime',allow='$allowance',advances='$advances',"
             . "insurance='$insurance',comission='$commision',time='$time'  WHERE id= '$id'");
@@ -234,14 +256,14 @@ class Payslips
 
     public function getEditInfo($id)
     {
-        $result = mysql_query("SELECT * FROM employee WHERE id = '$id'");
+        $result = mysqli_query($this->link, "SELECT * FROM employee WHERE id = '$id'");
         return $result;
     }
 
     public function PayslipEditDetails($empno)
     {
-        $result = mysql_query("SELECT * FROM emp_info WHERE empno = '$empno'");
-        $DetalsRows = mysql_fetch_array($result);
+        $result = mysqli_query($this->link, "SELECT * FROM emp_info WHERE empno = '$empno'");
+        $DetalsRows = mysqli_fetch_assoc($result);
         $fname = $DetalsRows['fname'];
         $lname = $DetalsRows['lname'];
         $payDetails = $fname . " " . $lname;
@@ -251,37 +273,37 @@ class Payslips
     public function updateLeave($empno, $companyId)
     {
         // get the employees monthly leave days based on there grade .... 
-        $result2 = mysql_query("SELECT * FROM leave_ratings_tb "
+        $result2 = mysqli_query($this->link, "SELECT * FROM leave_ratings_tb "
             . "WHERE grade_id IN ( SELECT employee_grade FROM emp_info WHERE empno = '$empno' AND company_id = '$companyId' )");
-        $DetalsRows = mysql_fetch_array($result2);
+        $DetalsRows = mysqli_fetch_array($result2);
         $monthly_leave_days = $DetalsRows['monthly_leave_days'];
         // update the employees leave days.. 
-        $result = mysql_query("UPDATE leave_days SET available = available + '$monthly_leave_days' WHERE empno = '$empno' ");
+        $result = mysqli_query($this->link, "UPDATE leave_days SET available = available + '$monthly_leave_days' WHERE empno = '$empno' ");
         return $result;
     }
 
     public function deductLeave($empno, $companyId)
     {
         // get the employees monthly leave days based on there grade .... 
-        $result2 = mysql_query("SELECT * FROM leave_ratings_tb "
+        $result2 = mysqli_query($this->link, "SELECT * FROM leave_ratings_tb "
             . "WHERE grade_id = ( SELECT employee_grade FROM emp_info WHERE empno = '$empno' AND company_id = '$companyId' )");
-        $DetalsRows = mysql_fetch_array($result2);
+        $DetalsRows = mysqli_fetch_array($result2);
         $monthly_leave_days = $DetalsRows['monthly_leave_days'];
         // update the employees leave days.. 
-        $result = mysql_query("UPDATE leave_days SET available = available - '$monthly_leave_days' WHERE empno = '$empno' ");
+        $result = mysqli_query($this->link, "UPDATE leave_days SET available = available - '$monthly_leave_days' WHERE empno = '$empno' ");
         return $result;
     }
 
     public function updateLoans($empno, $interest, $principle)
     {
         $query4 = "UPDATE loan  SET duration  = duration - 1 , interest =  $interest, loan_amt = $principle, principle = $principle  WHERE empno = '$empno'";
-        $result = mysql_query($query4);
+        $result = mysqli_query($this->link, $query4);
         return $result;
     }
 
     public function getDeductionValue($salary, $deducArray)
     {
-        // var_dump(mysql_fetch_assoc($deducArray));
+        // var_dump(mysqli_fetch_assoc($deducArray));
         $type = $deducArray['type'];
         // if type is fixed
         if ($type == 'fixed') {
@@ -303,9 +325,9 @@ class Payslips
 
     public function getEmployeeEarnings($emp_earn_id_arg)
     {
-        $query = mysql_query("SELECT * FROM employee_earnings WHERE id = '$emp_earn_id_arg'") or die(mysql_error());
+        $query = mysqli_query($this->link, "SELECT * FROM employee_earnings WHERE employee_no = '$emp_earn_id_arg'") or die(mysqli_error($this->link));
         $sum = 0;
-        $data = mysql_fetch_assoc($query);
+        $data = mysqli_fetch_assoc($query);
 
         $sum = 0;
         $sliced = array_slice($data, 4);
@@ -323,33 +345,43 @@ class Payslips
 
     public function getEmployeeEarningsId($emp_no_arg)
     {
-        $query = mysql_query("SELECT id FROM employee_earnings WHERE employee_no='$emp_no_arg'");
+        $query = mysqli_query($this->link, "SELECT id FROM employee_earnings WHERE employee_no='$emp_no_arg'");
 
-        $value = mysql_fetch_assoc($query);
+        $value = mysqli_fetch_assoc($query);
+
+        return $value;
+    }
+
+
+    public function getEmployeeDeductionsId($emp_no_arg)
+    {
+        $query = mysqli_query($this->link, "SELECT id FROM employee_deductions WHERE employee_no='$emp_no_arg'");
+
+        $value = mysqli_fetch_assoc($query);
 
         return $value;
     }
 
     public function getEmployeeBasicPay($emp_earn_id_arg)
     {
-        $query = mysql_query("SELECT basic_pay FROM employee_earnings WHERE id = '$emp_earn_id_arg'") or die(mysql_error());
+        $query = mysqli_query($this->link, "SELECT basic_pay FROM employee_earnings WHERE id = '$emp_earn_id_arg'") or die(mysqli_error($this->link));
 
-        $data = mysql_fetch_assoc($query);
+        $data = mysqli_fetch_assoc($query);
 
         return $data;
     }
 
     public function getEmployeeDeductions($salary_arg, $emp_num_arg, $emp_ded_id_arg)
     {
-        $query = mysql_query("SELECT * FROM employee_deductions WHERE id = '$emp_ded_id_arg'") or die(mysql_error());
+        $query = mysqli_query($this->link, "SELECT * FROM employee_deductions WHERE id = '$emp_ded_id_arg'") or die(mysqli_error($this->link));
         $sum = 0;
-        $data = mysql_fetch_assoc($query);
+        $data = mysqli_fetch_assoc($query);
 
 
         foreach ($data as $key => $value) {
             // key is the column name
-            $dQuery = mysql_query("SELECT * FROM deductions WHERE name LIKE '$key'");
-            $ded = mysql_fetch_assoc($dQuery);
+            $dQuery = mysqli_query($this->link, "SELECT * FROM deductions WHERE name LIKE '$key'");
+            $ded = mysqli_fetch_assoc($dQuery);
 
             if ($value === '1') {
                 $ded_value = $this->getDeductionValue($salary_arg, $ded);
@@ -358,11 +390,20 @@ class Payslips
         }
 
         // recurring
-        $rdQuery = mysql_query("SELECT * FROM emp_recurring_deductions WHERE employee_no = '$emp_num_arg' && status = 'Pending'") or die(mysql_error());
-        $rdRow = mysql_fetch_assoc($rdQuery);
+        $rdQuery = mysqli_query($this->link, "SELECT * FROM emp_recurring_deductions WHERE employee_no = '$emp_num_arg' && status = 'Pending'") or die(mysqli_error($this->link));
+        $rdRow = mysqli_fetch_assoc($rdQuery);
 
         $sum += $rdRow['monthly_deduct'];
 
         return $sum;
+    }
+
+    public function checkEmployeeTax($emp_no_arg)
+    {
+        $checkQuery = "SELECT * FROM tax where empno='$emp_no_arg'";
+
+        $checkResult = mysqli_query($this->link, $checkQuery) or die("invalid query" . mysqli_error($this->link));
+
+        return $checkResult;
     }
 }

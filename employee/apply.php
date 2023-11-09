@@ -28,12 +28,12 @@
     <div class="wrapper">
 
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Leave.php';
         $leaveObject = new Leave();
         include_once '../../Admin/Classes/Company.php';
         $CompanyObject = new Company();
         require_once('../../PHPmailer/sendmail.php');
-        include '../navigation_panel/authenticated_user_header.php';
         $companyId = $_SESSION['company_ID'];
         ?>
 
@@ -83,7 +83,7 @@
 
             $empno = $_SESSION['employee_id'];
             $LeaveQuery = $leaveObject->checkLeaveDays($empno);
-            $leaveInfo = mysql_fetch_array($LeaveQuery);
+            $leaveInfo = mysqli_fetch_array($LeaveQuery);
             $leaveDaysAvailiable = $leaveInfo['available'];
 
             $start = new DateTime($startDateConverted);
@@ -106,13 +106,13 @@
             }
 
             $LeaveApplicatantQuery = $leaveObject->getLeaveApplicantDetails($empno);
-            $ApplicatRows = mysql_fetch_array($LeaveApplicatantQuery);
+            $ApplicatRows = mysqli_fetch_array($LeaveApplicatantQuery);
             $fname = $ApplicatRows['fname'];
             $lname = $ApplicatRows['lname'];
             $postition = $ApplicatRows['position'];
 
             if ($leaveType == "Annual Leave" || $leaveType == "Casual Leave") {
-                if (mysql_num_rows($LeaveQuery) == 0 || $leaveDaysAvailiable == 0) {
+                if (mysqli_num_rows($LeaveQuery) == 0 || $leaveDaysAvailiable == 0) {
                     $mssage = "You do not have suffient leave days to apply for a leave!!";
         ?>
                     <?php
@@ -215,9 +215,9 @@
                                 <?php
                                 $employeeId = $_SESSION['employee_id'];
                                 $leaveDays = "";
-                                $result = mysql_query("SELECT * FROM leave_days WHERE empno='$employeeId' ") or die(mysql_error());
-                                $row = mysql_fetch_array($result);
-                                if (mysql_num_rows($result) == 0) {
+                                $result = mysqli_query($link, "SELECT * FROM leave_days WHERE empno='$employeeId' ") or die(mysqli_error($link));
+                                $row = mysqli_fetch_array($result);
+                                if (mysqli_num_rows($result) == 0) {
                                     $leaveDays = "0";
                                 } else {
                                     $leaveDays = $row['available'];
@@ -230,9 +230,9 @@
                                 <span style="color: black" id="leave_period"><b>
                                         <?php
                                         $employeeId = $_SESSION['employee_id'];
-                                        $result = mysql_query("SELECT * FROM leave_days WHERE empno='$employeeId' ") or die(mysql_error());
-                                        $row = mysql_fetch_array($result);
-                                        if (mysql_num_rows($result) == 0) {
+                                        $result = mysqli_query($link, "SELECT * FROM leave_days WHERE empno='$employeeId' ") or die(mysqli_error($link));
+                                        $row = mysqli_fetch_array($result);
+                                        if (mysqli_num_rows($result) == 0) {
                                             echo "No leave days available";
                                         } else {
                                             echo $row['available'] . "  Leave days available";
@@ -285,7 +285,7 @@
                                             <?php
                                             $comp_ID = $_SESSION['company_ID'];
                                             $AllDepartments = $leaveObject->getLeaveTypes($comp_ID);
-                                            while ($row = mysql_fetch_array($AllDepartments)) {
+                                            while ($row = mysqli_fetch_array($AllDepartments)) {
                                             ?>
                                                 <option value="<?php echo $row['leave_type'] ?>">
                                                     <?php echo $row['leave_type']; ?>

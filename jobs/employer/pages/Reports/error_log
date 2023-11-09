@@ -80,7 +80,7 @@
 [21-Jul-2023 14:03:53 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/janazm/public_html/jobs/employer/navigation_panel/dbconnection.php on line 7
 [21-Jul-2023 14:03:53 UTC] PHP Notice:  Undefined index: jobs_passport in /home/janazm/public_html/jobs/employer/navigation_panel/authenticated_side_navigation_bar.php on line 73
 [21-Jul-2023 14:03:53 UTC] PHP Notice:  Undefined variable: reg_number in /home/janazm/public_html/jobs/employer/pages/Reports/job-insights.php on line 233
-[21-Jul-2023 14:03:53 UTC] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, boolean given in /home/janazm/public_html/jobs/employer/pages/Reports/job-insights.php on line 234
+[21-Jul-2023 14:03:53 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be resource, boolean given in /home/janazm/public_html/jobs/employer/pages/Reports/job-insights.php on line 234
 [21-Jul-2023 14:03:54 UTC] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /home/janazm/public_html/jobs/employer/pages/Reports/data-active-jobs.php on line 7
 [21-Jul-2023 14:03:54 UTC] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /home/janazm/public_html/jobs/employer/pages/Reports/data-active-jobs.php on line 51
 [21-Jul-2023 14:03:54 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/janazm/public_html/jobs/employer/pages/Reports/data-active-jobs.php on line 54
@@ -115,7 +115,7 @@
 [22-Jul-2023 14:52:15 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/janazm/public_html/jobs/employer/navigation_panel/dbconnection.php on line 7
 [22-Jul-2023 14:52:15 UTC] PHP Notice:  Undefined index: jobs_passport in /home/janazm/public_html/jobs/employer/navigation_panel/authenticated_side_navigation_bar.php on line 121
 [22-Jul-2023 14:52:15 UTC] PHP Notice:  Undefined variable: reg_number in /home/janazm/public_html/jobs/employer/pages/Reports/job-insights.php on line 233
-[22-Jul-2023 14:52:15 UTC] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, boolean given in /home/janazm/public_html/jobs/employer/pages/Reports/job-insights.php on line 234
+[22-Jul-2023 14:52:15 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be resource, boolean given in /home/janazm/public_html/jobs/employer/pages/Reports/job-insights.php on line 234
 [22-Jul-2023 14:52:17 UTC] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /home/janazm/public_html/jobs/employer/pages/Reports/data-active-jobs.php on line 7
 [22-Jul-2023 14:52:17 UTC] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /home/janazm/public_html/jobs/employer/pages/Reports/data-active-jobs.php on line 51
 [22-Jul-2023 14:52:17 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/janazm/public_html/jobs/employer/pages/Reports/data-active-jobs.php on line 54
@@ -128,7 +128,7 @@
 [22-Jul-2023 14:54:42 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/janazm/public_html/jobs/employer/navigation_panel/dbconnection.php on line 7
 [22-Jul-2023 14:54:42 UTC] PHP Notice:  Undefined index: jobs_passport in /home/janazm/public_html/jobs/employer/navigation_panel/authenticated_side_navigation_bar.php on line 121
 [22-Jul-2023 14:54:42 UTC] PHP Notice:  Undefined variable: reg_number in /home/janazm/public_html/jobs/employer/pages/Reports/job-insights.php on line 233
-[22-Jul-2023 14:54:42 UTC] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, boolean given in /home/janazm/public_html/jobs/employer/pages/Reports/job-insights.php on line 234
+[22-Jul-2023 14:54:42 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be resource, boolean given in /home/janazm/public_html/jobs/employer/pages/Reports/job-insights.php on line 234
 [22-Jul-2023 14:54:44 UTC] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /home/janazm/public_html/jobs/employer/pages/Reports/data-active-jobs.php on line 7
 [22-Jul-2023 14:54:44 UTC] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /home/janazm/public_html/jobs/employer/pages/Reports/data-active-jobs.php on line 51
 [22-Jul-2023 14:54:44 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/janazm/public_html/jobs/employer/pages/Reports/data-active-jobs.php on line 54
@@ -163,7 +163,7 @@
 [22-Jul-2023 14:56:57 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/janazm/public_html/jobs/employer/navigation_panel/dbconnection.php on line 7
 [22-Jul-2023 14:56:57 UTC] PHP Notice:  Undefined index: jobs_passport in /home/janazm/public_html/jobs/employer/navigation_panel/authenticated_side_navigation_bar.php on line 121
 [22-Jul-2023 14:56:57 UTC] PHP Notice:  Undefined variable: reg_number in /home/janazm/public_html/jobs/employer/pages/Reports/job-insights.php on line 233
-[22-Jul-2023 14:56:57 UTC] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, boolean given in /home/janazm/public_html/jobs/employer/pages/Reports/job-insights.php on line 234
+[22-Jul-2023 14:56:57 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be resource, boolean given in /home/janazm/public_html/jobs/employer/pages/Reports/job-insights.php on line 234
 [22-Jul-2023 14:57:04 UTC] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /home/janazm/public_html/jobs/employer/pages/Reports/data-active-jobs.php on line 7
 [22-Jul-2023 14:57:04 UTC] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /home/janazm/public_html/jobs/employer/pages/Reports/data-active-jobs.php on line 51
 [22-Jul-2023 14:57:04 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/janazm/public_html/jobs/employer/pages/Reports/data-active-jobs.php on line 54
@@ -176,7 +176,7 @@
 [22-Jul-2023 14:58:55 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/janazm/public_html/jobs/employer/navigation_panel/dbconnection.php on line 7
 [22-Jul-2023 14:58:55 UTC] PHP Notice:  Undefined index: jobs_passport in /home/janazm/public_html/jobs/employer/navigation_panel/authenticated_side_navigation_bar.php on line 121
 [22-Jul-2023 14:58:55 UTC] PHP Notice:  Undefined variable: reg_number in /home/janazm/public_html/jobs/employer/pages/Reports/job-insights.php on line 224
-[22-Jul-2023 14:58:55 UTC] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, boolean given in /home/janazm/public_html/jobs/employer/pages/Reports/job-insights.php on line 225
+[22-Jul-2023 14:58:55 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be resource, boolean given in /home/janazm/public_html/jobs/employer/pages/Reports/job-insights.php on line 225
 [22-Jul-2023 14:59:00 UTC] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /home/janazm/public_html/jobs/employer/pages/Reports/data-active-jobs.php on line 7
 [22-Jul-2023 14:59:00 UTC] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /home/janazm/public_html/jobs/employer/pages/Reports/data-active-jobs.php on line 51
 [22-Jul-2023 14:59:00 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/janazm/public_html/jobs/employer/pages/Reports/data-active-jobs.php on line 54
@@ -200,7 +200,7 @@
 [24-Jul-2023 06:45:53 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/janazm/public_html/jobs/employer/navigation_panel/dbconnection.php on line 7
 [24-Jul-2023 06:45:53 UTC] PHP Notice:  Undefined index: jobs_passport in /home/janazm/public_html/jobs/employer/navigation_panel/authenticated_side_navigation_bar.php on line 121
 [24-Jul-2023 06:45:53 UTC] PHP Notice:  Undefined variable: reg_number in /home/janazm/public_html/jobs/employer/pages/Reports/job-insights.php on line 224
-[24-Jul-2023 06:45:53 UTC] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, boolean given in /home/janazm/public_html/jobs/employer/pages/Reports/job-insights.php on line 225
+[24-Jul-2023 06:45:53 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be resource, boolean given in /home/janazm/public_html/jobs/employer/pages/Reports/job-insights.php on line 225
 [24-Jul-2023 06:45:54 UTC] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /home/janazm/public_html/jobs/employer/pages/Reports/data-active-jobs.php on line 7
 [24-Jul-2023 06:45:54 UTC] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /home/janazm/public_html/jobs/employer/pages/Reports/data-active-jobs.php on line 51
 [24-Jul-2023 06:45:54 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/janazm/public_html/jobs/employer/pages/Reports/data-active-jobs.php on line 54
@@ -235,7 +235,7 @@
 [24-Jul-2023 09:19:46 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/janazm/public_html/jobs/employer/navigation_panel/dbconnection.php on line 7
 [24-Jul-2023 09:19:46 UTC] PHP Notice:  Undefined index: jobs_passport in /home/janazm/public_html/jobs/employer/navigation_panel/authenticated_side_navigation_bar.php on line 121
 [24-Jul-2023 09:19:46 UTC] PHP Notice:  Undefined variable: reg_number in /home/janazm/public_html/jobs/employer/pages/Reports/job-insights.php on line 224
-[24-Jul-2023 09:19:46 UTC] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, boolean given in /home/janazm/public_html/jobs/employer/pages/Reports/job-insights.php on line 225
+[24-Jul-2023 09:19:46 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be resource, boolean given in /home/janazm/public_html/jobs/employer/pages/Reports/job-insights.php on line 225
 [24-Jul-2023 09:19:47 UTC] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /home/janazm/public_html/jobs/employer/pages/Reports/data_by_candidates.php on line 7
 [24-Jul-2023 09:19:47 UTC] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /home/janazm/public_html/jobs/employer/pages/Reports/data_by_candidates.php on line 52
 [24-Jul-2023 09:19:47 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/janazm/public_html/jobs/employer/pages/Reports/data_by_candidates.php on line 55

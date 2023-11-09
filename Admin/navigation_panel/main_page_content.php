@@ -1,7 +1,3 @@
-<?php
-error_reporting(0); 
-
-?>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <div class="content-wrapper" style="background-color: white">
 
@@ -140,11 +136,12 @@ error_reporting(0);
             background: #CC99BC;
             border: 1px solid black;
         }
+
         .th p {
             color: RED;
         }
     </style>
-    <?php include './Classes/Loans.php';
+    <?php include 'Classes/Loans.php';
     $LoanObject = new Loans();
     $companyId = $_SESSION['company_ID']; ?>
     <?php require './Reports.php' ?>
@@ -174,9 +171,9 @@ error_reporting(0);
                             <div class="card">
                                 <center>
                                     <div class="th">
-                                    <?php                                         
-                                        if(empty($gender)){
-                                            echo ' <p style ="margin-right:auto; margin-left:auto; width:100%;"> No available data for chart</p>';                                             
+                                        <?php
+                                        if (empty($gender)) {
+                                            echo ' <p style ="margin-right:auto; margin-left:auto; width:100%;"> No available data for chart</p>';
                                         }
                                         ?>
                                     </div>
@@ -192,9 +189,9 @@ error_reporting(0);
                             <div class="card">
                                 <center>
                                     <div class="th">
-                                    <?php                                         
-                                        if(empty($department)){
-                                            echo ' <p style ="margin-right:auto; margin-left:auto; width:100%;"> No available data for chart </p>';                                             
+                                        <?php
+                                        if (empty($department)) {
+                                            echo ' <p style ="margin-right:auto; margin-left:auto; width:100%;"> No available data for chart </p>';
                                         }
                                         ?>
                                     </div>
@@ -208,12 +205,12 @@ error_reporting(0);
                         <div class="col-sm-4 col-xs-4">
                             <div class="card">
                                 <center>
-                                    <div class="th">  
-                                    <?php                                         
-                                        if(empty($totalEarlyArrivals & $totalLateArrivals)){
-                                            echo ' <p style ="margin-right:auto; margin-left:auto; width:100%;"> No available data for chart </p>';                                             
+                                    <div class="th">
+                                        <?php
+                                        if (empty($totalEarlyArrivals & $totalLateArrivals)) {
+                                            echo ' <p style ="margin-right:auto; margin-left:auto; width:100%;"> No available data for chart </p>';
                                         }
-                                        ?>                                  
+                                        ?>
                                     </div>
                                     <div class="graph">
                                         <canvas id="myChart3"></canvas>
@@ -234,9 +231,9 @@ error_reporting(0);
                             <div class="card">
                                 <center>
                                     <div class="th">
-                                    <?php                                         
-                                        if(empty($ageGroups)){
-                                            echo ' <p style ="margin-right:auto; margin-left:auto; width:100%;"> No available data for chart </p>';                                             
+                                        <?php
+                                        if (empty($ageGroups)) {
+                                            echo ' <p style ="margin-right:auto; margin-left:auto; width:100%;"> No available data for chart </p>';
                                         }
                                         ?>
 
@@ -251,9 +248,9 @@ error_reporting(0);
                             <div class="card">
                                 <center>
                                     <div class="th">
-                                    <?php                                         
-                                        if(empty($years)){
-                                            echo ' <p style ="margin-right:auto; margin-left:auto; width:100%;"> No available data for chart </p>';                                             
+                                        <?php
+                                        if (empty($years)) {
+                                            echo ' <p style ="margin-right:auto; margin-left:auto; width:100%;"> No available data for chart </p>';
                                         }
                                         ?>
                                     </div>
@@ -278,9 +275,9 @@ error_reporting(0);
                             <div class="card">
                                 <center>
                                     <div class="th">
-                                        <?php                                         
-                                        if(empty($grossPayGroups)){
-                                            echo ' <p style ="margin-right:auto; margin-left:auto; width:100%;"> No available data for chart </p>';                                             
+                                        <?php
+                                        if (empty($grossPayGroups)) {
+                                            echo ' <p style ="margin-right:auto; margin-left:auto; width:100%;"> No available data for chart </p>';
                                         }
                                         ?>
                                     </div>
@@ -322,9 +319,6 @@ error_reporting(0);
     const totalEarlyArrivals = <?php echo json_encode($totalEarlyArrivals) ?>;
     const totalLateArrivals = <?php echo json_encode($totalLateArrivals) ?>;
 
-    console.log(totalEarlyArrivals);
-    console.log(totalLateArrivals);
-
     const data3 = {
         labels: ['Early Arrival', 'Late Arrival'],
         datasets: [{
@@ -355,7 +349,7 @@ error_reporting(0);
             borderColor: 'rgb(54, 162, 235)',
             borderWidth: 1
         }]
-    };       
+    };
 
 
     const data6 = {
@@ -507,7 +501,7 @@ error_reporting(0);
                 }
             }
         },
-    };        
+    };
 
 
 

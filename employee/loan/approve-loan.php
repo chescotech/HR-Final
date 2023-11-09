@@ -11,8 +11,8 @@ $status = "Approved";
 $empno = $_GET['empno'];
 
 
-$Query_ = mysql_query("SELECT * FROM `loan_applications` WHERE empno='$empno' AND LOAN_NO='$id'") or die(mysql_error());
-$row = mysql_fetch_array($Query_);
+$Query_ = mysqli_query($link, "SELECT * FROM `loan_applications` WHERE empno='$empno' AND LOAN_NO='$id'") or die(mysqli_error($link));
+$row = mysqli_fetch_array($Query_);
 $loanType = $row['loan_type'];
 
 $level = $_GET['level'] + 1;
@@ -22,7 +22,7 @@ $level = $_GET['level'] + 1;
 
 if (intval($leaveObject->getEmployeeFinalLevelApprovals($empno)) == intval($_GET['level'])) {
 
-    mysql_query("UPDATE loan_applications SET status ='$status' WHERE LOAN_NO = '$id'") or die(mysql_error());
+    mysqli_query($link, "UPDATE loan_applications SET status ='$status' WHERE LOAN_NO = '$id'") or die(mysqli_error($link));
 
     //echo '$loan Days' . $loan_days;
 
@@ -37,7 +37,7 @@ if (intval($leaveObject->getEmployeeFinalLevelApprovals($empno)) == intval($_GET
     $em->send_mail($EmployeeEmail, $message, $Subject);
 } else {
     //echo 'in 2';
-    mysql_query("UPDATE loan_applications SET level ='$level' WHERE LOAN_NO = '$id'") or die(mysql_error());
+    mysqli_query($link, "UPDATE loan_applications SET level ='$level' WHERE LOAN_NO = '$id'") or die(mysqli_error($link));
 }
 
 header('location:pending-loans.php');

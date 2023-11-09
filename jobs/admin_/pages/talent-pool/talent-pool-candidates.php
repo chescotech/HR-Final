@@ -70,8 +70,7 @@
                     <div class="input-group">
                         <input type="text" name="q" class="form-control" placeholder="Search...">
                         <span class="input-group-btn">
-                            <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i
-                                    class="fa fa-search"></i></button>
+                            <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
                         </span>
                     </div>
                 </form>
@@ -99,7 +98,7 @@
             <div class="panel panel-default">
                 <div class="panel-body" style="font-size:14px;">
 
-                 
+
                     <table id="maintable" class="display compact cell-border" cellspacing="0" width="100%">
                         <thead>
                             <tr>
@@ -113,148 +112,142 @@
                         <tbody>
                             <?php
 
-                  
-                        $pool_id = $_GET['pool_id'];
-                        $user_q = mysql_query("SELECT talent_pool.title,fname,lname, jobs_postings.title as job,
+
+                            $pool_id = $_GET['pool_id'];
+                            $user_q = mysqli_query($link, "SELECT talent_pool.title,fname,lname, jobs_postings.title as job,
                         jobs_user_applications.date AS date_applied,job_status,jobs_user_applications.id as job_applied_id, 
                         jobs_user_applications.user_id AS appcant_user_id FROM `jobs_user_applications`
                         INNER JOIN jobs_users on jobs_users.id=jobs_user_applications.user_id
                         INNER JOIN jobs_postings on jobs_postings.id=jobs_user_applications.jobs_job_id 
                         LEFT JOIN talent_pool on talent_pool.id=talent_pool_id
                         WHERE talent_pool.id='$pool_id'");
-                    
-                   
-                    
-                    while ($row = mysql_fetch_array($user_q)) {
-                        $id = $row['job_applied_id'];
-                        $appcant_user_id = $row['appcant_user_id'];
-                        $title = $row['job'];
-                        $talent_pool = $row['title'];
-                        $names = $row['fname'].' '.$row['lname'];
-                        // $vacancies = $row['vacancies'];
-                        // $experience = $row['experience'];
-                        $date_applied = $row['date_applied'];
-                        $job_status= $row['job_status'];
-                       
-                        // $date = $row['date'];
-                        //$expires = $row['expires'];
 
-                        echo '
+
+
+                            while ($row = mysqli_fetch_array($user_q)) {
+                                $id = $row['job_applied_id'];
+                                $appcant_user_id = $row['appcant_user_id'];
+                                $title = $row['job'];
+                                $talent_pool = $row['title'];
+                                $names = $row['fname'] . ' ' . $row['lname'];
+                                // $vacancies = $row['vacancies'];
+                                // $experience = $row['experience'];
+                                $date_applied = $row['date_applied'];
+                                $job_status = $row['job_status'];
+
+                                // $date = $row['date'];
+                                //$expires = $row['expires'];
+
+                                echo '
                             <tr>
                                 <td>' . $names . '</td>
                                 <td>' . $title . '</td>
                                 <td>' . $job_status . '</td>
-                                <td>'.$talent_pool.'</td>
+                                <td>' . $talent_pool . '</td>
                                 <td>
         
-                                <a class="btn btn-danger" style="padding:2px; padding-left: 10px; padding-right:10px;" href="remove-talent.php?id=' . $appcant_user_id . '&pool='.$pool_id.'">Remove</a>
+                                <a class="btn btn-danger" style="padding:2px; padding-left: 10px; padding-right:10px;" href="remove-talent.php?id=' . $appcant_user_id . '&pool=' . $pool_id . '">Remove</a>
                                 </td>
                             </tr>';
                             ?>
 
-                            <div class="modal fade" id="exampleModal<?php echo $id ?>" tabindex="-1" role="dialog"
-                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Update Applicant Status</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form method="POST" action="#save">
-                                                <div class="form-group">
-                                                    <label for="pwd">Update Applicant Status:</label>
-                                                    <select name="status" class="form-control">
-                                                        <option value="Phone Interview">Phone Interview</option>
-                                                        <option value="Onsite Interview">Onsite Interview</option>
-                                                        <option value="Evaluation">Evaluation</option>
-                                                        <option value="Offer">Offer</option>
-                                                        <option value="Hired">Hired</option>
-                                                    </select>
-                                                </div>
+                                <div class="modal fade" id="exampleModal<?php echo $id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Update Applicant Status</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form method="POST" action="#save">
+                                                    <div class="form-group">
+                                                        <label for="pwd">Update Applicant Status:</label>
+                                                        <select name="status" class="form-control">
+                                                            <option value="Phone Interview">Phone Interview</option>
+                                                            <option value="Onsite Interview">Onsite Interview</option>
+                                                            <option value="Evaluation">Evaluation</option>
+                                                            <option value="Offer">Offer</option>
+                                                            <option value="Hired">Hired</option>
+                                                        </select>
+                                                    </div>
 
-                                                <input hidden="" name="app_id" value="<?php echo $appcant_user_id ?>">
-                                                <input hidden="" name="job" value="<?php echo $id; ?>">
+                                                    <input hidden="" name="app_id" value="<?php echo $appcant_user_id ?>">
+                                                    <input hidden="" name="job" value="<?php echo $id; ?>">
 
-                                                <button type="submit" name="update_status"
-                                                    class="btn btn-default">Update</button>
-                                            </form>
+                                                    <button type="submit" name="update_status" class="btn btn-default">Update</button>
+                                                </form>
 
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Close</button>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
 
-                            <div class="modal fade" id="meeting<?php echo $id ?>" tabindex="-1" role="dialog"
-                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">New Meeting</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form method="POST" action="#save">
-                                                <div class="form-group">
-                                                    <label for="pwd">Update Applicant Status:</label>
-                                                    <select name="status" class="form-control">
-                                                        <option value="Phone Interview">Phone Interview</option>
-                                                        <option value="Onsite Interview">Onsite Interview</option>
-                                                        <option value="Evaluation">Evaluation</option>
-                                                        <option value="Offer">Offer</option>
-                                                        <option value="Hired">Hired</option>
-                                                    </select>
-                                                </div>
+                                <div class="modal fade" id="meeting<?php echo $id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">New Meeting</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form method="POST" action="#save">
+                                                    <div class="form-group">
+                                                        <label for="pwd">Update Applicant Status:</label>
+                                                        <select name="status" class="form-control">
+                                                            <option value="Phone Interview">Phone Interview</option>
+                                                            <option value="Onsite Interview">Onsite Interview</option>
+                                                            <option value="Evaluation">Evaluation</option>
+                                                            <option value="Offer">Offer</option>
+                                                            <option value="Hired">Hired</option>
+                                                        </select>
+                                                    </div>
 
-                                                <input hidden="" name="app_id" value="<?php echo $appcant_user_id ?>">
-                                                <input hidden="" name="job" value="<?php echo $id; ?>">
+                                                    <input hidden="" name="app_id" value="<?php echo $appcant_user_id ?>">
+                                                    <input hidden="" name="job" value="<?php echo $id; ?>">
 
-                                                <button type="submit" name="update_status"
-                                                    class="btn btn-default">Update</button>
-                                            </form>
+                                                    <button type="submit" name="update_status" class="btn btn-default">Update</button>
+                                                </form>
 
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Close</button>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
 
 
                             <?php
-                        }
-                        ?>
+                            }
+                            ?>
 
                         </tbody>
 
 
                         <?php
-          
-            
-            if (isset($_POST["update_status"])) {
-                $status = $_POST["status"];
-                $app_id = $_POST["app_id"];
-                $job_id = $_POST['job'];
-                //return var_dump($job_id,$app_id);
 
-                mysql_query("UPDATE jobs_user_applications SET job_status = '$status' WHERE  id='$job_id' ")
-                    or die("Err11 " . mysql_error());
 
-                echo "<script> document.location='applicant-list.php' </script>";
-            }
-        ?>
+                        if (isset($_POST["update_status"])) {
+                            $status = $_POST["status"];
+                            $app_id = $_POST["app_id"];
+                            $job_id = $_POST['job'];
+                            //return var_dump($job_id,$app_id);
+
+                            mysqli_query($link, "UPDATE jobs_user_applications SET job_status = '$status' WHERE  id='$job_id' ")
+                                or die("Err11 " . mysqli_error($link));
+
+                            echo "<script> document.location='applicant-list.php' </script>";
+                        }
+                        ?>
                         <tfoot style="background-color: #c0c0c0; color: #ffffff; font-size: 0.9em; ">
                             <tr>
                                 <th>Talent Pool Name</th>
@@ -291,7 +284,7 @@
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 
     <script>
-    $.widget.bridge('uibutton', $.ui.button);
+        $.widget.bridge('uibutton', $.ui.button);
     </script>
     <!-- Bootstrap 3.3.5 -->
     <script src="../../../bootstrap/js/bootstrap.min.js"></script>

@@ -3,53 +3,54 @@ ob_start();
 session_start();
 ?>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>PLease Log in</title>
-        <!-- Tell the browser to be responsive to screen width -->
-        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        <!-- Bootstrap 3.3.5 -->
-        <link rel="stylesheet" href="Admin/bootstrap/css/bootstrap.min.css">
-        <!-- Font Awesome -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-        <!-- Ionicons -->
-        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-        <!-- Theme style -->
-        <link rel="stylesheet" href="Admin/dist/css/AdminLTE.min.css">
-        <!-- iCheck -->
-        <link rel="stylesheet" href="Admin/plugins/iCheck/square/blue.css">
-        <script src="java_script_files/jquery-2.1.4.min.js"></script>
 
-    </head>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>PLease Log in</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.5 -->
+    <link rel="stylesheet" href="Admin/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="Admin/dist/css/AdminLTE.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="Admin/plugins/iCheck/square/blue.css">
+    <script src="java_script_files/jquery-2.1.4.min.js"></script>
 
-    <?php include('include/dbconnection.php'); ?>
+</head>
 
-    <?php
-    if (isset($_POST['sign_in'])) {
-   
+<?php include('include/dbconnection.php'); ?>
+
+<?php
+if (isset($_POST['sign_in'])) {
+
     $message = "";
     include('include/dbconnection.php');
-    $login2 = mysql_query("SELECT * FROM company WHERE (username = '" . mysql_real_escape_string($_POST['username']) . "') and (password = '" . mysql_real_escape_string($_POST['password']) . "')");
-    // $usersQuery = mysql_query("SELECT * FROM users_tb WHERE (user_name = '" . mysql_real_escape_string($_POST['username']) . "') and (password = '" . md5(mysql_real_escape_string($_POST['password'])) . "')");
-    $EmployeeQuery = mysql_query("SELECT * FROM emp_info WHERE (empno = '" . mysql_real_escape_string($_POST['username']) . "') and (password = '" . md5(mysql_real_escape_string($_POST['password'])) . "')");
-    $employeeRows = mysql_fetch_array($EmployeeQuery);
+    $login2 = mysqli_query($link, "SELECT * FROM company WHERE (username = '" . ($_POST['username']) . "') and (password = '" . ($_POST['password']) . "')");
+    // $usersQuery = mysqli_query($link,"SELECT * FROM users_tb WHERE (user_name = '" . ($_POST['username']) . "') and (password = '" . md5(($_POST['password'])) . "')");
+    $EmployeeQuery = mysqli_query($link, "SELECT * FROM emp_info WHERE (empno = '" . ($_POST['username']) . "') and (password = '" . md5(($_POST['password'])) . "')");
+    $employeeRows = mysqli_fetch_array($EmployeeQuery);
     // user query..
-    $UserQuery = mysql_query("SELECT * FROM users_tb WHERE (user_name = '" . mysql_real_escape_string($_POST['username']) . "') and (password = '" . md5(mysql_real_escape_string($_POST['password'])) . "')");
-    $UserRows = mysql_fetch_array($UserQuery);
+    $UserQuery = mysqli_query($link, "SELECT * FROM users_tb WHERE (user_name = '" . ($_POST['username']) . "') and (password = '" . md5(($_POST['password'])) . "')");
+    $UserRows = mysqli_fetch_array($UserQuery);
 
-    if (mysql_num_rows($EmployeeQuery) == 1) {
+    if (mysqli_num_rows($EmployeeQuery) == 1) {
         $_SESSION['employee_id'] = $_POST['username'];
         $companyId = $employeeRows['company_id'];
-        $CompanyQuery = mysql_query("SELECT name from company WHERE company_ID = '$companyId' ");
-        $compRow = mysql_fetch_array($CompanyQuery);
+        $CompanyQuery = mysqli_query($link, "SELECT name from company WHERE company_ID = '$companyId' ");
+        $compRow = mysqli_fetch_array($CompanyQuery);
         $companyName = $compRow['name'];
         $_SESSION['company_name'] = $companyName;
         $_SESSION['company_ID'] = $companyId;
         header('Location:employee/index.php');
         exit();
     }
-    if (mysql_num_rows($UserQuery) == 1) {
+    if (mysqli_num_rows($UserQuery) == 1) {
         $userType = $UserRows['user_type'];
         if ($userType == "superadmin") {
             $_SESSION['employee_id'] = $UserRows['empno'];
@@ -66,73 +67,74 @@ session_start();
             header('Location:CompanyAdmin/index.php');
             exit();
         } else {
-            $Companyrow = mysql_fetch_array($login2);
+            $Companyrow = mysqli_fetch_array($login2);
             $_SESSION['company_ID'] = $UserRows['company_id'];
             $compId = $UserRows['company_id'];
             $_SESSION['user_id'] = $UserRows['empno'];
-            $query = mysql_query("SELECT name FROM company where company_ID = '$compId'");
-            $rows = mysql_fetch_array($query);
+            $query = mysqli_query($link, "SELECT name FROM company where company_ID = '$compId'");
+            $rows = mysqli_fetch_array($query);
             $_SESSION['name'] = $rows['name'];
             header('Location:Admin/index.php');
             exit();
         }
     }
-    if (mysql_num_rows($EmployeeQuery) == 0 && mysql_num_rows($UserQuery) == 0) {
-        $message ='<div class="alert alert-danger">
+    if (mysqli_num_rows($EmployeeQuery) == 0 && mysqli_num_rows($UserQuery) == 0) {
+        $message = '<div class="alert alert-danger">
                         Wrong username or password
                         </div>';
-        
     }
-    }
-    ?>
-    <body  background="img/sapamahrm_banner.png">
-        <div class="login-box">
-            <div hidden="hidden" id="error_block" class="login-logo">
-                <center>
-                    <img src="img/sapamahrm_banner.png"  >
-                </center>
-            </div>
-            <div class="login-box-body">
-                <center><img src="img/my-logo.PNG" class="img-responsive" alt=""/></center>
-                <?php
-                if (isset($_POST['sign_in'])) {
-                    echo $message;
-                }
-                ?>     
-                <form  method="post">
-                    <div class="form-group has-feedback">
-                        <input id="username" name="username" type="text" required="required" class="form-control" placeholder="Username">
-                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                    </div>
-                    <div class="form-group has-feedback">
-                        <input name="password" type="password" required="required" class="form-control" placeholder="Password">
-                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-8">
-                        </div><!-- /.col -->
-                        <div class="col-xs-4">
-                            <center><button name="sign_in" onclick="error_message()"  type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button></center>
-                        </div><!-- /.col -->                       
-                    </div>
-                </form>
-            </div><!-- /.login-box-body -->
-        </div><!-- /.login-box -->
+}
+?>
 
-        <!-- jQuery 2.1.4 -->
-        <script src="Admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-        <!-- Bootstrap 3.3.5 -->
-        <script src="Admin/bootstrap/js/bootstrap.min.js"></script>
-        <!-- iCheck -->
-        <script src="Admin/plugins/iCheck/icheck.min.js"></script>
-        <script>
-                                $(function () {
-                                    $('input').iCheck({
-                                        checkboxClass: 'icheckbox_square-blue',
-                                        radioClass: 'iradio_square-blue',
-                                        increaseArea: '20%' // optional
-                                    });
-                                });
-        </script>
-    </body>
+<body background="img/sapamahrm_banner.png">
+    <div class="login-box">
+        <div hidden="hidden" id="error_block" class="login-logo">
+            <center>
+                <img src="img/sapamahrm_banner.png">
+            </center>
+        </div>
+        <div class="login-box-body">
+            <center><img src="img/my-logo.PNG" class="img-responsive" alt="" /></center>
+            <?php
+            if (isset($_POST['sign_in'])) {
+                echo $message;
+            }
+            ?>
+            <form method="post">
+                <div class="form-group has-feedback">
+                    <input id="username" name="username" type="text" required="required" class="form-control" placeholder="Username">
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <input name="password" type="password" required="required" class="form-control" placeholder="Password">
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8">
+                    </div><!-- /.col -->
+                    <div class="col-xs-4">
+                        <center><button name="sign_in" onclick="error_message()" type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button></center>
+                    </div><!-- /.col -->
+                </div>
+            </form>
+        </div><!-- /.login-box-body -->
+    </div><!-- /.login-box -->
+
+    <!-- jQuery 2.1.4 -->
+    <script src="Admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="Admin/bootstrap/js/bootstrap.min.js"></script>
+    <!-- iCheck -->
+    <script src="Admin/plugins/iCheck/icheck.min.js"></script>
+    <script>
+        $(function() {
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%' // optional
+            });
+        });
+    </script>
+</body>
+
 </html>

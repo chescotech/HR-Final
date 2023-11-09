@@ -1,19 +1,27 @@
 <?php
 
-include_once './Classes/Tax.php';
-include_once './Classes/Loans.php';
-// include_once './Classes/Payslips.php';
+include_once 'DBClass.php';
+
+include_once 'Tax.php';
+include_once 'Payslips.php';
 
 class Loans
 {
+    private $link;
+
+    function __construct()
+    {
+        $this->link = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME) or die('db connection problem' . mysqli_connect_error());
+    }
+
     public function getAllEmpLoans($companyId)
     {
-        $result = mysql_query("SELECT * FROM loan WHERE company_ID = '$companyId' ");
+        $result = mysqli_query($this->link, "SELECT * FROM loan WHERE company_ID = '$companyId' ");
         return $result;
     }
     public function getLoanApplications($companyId)
     {
-        $result = mysql_query("SELECT * from loan_applications WHERE company_ID = '$companyId'");
+        $result = mysqli_query($this->link, "SELECT * from loan_applications WHERE company_ID = '$companyId'");
 
         return $result;
     }
@@ -21,24 +29,27 @@ class Loans
     function getPAYEExpenseSummary($compId, $year, $month, $day)
     {
         $TaxObject = new Tax();
+        $PayslipsObject = new Payslips();
+
         $query = "SELECT *
                                                         FROM employee em
                                                         INNER JOIN emp_info n ON em.empno = n.empno                                                     
                                                         WHERE em.company_id =  '$compId' and em.time = '$year-$month-$day'";
 
-        $result = mysql_query($query);
+        $result = mysqli_query($this->link, $query);
         $sum = 0;
         $GrossTotal = 0;
         $chargableEmTotal = 0;
         $taxPaidTotal = 0;
 
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $empno = $row['empno'];
             $ssNo = "";
             $fname = $row['fname'];
             $lname = $row['lname'];
             $natureEmployement = $row['employment_type'];
-            $gross = ($row['pay']) + ($row['otrate'] * $row['othrs']) + $row['allow'] + $row['comission'];
+            $gross = $PayslipsObject->getEmployeeGrossPay($empno, $row['date']);
+            // $gross = ($row['pay']) + ($row['otrate'] * $row['othrs']) + $row['allow'] + $row['comission'];
             $empoyeeNo = $row['empno'];
             $napsa = $gross * 0.05;
             if ($napsa >= 843)
@@ -91,7 +102,7 @@ class Loans
 
     public function addLoanType($loanType, $maxRepaymentTime, $approver_email, $companyID)
     {
-        $result = mysql_query("INSERT INTO loan_tb(loan_type,max_repayment,approver_email,company_ID) "
+        $result = mysqli_query($this->link, "INSERT INTO loan_tb(loan_type,max_repayment,approver_email,company_ID) "
             . "VALUES('$loanType','$maxRepaymentTime','$approver_email' ,'$companyID')");
         return $result;
     }
@@ -106,9 +117,9 @@ class Loans
                                                         INNER JOIN emp_info n ON em.empno = n.empno                                                     
                                                         WHERE em.company_id =  '$compId' and em.time = '$year-$month-$day'";
 
-        $result = mysql_query($query);
+        $result = mysqli_query($this->link, $query);
         $sum = 0;
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $empno = $row['empno'];
             $fname = $row['fname'];
             $lname = $row['lname'];
@@ -173,9 +184,9 @@ class Loans
         $sum = 0;
 
         $query = "SELECT * FROM loan where company_ID =  '$compId' AND status='Pending' ";
-        $result = mysql_query($query) or die($query . "<br/><br/>" . mysql_error());
+        $result = mysqli_query($this->link, $query) or die($query . "<br/><br/>" . mysqli_error($this->link));
 
-        $row = mysql_fetch_array($result, MYSQL_ASSOC);
+        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
         $balance = $row['loan_amt'];
         $interest = $row['interest'];
         $months = $row['duration'];
@@ -194,16 +205,16 @@ class Loans
                                                         INNER JOIN emp_info n ON em.empno = n.empno                                                     
                                                         WHERE em.company_id =  '$compId' and em.time = '$year-$month-$day'";
 
-        $result2 = mysql_query($query) or die(mysql_error());
+        $result2 = mysqli_query($this->link, $query) or die(mysqli_error($this->link));
 
         $sum = 0;
-        while ($row = mysql_fetch_array($result2)) {
+        while ($row = mysqli_fetch_array($result2)) {
 
             $gross = ($row['pay']) + ($row['otrate'] * $row['othrs']) + $row['allow'] + $row['comission'];
             $empoyeeNo = $row['empno'];
 
-            $result = mysql_query("SELECT * FROM loan WHERE empno='$empoyeeNo' AND status='Pending'  ");
-            $LoanRows = mysql_fetch_array($result);
+            $result = mysqli_query($this->link, "SELECT * FROM loan WHERE empno='$empoyeeNo' AND status='Pending'  ");
+            $LoanRows = mysqli_fetch_array($result);
             $loanAmount = $LoanRows['monthly_deduct'];
 
             $napsa = $gross * 0.05;
@@ -258,15 +269,16 @@ class Loans
         return $sum;
     }
 
-    function getPayrollTotalByDepartment($departmentId, $compId)
+    public function getPayrollTotalByDepartment($departmentId, $compId)
     {
         $loanObj = new Loans();
         $TaxObject = new Tax();
+        $PayslipObject = new Payslips();
         $total = 0;
         $query = "SELECT * FROM loan where company_ID =  '$compId' AND status='Pending'";
-        $result = mysql_query($query) or die($query . "<br/><br/>" . mysql_error());
+        $result = mysqli_query($this->link, $query) or die($query . "<br/><br/>" . mysqli_error($this->link));
 
-        $row = mysql_fetch_array($result, MYSQL_ASSOC);
+        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
         $balance = $row['loan_amt'];
         $interest = $row['interest'];
         $months = $row['duration'];
@@ -284,12 +296,12 @@ class Loans
                                                         INNER JOIN emp_info n ON em.empno = n.empno                                                     
                                                         WHERE em.company_id =  '$compId' AND n.dept = '$departmentId' ";
 
-        $result2 = mysql_query($query2) or die(mysql_error());
+        $result2 = mysqli_query($this->link, $query2) or die(mysqli_error($this->link));
 
         $sum = 0;
-        while ($row = mysql_fetch_array($result2)) {
+        while ($row = mysqli_fetch_array($result2)) {
 
-            $gross = ($row['pay']) + ($row['otrate'] * $row['othrs']) + $row['allow'] + $row['comission'];
+            $gross = $PayslipObject->getEmployeeGrossPay($row['empno'], $row['date']);
             $empoyeeNo = $row['empno'];
             $napsa = $gross * 0.05;
             if ($TaxObject->getEmployeeAge($empoyeeNo) < 55) {
@@ -350,88 +362,88 @@ class Loans
 
     function getDepartmentById($depId)
     {
-        $result = mysql_query("SELECT * FROM department WHERE dep_id = '$depId' ");
-        $rows = mysql_fetch_array($result);
+        $result = mysqli_query($this->link, "SELECT * FROM department WHERE dep_id = '$depId' ");
+        $rows = mysqli_fetch_array($result);
         $departmentName = $rows['department'];
         return $departmentName;
     }
 
     function getEmployeeCountByDepartment($department)
     {
-        $result = mysql_query("SELECT * FROM emp_info WHERE dept = '$department' ");
+        $result = mysqli_query($this->link, "SELECT * FROM emp_info WHERE dept = '$department' ");
 
-        $count = mysql_num_rows($result);
+        $count = mysqli_num_rows($result);
         return $count;
     }
 
     public function getSocialSecurityNo($empno)
     {
-        $result = mysql_query("SELECT social FROM tax WHERE empno = '$empno' ");
-        $row = mysql_fetch_array($result);
+        $result = mysqli_query($this->link, "SELECT social FROM tax WHERE empno = '$empno' ");
+        $row = mysqli_fetch_array($result);
         $socialNo = $row['social'];
         return $socialNo;
     }
 
     public function getLoanMonthDedeductAmount($empno)
     {
-        $result = mysql_query("SELECT * FROM loan WHERE empno='$empno' AND status='Pending'");
-        $rows = mysql_fetch_array($result);
+        $result = mysqli_query($this->link, "SELECT * FROM loan WHERE empno='$empno' AND status='Pending'");
+        $rows = mysqli_fetch_array($result);
         $loanAmount = $rows['monthly_deduct'];
         return $loanAmount;
     }
 
     public function getLoanMonthDedeductAmounts($empno, $date)
     {
-        $result = mysql_query("SELECT * FROM loan WHERE empno='$empno' AND '$date' BETWEEN loan_date AND date_completion  ");
-        $rows = mysql_fetch_array($result);
+        $result = mysqli_query($this->link, "SELECT * FROM loan WHERE empno='$empno' AND '$date' BETWEEN loan_date AND date_completion  ");
+        $rows = mysqli_fetch_array($result);
         $loanAmount = $rows['monthly_deduct'];
         return $loanAmount;
     }
 
     public function getTopBand1($company_ID)
     {
-        $query = mysql_query("SELECT * FROM tax_bands WHERE company_ID = '$company_ID'");
-        $row = mysql_fetch_array($query);
+        $query = mysqli_query($this->link, "SELECT * FROM tax_bands WHERE company_ID = '$company_ID'");
+        $row = mysqli_fetch_array($query);
         $bandTop1 = $row['band_top1'];
         return $bandTop1;
     }
 
     public function getTopBand2($company_ID)
     {
-        $query = mysql_query("SELECT * FROM tax_bands WHERE company_ID = '$company_ID'");
-        $row = mysql_fetch_array($query);
+        $query = mysqli_query($this->link, "SELECT * FROM tax_bands WHERE company_ID = '$company_ID'");
+        $row = mysqli_fetch_array($query);
         $bandTop1 = $row['band_top2'];
         return $bandTop1;
     }
 
     public function getTopBand3($company_ID)
     {
-        $query = mysql_query("SELECT * FROM tax_bands WHERE company_ID = '$company_ID'");
-        $row = mysql_fetch_array($query);
+        $query = mysqli_query($this->link, "SELECT * FROM tax_bands WHERE company_ID = '$company_ID'");
+        $row = mysqli_fetch_array($query);
         $bandTop1 = $row['band_top3'];
         return $bandTop1;
     }
 
     public function getBandRate1($company_ID)
     {
-        $query = mysql_query("SELECT * FROM tax_bands WHERE company_ID = '$company_ID'");
-        $row = mysql_fetch_array($query);
+        $query = mysqli_query($this->link, "SELECT * FROM tax_bands WHERE company_ID = '$company_ID'");
+        $row = mysqli_fetch_array($query);
         $band_rate1 = $row['band_rate1'];
         return $band_rate1;
     }
 
     public function getBandRate2($company_ID)
     {
-        $query = mysql_query("SELECT * FROM tax_bands WHERE company_ID = '$company_ID'");
-        $row = mysql_fetch_array($query);
+        $query = mysqli_query($this->link, "SELECT * FROM tax_bands WHERE company_ID = '$company_ID'");
+        $row = mysqli_fetch_array($query);
         $band_rate2 = $row['band_rate2'];
         return $band_rate2;
     }
 
     public function getCompanyLogo($companyId)
     {
-        $user_query = mysql_query("SELECT * FROM company where company_ID='$companyId'") or die(mysql_error());
-        $row = mysql_fetch_array($user_query);
+        $user_query = mysqli_query($this->link, "SELECT * FROM company where company_ID='$companyId'") or die(mysqli_error($this->link));
+        $row = mysqli_fetch_array($user_query);
 
         $photo = "../company_logos/" . $row['logo'];
         $check_pic = $row['logo'];
@@ -443,8 +455,8 @@ class Loans
 
     public function getEmployeeAge($empno)
     {
-        $query = mysql_query("SELECT bdate FROM emp_info WHERE empno = '$empno'");
-        $row = mysql_fetch_array($query);
+        $query = mysqli_query($this->link, "SELECT bdate FROM emp_info WHERE empno = '$empno'");
+        $row = mysqli_fetch_array($query);
         $dob = $row['bdate'];
         $from = new DateTime($dob);
         $to = new DateTime('today');
@@ -454,24 +466,23 @@ class Loans
 
     public function getBandRate3($company_ID)
     {
-        $query = mysql_query("SELECT * FROM tax_bands WHERE company_ID = '$company_ID'");
-        $row = mysql_fetch_array($query);
+        $query = mysqli_query($this->link, "SELECT * FROM tax_bands WHERE company_ID = '$company_ID'");
+        $row = mysqli_fetch_array($query);
         $band_rate3 = $row['band_rate3'];
         return $band_rate3;
     }
 
     public function getBandRate4($company_ID)
     {
-        $query = mysql_query("SELECT * FROM tax_bands WHERE company_ID = '$company_ID'");
-        $row = mysql_fetch_array($query);
+        $query = mysqli_query($this->link, "SELECT * FROM tax_bands WHERE company_ID = '$company_ID'");
+        $row = mysqli_fetch_array($query);
         $band_rate4 = $row['band_rate4'];
         return $band_rate4;
     }
 
     public function getEmployeeAnnualtax($companyId, $fromDate, $toDate, $empno, $compId)
     {
-
-        // $PayslipsObject = new Payslips();
+        $PayslipObject = new Payslips();
 
         $arr = explode("/", $fromDate);
         list($Getmonth, $Getday, $GetYear) = $arr;
@@ -490,9 +501,9 @@ class Loans
         $day2 = $Getday2;
 
         $query = "SELECT * FROM loan where company_id =  '$companyId' AND status='Pending'";
-        $result = mysql_query($query) or die($query . "<br/><br/>" . mysql_error());
+        $result = mysqli_query($this->link, $query) or die($query . "<br/><br/>" . mysqli_error($this->link));
 
-        $row = mysql_fetch_array($result, MYSQL_ASSOC);
+        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
         $balance = $row['loan_amt'];
         $interest = $row['interest'];
         $months = $row['duration'];
@@ -511,13 +522,13 @@ class Loans
                 INNER JOIN emp_info n ON em.empno = n.empno                                                     
                 WHERE em.company_id =  '$companyId' and em.time BETWEEN '$year-$month-$day'  AND  '$year2-$month2-$day2' AND em.empno = '$empno' ";
 
-        $result2 = mysql_query($query) or die(mysql_error());
+        $result2 = mysqli_query($this->link, $query) or die(mysqli_error($this->link));
 
         $sum = 0;
-        while ($row = mysql_fetch_array($result2)) {
-            // $earnings = $PayslipsObject->getEmployeeEarnings($row['earnings_id']);
+        while ($row = mysqli_fetch_array($result2)) {
+            // $earnings = $PayslipObject->getEmployeeEarnings($row['earnings_id']);
 
-            $gross = $row['basic_pay'] + ($row['otrate'] * $row['othrs']) + $row['allow'] + $row['comission'];
+            $gross = $PayslipObject->getEmployeeGrossPay($row['empno'], $row['date']);
             $empoyeeNo = $row['empno'];
             $napsa = $gross * 0.05;
             if ($this->getEmployeeAge($empno) < 55) {
@@ -580,8 +591,8 @@ class Loans
 
     public function getNapsaCeiling($company_ID)
     {
-        $query = mysql_query("SELECT * FROM tax_bands WHERE company_ID = '$company_ID'");
-        $row = mysql_fetch_array($query);
+        $query = mysqli_query($this->link, "SELECT * FROM tax_bands WHERE company_ID = '$company_ID'");
+        $row = mysqli_fetch_array($query);
         $napsa_ceiling = $row['napsa_ceiling'];
         return $napsa_ceiling;
     }
@@ -589,8 +600,8 @@ class Loans
     public function calNoMonthsWorked($empno)
     {
         $query = "SELECT COUNT(*) AS no_months FROM `employee` WHERE empno='$empno'";
-        $result = mysql_query($query) or die($query . "<br/><br/>" . mysql_error());
-        $row = mysql_fetch_array($result, MYSQL_ASSOC);
+        $result = mysqli_query($this->link, $query) or die($query . "<br/><br/>" . mysqli_error($this->link));
+        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
         $no_months = $row['no_months'];
         return $no_months;
     }
@@ -598,8 +609,8 @@ class Loans
     function getGratuityRating()
     {
         $query = "SELECT rating FROM `gratuity_settings_tb` ";
-        $result = mysql_query($query) or die($query . "<br/><br/>" . mysql_error());
-        $row = mysql_fetch_array($result, MYSQL_ASSOC);
+        $result = mysqli_query($this->link, $query) or die($query . "<br/><br/>" . mysqli_error($this->link));
+        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
         $rating = ($row['rating'] / 100);
         return $rating;
     }
@@ -607,8 +618,8 @@ class Loans
     public function getEmployeeGratuity($emp_no)
     {
         $query = "SELECT gatuity_amount FROM `emp_info` WHERE empno='$emp_no' ";
-        $result = mysql_query($query) or die($query . "<br/><br/>" . mysql_error());
-        $row = mysql_fetch_array($result, MYSQL_ASSOC);
+        $result = mysqli_query($this->link, $query) or die($query . "<br/><br/>" . mysqli_error($this->link));
+        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
         $rating = ($row['gatuity_amount'] / 100);
         return $rating;
     }
@@ -616,8 +627,8 @@ class Loans
     public function empHasGratuity($emp_no)
     {
         $query = "SELECT empno FROM `emp_info` WHERE empno='$emp_no' AND has_gratuity='Yes' AND gatuity_amount > '0' ";
-        $result = mysql_query($query) or die($query . "<br/><br/>" . mysql_error());
-        $row = mysql_fetch_array($result, MYSQL_ASSOC);
+        $result = mysqli_query($this->link, $query) or die($query . "<br/><br/>" . mysqli_error($this->link));
+        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
         $total_gratuity = ($row['empno']);
         return $total_gratuity;
     }
@@ -625,8 +636,8 @@ class Loans
     public function getEmployeeCurrentGratuity($emp_no)
     {
         $query = "SELECT total_gratuity FROM `emp_info` WHERE empno='$emp_no' AND has_gratuity='Yes' AND gatuity_amount > '0' ";
-        $result = mysql_query($query) or die($query . "<br/><br/>" . mysql_error());
-        $row = mysql_fetch_array($result, MYSQL_ASSOC);
+        $result = mysqli_query($this->link, $query) or die($query . "<br/><br/>" . mysqli_error($this->link));
+        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
         $total_gratuity = ($row['total_gratuity']);
         return intval($total_gratuity);
     }
@@ -634,18 +645,19 @@ class Loans
     public function updateEmployeeCurrentGratuity($emp_no, $new_grat)
     {
         $query = "UPDATE emp_info SET total_gratuity ='$new_grat' WHERE empno='$emp_no' ";
-        $result = mysql_query($query) or die($query . "<br/><br/>" . mysql_error());
+        $result = mysqli_query($this->link, $query) or die($query . "<br/><br/>" . mysqli_error($this->link));
         return $result;
     }
 
     public function getPensions($companyId, $empno)
     {
         $TaxObject = new Tax();
+        $PayslipsObject = new Payslips();
 
         $query = "SELECT * FROM loan where company_id =  '$companyId' AND status='Pending'";
-        $result = mysql_query($query) or die($query . "<br/><br/>" . mysql_error());
+        $result = mysqli_query($this->link, $query) or die($query . "<br/><br/>" . mysqli_error($this->link));
 
-        $row = mysql_fetch_array($result, MYSQL_ASSOC);
+        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
         $balance = $row['loan_amt'];
         $interest = $row['interest'];
         $months = $row['duration'];
@@ -664,18 +676,18 @@ class Loans
                 INNER JOIN emp_info n ON em.empno = n.empno                                                     
                 WHERE em.company_id =  '$companyId' AND em.empno = '$empno' ";
 
-        $result2 = mysql_query($query) or die(mysql_error());
+        $result2 = mysqli_query($this->link, $query) or die(mysqli_error($this->link));
 
         $sum = 0;
-        while ($row = mysql_fetch_array($result2)) {
+        while ($row = mysqli_fetch_array($result2)) {
 
-            $gross = ($row['pay']) + ($row['otrate'] * $row['othrs']) + $row['allow'] + $row['comission'];
+            $gross = $PayslipsObject->getEmployeeGrossPay($row['empno'], $row['date']);;
             $empoyeeNo = $row['empno'];
             $napsa = $gross * 0.05;
             if ($TaxObject->getEmployeeAge($row['empno']) < 55) {
                 $napsa = $gross * 0.05;
-                if ($napsa >= $TaxObject->getNapsaCeiling($compId))
-                    $napsa = $TaxObject->getNapsaCeiling($compId);
+                if ($napsa >= $TaxObject->getNapsaCeiling($companyId))
+                    $napsa = $TaxObject->getNapsaCeiling($companyId);
 
                 $napsa_calc = "";
                 if ($napsa >= 255)
@@ -732,12 +744,12 @@ class Loans
 
     public function getPensionsTotal($empno)
     {
-        $TaxObject = new Tax();
+        // $TaxObject = new Tax();
 
         $query = "SELECT SUM(pension) AS pension  FROM `employee` where empno='$empno' ";
-        $result = mysql_query($query) or die($query . "<br/><br/>" . mysql_error());
+        $result = mysqli_query($this->link, $query) or die(mysqli_error($this->link));
 
-        $row = mysql_fetch_array($result, MYSQL_ASSOC);
+        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
         $pension = $row['pension'];
 
         return $pension;
@@ -745,12 +757,12 @@ class Loans
 
     public function getEmployeePensionTotal($empno)
     {
-        $TaxObject = new Tax();
+        // $TaxObject = new Tax();
 
         $query = "SELECT SUM(employer_share) AS employer_share  FROM `employee` where empno='$empno' ";
-        $result = mysql_query($query) or die($query . "<br/><br/>" . mysql_error());
+        $result = mysqli_query($this->link, $query) or die($query . "<br/><br/>" . mysqli_error($this->link));
 
-        $row = mysql_fetch_array($result, MYSQL_ASSOC);
+        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
         $employer_share = $row['employer_share'];
 
         return $employer_share;
@@ -758,12 +770,12 @@ class Loans
 
     public function getEmployerPensionTotal($empno)
     {
-        $TaxObject = new Tax();
+        // $TaxObject = new Tax();
 
         $query = "SELECT SUM(employee_share) AS employee_share  FROM `employee` where empno='$empno' ";
-        $result = mysql_query($query) or die($query . "<br/><br/>" . mysql_error());
+        $result = mysqli_query($this->link, $query) or die($query . "<br/><br/>" . mysqli_error($this->link));
 
-        $row = mysql_fetch_array($result, MYSQL_ASSOC);
+        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
         $employee_share = $row['employee_share'];
 
         return $employee_share;
@@ -772,11 +784,12 @@ class Loans
 
     public function getEmployeePension($companyId, $empno)
     {
+        $PayslipsObject = new Payslips();
 
         $query = "SELECT * FROM loan where company_id =  '$companyId' AND status='Pending'";
-        $result = mysql_query($query) or die($query . "<br/><br/>" . mysql_error());
+        $result = mysqli_query($this->link, $query) or die($query . "<br/><br/>" . mysqli_error($this->link));
 
-        $row = mysql_fetch_array($result, MYSQL_ASSOC);
+        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
         $balance = $row['loan_amt'];
         $interest = $row['interest'];
         $months = $row['duration'];
@@ -795,12 +808,12 @@ class Loans
                 INNER JOIN emp_info n ON em.empno = n.empno                                                     
                 WHERE em.company_id =  '$companyId' AND em.empno = '$empno' ";
 
-        $result2 = mysql_query($query) or die(mysql_error());
+        $result2 = mysqli_query($this->link, $query) or die(mysqli_error($this->link));
 
         $sum = 0;
-        while ($row = mysql_fetch_array($result2)) {
+        while ($row = mysqli_fetch_array($result2)) {
 
-            $gross = ($row['pay']) + ($row['otrate'] * $row['othrs']) + $row['allow'] + $row['comission'];
+            $gross = $PayslipsObject->getEmployeeGrossPay($row['empno'], $row['date']);
             $empoyeeNo = $row['empno'];
             $napsa = $gross * 0.05;
             if ($napsa >= 843)
@@ -857,9 +870,9 @@ class Loans
     public function getTotalpension($companyId, $empno)
     {
         $query = "SELECT * FROM loan where company_id =  '$companyId' AND status='Pending'";
-        $result = mysql_query($query) or die($query . "<br/><br/>" . mysql_error());
+        $result = mysqli_query($this->link, $query) or die($query . "<br/><br/>" . mysqli_error($this->link));
 
-        $row = mysql_fetch_array($result, MYSQL_ASSOC);
+        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
         $balance = $row['loan_amt'];
         $interest = $row['interest'];
         $months = $row['duration'];
@@ -878,10 +891,10 @@ class Loans
                 INNER JOIN emp_info n ON em.empno = n.empno                                                     
                 WHERE em.company_id =  '$companyId' AND em.empno = '$empno' ";
 
-        $result2 = mysql_query($query) or die(mysql_error());
+        $result2 = mysqli_query($this->link, $query) or die(mysqli_error($this->link));
 
         $sum = 0;
-        while ($row = mysql_fetch_array($result2)) {
+        while ($row = mysqli_fetch_array($result2)) {
 
             $gross = ($row['pay']) + ($row['otrate'] * $row['othrs']) + $row['allow'] + $row['comission'];
             $empoyeeNo = $row['empno'];
@@ -957,9 +970,9 @@ class Loans
         $day2 = $Getday2;
 
         $query = "SELECT * FROM loan where company_id =  '$companyId' AND status='Pending'";
-        $result = mysql_query($query) or die($query . "<br/><br/>" . mysql_error());
+        $result = mysqli_query($this->link, $query) or die($query . "<br/><br/>" . mysqli_error($this->link));
 
-        $row = mysql_fetch_array($result, MYSQL_ASSOC);
+        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
         $balance = $row['loan_amt'];
         $interest = $row['interest'];
         $months = $row['duration'];
@@ -978,10 +991,10 @@ class Loans
                 INNER JOIN emp_info n ON em.empno = n.empno                                                     
                 WHERE em.company_id =  '$companyId' and em.time BETWEEN '$year-$month-$day'  AND  '$year2-$month2-$day2' AND em.empno = '$empno' ";
 
-        $result2 = mysql_query($query) or die(mysql_error());
+        $result2 = mysqli_query($this->link, $query) or die(mysqli_error($this->link));
 
         $sum = 0;
-        while ($row = mysql_fetch_array($result2)) {
+        while ($row = mysqli_fetch_array($result2)) {
 
             $gross = ($row['pay']) + ($row['otrate'] * $row['othrs']) + $row['allow'] + $row['comission'];
             $empoyeeNo = $row['empno'];
@@ -1041,19 +1054,19 @@ class Loans
 
     public function getEmpDetails($empno)
     {
-        $result = mysql_query("SELECT * FROM emp_info WHERE empno='$empno' ");
+        $result = mysqli_query($this->link, "SELECT * FROM emp_info WHERE empno='$empno' ");
         return $result;
     }
 
     public function getEmpDetailsByID($emp_id)
     {
-        $result = mysql_query("SELECT * FROM emp_info WHERE id='$emp_id' ");
+        $result = mysqli_query($this->link, "SELECT * FROM emp_info WHERE id='$emp_id' ");
         return $result;
     }
 
     public function addLoan($empno, $loan_amount, $monthly_deduction, $duration, $companyId, $principle, $interest_rate, $intrest, $LoanDate, $deadLine, $status, $loan_type)
     {
-        $result = mysql_query("INSERT INTO loan(empno,loan_amt,"
+        $result = mysqli_query($this->link, "INSERT INTO loan(empno,loan_amt,"
             . " monthly_deduct,duration,company_ID,principle"
             . ",interest_rate,interest,loan_date,date_completion,status, loan_type"
             . ") VALUES('$empno','$loan_amount','$monthly_deduction'"
@@ -1064,7 +1077,7 @@ class Loans
 
     public function editLoan($id, $loan_amount, $monthly_deduction, $duration, $principle, $intrest_rate, $interest)
     {
-        $result = mysql_query("UPDATE loan SET loan_amt ='$loan_amount',monthly_deduct='$monthly_deduction',"
+        $result = mysqli_query($this->link, "UPDATE loan SET loan_amt ='$loan_amount',monthly_deduct='$monthly_deduction',"
             . "duration='$duration',principle='$principle',interest_rate='$intrest_rate',interest='$interest' "
             . "  WHERE LOAN_NO= '$id'");
         return $result;
@@ -1072,14 +1085,14 @@ class Loans
 
     public function getEmployeeToEdit($id)
     {
-        $result = mysql_query("SELECT * FROM loan WHERE  LOAN_NO='$id' ");
+        $result = mysqli_query($this->link, "SELECT * FROM loan WHERE  LOAN_NO='$id' ");
         return $result;
     }
 
     public function getEmployeeDet($id)
     {
-        $result = mysql_query("SELECT * FROM emp_info WHERE empno= ( SELECT empno FROM loan WHERE LOAN_NO = '$id') ");
-        $rows = mysql_fetch_array($result);
+        $result = mysqli_query($this->link, "SELECT * FROM emp_info WHERE empno= ( SELECT empno FROM loan WHERE LOAN_NO = '$id') ");
+        $rows = mysqli_fetch_array($result);
         $fname = $rows['fname'];
         $lname = $rows['lname'];
         $empDetals = $fname . " " . $lname;
@@ -1089,8 +1102,8 @@ class Loans
     public function checkIfEmpHasLoan($empno)
     {
         $count = 0;
-        $result = mysql_query("SELECT * FROM loan WHERE  empno = '$empno' ");
-        $noRows = mysql_num_rows($result);
+        $result = mysqli_query($this->link, "SELECT * FROM loan WHERE  empno = '$empno' ");
+        $noRows = mysqli_num_rows($result);
         if ($noRows == 0) {
             $count = 0;
         } else {
@@ -1105,21 +1118,21 @@ class Loans
 
     public function getEmpLoanStatus($empno)
     {
-        $result = mysql_query("SELECT * FROM loan WHERE  empno = '$empno'");
-        $rows = mysql_fetch_array($result);
+        $result = mysqli_query($this->link, "SELECT * FROM loan WHERE  empno = '$empno'");
+        $rows = mysqli_fetch_array($result);
         $status = $rows['status'];
         return $status;
     }
 
     public function updateLoanInfo($empno)
     {
-        $result = mysql_query("SELECT * FROM loan WHERE  empno = '$empno'");
-        $rows = mysql_fetch_array($result);
+        $result = mysqli_query($this->link, "SELECT * FROM loan WHERE  empno = '$empno'");
+        $rows = mysqli_fetch_array($result);
         $duration = $rows['duration'];
         if ($duration == 1) {
-            $result2 = mysql_query("UPDATE loan  SET duration  = duration - 1, status='Cleared' WHERE empno ='$empno'");
+            $result2 = mysqli_query($this->link, "UPDATE loan  SET duration  = duration - 1, status='Cleared' WHERE empno ='$empno'");
         } else {
-            $result2 = mysql_query("UPDATE loan  SET duration  = duration - 1 WHERE empno ='$empno'");
+            $result2 = mysqli_query($this->link, "UPDATE loan  SET duration  = duration - 1 WHERE empno ='$empno'");
         }
         return $result2;
     }

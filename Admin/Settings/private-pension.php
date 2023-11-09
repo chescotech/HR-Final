@@ -30,12 +30,12 @@
 <body class="hold-transition skin-green-light sidebar-mini">
     <div class="wrapper">
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Department.php';
         include_once '../Classes/Tax.php';
         $DepartmentObject = new Department();
         $TaxObject = new Tax();
 
-        include '../navigation_panel/authenticated_user_header.php';
         ?>
 
         <?php include '../navigation_panel/side_navigation_bar.php'; ?>
@@ -60,7 +60,7 @@
         <?php
         }
 
-        $rows = mysql_fetch_array($TaxObject->getPensions());
+        $rows = mysqli_fetch_array($TaxObject->getPensions());
         ?>
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->

@@ -65,7 +65,7 @@
 
                                             <?php
                                             $PaySlips = $PayslipObject->getPaySlipRecord($EmployeeId, $companyId);
-                                            while ($row = mysql_fetch_array($PaySlips)) {
+                                            while ($row = mysqli_fetch_array($PaySlips)) {
                                                 $id = $row['id'];
                                                 $employeeId = $row['empno'];
                                                 $datePeriod = $row['time'];

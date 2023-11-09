@@ -70,7 +70,7 @@ include '../../include/dbconnection.php';
                         <?php
                         $id = $_GET['id'];
                         $EditQuery = $DepartmentObject->EditApprovers($id);
-                        while ($rows = mysql_fetch_array($EditQuery)) {
+                        while ($rows = mysqli_fetch_array($EditQuery)) {
                         ?>
 
                             <form enctype="multipart/form-data" method="post">

@@ -41,9 +41,9 @@
             <?php
             $user_id = $_SESSION['job_user_id'];
             if (isset($_POST['add_'])) {
-                $name = mysql_real_escape_string($_POST['name']);
+                $name = ($_POST['name']);
                 $file = $_FILES['file']['name'];
-                $type = mysql_real_escape_string($_POST['type']);
+                $type = ($_POST['type']);
                 // upload cover letter
                 $target_dir = "../attachments/";
                 $target_file = $target_dir . basename($file);
@@ -55,8 +55,8 @@
                 }
 
 
-                $add_q = mysql_query("INSERT INTO jobs_user_attachments (name, file, type, user_id)
-                                    VALUES('$name','$file','$type','$user_id')") or die("Error: " . mysql_error());
+                $add_q = mysqli_query($link, "INSERT INTO jobs_user_attachments (name, file, type, user_id)
+                                    VALUES('$name','$file','$type','$user_id')") or die("Error: " . mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Added Successfuly') </script>";
@@ -66,7 +66,7 @@
             if (isset($_POST['delete'])) {
                 $id = $_POST['id'];
 
-                $add_q = mysql_query("DELETE FROM jobs_user_attachments WHERE id = '$id' ") or die(mysql_error());
+                $add_q = mysqli_query($link, "DELETE FROM jobs_user_attachments WHERE id = '$id' ") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Deleted Successfuly') </script>";
@@ -138,8 +138,8 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $query = mysql_query("SELECT * FROM jobs_user_attachments WHERE user_id = '$user_id' ") or die(mysql_error());
-                                        while ($row = mysql_fetch_array($query)) {
+                                        $query = mysqli_query($link, "SELECT * FROM jobs_user_attachments WHERE user_id = '$user_id' ") or die(mysqli_error($link));
+                                        while ($row = mysqli_fetch_array($query)) {
                                         ?>
                                             <tr>
                                                 <td><?php echo $row['type']; ?></td>

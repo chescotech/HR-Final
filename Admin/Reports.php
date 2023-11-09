@@ -5,33 +5,33 @@
 $currentDate = date("Y-m-d");
 
 
-$query3 = mysql_query("SELECT gender, COUNT(*) AS count, COUNT(*) * 100 / (SELECT COUNT(*) FROM emp_info) AS percentage FROM emp_info WHERE gender IN ('male', 'female') GROUP BY gender;") or die(mysql_error());
-$query4 = mysql_query(" SELECT DISTINCT dept FROM emp_info WHERE company_id ='$companyId' ");
+$query3 = mysqli_query($link, "SELECT gender, COUNT(*) AS count, COUNT(*) * 100 / (SELECT COUNT(*) FROM emp_info) AS percentage FROM emp_info WHERE gender IN ('male', 'female') GROUP BY gender;") or die(mysqli_error($link));
+$query4 = mysqli_query($link, " SELECT DISTINCT dept FROM emp_info WHERE company_id ='$companyId' ");
 $sum = 0;
 $department = array();
-while ($row4 = mysql_fetch_array($query4)) {
+while ($row4 = mysqli_fetch_array($query4)) {
     $departmentId = $row4['dept'];
     $departmentName = $LoanObject->getDepartmentById($departmentId);
     $empCount = $LoanObject->getEmployeeCountByDepartment($departmentId);
     $sum += $empCount;
     $department[] = array('count' => $empCount, 'departmentNames' => $departmentName, 'sum' => $sum);
 }
-$query5 = mysql_query("SELECT empno, bdate, TIMESTAMPDIFF(YEAR, bdate, CURDATE()) AS age FROM emp_info;") or die(mysql_error());
-$query6 = mysql_query("SELECT gross_pay FROM emp_info") or die(mysql_error());
-$query7 = mysql_query("SELECT DATE(login_time) AS login_date, COUNT(*) AS late_login_count FROM attendance_logs WHERE DATE(login_time) >= CURDATE() - INTERVAL 5 DAY AND TIME(login_time) > '08:00:00' GROUP BY DATE(login_time) ORDER BY login_date;") or die(mysql_error());
-$query8 = mysql_query("SELECT YEAR(STR_TO_DATE(date_of_exit, '%m/%d/%Y')) AS exit_year, COUNT(*) AS employee_count FROM employee_exits_tb WHERE STR_TO_DATE(date_of_exit, '%m/%d/%Y') >= DATE_SUB(CURDATE(), INTERVAL 20 YEAR) GROUP BY exit_year ORDER BY exit_year;") or die(mysql_error());
-$earlyQuery = mysql_query("SELECT SUM(CASE WHEN TIME(login_time) <= '08:00:00' THEN 1 ELSE 0 END) AS total_early_login_count FROM attendance_logs") or die(mysql_error());
-$lateQuery = mysql_query("SELECT SUM(CASE WHEN TIME(login_time) > '08:00:00' THEN 1 ELSE 0 END) AS total_late_login_count FROM attendance_logs") or die(mysql_error());
+$query5 = mysqli_query($link, "SELECT empno, bdate, TIMESTAMPDIFF(YEAR, bdate, CURDATE()) AS age FROM emp_info;") or die(mysqli_error($link));
+$query6 = mysqli_query($link, "SELECT gross_pay FROM emp_info") or die(mysqli_error($link));
+$query7 = mysqli_query($link, "SELECT DATE(login_time) AS login_date, COUNT(*) AS late_login_count FROM attendance_logs WHERE DATE(login_time) >= CURDATE() - INTERVAL 5 DAY AND TIME(login_time) > '08:00:00' GROUP BY DATE(login_time) ORDER BY login_date;") or die(mysqli_error($link));
+$query8 = mysqli_query($link, "SELECT YEAR(STR_TO_DATE(date_of_exit, '%m/%d/%Y')) AS exit_year, COUNT(*) AS employee_count FROM employee_exits_tb WHERE STR_TO_DATE(date_of_exit, '%m/%d/%Y') >= DATE_SUB(CURDATE(), INTERVAL 20 YEAR) GROUP BY exit_year ORDER BY exit_year;") or die(mysqli_error($link));
+$earlyQuery = mysqli_query($link, "SELECT SUM(CASE WHEN TIME(login_time) <= '08:00:00' THEN 1 ELSE 0 END) AS total_early_login_count FROM attendance_logs") or die(mysqli_error($link));
+$lateQuery = mysqli_query($link, "SELECT SUM(CASE WHEN TIME(login_time) > '08:00:00' THEN 1 ELSE 0 END) AS total_late_login_count FROM attendance_logs") or die(mysqli_error($link));
 
 
 
-if (mysql_num_rows($query3) > 0) {
+if (mysqli_num_rows($query3) > 0) {
     $gender = array();
     $totalGenderCount = 0;
     $totalFemalePercentage = 0;
     $totalMalePercentage = 0;
 
-    while ($row3 = mysql_fetch_array($query3)) {
+    while ($row3 = mysqli_fetch_array($query3)) {
         $gender_count = $row3['count'];
         $gender_percentage = $row3['percentage'];
         $gender_type = $row3['gender']; // Assuming you have a gender_type column in your query result
@@ -54,7 +54,7 @@ $totalFemalePercentageFormatted = number_format($totalFemalePercentage, 2) . '%'
 $totalMalePercentageFormatted = number_format($totalMalePercentage, 2) . '%';
 
 
-if (mysql_num_rows($query5) > 0) {
+if (mysqli_num_rows($query5) > 0) {
     $ageGroups = array(
         '18-25' => 0,
         '26-35' => 0,
@@ -62,7 +62,7 @@ if (mysql_num_rows($query5) > 0) {
         '46+' => 0
     );
 
-    while ($row5 = mysql_fetch_array($query5)) {
+    while ($row5 = mysqli_fetch_array($query5)) {
         $age = $row5['age'];
 
         // Determine the age group and update the count
@@ -79,7 +79,7 @@ if (mysql_num_rows($query5) > 0) {
 }
 
 
-if (mysql_num_rows($query6) > 0) {
+if (mysqli_num_rows($query6) > 0) {
     $grossPayGroups = array(
         '1 - 2000' => 0,
         '2001 - 4800' => 0,
@@ -92,7 +92,7 @@ if (mysql_num_rows($query6) > 0) {
         '60000+' => 0
     );
 
-    while ($row6 = mysql_fetch_array($query6)) {
+    while ($row6 = mysqli_fetch_array($query6)) {
         $grossPay = $row6['gross_pay'];
 
         if ($grossPay <= 2000) {
@@ -119,22 +119,22 @@ if (mysql_num_rows($query6) > 0) {
 
 
 
-$rowEarly = mysql_fetch_array($earlyQuery);
-$rowLate = mysql_fetch_array($lateQuery);
+$rowEarly = mysqli_fetch_array($earlyQuery);
+$rowLate = mysqli_fetch_array($lateQuery);
 
 $totalEarlyArrivals = $rowEarly['total_early_login_count'];
 $totalLateArrivals = $rowLate['total_late_login_count'];
 
-mysql_free_result($earlyQuery);
-mysql_free_result($lateQuery);
+mysqli_free_result($earlyQuery);
+mysqli_free_result($lateQuery);
 
 
 
-if (mysql_num_rows($query8) > 0) {
+if (mysqli_num_rows($query8) > 0) {
     $years = array();
     $counts = array();
 
-    while ($row8 = mysql_fetch_array($query8)) {
+    while ($row8 = mysqli_fetch_array($query8)) {
         $years[] = $row8['exit_year']; // Assuming you have a column name 'exit_year' in the query result
         $counts[] = $row8['employee_count']; // Assuming you have a column name 'employee_count' in the query result
     }

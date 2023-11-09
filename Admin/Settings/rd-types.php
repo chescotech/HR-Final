@@ -56,7 +56,7 @@ error_reporting(0);
 
             $id = $_POST['id'];
 
-            $add_q = mysql_query("UPDATE recurring_deduction_types SET name = '$type_name',short_name='$short_name' WHERE id = '$id' ") or die(mysql_error());
+            $add_q = mysqli_query($link, "UPDATE recurring_deduction_types SET name = '$type_name',short_name='$short_name' WHERE id = '$id' ") or die(mysqli_error($link));
 
             if ($add_q) {
                 echo "<script> alert('Updated Successfuly') </script>";
@@ -104,7 +104,7 @@ error_reporting(0);
                                             <tbody>
                                                 <?php
                                                 $query = $RecurringDeductionsObject->getRecurringDeductionTypes($compId);
-                                                while ($row = mysql_fetch_array($query)) {
+                                                while ($row = mysqli_fetch_array($query)) {
 
                                                     $id = $row['id'];
                                                     $name = $row['name'];

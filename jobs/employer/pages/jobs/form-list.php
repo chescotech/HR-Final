@@ -32,8 +32,8 @@
                 <tbody>
                     <?php
                     $reg_num = $_SESSION['company_ID'];
-                    $user_q = mysql_query("SELECT * FROM jobs_postings, department WHERE jobs_postings.dep_id = department.dep_id") or die(mysql_error());
-                    while ($row = mysql_fetch_array($user_q)) {
+                    $user_q = mysqli_query($link, "SELECT * FROM jobs_postings, department WHERE jobs_postings.dep_id = department.dep_id") or die(mysqli_error($link));
+                    while ($row = mysqli_fetch_array($user_q)) {
                         $id = $row['id'];
                         $title = $row['title'];
                         $department = $row['department'];

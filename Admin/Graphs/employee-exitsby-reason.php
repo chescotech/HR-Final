@@ -99,9 +99,9 @@ error_reporting(0);
                                         <?php
                                         if (isset($_POST['search'])) {
                                             $searchMonth = $_POST['search_month'];
-                                            $query = mysql_query("SELECT * FROM employee_exits_tb WHERE date_of_exit = '$searchMonth' AND empno IN ( SELECT empno FROM emp_info WHERE company_id = '$companyId' )");
+                                            $query = mysqli_query($link, "SELECT * FROM employee_exits_tb WHERE date_of_exit = '$searchMonth' AND empno IN ( SELECT empno FROM emp_info WHERE company_id = '$companyId' )");
                                             $sum = 0;
-                                            while ($row = mysql_fetch_array($query)) {
+                                            while ($row = mysqli_fetch_array($query)) {
                                                 $reason_for_exit = $row["reason_for_exit"];
                                                 $dateOfExit = $row['date_of_exit'];
                                                 $datePrinted = strtoTime($dateOfExit);
@@ -109,7 +109,7 @@ error_reporting(0);
 
                                                 $empNO = $row['empno'];
                                                 $employeQuery = $LoanObject->getEmpDetails($empNO);
-                                                $rows = mysql_fetch_array($employeQuery);
+                                                $rows = mysqli_fetch_array($employeQuery);
                                                 $fname = $rows['fname'];
                                                 $lname = $rows['lname'];
                                                 $department = $rows['dept'];
@@ -152,9 +152,9 @@ error_reporting(0);
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $query = mysql_query("SELECT reason_for_exit, COUNT(*) AS 'count' FROM employee_exits_tb WHERE empno IN ( SELECT empno FROM emp_info WHERE company_id = '$companyId' ) GROUP BY reason_for_exit");
+                                        $query = mysqli_query($link, "SELECT reason_for_exit, COUNT(*) AS 'count' FROM employee_exits_tb WHERE empno IN ( SELECT empno FROM emp_info WHERE company_id = '$companyId' ) GROUP BY reason_for_exit");
                                         $sum = 0;
-                                        while ($row = mysql_fetch_array($query)) {
+                                        while ($row = mysqli_fetch_array($query)) {
                                             $reason_for_exit = $row["reason_for_exit"];
                                             $count = $row["count"];
                                             $sum += $count;

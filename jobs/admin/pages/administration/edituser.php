@@ -16,8 +16,8 @@
 if (isset($_GET['id'])) {
     $from_user_id = $_GET['id'];
 
-    $user_q = mysql_query("SELECT * FROM jobs_users WHERE id=$from_user_id ") or die(mysql_error());
-    while ($row = mysql_fetch_array($user_q)) {
+    $user_q = mysqli_query($link, "SELECT * FROM jobs_users WHERE id=$from_user_id ") or die(mysqli_error($link));
+    while ($row = mysqli_fetch_array($user_q)) {
         $fname = $row['fname'];
         $lname = $row['lname'];
         $username = $row['username'];
@@ -34,14 +34,14 @@ if (isset($_GET['id'])) {
 
 if (isset($_POST['register'])) {
 
-    $fname = mysql_real_escape_string($_POST['fname']);
-    $lname = mysql_real_escape_string($_POST['lname']);
-    $username = mysql_real_escape_string($_POST['username']);
-    $email = mysql_real_escape_string($_POST['email']);
-    $dob = mysql_real_escape_string($_POST['dob']);
-    $gender = mysql_real_escape_string($_POST['gender']);
-    $user_type = mysql_real_escape_string($_POST['user_type']);
-    $phone = mysql_real_escape_string($_POST['phone']);
+    $fname = ($_POST['fname']);
+    $lname = ($_POST['lname']);
+    $username = ($_POST['username']);
+    $email = ($_POST['email']);
+    $dob = ($_POST['dob']);
+    $gender = ($_POST['gender']);
+    $user_type = ($_POST['user_type']);
+    $phone = ($_POST['phone']);
     $pass1 = $_POST['pass1'];
     $pass2 = $_POST['pass2'];
     // check if pass matches
@@ -53,12 +53,12 @@ if (isset($_POST['register'])) {
         return;
     }
 
-    mysql_query("UPDATE jobs_users SET fname='$fname', lname='$lname', username='$username', email='$email',
-     phone='$phone', dob='$dob', gender='$gender', password='$password' WHERE id='$from_user_id'") or die("Error Inserting: " . mysql_error());
+    mysqli_query($link, "UPDATE jobs_users SET fname='$fname', lname='$lname', username='$username', email='$email',
+     phone='$phone', dob='$dob', gender='$gender', password='$password' WHERE id='$from_user_id'") or die("Error Inserting: " . mysqli_error($link));
 
-    // mysql_query("UPDATE jobs_users (fname,lname,username,email,phone,dob,gender,user_type,password)
+    // mysqli_query($link,"UPDATE jobs_users (fname,lname,username,email,phone,dob,gender,user_type,password)
     //             VALUES ('$fname','$lname', '$username', '$email','$phone','$dob','$gender', '$user_type', '$password')
-    //             ") or die("Error Inserting: " . mysql_error());
+    //             ") or die("Error Inserting: " . mysqli_error($link));
     echo "<script> window.location='users' </script>";
 }
 
@@ -107,7 +107,7 @@ if (isset($_POST['register'])) {
                         <option value="Female">Female</option>
                     </select>
                 </div>
-              
+
                 <div class="col-6">
                     <label class="">Password</label>
                     <input name="pass1" type="password" required="required" class="form-control">

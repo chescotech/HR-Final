@@ -70,9 +70,9 @@ error_reporting(0);
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $query = mysql_query(" SELECT DISTINCT dept FROM emp_info WHERE company_id ='$companyId' ");
+                                        $query = mysqli_query($link, " SELECT DISTINCT dept FROM emp_info WHERE company_id ='$companyId' ");
                                         $sum = 0;
-                                        while ($row = mysql_fetch_array($query)) {
+                                        while ($row = mysqli_fetch_array($query)) {
                                             $departmentId = $row['dept'];
                                             $departmentName = $LoanObject->getDepartmentById($departmentId);
                                             $empCount = $LoanObject->getEmployeeCountByDepartment($departmentId);

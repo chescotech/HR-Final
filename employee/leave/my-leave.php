@@ -27,10 +27,10 @@
     <div class="wrapper">
 
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Leave.php';
         $leaveObject = new Leave();
 
-        include '../navigation_panel/authenticated_user_header.php';
         $empno = $_SESSION['employee_id'];
         ?>
 
@@ -70,12 +70,12 @@
                                         <tr>
                                             <?php
                                             $MyLeave = $leaveObject->veiwLeave($empno);
-                                            if (mysql_num_rows($MyLeave) == 0) {
+                                            if (mysqli_num_rows($MyLeave) == 0) {
                                                 echo '<tr>
                                                     <td style="vertical-align:middle" align="left">No records have been found for your leave</td>
                                                     </tr>';
                                             }
-                                            while ($row = mysql_fetch_array($MyLeave)) {
+                                            while ($row = mysqli_fetch_array($MyLeave)) {
                                                 $id_ = $row['application_id'];
                                                 $Status = $row['status'];
                                                 if ($Status == "Approved") {

@@ -5,7 +5,7 @@ include 'include/dbconnection.php';
 $SQL = "SELECT  * from emp_info";
 $header = '';
 $result ='';
-$exportData = mysql_query ($SQL ) or die ( "Sql error : " . mysql_error( ) );
+$exportData = mysql_query ($SQL ) or die ( "Sql error : " . mysqli_error($link)( ) );
  
 $fields = mysql_num_fields ( $exportData );
  
@@ -44,5 +44,3 @@ header("Content-Disposition: attachment; filename=export.xls");
 header("Pragma: no-cache");
 header("Expires: 0");
 print "$header\n$result";
- 
-?>

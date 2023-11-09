@@ -62,11 +62,10 @@
         font-size: 1px;
     }
 
-    .b1{ 
-        
-    }
-    .tbox{
-              margin-top: -17% !important;
+    .b1 {}
+
+    .tbox {
+        margin-top: -17% !important;
     }
 </style>
 
@@ -110,8 +109,8 @@
                 $id = $_GET['id'];
                 $empno = $_GET['empno'];
                 $PayslipQuery = "SELECT * FROM employee WHERE id = '$id' AND empno ='$empno' ";
-                $result = mysql_query($PayslipQuery, $link) or die(mysql_error());
-                while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+                $result = mysqli_query($link, $PayslipQuery, $link) or die(mysqli_error($link));
+                while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
                 }
 
                 $msg = "";
@@ -138,7 +137,7 @@
                         $msg = "Record updated!";
                     }
                     include 'include/dbconnection.php';
-                    $result = mysql_query($query, $link) or die("invalid query" . mysql_error());
+                    $result = mysqli_query($link, $query, $link) or die("invalid query" . mysqli_error($link));
                 }
 
                 $insert = 1;
@@ -153,17 +152,17 @@
                 $insert = 0;
                 $empno = $_GET['empno'];
                 $query = "SELECT * FROM emp_info WHERE empno= '$empno'";
-                $result = mysql_query($query, $link) or die(mysql_error());
-                if (!mysql_num_rows($result)) {
+                $result = mysqli_query($link, $query, $link) or die(mysqli_error($link));
+                if (!mysqli_num_rows($result)) {
                     $empno = 0;
                     $msg = "No record found!";
                 } else {
-                    $row = mysql_fetch_array($result, MYSQL_ASSOC);
+                    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
                     //$id = $row['id'];
                     $empno = $row['empno'];
                     $dpId = $row['dept'];
-                    $checkDepartmentQuery = mysql_query("SELECT * FROM department WHERE dep_id='$dpId' ");
-                    $departmentName = mysql_fetch_array($checkDepartmentQuery);
+                    $checkDepartmentQuery = mysqli_query($link, "SELECT * FROM department WHERE dep_id='$dpId' ");
+                    $departmentName = mysqli_fetch_array($checkDepartmentQuery);
                     $dept = $departmentName['department'];
                     $lname = $row['lname'];
                     $fname = $row['fname'];
@@ -175,8 +174,8 @@
                 $position = $row['position'];
 
                 $query8 = "SELECT * FROM loan where empno = '$empno' ";
-                $result = mysql_query($query8) or die($query . "<br/><br/>" . mysql_error());
-                $row = mysql_fetch_array($result, MYSQL_ASSOC);
+                $result = mysqli_query($link, $query8) or die($query . "<br/><br/>" . mysqli_error($link));
+                $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
                 $balance = $row['loan_amt'];
                 $interest = $row['interest'];
                 $months = $row['duration'];
@@ -184,17 +183,17 @@
 
                 $query = "SELECT * FROM tax where empno = '$empno' ";
 
-                $result = mysql_query($query) or die($query . "<br/><br/>" . mysql_error());
+                $result = mysqli_query($link, $query) or die($query . "<br/><br/>" . mysqli_error($link));
 
-                $row = mysql_fetch_array($result, MYSQL_ASSOC);
+                $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
                 $taxable_todate = $row['taxable_to_date'];
                 $paid_todate = $row['tax_paid_to_date'];
                 $social = $row['social'];
 
                 $query2 = "SELECT * FROM leave_days where empno = '$empno'";
-                $result = mysql_query($query2) or die($query . "<br/><br/>" . mysql_error());
-                $row = mysql_fetch_array($result, MYSQL_ASSOC);
-                if (mysql_num_rows($result) <= 0) {
+                $result = mysqli_query($link, $query2) or die($query . "<br/><br/>" . mysqli_error($link));
+                $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+                if (mysqli_num_rows($result) <= 0) {
                     $leave_days = "No leave Days available";
                 } else {
                     $leave_days = $row['available'];
@@ -224,21 +223,21 @@
                             <td class="box" width="">Payment Method:</td>
                             <td>: <?php echo $paymentsMethod; ?></td>
                         </tr>
-                        <tr>                             
+                        <tr>
                             <td class="box" width="">Date Issued:</td>
-                           
+
                         </tr>
                         <td>:
-                                <?php
-                                $query = mysql_query("SELECT * FROM employee WHERE empno='$empno'");
-                                $row = mysql_fetch_array($query);
-                                $dateIssued = $row['time'];
-                                $dayswork_ = $row['dayswork'];
-                                $mydate = strtoTime($dateIssued);
-                                $printdate = date('F d, Y', $mydate);
-                                echo $printdate;
-                                ?>
-                            </td>
+                            <?php
+                            $query = mysqli_query($link, "SELECT * FROM employee WHERE empno='$empno'");
+                            $row = mysqli_fetch_array($query);
+                            $dateIssued = $row['time'];
+                            $dayswork_ = $row['dayswork'];
+                            $mydate = strtoTime($dateIssued);
+                            $printdate = date('F d, Y', $mydate);
+                            echo $printdate;
+                            ?>
+                        </td>
                     </table>
                     <input type="hidden" name="insert" value="<?php echo $insert; ?>" />
             </div>
@@ -293,18 +292,18 @@
                         $id = $_GET['id'];
                         $query = "SELECT * FROM emp_info WHERE id=$id";
 
-                        $result = mysql_query($query, $link) or die(mysql_error());
-                        if (!mysql_num_rows($result)) {
+                        $result = mysqli_query($link, $query, $link) or die(mysqli_error($link));
+                        if (!mysqli_num_rows($result)) {
                             $id = 0;
                             $msg = "No record found!";
                         } else {
-                            $row = mysql_fetch_array($result, MYSQL_ASSOC);
+                            $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
                             $empno = $row['empno'];
 
                             // get the total NHIMA paid to date..
                             $query_ = "SELECT SUM(health_insurance) AS totalNhima FROM `employee` where  empno='$empno' ";
-                            $result_ = mysql_query($query_, $link) or die(mysql_error());
-                            $row_ = mysql_fetch_array($result_, MYSQL_ASSOC);
+                            $result_ = mysqli_query($link, $query_, $link) or die(mysqli_error($link));
+                            $row_ = mysqli_fetch_array($result_, MYSQLI_ASSOC);
                             $totalNhima = $row_['totalNhima'];
 
                             // $dayswork = 16;
@@ -328,17 +327,17 @@
                         $id = $_GET['id'];
                         $query16 = "SELECT * FROM employee WHERE empno='$empno'";
 
-                        $result16 = mysql_query($query16, $link) or die(mysql_error());
-                        if (!mysql_num_rows($result16)) {
+                        $result16 = mysqli_query($link, $query16, $link) or die(mysqli_error($link));
+                        if (!mysqli_num_rows($result16)) {
                             $id = 0;
                             $msg = "No record found!";
                         } else {
-                            $row16 = mysql_fetch_array($result, MYSQL_ASSOC);
+                            $row16 = mysqli_fetch_array($result, MYSQLI_ASSOC);
                             $empno = $row16['empno'];
                             // get the total NHIMA paid to date..
                             $query_16 = "SELECT SUM(health_insurance) AS totalNhima FROM `employee` where  empno='$empno' ";
-                            $result_16 = mysql_query($query_16, $link) or die(mysql_error());
-                            $row_16 = mysql_fetch_array($result_16, MYSQL_ASSOC);
+                            $result_16 = mysqli_query($link, $query_16, $link) or die(mysqli_error($link));
+                            $row_16 = mysqli_fetch_array($result_16, MYSQLI_ASSOC);
                             $totalNhima = $row_16['totalNhima'];
                             $dayswork = $row16['dayswork'];
                             $otrate = $row16['otrate'];
@@ -352,13 +351,13 @@
                             $allow = $row16['allow'];
                             $pay = $row16['pay'];
                             $overtime = $otrate * $othrs;
-                            $pay =0;
+                            $pay = 0;
                             $pay = $pay + $allow + $overtime + $comission;
                         }
                     }
-                             
 
-    
+
+
 
                     ?>
                     <form method="post" action="entry.php" onSubmit="return proceed()">
@@ -396,8 +395,8 @@
                                 }
 
                                 echo '<center>';
-                                $result = mysql_query($query, $link) or die("invalid query" . mysql_error());
-                                $result2 = mysql_query($query2, $link) or die("invalid query" . mysql_error());
+                                $result = mysqli_query($link, $query, $link) or die("invalid query" . mysqli_error($link));
+                                $result2 = mysqli_query($link, $query2, $link) or die("invalid query" . mysqli_error($link));
                                 echo '</center>';
                             }
                             ?>
@@ -421,10 +420,10 @@
                             }
 
                             $query = "SELECT * FROM employee_earnings WHERE employee_id = $id";
-                            $result = mysql_query($query);
+                            $result = mysqli_query($link, $query);
 
-                            if (mysql_num_rows($result) > 0) {
-                                $row = mysql_fetch_assoc($result);
+                            if (mysqli_num_rows($result) > 0) {
+                                $row = mysqli_fetch_assoc($result);
                                 $columns = array();
 
                                 $basicPay = $row['basic_pay'];
@@ -446,13 +445,13 @@
 
 
                             $query14 = "SELECT * FROM employee_earnings WHERE employee_id = $id";
-                            $result14 = mysql_query($query14);
+                            $result14 = mysqli_query($link, $query14);
                             $EdeductTotal = 0;
 
-                            if (mysql_num_rows($result14) > 0) {
+                            if (mysqli_num_rows($result14) > 0) {
                                 $EdeductTotal = 0;  // Initialize the total deductions
 
-                                while ($row14 = mysql_fetch_assoc($result14)) {
+                                while ($row14 = mysqli_fetch_assoc($result14)) {
                                     $ErowTotal = 0;  // Initialize the total for the current row                                    
                                     $Ecolumns = array_values($row14);  // Get the values of the columns                                    
                                     for ($i = 3; $i < count($Ecolumns); $i++) {
@@ -481,10 +480,10 @@
 
 
                             $query11 = "SELECT * FROM employee_deductions WHERE employee_id = $id";
-                            $result11 = mysql_query($query11);
+                            $result11 = mysqli_query($link, $query11);
 
-                            if (mysql_num_rows($result11) > 0) {
-                                $row11 = mysql_fetch_assoc($result11);
+                            if (mysqli_num_rows($result11) > 0) {
+                                $row11 = mysqli_fetch_assoc($result11);
                                 $dcolumns2 = array();
 
                                 foreach ($row11 as $columnNamededuct => $value) {
@@ -498,13 +497,13 @@
                             }
 
                             $query13 = "SELECT * FROM employee_deductions WHERE employee_id = $id";
-                            $result13 = mysql_query($query13);
+                            $result13 = mysqli_query($link, $query13);
                             $deductTotal = 0;
 
-                            if (mysql_num_rows($result13) > 0) {
+                            if (mysqli_num_rows($result13) > 0) {
                                 $deductTotal = 0;  // Initialize the total deductions
 
-                                while ($row13 = mysql_fetch_assoc($result13)) {
+                                while ($row13 = mysqli_fetch_assoc($result13)) {
                                     $rowTotal = 0;  // Initialize the total for the current row                                    
                                     $dcolumns = array_values($row13);  // Get the values of the columns                                    
                                     for ($i = 3; $i < count($dcolumns); $i++) {
@@ -523,14 +522,14 @@
 
 
                             // $query15 = "SELECT * FROM payslip_uploads WHERE empno = '$empno'";
-                            // $result15 = mysql_query($query15);
+                            // $result15 = mysqli_query($link,$query15);
 
                             // if ($result15 === false) {
                             //     // There was an error in the query execution
-                            //     echo "Query error: " . mysql_error();
+                            //     echo "Query error: " . mysqli_error($link);
                             // } else {
-                            //     if (mysql_num_rows($result15) > 0) {
-                            //         while ($row15 = mysql_fetch_array($result15)) {
+                            //     if (mysqli_num_rows($result15) > 0) {
+                            //         while ($row15 = mysqli_fetch_array($result15)) {
                             //             $slip = $row15['date_period'];
                             //         }
                             //     } else {
@@ -554,10 +553,10 @@
                                         <table border="0" width="417" class="tbox">
                                             <?php
                                             $query2 = "SELECT * FROM employee_earnings WHERE employee_id =$id";
-                                            $result2 = mysql_query($query2, $link) or die(mysql_error());
+                                            $result2 = mysqli_query($link, $query2, $link) or die(mysqli_error($link));
 
                                             $rows = array();
-                                            while ($row2 = mysql_fetch_assoc($result2)) {
+                                            while ($row2 = mysqli_fetch_assoc($result2)) {
                                                 $rows[] = $row2;
                                             }
 
@@ -638,7 +637,7 @@
                                 $totdeduct = $total_tax_paid + $deductTotal + $napsa;
                                 $netpay = $gross - $totdeduct;
 
-                                $date_timestamp = strtotime($row16['time']);                                
+                                $date_timestamp = strtotime($row16['time']);
 
                                 $date_compare = date('Y-m-d', $date_timestamp);
                                 if ($LoanObject->getLoanMonthDedeductAmounts($empno, $date_compare) == "") {
@@ -657,7 +656,7 @@
                             </table>
                             </td>
                             <td width="">
-                                <table border="0" width="417" cellspacing="0"> 
+                                <table border="0" width="417" cellspacing="0">
 
                                     <tr>
                                         <td class="box">PAYE</td>
@@ -672,10 +671,10 @@
 
                                     <?php
                                     $query12 = "SELECT * FROM employee_deductions WHERE employee_id = $id";
-                                    $result12 = mysql_query($query12, $link) or die(mysql_error());
+                                    $result12 = mysqli_query($link, $query12, $link) or die(mysqli_error($link));
 
                                     $row12s = array();
-                                    while ($row12 = mysql_fetch_assoc($result12)) {
+                                    while ($row12 = mysqli_fetch_assoc($result12)) {
                                         $row12s[] = $row12;
                                     }
 
@@ -758,9 +757,9 @@
                         <?php
                         $query = "SELECT * FROM loan where empno = '$empno' ";
 
-                        $result = mysql_query($query) or die($query . "<br/><br/>" . mysql_error());
+                        $result = mysqli_query($link, $query) or die($query . "<br/><br/>" . mysqli_error($link));
 
-                        $row = mysql_fetch_array($result, MYSQL_ASSOC);
+                        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
                         $balance = $row['loan_amt'];
                         $interest = $row['interest'];
                         $months = $row['duration'];

@@ -17,8 +17,8 @@
 if (isset($_GET['id'])) {
     $from_jobs_id = $_GET['id'];
 
-    $user_q = mysql_query("SELECT * FROM jobs_postings WHERE id=$from_jobs_id ") or die(mysql_error());
-    while ($row = mysql_fetch_array($user_q)) {
+    $user_q = mysqli_query($link, "SELECT * FROM jobs_postings WHERE id=$from_jobs_id ") or die(mysqli_error($link));
+    while ($row = mysqli_fetch_array($user_q)) {
         $edit_title = $row["title"];
         $edit_dep_id = $row["dep_id"];
         $edit_type = $row["type"];
@@ -60,8 +60,8 @@ if (isset($_POST["updated_posting"])) {
     $description = $_POST["description"];
     $requirements = $_POST["requirements"];
 
-    mysql_query("UPDATE jobs_postings SET title='$title', type='$type', vacancies='$vacancies', salary_min='$salary_min', show_salary='$show_salary', salary_max='$salary_max', experience='$experience', date='$date', expires='$expires', salary_period='$salary_period', qualifications='$qualifications', currency='$currency', country='$country', region='$region', city='$city', description='$description', requirements='$requirements' WHERE id='$from_jobs_id'")
-        or die("Err11 " . mysql_error());
+    mysqli_query($link, "UPDATE jobs_postings SET title='$title', type='$type', vacancies='$vacancies', salary_min='$salary_min', show_salary='$show_salary', salary_max='$salary_max', experience='$experience', date='$date', expires='$expires', salary_period='$salary_period', qualifications='$qualifications', currency='$currency', country='$country', region='$region', city='$city', description='$description', requirements='$requirements' WHERE id='$from_jobs_id'")
+        or die("Err11 " . mysqli_error($link));
 
     echo '<script>
         // Function to display the pop-up message and redirect
@@ -121,8 +121,8 @@ if (isset($_POST["updated_posting"])) {
                                 <select name="dep_id" class="form-control" required>
                                     <option>FIXED</option>
                                     <?php
-                                    $departmentquery = mysql_query("SELECT * FROM department ");
-                                    while ($row = mysql_fetch_array($departmentquery)) {
+                                    $departmentquery = mysqli_query($link, "SELECT * FROM department ");
+                                    while ($row = mysqli_fetch_array($departmentquery)) {
                                     ?>
                                         <!-- <option value="<?php echo $row['dep_id']; ?>"> <?php echo $row['department']; ?></option> -->
                                     <?php

@@ -75,7 +75,7 @@ error_reporting(0);
                 $variable = "not set";
                 if ($type == 'fixed') {
                     // Update fixed amounts in deductions
-                    $updateQuery = mysql_query("
+                    $updateQuery = mysqli_query($link, "
                         UPDATE deductions SET
                         name = '$name',
                         emp_fixed = '$emp_fixed', comp_fixed = '$comp_fixed',
@@ -84,10 +84,10 @@ error_reporting(0);
                         emp_lower_bound = '$emp_lb', emp_lower_bound_amnt = '$emp_lb_amnt',
                         emp_upper_bound = '$emp_ub', emp_upper_bound_amnt = '$emp_ub_amnt'
                         WHERE ded_id = '$ded_id'
-                    ") or die(mysql_error());
+                    ") or die(mysqli_error($link));
                 } else {
                     // Update calculation items in deductions
-                    $updateQuery = mysql_query("
+                    $updateQuery = mysqli_query($link, "
                         UPDATE deductions SET
                         emp_calc_num = '$emp_numerator', emp_calc_deno = '$emp_denominator',
                         comp_calc_num = '$comp_numerator', comp_calc_deno = '$comp_denominator',
@@ -96,12 +96,12 @@ error_reporting(0);
                         emp_lower_bound = '$emp_lb', emp_lower_bound_amnt = '$emp_lb_amnt',
                         emp_upper_bound = '$emp_ub', emp_upper_bound_amnt = '$emp_ub_amnt', name = '$name'
                         WHERE ded_id = '$ded_id'
-                    ") or die(mysql_error());
+                    ") or die(mysqli_error($link));
                 }
                 // redirect to dedcutions
                 if ($updateQuery) {
                     // change column name in employee deductions
-                    // $qr = mysql_query("ALTER TABLE `employee_deductions` CHANGE '$orig_name' '$name' int(20) NULL") or die(mysql_error());
+                    // $qr = mysqli_query($link,"ALTER TABLE `employee_deductions` CHANGE '$orig_name' '$name' int(20) NULL") or die(mysqli_error($link));
                     $message = "Deduction information successfully updated.";
                 } else {
                     $message = "Failed to update the deduction information.";
@@ -116,8 +116,8 @@ error_reporting(0);
 
                         <?php
                         // return var_dump($ded_id);
-                        $query = mysql_query("SELECT * FROM deductions WHERE ded_id = '$ded_id' AND company_ID = '$compID'") or die(mysql_error());
-                        $row = mysql_fetch_array($query);
+                        $query = mysqli_query($link, "SELECT * FROM deductions WHERE ded_id = '$ded_id' AND company_ID = '$compID'") or die(mysqli_error($link));
+                        $row = mysqli_fetch_array($query);
                         ?>
 
 

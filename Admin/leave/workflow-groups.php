@@ -24,9 +24,9 @@
     <div class="wrapper">
 
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Department.php';
         $DepartmentObject = new Department();
-        include '../navigation_panel/authenticated_user_header.php';
         ?>
 
         <?php include '../navigation_panel/side_navigation_bar.php'; ?>
@@ -65,9 +65,9 @@
                                     <tbody>
 
                                         <?php
-                                        $result = mysql_query("SELECT * FROM workflows ");
+                                        $result = mysqli_query($link, "SELECT * FROM workflows ");
                                         // $Departments = $DepartmentObject->getDepartmentByCompany($compID);
-                                        while ($row = mysql_fetch_array($result)) {
+                                        while ($row = mysqli_fetch_array($result)) {
                                             $id_ = $row['id'];
                                             $name =  $row['name'];
                                             echo '  

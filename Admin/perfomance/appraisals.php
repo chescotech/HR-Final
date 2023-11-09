@@ -60,11 +60,11 @@
                                     <?php
                                     $year = $_GET['year'];
                                     $empno = $_GET['empno'];
-                                    $perf_q = mysql_query("SELECT ass_periods.name AS name,ass_periods.date AS p_date, ass_appraisals.id AS id FROM ass_periods
+                                    $perf_q = mysqli_query($link, "SELECT ass_periods.name AS name,ass_periods.date AS p_date, ass_appraisals.id AS id FROM ass_periods
                                         LEFT JOIN ass_appraisals ON ass_appraisals.period_id = ass_periods.id
                                         WHERE YEAR(ass_periods.date) = '$year'
-                                        GROUP BY ass_periods.name") or die(mysql_error());
-                                    while ($perf_r = mysql_fetch_array($perf_q)) {
+                                        GROUP BY ass_periods.name") or die(mysqli_error($link));
+                                    while ($perf_r = mysqli_fetch_array($perf_q)) {
                                         $date = $perf_r['p_date'];
                                         $name = $perf_r['name'];
                                         $year = date("Y", strtotime($date));

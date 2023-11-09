@@ -508,7 +508,7 @@
 [24-Jul-2023 06:51:20 UTC] PHP Warning:  include(../../../../include/dbconnection.php): failed to open stream: No such file or directory in /home/janazm/public_html/jobs/employer/pages/talent-pool/delete-job.php on line 2
 [24-Jul-2023 06:51:20 UTC] PHP Warning:  include(): Failed opening '../../../../include/dbconnection.php' for inclusion (include_path='.:/opt/alt/php56/usr/share/pear:/opt/alt/php56/usr/share/php') in /home/janazm/public_html/jobs/employer/pages/talent-pool/delete-job.php on line 2
 [24-Jul-2023 06:51:20 UTC] PHP Notice:  Undefined variable: link in /home/janazm/public_html/jobs/employer/pages/talent-pool/delete-job.php on line 7
-[24-Jul-2023 06:51:20 UTC] PHP Warning:  mysql_query() expects parameter 2 to be resource, null given in /home/janazm/public_html/jobs/employer/pages/talent-pool/delete-job.php on line 7
+[24-Jul-2023 06:51:20 UTC] PHP Warning:  mysqli_query($link,) expects parameter 2 to be resource, null given in /home/janazm/public_html/jobs/employer/pages/talent-pool/delete-job.php on line 7
 [24-Jul-2023 07:01:11 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/janazm/public_html/jobs/employer/navigation_panel/dbconnection.php on line 7
 [24-Jul-2023 07:01:11 UTC] PHP Notice:  Undefined index: jobs_passport in /home/janazm/public_html/jobs/employer/navigation_panel/authenticated_side_navigation_bar.php on line 121
 [24-Jul-2023 07:01:11 UTC] PHP Notice:  A session had already been started - ignoring session_start() in /home/janazm/public_html/jobs/employer/pages/talent-pool/form-list.php on line 1
@@ -640,7 +640,7 @@
 [25-Jul-2023 09:58:38 UTC] PHP Warning:  include(../../../../include/dbconnection.php): failed to open stream: No such file or directory in /home/janazm/public_html/jobs/employer/pages/talent-pool/delete-job.php on line 2
 [25-Jul-2023 09:58:38 UTC] PHP Warning:  include(): Failed opening '../../../../include/dbconnection.php' for inclusion (include_path='.:/opt/alt/php56/usr/share/pear:/opt/alt/php56/usr/share/php') in /home/janazm/public_html/jobs/employer/pages/talent-pool/delete-job.php on line 2
 [25-Jul-2023 09:58:38 UTC] PHP Notice:  Undefined variable: link in /home/janazm/public_html/jobs/employer/pages/talent-pool/delete-job.php on line 7
-[25-Jul-2023 09:58:38 UTC] PHP Warning:  mysql_query() expects parameter 2 to be resource, null given in /home/janazm/public_html/jobs/employer/pages/talent-pool/delete-job.php on line 7
+[25-Jul-2023 09:58:38 UTC] PHP Warning:  mysqli_query($link,) expects parameter 2 to be resource, null given in /home/janazm/public_html/jobs/employer/pages/talent-pool/delete-job.php on line 7
 [25-Jul-2023 09:58:41 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/janazm/public_html/jobs/employer/navigation_panel/dbconnection.php on line 7
 [25-Jul-2023 09:58:41 UTC] PHP Notice:  Undefined index: jobs_passport in /home/janazm/public_html/jobs/employer/navigation_panel/authenticated_side_navigation_bar.php on line 121
 [25-Jul-2023 09:58:41 UTC] PHP Notice:  A session had already been started - ignoring session_start() in /home/janazm/public_html/jobs/employer/pages/talent-pool/form-list.php on line 1

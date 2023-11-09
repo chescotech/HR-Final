@@ -96,10 +96,10 @@
             <?php
             $id_ = $_GET["id"];
 
-            $query = mysql_query("SELECT * FROM publications WHERE id = '$id_' ORDER BY date DESC") or die(mysql_error);
+            $query = mysqli_query($link, "SELECT * FROM publications WHERE id = '$id_' ORDER BY date DESC") or die(mysqli_error($link));
             $rowCount = 0; // To keep track of the displayed rows
 
-            while ($row = mysql_fetch_array($query)) {
+            while ($row = mysqli_fetch_array($query)) {
                 $date = $row['date'];
                 $subject = $row['subject'];
                 $message = $row['message'];

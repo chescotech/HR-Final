@@ -18,7 +18,7 @@ $TaxObject = new Tax();
 $loanObj = new Loans();
 
 
-$datePrinted = strtoTime(date("Y/m/d") );
+$datePrinted = strtoTime(date("Y/m/d"));
 $datePrint = date('F d, Y', $datePrinted);
 $searchDate = $_POST['search_date'];
 $compId = $_SESSION['company_ID'];
@@ -77,30 +77,29 @@ $pdf->Ln();
 
 $query = "  SELECT * FROM emp_info WHERE empno IN (  SELECT empno FROM employee WHERE time BETWEEN '$year-$month-$day'  AND  '$year2-$month2-$day2'  )  AND company_id = '$compId' ";
 
-$result2 = mysql_query($query, $link) or die(mysql_error());
+$result2 = mysqli_query($link, $query) or die(mysqli_error($link));
 
 $sum = 0;
 
-while ($row = mysql_fetch_array($result2)) {
-    
+while ($row = mysqli_fetch_array($result2)) {
+
     $empno = $row['empno'];
     $fname = $row['fname'];
     $lname = $row['lname'];
     $SNo = $loanObj->getSocialSecurityNo($empno);
 
-    $AnnualTax = $loanObj->getEmployeeAnnualtax($compId, $reportDate, $to_date, $empno,$compId);
+    $AnnualTax = $loanObj->getEmployeeAnnualtax($compId, $reportDate, $to_date, $empno, $compId);
 
-    $sum += $loanObj->getTotalAnnualSum($compId, $reportDate, $to_date, $empno,$compId);
+    $sum += $loanObj->getTotalAnnualSum($compId, $reportDate, $to_date, $empno, $compId);
 
     $pdf->Cell(25, 7, $empno);
     $pdf->Cell(30, 7, $SNo);
     $pdf->Cell(40, 7, $fname);
     $pdf->Cell(40, 7, $lname);
 
-    $pdf->Cell(50, 7, number_format($AnnualTax,2));
+    $pdf->Cell(50, 7, number_format($AnnualTax, 2));
 
     $pdf->Ln();
-    
 }
 
 $pdf->Cell(450, 2, "___________________________________________________________________________________________________");
@@ -111,15 +110,14 @@ $pdf->Cell(30, 7, "");
 $pdf->Cell(40, 7, "");
 
 $pdf->Cell(40, 7, "Total");
-$pdf->Cell(50, 7, number_format($sum,2));
+$pdf->Cell(50, 7, number_format($sum, 2));
 
 $pdf->Ln();
 
-$totalNoRecords = mysql_num_rows($result2);
+$totalNoRecords = mysqli_num_rows($result2);
 $pdf->Cell(450, 2, "___________________________________________________________________________________________________");
 $pdf->Ln();
-$pdf->Cell(420,7, "Printed On : ".$datePrint." By ".$CompanyObject->getUserDetails($userId));
+$pdf->Cell(420, 7, "Printed On : " . $datePrint . " By " . $CompanyObject->getUserDetails($userId));
 $pdf->Ln();
 
 $pdf->Output();
-?>

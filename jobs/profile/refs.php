@@ -41,22 +41,22 @@
             <?php
             $user_id = $_SESSION['job_user_id'];
             if (isset($_POST['add_'])) {
-                $name = mysql_real_escape_string($_POST['name']);
-                $gender = mysql_real_escape_string($_POST['gender']);
-                $company = mysql_real_escape_string($_POST['company']);
-                $position = mysql_real_escape_string($_POST['position']);
-                $country = mysql_real_escape_string($_POST['country']);
-                $province = mysql_real_escape_string($_POST['province']);
-                $town = mysql_real_escape_string($_POST['town']);
-                $phone = mysql_real_escape_string($_POST['phone']);
-                $email = mysql_real_escape_string($_POST['email']);
-                $address = mysql_real_escape_string($_POST['address']);
+                $name = ($_POST['name']);
+                $gender = ($_POST['gender']);
+                $company = ($_POST['company']);
+                $position = ($_POST['position']);
+                $country = ($_POST['country']);
+                $province = ($_POST['province']);
+                $town = ($_POST['town']);
+                $phone = ($_POST['phone']);
+                $email = ($_POST['email']);
+                $address = ($_POST['address']);
 
 
-                $add_q = mysql_query("INSERT INTO jobs_user_refs (name, gender, company, position, country, province,
+                $add_q = mysqli_query($link, "INSERT INTO jobs_user_refs (name, gender, company, position, country, province,
                                         town, phone, email, address,user_id)
                                     VALUES('$name','$gender','$company','$position','$country','$province','$town','$phone',
-                                        '$email','$address','$user_id')") or die("Error: ".mysql_error());
+                                        '$email','$address','$user_id')") or die("Error: " . mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Added Successfuly') </script>";
@@ -75,9 +75,9 @@
                 $achievement = $_POST['achievement'];
                 $id = $_POST['id'];
 
-                $add_q = mysql_query("UPDATE jobs_user_refs SET school = '$school', qualification = '$qualification',
+                $add_q = mysqli_query($link, "UPDATE jobs_user_refs SET school = '$school', qualification = '$qualification',
                                             award='$award', starts = '$starts', ends = '$ends'
-                                    WHERE id = '$id' ") or die(mysql_error());
+                                    WHERE id = '$id' ") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Updated Successfuly') </script>";
@@ -87,7 +87,7 @@
             if (isset($_POST['delete'])) {
                 $id = $_POST['id'];
 
-                $add_q = mysql_query("DELETE FROM jobs_user_refs WHERE id = '$id' ") or die(mysql_error());
+                $add_q = mysqli_query($link, "DELETE FROM jobs_user_refs WHERE id = '$id' ") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Deleted Successfuly') </script>";
@@ -115,7 +115,7 @@
                                     </div>
                                     <div class="form-group ">
                                         <label class="">Gender</label>
-                                        <select name="gender" class="form-control pull-right" >
+                                        <select name="gender" class="form-control pull-right">
                                             <option value="">Select</option>
                                             <option value="Male">Male</option>
                                             <option value="Female">Female</option>
@@ -185,9 +185,9 @@
                                             <th>Gender</th>
                                             <th>Company</th>
                                             <th>Position</th>
-                                           
+
                                             <th>Town</th>
-                                            
+
                                             <th>Phone</th>
                                             <th>Email</th>
                                             <th>Address</th>
@@ -196,22 +196,22 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $query = mysql_query("SELECT * FROM jobs_user_refs WHERE user_id = '$user_id' ") or die(mysql_error());
-                                        while ($row = mysql_fetch_array($query)) {
+                                        $query = mysqli_query($link, "SELECT * FROM jobs_user_refs WHERE user_id = '$user_id' ") or die(mysqli_error($link));
+                                        while ($row = mysqli_fetch_array($query)) {
                                         ?>
                                             <tr>
                                                 <td><?php echo $row['name']; ?></td>
                                                 <td><?php echo $row['gender']; ?></td>
                                                 <td><?php echo $row['company']; ?></td>
                                                 <td><?php echo $row['position']; ?></td>
-                                                
+
                                                 <td><?php echo $row['town']; ?></td>
                                                 <td><?php echo $row['phone']; ?></td>
                                                 <td><?php echo $row['email']; ?></td>
                                                 <td><?php echo $row['address']; ?></td>
                                                 <td>
                                                     <!-- <a href="#updateordinance<?php echo $row['id']; ?>" data-target="#updateordinance<?php echo $row['id']; ?>" data-toggle="modal" style="color:#fff;" class="btn btn-primary btn-sm">Edit</i></a> -->
-                                                
+
                                                     <a href="#delete<?php echo $row['id']; ?>" data-target="#delete<?php echo $row['id']; ?>" data-toggle="modal" style="color:#fff;" class="btn btn-danger btn-sm">Delete</a>
                                                 </td>
                                             </tr>

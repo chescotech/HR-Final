@@ -57,7 +57,7 @@
 
             if ($DepartmentObject->checkUser($user_name, $company_id) != "true") {
                 if ($password == $repassword) {
-                    $res = mysql_query("INSERT INTO users_tb(user_name,company_id,firstname,lastname,email_address,status,password,user_type, group_id)"
+                    $res = mysqli_query($link, "INSERT INTO users_tb(user_name,company_id,firstname,lastname,email_address,status,password,user_type, group_id)"
                         . " VALUES('$user_name','$company_id','$firstname','$lastname','$email_address','$status','$password','HR Admin', '$usergroup' )");
                     $stateMessage = "User has been added sucessfully!!";
                 } else {
@@ -142,7 +142,7 @@
                                             $groupList = $GroupObject->getGroups($_SESSION['company_ID']);
 
 
-                                            while ($group_row = mysql_fetch_array($groupList)) {
+                                            while ($group_row = mysqli_fetch_array($groupList)) {
                                             ?>
                                                 <option class="list-menu-item" value="<?= $group_row['id'] ?>"><?= $group_row['name'] ?></option>
                                             <?php

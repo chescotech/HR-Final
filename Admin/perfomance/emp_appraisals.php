@@ -67,7 +67,7 @@
                                     <?php
                                     $period = $_GET['period'];
                                     $empno = $_GET['empno'];
-                                    $query = mysql_query("SELECT ass_appraisals.id AS ass_app_id,
+                                    $query = mysqli_query($link, "SELECT ass_appraisals.id AS ass_app_id,
                                                             ass_params.name AS params, ass_params.id AS params_id, ass_params.weight AS weight,
                                                             ass_factors.name AS objective, ass_factors.target AS target,
                                                             ass_periods.name, emp_info.empno
@@ -79,16 +79,16 @@
                                                         WHERE ass_periods.name = '$period'
                                                         GROUP BY params
                                                         
-                                                        ") or die("Error Getting Data 3 " . mysql_error());
+                                                        ") or die("Error Getting Data 3 " . mysqli_error($link));
                                     $total_weight = 0;
-                                    while ($row = mysql_fetch_array($query)) {
+                                    while ($row = mysqli_fetch_array($query)) {
                                         $ass_app_id = $row['ass_app_id'];
 
                                         // Check if employee has appraisal for this period
-                                        $emp_q = mysql_query("SELECT id
+                                        $emp_q = mysqli_query($link, "SELECT id
                                                             FROM ass_emp_appraisals WHERE empno = '$empno' AND ass_app_id = '$ass_app_id'
-                                                        ") or die("Error Getting Data 4 " . mysql_error());
-                                        if (mysql_num_rows($emp_q) == 0) {
+                                                        ") or die("Error Getting Data 4 " . mysqli_error($link));
+                                        if (mysqli_num_rows($emp_q) == 0) {
 
                                             echo "<h3>Appraisal not found for this employee and period</h3>";
                                             return;
@@ -106,13 +106,13 @@
                                             <td><?php echo $weight; ?></td>
                                             <?php
 
-                                            $emp_q = mysql_query("SELECT own_score, total_score, AVG(total_score) AS avg 
+                                            $emp_q = mysqli_query($link, "SELECT own_score, total_score, AVG(total_score) AS avg 
                                                             FROM ass_emp_appraisals WHERE empno = '$empno' AND ass_app_id = '$ass_app_id'
-                                                        ") or die("Error Getting Data 4 " . mysql_error());
+                                                        ") or die("Error Getting Data 4 " . mysqli_error($link));
 
                                             $total_archieved_score = 0;
-                                            // if(mysql_num_rows($emp_q) > 0){}
-                                            while ($emp_r = mysql_fetch_array($emp_q)) {
+                                            // if(mysqli_num_rows($emp_q) > 0){}
+                                            while ($emp_r = mysqli_fetch_array($emp_q)) {
                                                 $total_score = $emp_r['total_score'];
                                                 $total_archieved_score += $total_score;
                                                 //Get Percentage
@@ -120,10 +120,10 @@
                                                 $total_score_percent = intval($total_score_percent);
                                                 $avg = $emp_r['avg'];
                                                 // Get Ranking
-                                                $r_q = mysql_query("SELECT * FROM app_rating
+                                                $r_q = mysqli_query($link, "SELECT * FROM app_rating
                                                                 WHERE from_ <= '$total_score_percent' AND to_ >= '$total_score_percent' 
-                                                                ") or die(mysql_error());
-                                                $r_row = mysql_fetch_array($r_q);
+                                                                ") or die(mysqli_error($link));
+                                                $r_row = mysqli_fetch_array($r_q);
                                                 $from_ = intval($r_row['from_']);
                                                 $to_ = intval($r_row['to_']);
 

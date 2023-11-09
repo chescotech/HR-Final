@@ -41,8 +41,8 @@
         $AttendanceObject = new Attendance();
 
         $emp_no = $_SESSION['empno'];
-        $gt_dep = mysql_query("SELECT dept,department.department FROM emp_info INNER JOIN department on department.dep_id=emp_info.dept WHERE empno = '$emp_no' ") or die(mysql_error());
-        $gt_dep_r = mysql_fetch_array($gt_dep);
+        $gt_dep = mysqli_query($link, "SELECT dept,department.department FROM emp_info INNER JOIN department on department.dep_id=emp_info.dept WHERE empno = '$emp_no' ") or die(mysqli_error($link));
+        $gt_dep_r = mysqli_fetch_array($gt_dep);
         $dep_id = $gt_dep_r['dept'];
         $department = $gt_dep_r['department'];
         ?>
@@ -70,15 +70,15 @@
                                             </tr>
                                         </thead>
                                         <?php
-                                        $checkifParentSupervisor = mysql_query("SELECT * FROM `hod_tb` where parent_supervisor='$emp_no'") or die(mysql_error());
-                                        if (mysql_num_rows($checkifParentSupervisor) > 0) {
-                                            $Query = mysql_query("select * FROM emp_info WHERE emp_info.empno IN (  SELECT empno FROM `hod_tb` where parent_supervisor='$emp_no')") or die(mysql_error());
+                                        $checkifParentSupervisor = mysqli_query($link, "SELECT * FROM `hod_tb` where parent_supervisor='$emp_no'") or die(mysqli_error($link));
+                                        if (mysqli_num_rows($checkifParentSupervisor) > 0) {
+                                            $Query = mysqli_query($link, "select * FROM emp_info WHERE emp_info.empno IN (  SELECT empno FROM `hod_tb` where parent_supervisor='$emp_no')") or die(mysqli_error($link));
                                         } else {
-                                            $Query = mysql_query("select * FROM emp_info WHERE dept = '$dep_id' ") or die(mysql_error());
+                                            $Query = mysqli_query($link, "select * FROM emp_info WHERE dept = '$dep_id' ") or die(mysqli_error($link));
                                         }
-                                        //$Query = mysql_query("SELECT * FROM `emp_info` WHERE dept = '$dep_id' ");
+                                        //$Query = mysqli_query($link,"SELECT * FROM `emp_info` WHERE dept = '$dep_id' ");
 
-                                        while ($row = mysql_fetch_array($Query)) {
+                                        while ($row = mysqli_fetch_array($Query)) {
                                             $EmployeeName = $AttendanceObject->getEmployeeDetails($row['empno']);
                                             $Names = $row['fname'] . ' ' . $row['lname'];
                                             $position = $row['position'];
@@ -131,8 +131,8 @@
                                             $empno = $_POST['empno'];
                                             $LogDate = $_POST['LogDate'];
                                             $comment = $_POST['comment'];
-                                            $add_c = mysql_query("UPDATE attendance_logs SET comment = '$comment'
-                                                    WHERE empno = '$empno' AND log_date = '$LogDate' ") or die(mysql_error());
+                                            $add_c = mysqli_query($link, "UPDATE attendance_logs SET comment = '$comment'
+                                                    WHERE empno = '$empno' AND log_date = '$LogDate' ") or die(mysqli_error($link));
 
                                             if ($add_c) {
                                                 echo "<script> window.location='my-attendance' </script>";

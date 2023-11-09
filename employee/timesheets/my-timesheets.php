@@ -31,7 +31,7 @@
         include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Timesheets.php';
 
-        $Timesheets = new Timesheets();
+        $Timesheets = new Timesheets($link);
         $empno = $_SESSION['employee_id'];
         ?>
 
@@ -75,12 +75,12 @@
                                         <tr>
                                             <?php
                                             $MyTimesheets = $Timesheets->getTimesheets($empno);
-                                            if (mysql_num_rows($MyTimesheets) == 0) {
+                                            if (mysqli_num_rows($MyTimesheets) == 0) {
                                                 echo '<tr>
                                                     <td style="vertical-align:middle" align="left">No timesheet records found.</td>
                                                     </tr>';
                                             }
-                                            while ($row = mysql_fetch_array($MyTimesheets)) {
+                                            while ($row = mysqli_fetch_array($MyTimesheets)) {
                                                 $id_ = $row['id'];
                                                 $Status = $row['status'];
                                                 if ($Status == "Approved") {

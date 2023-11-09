@@ -70,9 +70,9 @@ $pdf->Ln();
 
 $totalTaxPaid = 0;
 $query = "SELECT * FROM loan where company_ID =  '$compId' AND status='Pending' ";
-$result = mysql_query($query) or die($query . "<br/><br/>" . mysql_error());
+$result = mysqli_query($link, $query) or die($query . "<br/><br/>" . mysqli_error($link));
 
-$row = mysql_fetch_array($result, MYSQL_ASSOC);
+$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 $balance = $row['loan_amt'];
 $interest = $row['interest'];
 $months = $row['duration'];
@@ -92,28 +92,28 @@ $query = "SELECT *
                                                         INNER JOIN emp_info n ON em.empno = n.empno                                                     
                                                         WHERE em.company_id =  '$compId' and em.time = '$year-$month-$day'";
 
-$result2 = mysql_query($query, $link) or die(mysql_error());
+$result2 = mysqli_query($link, $query) or die(mysqli_error($link));
 
 $sum = 0;
-while ($row = mysql_fetch_array($result2)) {
+while ($row = mysqli_fetch_array($result2)) {
     $basicPay = $row['pay'];
-    $gross = ($row['pay'] ) + ($row['otrate'] * $row['othrs']) + $row['allow'] + $row['comission'];
+    $gross = ($row['pay']) + ($row['otrate'] * $row['othrs']) + $row['allow'] + $row['comission'];
     $empoyeeNo = $row['empno'];
     $date = $row['time'];
-    $result = mysql_query("SELECT * FROM loan WHERE empno='$empoyeeNo' AND '$date' BETWEEN loan_date AND date_completion ");
-    $LoanRows = mysql_fetch_array($result);
+    $result = mysqli_query($link, "SELECT * FROM loan WHERE empno='$empoyeeNo' AND '$date' BETWEEN loan_date AND date_completion ");
+    $LoanRows = mysqli_fetch_array($result);
     $loanAmount = $LoanRows['monthly_deduct'];
 
 
     if ($TaxObject->getEmployeeAge($row['empno']) < 55) {
         $napsa = $gross * 0.05;
         if ($napsa >= $TaxObject->getNapsaCeiling($compId))
-        $napsa = $TaxObject->getNapsaCeiling($compId);
+            $napsa = $TaxObject->getNapsaCeiling($compId);
 
         $napsa_calc = "";
         if ($napsa >= 255)
             $napsa_calc = 255;
-    }else {
+    } else {
         $napsa = 0;
     }
 
@@ -160,7 +160,7 @@ while ($row = mysql_fetch_array($result2)) {
     $totalGrosssPay += $gross;
     $totalBasicPay += $basicPay;
     $totalTaxPaid += $total_tax_paid;
-    $nhima =  $row['health_insurance'] ;
+    $nhima =  $row['health_insurance'];
 
     $pdf->Cell(21, 7, $row['fname']);
     $pdf->Cell(22, 7, $row['lname']);
@@ -174,10 +174,10 @@ while ($row = mysql_fetch_array($result2)) {
     $pdf->Cell(19, 7, number_format($napsa, 2));
     $pdf->Cell(19, 7, number_format($row['advances'], 2));
     $pdf->Cell(17, 7, number_format($lAmount, 2));
-      $pdf->Cell(17, 7, number_format("$nhima", 2));
+    $pdf->Cell(17, 7, number_format("$nhima", 2));
     $pdf->Cell(15, 7, number_format("$totdeduct", 2));
     //nhima..
-   
+
     $pdf->Cell(13, 7, number_format("$netpay", 2));
 
 
@@ -204,11 +204,10 @@ $pdf->Cell(15, 7, "");
 $pdf->Cell(12, 7, number_format("$sum", 2));
 $pdf->Ln();
 
-$totalNoRecords = mysql_num_rows($result2);
+$totalNoRecords = mysqli_num_rows($result2);
 
 $pdf->Cell(420, 5, "Printed On : " . $datePrint . " By " . $CompanyObject->getUserDetails($userId));
 
 $pdf->Ln();
 
 $pdf->Output();
-?>

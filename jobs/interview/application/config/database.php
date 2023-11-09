@@ -1,6 +1,6 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
- 
+defined('BASEPATH') or exit('No direct script access allowed');
+
 include('sq_config.php');
 
 /*
@@ -36,7 +36,7 @@ include('sq_config.php');
 |				 NOTE: For MySQL and MySQLi databases, this setting is only used
 | 				 as a backup if your server is running PHP < 5.2.3 or MySQL < 5.0.7
 |				 (and in table creation queries made with DB Forge).
-| 				 There is an incompatibility in PHP with mysql_real_escape_string() which
+| 				 There is an incompatibility in PHP with () which
 | 				 can make your site vulnerable to SQL injection if you are using a
 | 				 multi-byte character set and are running versions lower than these.
 | 				 Sites using Latin-1 or UTF-8 database character set and collation are unaffected.

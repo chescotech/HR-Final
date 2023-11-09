@@ -47,7 +47,7 @@
                         <?php
                         $empno = $_SESSION['employee_id'];
                         $sql = $EmployeeHistoryObject->getHistoryInfo($empno);
-                        $rows = mysql_fetch_array($sql);
+                        $rows = mysqli_fetch_array($sql);
                         ?>
 
                         <div class="box box-primary">

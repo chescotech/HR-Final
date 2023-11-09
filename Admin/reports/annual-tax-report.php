@@ -1,6 +1,3 @@
-<?php
-error_reporting(0);
-?>
 <!DOCTYPE html>
 <html>
 
@@ -157,10 +154,10 @@ error_reporting(0);
 
                                                 $query = "  SELECT * FROM emp_info WHERE empno IN (  SELECT empno FROM employee WHERE time BETWEEN '$year-$month-$day'  AND  '$year2-$month2-$day2'  )  AND company_id = '$compId' ";
 
-                                                $result2 = mysql_query($query, $link) or die(mysql_error());
+                                                $result2 = mysqli_query($link, $query) or die(mysqli_error($link));
 
                                                 $sum = 0;
-                                                while ($row = mysql_fetch_array($result2)) {
+                                                while ($row = mysqli_fetch_array($result2)) {
 
                                                     $empno = $row['empno'];
                                                     $SNo = $loanObj->getSocialSecurityNo($empno);

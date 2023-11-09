@@ -4,7 +4,7 @@ session_start();
 ?>
 <html>
 <?php
-$pageTitle = "Reset Password - Jana Solutions"; // Set the dynamic title here
+$pageTitle = "Reset Password - Jobs Portal"; // Set the dynamic title here
 include('./includes/headers.php');
 ?>
 
@@ -29,28 +29,28 @@ if (isset($_POST['reset'])) {
     // update user db entry with hash of new password
     $password = md5($new_pass);
 
-    $user_query = mysql_query("SELECT * from jobs_user WHERE email='$user_email'");
+    $user_query = mysqli_query($link, "SELECT * from jobs_user WHERE email='$user_email'");
 
-    $emp_query = mysql_query("SELECT * from employer WHERE email='$user_email'");
+    $emp_query = mysqli_query($link, "SELECT * from employer WHERE email='$user_email'");
 
-    if (mysql_num_rows($user_query) <= 0 && mysql_num_rows($emp_query) <= 0) {
+    if (mysqli_num_rows($user_query) <= 0 && mysqli_num_rows($emp_query) <= 0) {
         echo "<script> alert('Something went wrong. Please check your email.')</script>";
         echo "<script> window.location='forgot-password' </script>";
         return;
     }
 
-    if (mysql_num_rows($user_query) > 0) {
-        $query = mysql_query("
+    if (mysqli_num_rows($user_query) > 0) {
+        $query = mysqli_query($link, "
         UPDATE jobs_users
         SET password = '$password'
         WHERE email = '$user_email'
-        ") or die(mysql_error());
+        ") or die(mysqli_error($link));
     } else {
-        $query = mysql_query("
+        $query = mysqli_query($link, "
         UPDATE employer
         SET password = '$password'
         WHERE email = '$user_email'
-        ") or die(mysql_error());
+        ") or die(mysqli_error($link));
     }
 
     // email user random password

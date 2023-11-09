@@ -123,24 +123,24 @@
         function candidateMach($candidate_id, $job_id)
         {
 
-            $experienceQuery = mysql_query("SELECT * FROM jobs_user_experience WHERE user_id = '$candidate_id' ") or die(mysql_error());
-            while ($experienceRow = mysql_fetch_array($experienceQuery)) {
+            $experienceQuery = mysqli_query($link, "SELECT * FROM jobs_user_experience WHERE user_id = '$candidate_id' ") or die(mysqli_error($link));
+            while ($experienceRow = mysqli_fetch_array($experienceQuery)) {
                 $position = $experienceRow['position'];
                 $starts[] = $experienceRow['starts'];
                 $ends[] =  $experienceRow['ends'];
             }
-            $skillsQuery = mysql_query("SELECT name FROM jobs_user_skills WHERE user_id = '$candidate_id' ") or die(mysql_error());
-            while ($skillsRow = mysql_fetch_array($skillsQuery)) {
+            $skillsQuery = mysqli_query($link, "SELECT name FROM jobs_user_skills WHERE user_id = '$candidate_id' ") or die(mysqli_error($link));
+            while ($skillsRow = mysqli_fetch_array($skillsQuery)) {
                 $skills_aquired[] = $skillsRow['name'];
             }
 
-            $oiQuery = mysql_query("SELECT * FROM jobs_user_info WHERE user_id = '$candidate_id' ") or die(mysql_error());
-            while ($oiRow = mysql_fetch_array($oiQuery)) {
+            $oiQuery = mysqli_query($link, "SELECT * FROM jobs_user_info WHERE user_id = '$candidate_id' ") or die(mysqli_error($link));
+            while ($oiRow = mysqli_fetch_array($oiQuery)) {
                 $ex_salary_period = $oiRow['ex_salary_period'];
                 $ex_salary = intval($oiRow['ex_salary']);
             }
-            $qualificationsQuery = mysql_query("SELECT qualification FROM jobs_user_qualifications WHERE user_id = '$candidate_id' ") or die(mysql_error());
-            while ($qualificationsRow = mysql_fetch_array($qualificationsQuery)) {
+            $qualificationsQuery = mysqli_query($link, "SELECT qualification FROM jobs_user_qualifications WHERE user_id = '$candidate_id' ") or die(mysqli_error($link));
+            while ($qualificationsRow = mysqli_fetch_array($qualificationsQuery)) {
                 $qualification_aquired[] = $qualificationsRow['qualification'];
                 // $award = $qualificationsRow['award'];
             }
@@ -156,19 +156,19 @@
 
             // Get job related stuff
             $job_id = 4;
-            $expectedQuery = mysql_query("SELECT * FROM jobs_postings WHERE id = '$job_id' ") or die(mysql_error());
-            while ($row = mysql_fetch_array($expectedQuery)) {
+            $expectedQuery = mysqli_query($link, "SELECT * FROM jobs_postings WHERE id = '$job_id' ") or die(mysqli_error($link));
+            while ($row = mysqli_fetch_array($expectedQuery)) {
                 $title = $row['title'];
                 $experience_required = intval($row['experience']);
                 $salary_min = intval($row['salary_min']);
                 $salary_max = intval($row['salary_max']);
             }
-            $qualQuery = mysql_query("SELECT * FROM jobs_posting_qualifications WHERE job_posting_id = '$job_id' ") or die(mysql_error());
-            while ($qualRow = mysql_fetch_array($qualQuery)) {
+            $qualQuery = mysqli_query($link, "SELECT * FROM jobs_posting_qualifications WHERE job_posting_id = '$job_id' ") or die(mysqli_error($link));
+            while ($qualRow = mysqli_fetch_array($qualQuery)) {
                 $qualifications_required[] = $qualRow['qualification'];
             }
-            $reqQuery = mysql_query("SELECT * FROM jobs_posting_requirements WHERE job_posting_id = '$job_id' ") or die(mysql_error());
-            while ($reqRow = mysql_fetch_array($reqQuery)) {
+            $reqQuery = mysqli_query($link, "SELECT * FROM jobs_posting_requirements WHERE job_posting_id = '$job_id' ") or die(mysqli_error($link));
+            while ($reqRow = mysqli_fetch_array($reqQuery)) {
                 $requirements_required[] = $reqRow['requirement'];
             }
 
@@ -294,8 +294,8 @@
                                             <option value=""> Filter By Job </option>
                                             <option value="all"> All Jobs </option>
                                             <?php
-                                            $qq1 = mysql_query("SELECT * FROM `jobs_postings`");
-                                            while ($rr1 = mysql_fetch_array($qq1)) {
+                                            $qq1 = mysqli_query($link, "SELECT * FROM `jobs_postings`");
+                                            while ($rr1 = mysqli_fetch_array($qq1)) {
                                             ?>
                                                 <option value="<?php echo $rr1['id']; ?>"> <?php echo $rr1['title']; ?>
                                                 </option>
@@ -360,7 +360,7 @@
                                         $sort_by_date = " ";
                                     }
                                 }
-                                $user_q = mysql_query("SELECT jobs_user_applications.jobs_job_id AS job_id,talent_pool.title,fname,lname, jobs_postings.title as job,
+                                $user_q = mysqli_query($link, "SELECT jobs_user_applications.jobs_job_id AS job_id,talent_pool.title,fname,lname, jobs_postings.title as job,
                                 jobs_user_applications.date AS date_applied,job_status,jobs_user_applications.id as job_applied_id, 
                                 jobs_user_applications.user_id AS appcant_user_id FROM `jobs_user_applications`
                                 INNER JOIN jobs_users on jobs_users.id=jobs_user_applications.user_id
@@ -369,10 +369,10 @@
                                 $filter_by_job 
                                 $sort_by_date
                                 
-                                ") or die(mysql_error());
+                                ") or die(mysqli_error($link));
 
 
-                                while ($row = mysql_fetch_array($user_q)) {
+                                while ($row = mysqli_fetch_array($user_q)) {
                                     $id = $row['job_applied_id'];
                                     $appcant_user_id = $row['appcant_user_id'];
                                     $title = $row['job'];
@@ -397,9 +397,9 @@
                                     Status
                                 </button>';
                                     }
-                                   
+
                                     $min_score = 47;
-                                    if(isset($_POST['min_score'])){
+                                    if (isset($_POST['min_score'])) {
                                         $min_score = $_POST['min_score'];
                                     }
 
@@ -471,16 +471,14 @@
                     array_map(function ($job_id, $app_id) {
                         global $status, $create_log;
 
-                        mysql_query("UPDATE jobs_user_applications SET job_status = '$status' WHERE  id='$job_id' ")
-                            or die("Err11 " . mysql_error());
+                        mysqli_query($link, "UPDATE jobs_user_applications SET job_status = '$status' WHERE  id='$job_id' ")
+                            or die("Err11 " . mysqli_error($link));
 
-                            $trans_name = $status;
-                            $trans_by = $_SESSION['job_user_id'];
-                            $trans_on = "";
+                        $trans_name = $status;
+                        $trans_by = $_SESSION['job_user_id'];
+                        $trans_on = "";
 
-                            $create_log->createLog($trans_name, $trans_by, $trans_on);
-
-                            
+                        $create_log->createLog($trans_name, $trans_by, $trans_on);
                     }, $job_ids, $app_ids);
 
 
@@ -493,8 +491,8 @@
                     $job_id = $_POST['job'];
                     //return var_dump($job_id,$app_id);
 
-                    mysql_query("UPDATE jobs_user_applications SET talent_pool_id = '$pool_id' WHERE  user_id='$app_id' ")
-                        or die("Err11 " . mysql_error());
+                    mysqli_query($link, "UPDATE jobs_user_applications SET talent_pool_id = '$pool_id' WHERE  user_id='$app_id' ")
+                        or die("Err11 " . mysqli_error($link));
 
                     echo "<script> document.location='applicant-list.php' </script>";
                 }
@@ -504,8 +502,8 @@
                     $job_id = $_POST['job'];
                     //return var_dump($job_id,$app_id);
 
-                    mysql_query("UPDATE jobs_user_applications SET disqualify_reason = '$disqualify_reason',job_status='Disqualified'  WHERE  user_id='$app_id' AND jobs_job_id='$job_id' ")
-                        or die("Err11 " . mysql_error());
+                    mysqli_query($link, "UPDATE jobs_user_applications SET disqualify_reason = '$disqualify_reason',job_status='Disqualified'  WHERE  user_id='$app_id' AND jobs_job_id='$job_id' ")
+                        or die("Err11 " . mysqli_error($link));
 
                     echo "<script> document.location='applicant-list.php' </script>";
                 }
@@ -515,8 +513,8 @@
                     $job_id = $_POST['job'];
                     //return var_dump($job_id,$app_id);
 
-                    mysql_query("UPDATE jobs_user_applications SET job_status = '$status' WHERE  id='$job_id' ")
-                        or die("Err11 " . mysql_error());
+                    mysqli_query($link, "UPDATE jobs_user_applications SET job_status = '$status' WHERE  id='$job_id' ")
+                        or die("Err11 " . mysqli_error($link));
 
                     echo "<script> document.location='applicant-list.php' </script>";
                 }

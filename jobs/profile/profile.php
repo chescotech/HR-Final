@@ -33,9 +33,9 @@
             $dob = $_POST['dob'];
             $gender = $_POST['gender'];
 
-            mysql_query("UPDATE jobs_users SET fname = '$fname', lname = '$lname', email = '$email',
+            mysqli_query($link, "UPDATE jobs_users SET fname = '$fname', lname = '$lname', email = '$email',
                                     phone = '$phone', dob = '$dob', gender = '$gender'
-                         WHERE  username = '$username' ")or die("An error occure".mysql_error());
+                         WHERE  username = '$username' ") or die("An error occure" . mysqli_error($link));
 
             $stateMessage = "Employee information Successully updated !!";
         }
@@ -51,8 +51,8 @@
                             <div class="box-body box-profile">
                                 <?php
                                 $username = $_SESSION['job_username'];
-                                $result = mysql_query("SELECT * FROM jobs_users where username='$username' ") or die(mysql_error());
-                                $row = mysql_fetch_array($result);
+                                $result = mysqli_query($link, "SELECT * FROM jobs_users where username='$username' ") or die(mysqli_error($link));
+                                $row = mysqli_fetch_array($result);
 
                                 $picname = 'default.png';
                                 $emp_name = $row['fname'] . "-" . $row['lname'];
@@ -84,9 +84,9 @@
                                     }
                                     ?>
                                     <?php
-                                    $empQuery = mysql_query("SELECT * FROM jobs_users where username='$username' ") or die(mysql_error());
+                                    $empQuery = mysqli_query($link, "SELECT * FROM jobs_users where username='$username' ") or die(mysqli_error($link));
 
-                                    while ($rows = mysql_fetch_array($empQuery)) {
+                                    while ($rows = mysqli_fetch_array($empQuery)) {
                                     ?>
                                         <form enctype="multipart/form-data" method="post">
                                             <div class="">
@@ -140,7 +140,8 @@
                                                 </div>
                                                 <!-- <div class="form-group has-feedback">
                                                     <label class="">New Password (Leave as is if you're keeping the old one)</label>
-                                                    <input name="password" type="password" value="<?php //echo $rows['password'] ?>" required="required" class="form-control">
+                                                    <input name="password" type="password" value="<?php //echo $rows['password'] 
+                                                                                                    ?>" required="required" class="form-control">
                                                 </div> -->
 
                                                 <div class="box-footer">

@@ -88,20 +88,20 @@
                                             <?php
                                             $query = " SELECT * FROM `emp_info` where status='Active' ";
 
-                                            $result2 = mysql_query($query, $link) or die(mysql_error());
+                                            $result2 = mysqli_query($link, $query) or die(mysqli_error($link));
                                             $sum = 0;
-                                            while ($row = mysql_fetch_array($result2)) {
+                                            while ($row = mysqli_fetch_array($result2)) {
 
                                                 $empno = $row['empno'];
                                                 $basic_pay = $row['basic_pay'];
                                                 $SNo = $loanObj->getSocialSecurityNo($empno);
 
-                                                $pensionAmount = $loanObj->getPensionsTotal($empno);
+                                                // $pensionAmount = $loanObj->getPensionsTotal($empno);
                                                 $getEmployeePensionTotal = $loanObj->getEmployeePensionTotal($empno);
                                                 $getEmployerPensionTotal = $loanObj->getEmployerPensionTotal($empno);
-
-                                                $result = mysql_query("SELECT * FROM pensions_tb ");
-                                                $grossRows = mysql_fetch_array($result);
+                                                $pensionAmount = $getEmployeePensionTotal + $getEmployerPensionTotal;
+                                                $result = mysqli_query($link, "SELECT * FROM pensions_tb ");
+                                                $grossRows = mysqli_fetch_array($result);
                                                 $employee_share = $grossRows['employee_share'];
                                                 $employer_sharee = $grossRows['employer_share'];
 

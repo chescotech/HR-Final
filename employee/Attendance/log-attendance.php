@@ -65,10 +65,10 @@
 
         // Check if user is logged in or not and do stuff
         $today = date("Y/m/d");
-        $log_q = mysql_query("SELECT * FROM attendance_logs WHERE empno = '$empno' AND log_date = '$today' 
-                 ") or die(mysql_error());
-        if (mysql_num_rows($log_q) > 0) {
-            while ($log_r = mysql_fetch_array($log_q)) {
+        $log_q = mysqli_query($link, "SELECT * FROM attendance_logs WHERE empno = '$empno' AND log_date = '$today' 
+                 ") or die(mysqli_error($link));
+        if (mysqli_num_rows($log_q) > 0) {
+            while ($log_r = mysqli_fetch_array($log_q)) {
                 $login_time = $log_r['login_time'];
                 $logout_time = $log_r['logout_time'];
                 if ($login_time != '' && $logout_time == "") {
@@ -125,8 +125,8 @@
                             <div class="box-body box-profile">
                                 <?php
 
-                                $result = mysql_query("SELECT * FROM emp_info where empno='$employeeId' ") or die(mysql_error());
-                                $row = mysql_fetch_array($result);
+                                $result = mysqli_query($link, "SELECT * FROM emp_info where empno='$employeeId' ") or die(mysqli_error($link));
+                                $row = mysqli_fetch_array($result);
                                 $position = $row['position'];
                                 if ($row["photo"] != "") {
                                     $picname = $row["photo"];

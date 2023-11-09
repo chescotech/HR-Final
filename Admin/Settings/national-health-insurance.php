@@ -57,7 +57,7 @@
                     <div class="col-md-5">
 
                         <?php
-                        $rows = mysql_fetch_array($TaxObject->getNationalHealthSchemeSettings());
+                        $rows = mysqli_fetch_array($TaxObject->getNationalHealthSchemeSettings());
                         ?>
 
                         <form enctype="multipart/form-data" method="post">

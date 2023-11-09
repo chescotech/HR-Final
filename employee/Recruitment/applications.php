@@ -66,8 +66,8 @@
                                                         <option>-- Filter By Job Title --</option>
                                                         <option value="All">All Jobs</option>
                                                         <?php
-                                                        $result = mysql_query("SELECT * FROM postings  ");;
-                                                        while ($row = mysql_fetch_array($result)) {
+                                                        $result = mysqli_query($link, "SELECT * FROM postings  ");;
+                                                        while ($row = mysqli_fetch_array($result)) {
                                                             $fname = $row['title'];
                                                         ?>
                                                             <option value="<?php echo $row['id']; ?>"> <?php echo $fname ?></option>
@@ -80,8 +80,8 @@
                                                         <option>-- Filter By Status --</option>
                                                         <option value="All">All Statuses</option>
                                                         <?php
-                                                        $result = mysql_query("SELECT DISTINCT status,id FROM `applications` GROUP BY status  ");;
-                                                        while ($row = mysql_fetch_array($result)) {
+                                                        $result = mysqli_query($link, "SELECT DISTINCT status,id FROM `applications` GROUP BY status  ");;
+                                                        while ($row = mysqli_fetch_array($result)) {
                                                             $fname = $row['status'];
                                                         ?>
                                                             <option value="<?php echo $fname; ?>"> <?php echo $fname ?></option>
@@ -146,8 +146,8 @@
                                                 $get_for_single_job LIMIT 50 ";
                                         }
 
-                                        $result = mysql_query($query);
-                                        while ($row = mysql_fetch_array($result)) {
+                                        $result = mysqli_query($link, $query);
+                                        while ($row = mysqli_fetch_array($result)) {
                                             $app_id = $row['app_id'];
                                             $title = $row['title'];
                                             $name = $row['name'];
@@ -234,8 +234,8 @@
             $status = $_POST["status"];
             $app_id = $_POST["app_id"];
 
-            mysql_query("UPDATE applications SET status = '$status' WHERE id = '$app_id' ")
-                or die("Err11 " . mysql_error());
+            mysqli_query($link, "UPDATE applications SET status = '$status' WHERE id = '$app_id' ")
+                or die("Err11 " . mysqli_error($link));
 
             echo "<script> document.location='applications.php' </script>";
         }

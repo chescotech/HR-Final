@@ -34,13 +34,13 @@ $License = new License();
 <?php
 if (isset($_POST['register'])) {
 
-    $fname = mysql_real_escape_string($_POST['fname']);
-    $lname = mysql_real_escape_string($_POST['lname']);
-    $username = mysql_real_escape_string($_POST['username']);
-    $email = mysql_real_escape_string($_POST['email']);
-    $dob = mysql_real_escape_string($_POST['dob']);
-    $gender = mysql_real_escape_string($_POST['gender']);
-    $phone = mysql_real_escape_string($_POST['phone']);
+    $fname = ($_POST['fname']);
+    $lname = ($_POST['lname']);
+    $username = ($_POST['username']);
+    $email = ($_POST['email']);
+    $dob = ($_POST['dob']);
+    $gender = ($_POST['gender']);
+    $phone = ($_POST['phone']);
     $pass1 = $_POST['pass1'];
     $pass2 = $_POST['pass2'];
     // check if pass matches
@@ -52,20 +52,20 @@ if (isset($_POST['register'])) {
         return;
     }
     $message = "";
-    $ck_q = mysql_query("SELECT * FROM jobs_users WHERE username = '$username' AND email = 'email' ") or die(mysql_error());
+    $ck_q = mysqli_query($link, "SELECT * FROM jobs_users WHERE username = '$username' AND email = 'email' ") or die(mysqli_error($link));
 
-    if (mysql_num_rows($ck_q) > 1) {
+    if (mysqli_num_rows($ck_q) > 1) {
         echo "<script> alert('The Email and Username Used Already Exists') </script>";
         echo "<script> window.location='register' </script>";
         return;
     } else {
-        mysql_query("INSERT INTO jobs_users (fname,lname,username,email,phone,dob,gender,password)
+        mysqli_query($link, "INSERT INTO jobs_users (fname,lname,username,email,phone,dob,gender,password)
                 VALUES ('$fname','$lname', '$username', '$email','$phone','$dob','$gender', '$password')
-                ") or die("Error Inserting: ".mysql_error());
-            
-        $user_id = mysql_insert_id();
-        mysql_query("INSERT INTO jobs_user_info (user_id)
-                VALUES ('$user_id') ") or die("Error Inserting: ".mysql_error());
+                ") or die("Error Inserting: " . mysqli_error($link));
+
+        $user_id = mysql_insert_id($link);
+        mysqli_query($link, "INSERT INTO jobs_user_info (user_id)
+                VALUES ('$user_id') ") or die("Error Inserting: " . mysqli_error($link));
 
         $_SESSION['job_fname'] = $fname;
         $_SESSION['job_lname'] = $lname;
@@ -74,7 +74,7 @@ if (isset($_POST['register'])) {
         $_SESSION['job_dob'] = $dob;
         $_SESSION['job_gender'] = $gender;
         $_SESSION['job_phone'] = $phone;
-        $_SESSION['job_user_id'] = mysql_insert_id();
+        $_SESSION['job_user_id'] = mysql_insert_id($link);
         echo "<script> window.location='index' </script>";
     }
 }

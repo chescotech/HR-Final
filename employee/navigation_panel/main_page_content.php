@@ -109,10 +109,10 @@
 
     <div class="container-fluid" style="margin-top: -4.5rem;">
         <?php
-        $query = mysql_query("SELECT * FROM publications ORDER BY date DESC") or die(mysql_error);
+        $query = mysqli_query($link, "SELECT * FROM publications ORDER BY date DESC") or die(mysqli_error($link));
         $rowCount = 0; // To keep track of the displayed rows
 
-        while ($row = mysql_fetch_array($query)) {
+        while ($row = mysqli_fetch_array($query)) {
             $id_ = $row['id'];
             $date = $row['date'];
             $files = $row['file'];

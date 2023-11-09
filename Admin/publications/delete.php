@@ -14,91 +14,91 @@
     <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
-    
 
 
-        <style>
-            #drop-area {
-                border: 2px dashed black;
-                border-radius: 20px;
-                padding: 20px;
-                text-align: center;
-                font-size: 18px;
-            }
 
-            #pub {
-                margin: 3em;
-                border: 2px solid;
-            }
+    <style>
+        #drop-area {
+            border: 2px dashed black;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            font-size: 18px;
+        }
 
-            .pub {
-                padding: 3rem;
-                margin-left: auto;
-                margin-right: auto;
-                width: 50rem;
-            }
+        #pub {
+            margin: 3em;
+            border: 2px solid;
+        }
 
-            .pub textarea {
-                width: 55rem;
-                height: 38rem;
-            }
+        .pub {
+            padding: 3rem;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50rem;
+        }
 
-            .pub label {
-                width: 7rem;
-                margin: 0.5em;
+        .pub textarea {
+            width: 55rem;
+            height: 38rem;
+        }
 
-            }
+        .pub label {
+            width: 7rem;
+            margin: 0.5em;
 
-            #drop-area {
-                margin: 2rem 2rem 2rem 0;
-                width: 100%;
-            }
+        }
 
-            .pub input {
-                width: 70%;
-            }
+        #drop-area {
+            margin: 2rem 2rem 2rem 0;
+            width: 100%;
+        }
 
-            .pub select {
+        .pub input {
+            width: 70%;
+        }
 
-                width: 50%;
-                height: 2em;
+        .pub select {
 
-            }
+            width: 50%;
+            height: 2em;
 
-            .content {
-                min-height: 20px;
-            }
+        }
 
-            .container-fluid,
-            .content {
-                background: white;
-            }
+        .content {
+            min-height: 20px;
+        }
 
-            .bg-light-green {
-                background-color: #8CC63F;
-            }
+        .container-fluid,
+        .content {
+            background: white;
+        }
 
-            a{
-                text-decoration: none;
-                list-style: none !important;
-            }
-        </style>
+        .bg-light-green {
+            background-color: #8CC63F;
+        }
+
+        a {
+            text-decoration: none;
+            list-style: none !important;
+        }
+    </style>
 
 </head>
 
 <body class="hold-transition skin-green-light sidebar-mini">
-    <div class="wrapper">                       
-       <?php include '../navigation_panel/authenticated_user_header.php'; ?>
+    <div class="wrapper">
+        <?php include '../navigation_panel/authenticated_user_header.php'; ?>
         <?php
         include '../navigation_panel/side_navigation_bar.php';
-        
+
         if (isset($_POST['delete_publication']) && isset($_POST['id'])) {
             $id = $_POST['id'];
-        
+
             // Delete the row from the database
             $sql = "DELETE FROM publications WHERE id = '$id'";
-            $result = mysql_query($sql, $link); // Make sure you have $link defined
-        
+            $result = mysqli_query($link, $sql); // Make sure you have $link defined
+
             if ($result) {
                 echo 'success';
             } else {
@@ -107,10 +107,10 @@
             exit; // End the script
         }
 
-                
 
 
-        $query0 = mysql_query("SELECT * FROM publications ORDER BY date DESC") or die(mysql_error);
+
+        $query0 = mysqli_query($link, "SELECT * FROM publications ORDER BY date DESC") or die(mysqli_error($link));
         $rowCount = 0; // To keep track of the displayed rows
         ?>
         <div class="container-fluid ">
@@ -129,9 +129,9 @@
                 <tbody>
 
                     <?php
-                    $query0 = mysql_query("SELECT * FROM publications ORDER BY date DESC") or die(mysql_error);
+                    $query0 = mysqli_query($link, "SELECT * FROM publications ORDER BY date DESC") or die(mysqli_error($link));
                     $rowCount = 0;
-                    while ($row0 = mysql_fetch_array($query0)) {
+                    while ($row0 = mysqli_fetch_array($query0)) {
 
                         $id = $row0['id'];
                         $files = $row0['file'];
@@ -177,43 +177,46 @@
         });
     </script>
 
-<script>
-    $(document).ready(function() {
-        $('#publication_table').DataTable();
+    <script>
+        $(document).ready(function() {
+            $('#publication_table').DataTable();
 
-        // Capture click event on Delete buttons
-        $('.delete-btn').on('click', function(e) {
-            e.preventDefault(); // Prevent the link from navigating
+            // Capture click event on Delete buttons
+            $('.delete-btn').on('click', function(e) {
+                e.preventDefault(); // Prevent the link from navigating
 
-            var row = $(this).closest('tr'); // Get the closest table row
-            var id = row.find('td:first-child').text(); // Get the ID from the first column
+                var row = $(this).closest('tr'); // Get the closest table row
+                var id = row.find('td:first-child').text(); // Get the ID from the first column
 
-            // Show a confirmation dialog
-            var confirmDelete = confirm("Are you sure you want to delete this publication?");
-            
-            if (confirmDelete) {
-                // Send an AJAX request to delete the row
-                $.ajax({
-                    url: '', 
-                    type: 'POST',
-                    data: { id: id, delete_publication: true }, // Send the ID and a flag to indicate deletion
-                    success: function(response) {
-                        if (response === 'success') {
-                            row.remove(); // Remove the row from the table
-                            location.reload(); // Reload the page
-                        } else {
-                            // alert('Error deleting publication.');
-                            location.reload();
+                // Show a confirmation dialog
+                var confirmDelete = confirm("Are you sure you want to delete this publication?");
+
+                if (confirmDelete) {
+                    // Send an AJAX request to delete the row
+                    $.ajax({
+                        url: '',
+                        type: 'POST',
+                        data: {
+                            id: id,
+                            delete_publication: true
+                        }, // Send the ID and a flag to indicate deletion
+                        success: function(response) {
+                            if (response === 'success') {
+                                row.remove(); // Remove the row from the table
+                                location.reload(); // Reload the page
+                            } else {
+                                // alert('Error deleting publication.');
+                                location.reload();
+                            }
+                        },
+                        error: function() {
+                            alert('An error occurred while processing the request.');
                         }
-                    },
-                    error: function() {
-                        alert('An error occurred while processing the request.');
-                    }
-                });
-            }
+                    });
+                }
+            });
         });
-    });
-</script>
+    </script>
 
 
 

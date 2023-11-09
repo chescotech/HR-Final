@@ -25,13 +25,13 @@
 <body class="hold-transition skin-green-light sidebar-mini">
     <div class="wrapper">
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Employee.php';
         include_once '../Classes/Qualifications.php';
 
         $EmployeeObject = new Employee();
         $qualificationsObject = new Qualifications();
 
-        include '../navigation_panel/authenticated_user_header.php';
         $companyId = $_SESSION['company_ID'];
         ?>
 
@@ -68,7 +68,7 @@
                                         <?php
 
                                         $query = $qualificationsObject->getEmployeeQualifications($companyId);
-                                        while ($row = mysql_fetch_array($query)) {
+                                        while ($row = mysqli_fetch_array($query)) {
 
                                             $id_ = $row['id'];
                                             $empno = $row["empno"];

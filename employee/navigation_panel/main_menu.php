@@ -8,8 +8,8 @@ $CompanyObject = new Company();
 $companyId = $_SESSION['company_ID'];
 $employeeId = $_SESSION['employee_id'];
 
-$result = mysql_query("SELECT * FROM emp_info where empno='$employeeId'") or die(mysql_error());
-$row = mysql_fetch_array($result);
+$result = mysqli_query($link, "SELECT * FROM emp_info where empno='$employeeId'") or die(mysqli_error($link));
+$row = mysqli_fetch_array($result);
 $full_names = $row['fname'] . "-" . $row['lname'];
 ?>
 <!-- <nav class="navbar navbar-static-top" role="navigation">
@@ -22,8 +22,8 @@ $full_names = $row['fname'] . "-" . $row['lname'];
 
                     <?php
                     $employeeId = $_SESSION['employee_id'];
-                    $user_query = mysql_query("select * from emp_info where id='$employeeId'") or die(mysql_error());
-                    while ($row = mysql_fetch_array($user_query)) {
+                    $user_query = mysqli_query($link, "select * from emp_info where id='$employeeId'") or die(mysqli_error($link));
+                    while ($row = mysqli_fetch_array($user_query)) {
                         $id = $row['id'];
                     ?>
 
@@ -41,8 +41,8 @@ $full_names = $row['fname'] . "-" . $row['lname'];
 
                     <span class="hidden-xs">
                         <?php
-                        $result = mysql_query("SELECT * FROM emp_info where empno='$employeeId' ") or die(mysql_error());
-                        $row = mysql_fetch_array($result);
+                        $result = mysqli_query($link, "SELECT * FROM emp_info where empno='$employeeId' ") or die(mysqli_error($link));
+                        $row = mysqli_fetch_array($result);
                         echo 'Welcome  ' . $row['fname'] . "-" . $row['lname'];
                         ?>
                     </span>
@@ -52,8 +52,8 @@ $full_names = $row['fname'] . "-" . $row['lname'];
                     <li class="user-header">
                         <?php
 
-                        $user_query = mysql_query("select * from emp_info where empno='$employeeId'") or die(mysql_error());
-                        while ($row = mysql_fetch_array($user_query)) {
+                        $user_query = mysqli_query($link, "select * from emp_info where empno='$employeeId'") or die(mysqli_error($link));
+                        while ($row = mysqli_fetch_array($user_query)) {
                             $id = $row['id'];
                         ?>
 
@@ -71,8 +71,8 @@ $full_names = $row['fname'] . "-" . $row['lname'];
                         <p>
 
                             <?php
-                            $result = mysql_query("SELECT * FROM emp_info where empno='$employeeId'") or die(mysql_error());
-                            $row = mysql_fetch_array($result);
+                            $result = mysqli_query($link, "SELECT * FROM emp_info where empno='$employeeId'") or die(mysqli_error($link));
+                            $row = mysqli_fetch_array($result);
                             echo 'Welcome  ' . $row['fname'] . "-" . $row['lname'];
                             ?>
                         </p>

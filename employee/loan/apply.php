@@ -67,17 +67,17 @@
     <div class="wrapper">
 
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Loan.php';
         $loanObject = new Loan();
         include_once '../../Admin/Classes/Company.php';
         $CompanyObject = new Company();
         require_once('../../PHPmailer/sendmail.php');
-        include '../navigation_panel/authenticated_user_header.php';
         $companyId = $_SESSION['company_ID'];
         $empno = $_SESSION['employee_id'];
 
-        $result = mysql_query("SELECT * FROM emp_info where empno='$empno'") or die(mysql_error());
-        $row = mysql_fetch_array($result);
+        $result = mysqli_query($link, "SELECT * FROM emp_info where empno='$empno'") or die(mysqli_error($link));
+        $row = mysqli_fetch_array($result);
         $full_names = $row['fname'] . "-" . $row['lname'];
         ?>
 
@@ -86,8 +86,8 @@
         <?php
         if (isset($_POST['save'])) {
             // *Check if there's a pending loan first
-            $res = mysql_query("SELECT * FROM loan_applications WHERE empno='$empno' AND status = 'Pending Approval' ") or die(mysql_error());
-            if (mysql_num_rows($res) > 0) {
+            $res = mysqli_query($link, "SELECT * FROM loan_applications WHERE empno='$empno' AND status = 'Pending Approval' ") or die(mysqli_error($link));
+            if (mysqli_num_rows($res) > 0) {
                 echo "<script> alert('Error! You already have a pending loan.') </script>";
                 echo "<script> window.location='apply' </script>";
                 die();
@@ -102,10 +102,10 @@
             $monthly_deduction = $_POST['monthly_deduction'];
 
             //              validate Duration
-            $result = mysql_query("SELECT * FROM loan_tb where loan_type='$loanType'") or die(mysql_error());
+            $result = mysqli_query($link, "SELECT * FROM loan_tb where loan_type='$loanType'") or die(mysqli_error($link));
             if ($result) {
                 echo "<script> console.log('validating'); </script>";
-                $row = mysql_fetch_assoc($result);
+                $row = mysqli_fetch_assoc($result);
 
                 $max_time = $row['max_repayment'];
                 $approver_email = $row['approver_email'];
@@ -125,8 +125,8 @@
                     $loanObject->applyLoan($loan_amount, $loanType, $empno, $months, $monthly_deduction, $startDateConverted, $EndDateConverted, $companyId);
 
                     //       send email to approver
-                    $emp_query = mysql_query("SELECT * FROM `emp_info` WHERE empno = '$empno'");
-                    $employee = mysql_fetch_array($emp_query);
+                    $emp_query = mysqli_query($link, "SELECT * FROM `emp_info` WHERE empno = '$empno'");
+                    $employee = mysqli_fetch_array($emp_query);
                     $fname = $employee['fname'];
                     $lname = $employee['lname'];
 
@@ -209,7 +209,7 @@
                                         <?php
                                         $comp_ID = $_SESSION['company_ID'];
                                         $AllLoanTypes = $loanObject->getLoanTypes($comp_ID);
-                                        while ($row = mysql_fetch_array($AllLoanTypes)) {
+                                        while ($row = mysqli_fetch_array($AllLoanTypes)) {
                                         ?>
                                             <option value="<?php echo $row['loan_type'] ?>">
                                                 <?php echo $row['loan_type']; ?>

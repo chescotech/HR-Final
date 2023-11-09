@@ -1,6 +1,3 @@
-<?php
-error_reporting(0);
-?>
 <!DOCTYPE html>
 <html>
 
@@ -140,9 +137,9 @@ error_reporting(0);
                                                 $day = $Getday;
 
                                                 $query = "SELECT * FROM loan where company_ID =  '$compId' AND status='Pending'";
-                                                $result = mysql_query($query) or die($query . "<br/><br/>" . mysql_error());
+                                                $result = mysqli_query($link, $query) or die($query . "<br/><br/>" . mysqli_error($link));
 
-                                                $row = mysql_fetch_array($result, MYSQL_ASSOC);
+                                                $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
                                                 $balance = $row['loan_amt'];
                                                 $interest = $row['interest'];
                                                 $months = $row['duration'];
@@ -160,16 +157,16 @@ error_reporting(0);
                                                 INNER JOIN emp_info n ON em.empno = n.empno
                                                 WHERE em.company_id = '$compId' AND em.time = '$year-$month-$day'";
 
-                                                $result2 = mysql_query($query2, $link) or die(mysql_error());
+                                                $result2 = mysqli_query($link, $query2) or die(mysqli_error($link));
                                                 $sum = 0;
-                                                while ($row = mysql_fetch_array($result2)) {
+                                                while ($row = mysqli_fetch_array($result2)) {
                                                     $earn_id = $row['earnings_id'];
                                                     $ded_id = $row['deductions_id'];
 
                                                     $earnings = $PaySlipObject->getEmployeeEarnings($earn_id);
 
-                                                    $gross = ($row['pay']) + ($row['otrate'] * $row['othrs']) + $row['allow'] + $row['comission'] + $earnings;
                                                     $empoyeeNo = $row['empno'];
+                                                    $gross = $PaySlipObject->getEmployeeGrossPay($empoyeeNo, $year . '-' . $month . '-' . $day);
 
                                                     $emp_deductions = $PaySlipObject->getEmployeeDeductions($gross, $empoyeeNo, $ded_id);
 
@@ -214,7 +211,7 @@ error_reporting(0);
                                                     }
 
                                                     $band1 = $income * $band1_rate;
-                                                    $total_tax_paid = $TaxObject->TaxCal($gross, $compId); //$band1 + $band2 + $band3 + $band4;
+                                                    $total_tax_paid = $TaxObject->TaxCal($starting_income, $compId); //$band1 + $band2 + $band3 + $band4;
 
                                                     $date_compare = date('Y-m-d', strtotime($row['time']));
                                                     if ($loanObj->getLoanMonthDedeductAmount($empoyeeNo, $date_compare) == "") {
@@ -223,7 +220,7 @@ error_reporting(0);
                                                         $lAmount = $loanObj->getLoanMonthDedeductAmount($empoyeeNo, $date_compare);
                                                     }
 
-                                                    // var_dump($total_tax_paid, $row['advances'], $row['insurance'], $lAmount, $napsa, $row['health_insurance'], $row['pension'], $emp_deductions);
+                                                    // echo $total_tax_paid . " " . $row['advances'] . " " . $row['insurance'] . " " . $lAmount . " " . $napsa . " " . $row['health_insurance'] . " " . $row['pension'] . " " . $emp_deductions;
 
                                                     $totdeduct = $total_tax_paid + $row['advances'] + $row['insurance'] + $lAmount + $napsa + $row['health_insurance'] + $row['pension'] + $emp_deductions;
                                                     $netpay = ($gross - $totdeduct);

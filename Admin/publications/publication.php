@@ -70,7 +70,7 @@
 <body class="hold-transition skin-green-light sidebar-mini">
     <div class="wrapper">
 
-        <?php       
+        <?php
         include '../navigation_panel/authenticated_user_header.php';
         ?>
 
@@ -121,12 +121,12 @@
                 }
 
                 // Execute your SQL query here
-                $result = mysql_query($sql, $link); // Make sure you have $link defined
+                $result = mysqli_query($link, $sql); // Make sure you have $link defined
 
                 if ($result) {
                     echo '<script>alert("Publication inserted successfully!");</script>';
                 } else {
-                    echo '<script>alert("Error inserting publication: ' . mysql_error($link) . '");</script>';
+                    echo '<script>alert("Error inserting publication: ' . mysqli_error($link)($link) . '");</script>';
                     // Handle the error appropriately, e.g., output MySQL error
                 }
             }

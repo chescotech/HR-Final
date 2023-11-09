@@ -35,19 +35,19 @@ require_once('PHPmailer/sendmail.php');
 if (isset($_POST['sign_in'])) {
 
     $message = "";
-    $email = mysql_real_escape_string($_POST['email']);
+    $email = ($_POST['email']);
 
     $em = new email();
 
     $empno = $_POST['empno'];
     include('include/dbconnection.php');
 
-    $EmployeeQuery = mysql_query("SELECT * FROM emp_info WHERE (empno = '" . mysql_real_escape_string($_POST['empno']) . "') and (email = '" . mysql_real_escape_string($_POST['email']) . "')");
-    $employeeRows = mysql_fetch_array($EmployeeQuery);
+    $EmployeeQuery = mysqli_query($link, "SELECT * FROM emp_info WHERE (empno = '" . ($_POST['empno']) . "') and (email = '" . ($_POST['email']) . "')");
+    $employeeRows = mysqli_fetch_array($EmployeeQuery);
     // user query..
 
 
-    if (mysql_num_rows($EmployeeQuery) > 0) {
+    if (mysqli_num_rows($EmployeeQuery) > 0) {
 
         $new_pw = $_POST['empno'] . "12ps98";
 
@@ -63,13 +63,13 @@ if (isset($_POST['sign_in'])) {
                         ";
 
         $em->send_mail($email, $message, $Subject);
-        mysql_query("UPDATE emp_info SET password = '$password' WHERE empno = '$empno'");
+        mysqli_query($link, "UPDATE emp_info SET password = '$password' WHERE empno = '$empno'");
 
         echo "<script> alert('Recovery Password sent via email.') </script>";
         $message = '<div class="alert alert-success">
                         Email Sent. Check your inbox for a recovery password.
                         </div>';
-    } else if (mysql_num_rows($EmployeeQuery) == 0) {
+    } else if (mysqli_num_rows($EmployeeQuery) == 0) {
         $message = '<div class="alert alert-danger">
                         Employee Number Not Recognised 
                         </div>';

@@ -13,7 +13,7 @@ $dbname = "janazm_hr_fab";
 $conn = mysql_connect($servername, $username, $password, $dbname);
 
 if (!$conn) {
-    die("Connection failed: " . mysql_error());
+    die("Connection failed: " . mysqli_error($link));
 }
 
 mysql_select_db($dbname, $conn);
@@ -62,10 +62,10 @@ if ($_SESSION['fromdate'] == "today") {
     }
 }
 
-$result = mysql_query($sqlQuery, $conn);
+$result = mysqli_query($link, $sqlQuery, $conn);
 
 $data = array();
-while ($row = mysql_fetch_assoc($result)) {
+while ($row = mysqli_fetch_assoc($result)) {
     $data[] = $row;
 }
 

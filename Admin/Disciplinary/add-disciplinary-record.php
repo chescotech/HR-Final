@@ -114,7 +114,7 @@
                                             <option>-- Select Employee--</option>
                                             <?php
                                             $departmentquery = $DepartmentObject->getAllEmployeesByCompany($compId);
-                                            while ($row = mysql_fetch_array($departmentquery)) {
+                                            while ($row = mysqli_fetch_array($departmentquery)) {
 
                                                 $fname = $row['fname'];
                                                 $lname = $row['lname'];

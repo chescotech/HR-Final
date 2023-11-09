@@ -51,8 +51,8 @@
                 $total_score = $_POST['total_score'];
                 $comment = $_POST['comment'];
 
-                $add_q = mysql_query("INSERT INTO ass_appraisals (empno,params_id, period_id, factor_id, own_score, boss_score, total_score, comment)
-                        VALUES('$empno', '$params_id', '$period_id', '$factor_id', '$own_score', '$boss_score', '$total_score', '$comment')") or die(mysql_error());
+                $add_q = mysqli_query($link, "INSERT INTO ass_appraisals (empno,params_id, period_id, factor_id, own_score, boss_score, total_score, comment)
+                        VALUES('$empno', '$params_id', '$period_id', '$factor_id', '$own_score', '$boss_score', '$total_score', '$comment')") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Added Successfuly') </script>";
@@ -64,8 +64,8 @@
                 $target = $_POST['target'];
                 $id = $_POST['id'];
 
-                $add_q = mysql_query("UPDATE ass_appraisals SET name = '$name',target='$target'
-                        WHERE id = '$id' ") or die(mysql_error());
+                $add_q = mysqli_query($link, "UPDATE ass_appraisals SET name = '$name',target='$target'
+                        WHERE id = '$id' ") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Updated Successfuly') </script>";
@@ -75,7 +75,7 @@
             if (isset($_POST['delete'])) {
                 $id = $_POST['id'];
 
-                $add_q = mysql_query("DELETE FROM ass_appraisals WHERE id = '$id' ") or die(mysql_error());
+                $add_q = mysqli_query($link, "DELETE FROM ass_appraisals WHERE id = '$id' ") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Deleted Successfuly') </script>";
@@ -99,7 +99,7 @@
                             <div class="box-body">
                                 <table id="example1" class="table table-bordered table-striped">
                                     <?php
-                                    $query1 = mysql_query("SELECT emp_info.fname AS fname , emp_info.lname AS lname, emp_info.position AS position, emp_info.empno AS empno,
+                                    $query1 = mysqli_query($link, "SELECT emp_info.fname AS fname , emp_info.lname AS lname, emp_info.position AS position, emp_info.empno AS empno,
                                                     department.department, ass_periods.name AS periods, ass_appraisals.date AS app_date,
                                                     ass_periods.id AS periods_id
                                                 FROM ass_appraisals
@@ -107,8 +107,8 @@
                                                 LEFT JOIN department ON department.dep_id = emp_info.dept 
                                                 LEFT JOIN ass_periods ON ass_periods.id = ass_appraisals.period_id 
                                                 WHERE ass_appraisals.id = '$app_id'
-                                                ") or die("Error Getting Data " . mysql_error());
-                                    while ($row1 = mysql_fetch_array($query1)) {
+                                                ") or die("Error Getting Data " . mysqli_error($link));
+                                    while ($row1 = mysqli_fetch_array($query1)) {
                                         $emp_name = $row1['fname'] . " " . $row1['lname'];
                                         $period = $row1['periods'];
                                         $app_date = $row1['app_date'];
@@ -161,7 +161,7 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $query = mysql_query("SELECT own_score, boss_score, total_score, comment, ass_appraisals.id,
+                                        $query = mysqli_query($link, "SELECT own_score, boss_score, total_score, comment, ass_appraisals.id,
                                                         ass_params.name AS params, ass_params.id AS params_id, ass_params.weight AS weight,
                                                         ass_factors.name AS objective, ass_factors.target AS target,
                                                         ass_periods.name, emp_info.empno
@@ -171,8 +171,8 @@
                                                     LEFT JOIN ass_factors ON ass_factors.id = ass_appraisals.factor_id
                                                     LEFT JOIN ass_periods ON ass_periods.id = ass_appraisals.period_id 
                                                     WHERE ass_periods.name = '$period' AND emp_info.empno = '$empno'
-                                                    ") or die("Error Getting Data " . mysql_error());
-                                        while ($row = mysql_fetch_array($query)) {
+                                                    ") or die("Error Getting Data " . mysqli_error($link));
+                                        while ($row = mysqli_fetch_array($query)) {
                                             $params = $row['params'];
                                             $weight = $row['weight'];
                                             $objective = $row['objective'];
@@ -262,7 +262,7 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $query = mysql_query("SELECT own_score, boss_score, total_score, comment, ass_appraisals.id,
+                                        $query = mysqli_query($link, "SELECT own_score, boss_score, total_score, comment, ass_appraisals.id,
                                                         ass_params.name AS params, ass_params.id AS params_id, ass_params.weight AS weight,
                                                         ass_factors.name AS objective, ass_factors.target AS target,
                                                         ass_periods.name, emp_info.empno
@@ -272,8 +272,8 @@
                                                     LEFT JOIN ass_factors ON ass_factors.id = ass_appraisals.factor_id
                                                     LEFT JOIN ass_periods ON ass_periods.id = ass_appraisals.period_id 
                                                     WHERE ass_periods.name = '$period' AND emp_info.empno = '$empno'
-                                                    ") or die("Error Getting Data " . mysql_error());
-                                        while ($row = mysql_fetch_array($query)) {
+                                                    ") or die("Error Getting Data " . mysqli_error($link));
+                                        while ($row = mysqli_fetch_array($query)) {
                                             $params = $row['params'];
                                             $weight = $row['weight'];
                                             $objective = $row['objective'];

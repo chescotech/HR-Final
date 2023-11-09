@@ -118,7 +118,7 @@
 
                 $em->send_mail($supervisorsEmial, $message, $Subject);
 
-                mysql_query("UPDATE leave_applications_tb SET parent_supervisor_notified = 'Yes' WHERE empno = '$empno'");
+                mysqli_query($link,"UPDATE leave_applications_tb SET parent_supervisor_notified = 'Yes' WHERE empno = '$empno'");
             }
         }
         */

@@ -76,11 +76,11 @@ error_reporting(0);
 
                                             <?php
                                             $allDeductions = $RecurringDeductionsObject->getRecurringDeductions($companyId);
-                                            while ($row = mysql_fetch_array($allDeductions)) {
+                                            while ($row = mysqli_fetch_array($allDeductions)) {
                                                 $id_ = $row['id'];
                                                 $empno = $row['employee_id'];
                                                 $employees = $LoanObject->getEmpDetailsByID($empno);
-                                                $empRows = mysql_fetch_array($employees);
+                                                $empRows = mysqli_fetch_array($employees);
 
                                                 if ($row['status'] == "Cleared") {
                                                     $status = '<span class="label label-success arrowed-in arrowed-in-right">' . $row['status'] . '</span>';

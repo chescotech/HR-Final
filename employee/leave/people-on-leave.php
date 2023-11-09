@@ -20,9 +20,9 @@
     <div class="wrapper">
 
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Leave.php';
         $leaveObject = new Leave();
-        include '../navigation_panel/authenticated_user_header.php';
         $empno = $_SESSION['employee_id'];
         $companyId = $_SESSION['company_name'];
         $supervisorDepartmentId = $_SESSION['supervisorDepartmentId'];
@@ -66,14 +66,14 @@
                                             if ($empno == "LSO09") {
                                             } else {
                                             }
-                                            $MyLeave = mysql_query("SELECT * FROM leave_applications_tb lv, emp_info em WHERE lv.empno = em.empno AND  lv.status ='Approved'");
+                                            $MyLeave = mysqli_query($link, "SELECT * FROM leave_applications_tb lv, emp_info em WHERE lv.empno = em.empno AND  lv.status ='Approved'");
 
-                                            if (mysql_num_rows($MyLeave) == 0) {
+                                            if (mysqli_num_rows($MyLeave) == 0) {
                                                 echo '<tr>
                                                     <td style="vertical-align:middle" align="left">There are no people on leave in your Department.</td>
                                                     </tr>';
                                             }
-                                            while ($row = mysql_fetch_array($MyLeave)) {
+                                            while ($row = mysqli_fetch_array($MyLeave)) {
                                                 if ($leaveObject->checkForExpiredLeaves($row['leave_end_date']) == "false") {
                                                     $id_ = $row['application_id'];
                                             ?>

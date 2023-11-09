@@ -58,9 +58,9 @@
                 array_map(function ($ass_app_id, $boss_score, $total_score) {
                     global $empno;
                     // return var_dump($empno);
-                    mysql_query(" UPDATE ass_emp_appraisals SET boss_score = '$boss_score', total_score = '$total_score'
+                    mysqli_query($link, " UPDATE ass_emp_appraisals SET boss_score = '$boss_score', total_score = '$total_score'
                             WHERE ass_app_id = '$ass_app_id' AND empno='$empno'
-                        ") or die("Error Saving Data " . mysql_error());
+                        ") or die("Error Saving Data " . mysqli_error($link));
                     // return var_dump($mysql_query);
                 }, $ass_app_ids, $boss_scores, $total_scores);
 
@@ -76,8 +76,8 @@
 
                 function getEmployeeEmail($employeeId)
                 {
-                    $getHodDataQuery = mysql_query("SELECT * FROM emp_info WHERE empno='$employeeId'");
-                    $hodsInfoRows = mysql_fetch_array($getHodDataQuery);
+                    $getHodDataQuery = mysqli_query($link, "SELECT * FROM emp_info WHERE empno='$employeeId'");
+                    $hodsInfoRows = mysqli_fetch_array($getHodDataQuery);
                     $hodsEmail = $hodsInfoRows['email'];
                     return $hodsEmail;
                 }
@@ -87,11 +87,11 @@
 
             if (isset($_POST['boss_comment'])) {
                 $ass_app_id = $app_id;
-                $boss_comment = mysql_real_escape_string($_POST['boss_comment']);
+                $boss_comment = ($_POST['boss_comment']);
 
-                mysql_query(" UPDATE ass_emp_appraisals SET boss_comment = '$boss_comment'
+                mysqli_query($link, " UPDATE ass_emp_appraisals SET boss_comment = '$boss_comment'
                         WHERE ass_app_id = '$ass_app_id' AND empno='$empno'
-                    ") or die("Error Saving Data " . mysql_error());
+                    ") or die("Error Saving Data " . mysqli_error($link));
             }
             ?>
             <div style="padding-left: 70px; padding-top: 20px;">
@@ -119,16 +119,16 @@
 
                                     <table id="example1" class="table table-bordered table-striped">
                                         <?php
-                                        $empq = mysql_query("SELECT emp_info.fname AS fname , emp_info.lname AS lname, emp_info.position AS position, emp_info.empno AS empno,
+                                        $empq = mysqli_query($link, "SELECT emp_info.fname AS fname , emp_info.lname AS lname, emp_info.position AS position, emp_info.empno AS empno,
                                         department.department FROM emp_info 
                                         LEFT JOIN department ON department.dep_id = emp_info.dept 
                                         WHERE emp_info.empno = '$empno'
                                         ");
-                                        $empr = mysql_fetch_array($empq);
+                                        $empr = mysqli_fetch_array($empq);
 
 
 
-                                        $query1 = mysql_query("SELECT emp_info.fname AS fname , emp_info.lname AS lname, emp_info.position AS position, emp_info.empno AS empno,
+                                        $query1 = mysqli_query($link, "SELECT emp_info.fname AS fname , emp_info.lname AS lname, emp_info.position AS position, emp_info.empno AS empno,
                                                     department.department, ass_periods.name AS periods, ass_appraisals.date AS app_date,ass_appraisals.bossno ,
                                                     ass_periods.id AS periods_id,ass_periods.date AS p_to, ass_periods.date_from AS p_from
                                                 FROM ass_appraisals
@@ -136,8 +136,8 @@
                                                 LEFT JOIN department ON department.dep_id = emp_info.dept 
                                                 LEFT JOIN ass_periods ON ass_periods.id = ass_appraisals.period_id 
                                                 WHERE ass_appraisals.id = '$app_id'
-                                                ") or die("Error Getting Data 2 " . mysql_error());
-                                        while ($row1 = mysql_fetch_array($query1)) {
+                                                ") or die("Error Getting Data 2 " . mysqli_error($link));
+                                        while ($row1 = mysqli_fetch_array($query1)) {
                                             $boss_name = $row1['fname'] . " " . $row1['lname'];
                                             $bossno = $row1['bossno'];
                                             $period = $row1['periods'];
@@ -193,7 +193,7 @@
                                         <tbody>
                                             <?php
                                             // var_dump($bossno, $empno);
-                                            $query = mysql_query("SELECT ass_appraisals.id AS ass_app_id,
+                                            $query = mysqli_query($link, "SELECT ass_appraisals.id AS ass_app_id,
                                                         ass_params.name AS params, ass_params.id AS params_id, ass_params.weight AS weight,
                                                         ass_factors.name AS objective, ass_factors.target AS target,
                                                         ass_periods.name, emp_info.empno
@@ -207,14 +207,14 @@
                                                     
                                                      AND ass_emp_appraisals.empno = '$empno'
                                                     
-                                                    ") or die("Error Getting Data 3 " . mysql_error());
+                                                    ") or die("Error Getting Data 3 " . mysqli_error($link));
 
 
-                                            while ($row = mysql_fetch_array($query)) {
+                                            while ($row = mysqli_fetch_array($query)) {
                                                 $ass_app_id = $row['ass_app_id'];
-                                                $emp_q = mysql_query("SELECT own_score, boss_score, total_score, comment 
+                                                $emp_q = mysqli_query($link, "SELECT own_score, boss_score, total_score, comment 
                                                 FROM ass_emp_appraisals WHERE empno = '$empno' AND ass_app_id = '$ass_app_id'  
-                                                ") or die("Error Getting Data 4 " . mysql_error());
+                                                ") or die("Error Getting Data 4 " . mysqli_error($link));
 
 
                                                 $params = $row['params'];
@@ -229,7 +229,7 @@
                                                         <td><?php echo $params; ?></td>
                                                         <td><?php echo $target; ?></td>
                                                         <?php
-                                                        while ($emp_r = mysql_fetch_array($emp_q)) {
+                                                        while ($emp_r = mysqli_fetch_array($emp_q)) {
                                                             $own_score = $emp_r['own_score'];
                                                             $boss_score = $emp_r['boss_score'];
                                                             $total_score = $emp_r['total_score'];
@@ -290,8 +290,8 @@
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $query = mysql_query("SELECT from_,to_ ,rank FROM `app_rating`") or die(mysql_error());
-                                            while ($row = mysql_fetch_array($query)) {
+                                            $query = mysqli_query($link, "SELECT from_,to_ ,rank FROM `app_rating`") or die(mysqli_error($link));
+                                            while ($row = mysqli_fetch_array($query)) {
                                             ?>
                                                 <tr>
                                                     <td><?php echo $row['from_'] . '-' . $row['to_']; ?></td>
@@ -391,7 +391,7 @@
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $query = mysql_query("SELECT ass_appraisals.id AS ass_app_id,
+                                            $query = mysqli_query($link, "SELECT ass_appraisals.id AS ass_app_id,
                                                         ass_params.name AS params, ass_params.id AS params_id, ass_params.weight AS weight,
                                                         ass_factors.name AS objective, ass_factors.target AS target,
                                                         ass_periods.name, emp_info.empno
@@ -406,9 +406,9 @@
                                                     
                                                      AND ass_emp_appraisals.empno = '$empno'
                                                      GROUP BY params
-                                                    ") or die("Error Getting Data 3 " . mysql_error());
+                                                    ") or die("Error Getting Data 3 " . mysqli_error($link));
                                             $total_weight = 0;
-                                            while ($row = mysql_fetch_array($query)) {
+                                            while ($row = mysqli_fetch_array($query)) {
                                                 $ass_app_id = $row['ass_app_id'];
 
                                                 $params = $row['params'];
@@ -420,12 +420,12 @@
                                                     <td><?php echo $params; ?></td>
                                                     <td><?php echo $weight; ?></td>
                                                     <?php
-                                                    $emp_q = mysql_query("SELECT own_score, boss_score, total_score, comment 
+                                                    $emp_q = mysqli_query($link, "SELECT own_score, boss_score, total_score, comment 
                                                             FROM ass_emp_appraisals WHERE empno = '$empno' AND ass_app_id = '$ass_app_id'
-                                                        ") or die("Error Getting Data 4 " . mysql_error());
+                                                        ") or die("Error Getting Data 4 " . mysqli_error($link));
 
                                                     $total_archieved_score = 0;
-                                                    while ($emp_r = mysql_fetch_array($emp_q)) {
+                                                    while ($emp_r = mysqli_fetch_array($emp_q)) {
                                                         $total_score = $emp_r['total_score'];
                                                         $total_archieved_score += $total_score;
                                                         //Get Percentage
@@ -433,10 +433,10 @@
                                                         $total_score_percent = intval($total_score_percent);
                                                         $comment = $emp_r['comment'];
                                                         // Get Ranking
-                                                        $r_q = mysql_query("SELECT * FROM app_rating
+                                                        $r_q = mysqli_query($link, "SELECT * FROM app_rating
                                                                 WHERE from_ <= '$total_score_percent' AND to_ >= '$total_score_percent' 
-                                                                ") or die(mysql_error());
-                                                        $r_row = mysql_fetch_array($r_q);
+                                                                ") or die(mysqli_error($link));
+                                                        $r_row = mysqli_fetch_array($r_q);
                                                         $from_ = intval($r_row['from_']);
                                                         $to_ = intval($r_row['to_']);
                                                         $recommendation = $r_row['recommendation'];
@@ -497,7 +497,7 @@
                                 </div>
                                 <div class="box-body">
                                     <?php
-                                    $empex_q = mysql_query("SELECT emp_expectation,ass_appraisals.id AS ass_app_id,
+                                    $empex_q = mysqli_query($link, "SELECT emp_expectation,ass_appraisals.id AS ass_app_id,
                                                         ass_params.name AS params, ass_params.id AS params_id, ass_params.weight AS weight,
                                                         ass_factors.name AS objective, ass_factors.target AS target,
                                                         ass_periods.name, emp_info.empno
@@ -511,10 +511,10 @@
                                                     
                                                      AND ass_emp_appraisals.empno = '$empno' and emp_expectation!=''
                                                     
-                                                    ") or die("Error" . mysql_error());
+                                                    ") or die("Error" . mysqli_error($link));
 
 
-                                    $empex_r = mysql_fetch_array($empex_q);
+                                    $empex_r = mysqli_fetch_array($empex_q);
                                     $empex_exists = $empex_r['emp_expectation'];
 
                                     echo '
@@ -533,7 +533,7 @@
                                 </div>
                                 <div class="box-body">
                                     <?php
-                                    $bosscom_q = mysql_query("SELECT boss_comment,ass_appraisals.id AS ass_app_id,
+                                    $bosscom_q = mysqli_query($link, "SELECT boss_comment,ass_appraisals.id AS ass_app_id,
                                                         ass_params.name AS params, ass_params.id AS params_id, ass_params.weight AS weight,
                                                         ass_factors.name AS objective, ass_factors.target AS target,
                                                         ass_periods.name, emp_info.empno
@@ -548,7 +548,7 @@
                                                      AND ass_emp_appraisals.empno = '$empno'
                                                     
                                                     
-                                        ") or die("Error" . mysql_error());
+                                        ") or die("Error" . mysqli_error($link));
 
                                     echo "SELECT boss_comment,ass_appraisals.id AS ass_app_id,
                                                         ass_params.name AS params, ass_params.id AS params_id, ass_params.weight AS weight,
@@ -566,7 +566,7 @@
                                                     
                                                     
                                         ";
-                                    $bosscom_r = mysql_fetch_array($bosscom_q);
+                                    $bosscom_r = mysqli_fetch_array($bosscom_q);
                                     $bosscom_exists = $bosscom_r['boss_comment'];
                                     // return var_dump($bosscom_exists);
                                     if ($bosscom_exists == '') {

@@ -8,9 +8,9 @@ $status = "Approved";
 
 echo $id;
 
-$Query_ = mysql_query("SELECT * FROM `loan_applications` WHERE LOAN_NO='$id'") or die(mysql_error());
+$Query_ = mysqli_query($link, "SELECT * FROM `loan_applications` WHERE LOAN_NO='$id'") or die(mysqli_error($link));
 
-$loan = mysql_fetch_array($Query_);
+$loan = mysqli_fetch_array($Query_);
 
 $empno = $loan['empno'];
 echo $empno;
@@ -18,25 +18,25 @@ echo $empno;
 if ($loan) {
         //        retrieve the values
         // Insert the loan into loan_tb
-    $insertQuery = "INSERT INTO loan (empno, loan_amt, loan_type, monthly_deduct, duration, company_ID, loan_date, date_completion, status) 
-                    VALUES ('" . $empno . "', " . mysql_real_escape_string($loan['loan_amt']) . ", 
-                            '" . mysql_real_escape_string($loan['loan_type']) . "', '" . mysql_real_escape_string($loan['monthly_deduct']) . "', 
-                            " . mysql_real_escape_string($loan['duration']) . ", '" . mysql_real_escape_string($loan['company_ID']) . "', 
-                            '" . mysql_real_escape_string($loan['loan_date']) . "', '" . mysql_real_escape_string($loan['date_completion']) . "', 
+        $insertQuery = "INSERT INTO loan (empno, loan_amt, loan_type, monthly_deduct, duration, company_ID, loan_date, date_completion, status) 
+                    VALUES ('" . $empno . "', " . ($loan['loan_amt']) . ", 
+                            '" . ($loan['loan_type']) . "', '" . ($loan['monthly_deduct']) . "', 
+                            " . ($loan['duration']) . ", '" . ($loan['company_ID']) . "', 
+                            '" . ($loan['loan_date']) . "', '" . ($loan['date_completion']) . "', 
                             '$status')";
 
         // Execute the insert statement
-        $insertResult = mysql_query($insertQuery, $link);
+        $insertResult = mysqli_query($link, $insertQuery);
         if (!$insertResult) {
-                die("Insert failed: " . mysql_error());
+                die("Insert failed: " . mysqli_error($link));
         }
-        
-//       send email to employee
-        $emp_query = mysql_query("SELECT * FROM `emp_info` WHERE empno = '$empno'");
-        $employee = mysql_fetch_array($emp_query);
+
+        //       send email to employee
+        $emp_query = mysqli_query($link, "SELECT * FROM `emp_info` WHERE empno = '$empno'");
+        $employee = mysqli_fetch_array($emp_query);
         $EmployeeEmail = $employee['email'];
-        
-        
+
+
         $em = new email();
 
         $message = "Greetings." . "<br>" . "<br>"
@@ -46,12 +46,12 @@ if ($loan) {
         $Subject = "Loan Status";
 
         $em->send_mail($EmployeeEmail, $message, $Subject);
-        
+
         // Delete the loan from loan_applications_tb
-    $deleteQuery = "DELETE FROM loan_applications WHERE LOAN_NO = '" . mysql_real_escape_string($loan['LOAN_NO']) . "'";
-        $deleteResult = mysql_query($deleteQuery, $link);
+        $deleteQuery = "DELETE FROM loan_applications WHERE LOAN_NO = '" . ($loan['LOAN_NO']) . "'";
+        $deleteResult = mysqli_query($link, $deleteQuery);
         if (!$deleteResult) {
-                die("Delete failed: " . mysql_error());
+                die("Delete failed: " . mysqli_error($link));
         }
 
         // Redirect the user back to the loan applications page
@@ -60,4 +60,3 @@ if ($loan) {
 } else {
         echo "Loan Application not found!";
 }
-?>

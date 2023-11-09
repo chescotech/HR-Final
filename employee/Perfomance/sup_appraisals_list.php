@@ -34,8 +34,8 @@
                 <h1>
                     <?php
                     $empno = $_SESSION['empno'];
-                    $e1 = mysql_query("SELECT dept FROM emp_info WHERE empno = '$empno' ") or die(mysql_error());
-                    $er = mysql_fetch_array($e1);
+                    $e1 = mysqli_query($link, "SELECT dept FROM emp_info WHERE empno = '$empno' ") or die(mysqli_error($link));
+                    $er = mysqli_fetch_array($e1);
                     $dept_id = $er['dept'];
                     $compID = $_SESSION['company_ID'];
                     // $dept_id = $_SESSION['dept_id'];
@@ -66,7 +66,7 @@
                                     <tbody>
                                         <?php
                                         $app_id = $_GET['period'];
-                                        $query = mysql_query("SELECT emp_info.fname AS fname, emp_info.lname AS lname,
+                                        $query = mysqli_query($link, "SELECT emp_info.fname AS fname, emp_info.lname AS lname,
                                             total_score,emp_info.empno AS empno,boss_score
                                             ,
                                                 ass_appraisals.id AS ass_app_id,ass_emp_appraisals.ass_app_id AS uid FROM ass_emp_appraisals
@@ -74,8 +74,8 @@
                                                 INNER JOIN emp_info ON emp_info.empno = ass_emp_appraisals.empno
                                                 WHERE ass_appraisals.dept_id = '$dept_id' 
                                                 GROUP BY empno
-                                                    ") or die(mysql_error());
-                                        while ($row = mysql_fetch_array($query)) {
+                                                    ") or die(mysqli_error($link));
+                                        while ($row = mysqli_fetch_array($query)) {
                                         ?>
                                             <tr>
                                                 <td><?php echo $row['fname'] . " " . $row['lname']; ?></td>

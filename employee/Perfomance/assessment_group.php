@@ -41,8 +41,8 @@
         <?php
         // get boss department.
         $emp_no = $_SESSION['empno'];
-        $gt_dep = mysql_query("SELECT dept FROM emp_info WHERE empno = '$emp_no' ") or die(mysql_error());
-        $gt_dep_r = mysql_fetch_array($gt_dep);
+        $gt_dep = mysqli_query($link, "SELECT dept FROM emp_info WHERE empno = '$emp_no' ") or die(mysqli_error($link));
+        $gt_dep_r = mysqli_fetch_array($gt_dep);
         $dep_id = $gt_dep_r['dept'];
 
         if (isset($_GET['grp_name'])) {
@@ -68,8 +68,8 @@
                     $dept = $_SESSION['dept'];
                     foreach ($empnos as $key => $value) {
                         $empno = $empnos[$key];
-                        mysql_query("INSERT INTO ass_group (name,empno, bossno,dept )
-                        VALUES('$name','$empno','$bossno','$dept' )") or die(mysql_error());
+                        mysqli_query($link, "INSERT INTO ass_group (name,empno, bossno,dept )
+                        VALUES('$name','$empno','$bossno','$dept' )") or die(mysqli_error($link));
                     }
                     echo "<script> alert('Added Successfuly') </script>";
                     echo "<script> window.location='assessment_group?grp_name=" . $name . "' </script>";
@@ -81,8 +81,8 @@
                     $status = $_POST['status'];
                     $id = $_POST['id'];
 
-                    $add_q = mysql_query("UPDATE ass_periods SET name = '$name',status='$status',
-                        date = '$date', date_from = '$date_from' WHERE id = '$id' ") or die(mysql_error());
+                    $add_q = mysqli_query($link, "UPDATE ass_periods SET name = '$name',status='$status',
+                        date = '$date', date_from = '$date_from' WHERE id = '$id' ") or die(mysqli_error($link));
 
                     if ($add_q) {
                         echo "<script> alert('Updated Successfuly') </script>";
@@ -92,7 +92,7 @@
                 if (isset($_POST['delete'])) {
                     $empno = $_POST['empno'];
 
-                    $add_q = mysql_query("DELETE FROM ass_group WHERE empno = '$empno' ") or die(mysql_error());
+                    $add_q = mysqli_query($link, "DELETE FROM ass_group WHERE empno = '$empno' ") or die(mysqli_error($link));
 
                     if ($add_q) {
                         echo "<script> alert('Deleted Successfuly') </script>";
@@ -139,14 +139,14 @@
                                                     // $dept = $_GET['quote_id'];
                                                     // if employee logged in has no supervisior but has people reporting to him.., 
 
-                                                    $checkifParentSupervisor = mysql_query("SELECT * FROM `hod_tb` where parent_supervisor='$emp_no'") or die(mysql_error());
-                                                    if (mysql_num_rows($checkifParentSupervisor) > 0) {
-                                                        $query2 = mysql_query("select * FROM emp_info WHERE emp_info.empno IN (  SELECT empno FROM `hod_tb` where parent_supervisor='$emp_no')") or die(mysql_error());
+                                                    $checkifParentSupervisor = mysqli_query($link, "SELECT * FROM `hod_tb` where parent_supervisor='$emp_no'") or die(mysqli_error($link));
+                                                    if (mysqli_num_rows($checkifParentSupervisor) > 0) {
+                                                        $query2 = mysqli_query($link, "select * FROM emp_info WHERE emp_info.empno IN (  SELECT empno FROM `hod_tb` where parent_supervisor='$emp_no')") or die(mysqli_error($link));
                                                     } else {
-                                                        $query2 = mysql_query("select * FROM emp_info WHERE dept = '$dep_id' ") or die(mysql_error());
+                                                        $query2 = mysqli_query($link, "select * FROM emp_info WHERE dept = '$dep_id' ") or die(mysqli_error($link));
                                                     }
 
-                                                    while ($row = mysql_fetch_array($query2)) {
+                                                    while ($row = mysqli_fetch_array($query2)) {
                                                     ?>
                                                         <option value="<?php echo $row['empno']; ?>"><?php echo $row['fname'] . " " . $row['lname']; ?></option>
                                                     <?php } ?>
@@ -180,11 +180,11 @@
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $query = mysql_query("SELECT fname, lname, emp_info.empno FROM emp_info 
+                                            $query = mysqli_query($link, "SELECT fname, lname, emp_info.empno FROM emp_info 
                                                     INNER JOIN ass_group ON emp_info.empno = ass_group.empno
                                                     WHERE name = '$grp_name' AND bossno = '$bossno'
-                                                    ") or die(mysql_error());
-                                            while ($row = mysql_fetch_array($query)) {
+                                                    ") or die(mysqli_error($link));
+                                            while ($row = mysqli_fetch_array($query)) {
                                             ?>
                                                 <tr>
                                                     <td><?php echo $row['fname'] . " " . $row['lname']; ?></td>
@@ -260,8 +260,8 @@
 
                     foreach ($empnos as $key => $value) {
                         $empno = $empnos[$key];
-                        mysql_query("INSERT INTO ass_group (name,empno, bossno,dept )
-                        VALUES('$name','$empno','$bossno','$dept' )") or die(mysql_error());
+                        mysqli_query($link, "INSERT INTO ass_group (name,empno, bossno,dept )
+                        VALUES('$name','$empno','$bossno','$dept' )") or die(mysqli_error($link));
                     }
                     echo "<script> alert('Added Successfuly') </script>";
                     echo "<script> window.location='assessment_group?grp_name=" . $name . "' </script>";
@@ -273,8 +273,8 @@
                     $status = $_POST['status'];
                     $id = $_POST['id'];
 
-                    $add_q = mysql_query("UPDATE ass_periods SET name = '$name',status='$status',
-                        date = '$date', date_from = '$date_from' WHERE id = '$id' ") or die(mysql_error());
+                    $add_q = mysqli_query($link, "UPDATE ass_periods SET name = '$name',status='$status',
+                        date = '$date', date_from = '$date_from' WHERE id = '$id' ") or die(mysqli_error($link));
 
                     if ($add_q) {
                         echo "<script> alert('Updated Successfuly') </script>";
@@ -284,7 +284,7 @@
                 if (isset($_POST['delete'])) {
                     $empno = $_POST['empno'];
 
-                    $add_q = mysql_query("DELETE FROM ass_group WHERE empno = '$empno' ") or die(mysql_error());
+                    $add_q = mysqli_query($link, "DELETE FROM ass_group WHERE empno = '$empno' ") or die(mysqli_error($link));
 
                     if ($add_q) {
                         echo "<script> alert('Deleted Successfuly') </script>";
@@ -329,14 +329,14 @@
                                                 <select id="milti_s2" multiple="multiple" name="empnos[]" style="width:600px!important" required>
                                                     <?php
                                                     // $dept = $_GET['quote_id'];
-                                                    $checkifParentSupervisor = mysql_query("SELECT * FROM `hod_tb` where parent_supervisor='$emp_no'") or die(mysql_error());
-                                                    if (mysql_num_rows($checkifParentSupervisor) > 0) {
-                                                        $query2 = mysql_query("select * FROM emp_info WHERE emp_info.empno IN (  SELECT empno FROM `hod_tb` where parent_supervisor='$emp_no')") or die(mysql_error());
+                                                    $checkifParentSupervisor = mysqli_query($link, "SELECT * FROM `hod_tb` where parent_supervisor='$emp_no'") or die(mysqli_error($link));
+                                                    if (mysqli_num_rows($checkifParentSupervisor) > 0) {
+                                                        $query2 = mysqli_query($link, "select * FROM emp_info WHERE emp_info.empno IN (  SELECT empno FROM `hod_tb` where parent_supervisor='$emp_no')") or die(mysqli_error($link));
                                                     } else {
-                                                        $query2 = mysql_query("select * FROM emp_info WHERE dept = '$dep_id' ") or die(mysql_error());
+                                                        $query2 = mysqli_query($link, "select * FROM emp_info WHERE dept = '$dep_id' ") or die(mysqli_error($link));
                                                     }
 
-                                                    while ($row = mysql_fetch_array($query2)) {
+                                                    while ($row = mysqli_fetch_array($query2)) {
                                                     ?>
                                                         <option value="<?php echo $row['empno']; ?>"><?php echo $row['fname'] . " " . $row['lname']; ?></option>
                                                     <?php } ?>
@@ -370,11 +370,11 @@
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $query = mysql_query("SELECT fname, lname, emp_info.empno FROM emp_info 
+                                            $query = mysqli_query($link, "SELECT fname, lname, emp_info.empno FROM emp_info 
                                                     INNER JOIN ass_group ON emp_info.empno = ass_group.empno
                                                     WHERE name = '' AND bossno = ''
-                                                    ") or die(mysql_error());
-                                            while ($row = mysql_fetch_array($query)) {
+                                                    ") or die(mysqli_error($link));
+                                            while ($row = mysqli_fetch_array($query)) {
                                             ?>
                                                 <tr>
                                                     <td><?php echo $row['fname'] . " " . $row['lname']; ?></td>

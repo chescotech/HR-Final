@@ -6,10 +6,6 @@ $dbuser="root";
 $dbpasswd="";
 
 //Establish connection
-$link=mysql_connect($dbhost, $dbuser, $dbpasswd) 
-or die (mysql_error());
-
-$status = mysql_select_db($dbname, $link) or die (mysql_error());
-
+$link=mysqli_connect($dbhost, $dbuser, $dbpasswd, $dbname) 
+or die (mysqli_connect_error());
 //echo "Connected Successfully to ". $dbname.'<br>';
-?>

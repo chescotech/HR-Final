@@ -80,8 +80,8 @@ error_reporting(0);
 
             if (in_array($imgExt, $valid_extensions)) {
                 if (move_uploaded_file($file_loc, $folder . $Payslip)) {
-                    mysql_query("INSERT INTO payslip_uploads (empno,payslip,date_period)"
-                        . "VALUES ('$employeeId','$Payslip','$date_period')") or die(mysql_error());
+                    mysqli_query($link, "INSERT INTO payslip_uploads (empno,payslip,date_period)"
+                        . "VALUES ('$employeeId','$Payslip','$date_period')") or die(mysqli_error($link));
 
                     $message = "Payslip uploaded sucessfully";
         ?>
@@ -130,7 +130,7 @@ error_reporting(0);
                                             <option>-- Select Employee to Upload Pay slip --</option>
                                             <?php
                                             $departmentquery = $DepartmentObject->getAllEmployeesByCompany($companyId);
-                                            while ($row = mysql_fetch_array($departmentquery)) {
+                                            while ($row = mysqli_fetch_array($departmentquery)) {
                                                 $fname = $row['fname'];
                                                 $lname = $row['lname'];
                                                 $position = $row['position'];

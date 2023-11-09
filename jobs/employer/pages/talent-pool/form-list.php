@@ -38,12 +38,12 @@
                     // $reg_num = $_SESSION['reg_num'];
                     $emp_id = $_SESSION['company_ID'];
                     $Rectruitment = new Rectruitment();
-                    $user_q = mysql_query("SELECT id,title,description,date_created, department FROM `talent_pool`
+                    $user_q = mysqli_query($link, "SELECT id,title,description,date_created, department FROM `talent_pool`
                         inner join department on department.dep_id=talent_pool.department_id
                         WHERE emp_id = $emp_id; 
-                    ") or die(mysql_error());
+                    ") or die(mysqli_error($link));
 
-                    while ($row = mysql_fetch_array($user_q)) {
+                    while ($row = mysqli_fetch_array($user_q)) {
                         $id = $row['id'];
                         $title = $row['title'];
                         $department = $row['department'];
@@ -157,8 +157,8 @@
                     $job_id = $_POST['job'];
                     //return var_dump($job_id,$app_id);
 
-                    mysql_query("UPDATE jobs_user_applications SET job_status = '$status' WHERE  id='$job_id' ")
-                        or die("Err11 " . mysql_error());
+                    mysqli_query($link, "UPDATE jobs_user_applications SET job_status = '$status' WHERE  id='$job_id' ")
+                        or die("Err11 " . mysqli_error($link));
 
                     echo "<script> document.location='applicant-list.php' </script>";
                 }

@@ -45,12 +45,12 @@
                     $dept = $_SESSION['dept'];
                     $period_id = $_GET['period_id'];
                     // Get period id and name
-                    $p_q = mysql_query("SELECT name FROM ass_periods WHERE id = '$period_id' ");
-                    $p_r = mysql_fetch_array($p_q);
+                    $p_q = mysqli_query($link, "SELECT name FROM ass_periods WHERE id = '$period_id' ");
+                    $p_r = mysqli_fetch_array($p_q);
                     $period_name = $p_r['name'];
                     // Get Department ID
-                    $d_q = mysql_query("SELECT * FROM emp_info WHERE empno = '$bossno' ") or die(mysql_error());
-                    $d_r = mysql_fetch_array($d_q);
+                    $d_q = mysqli_query($link, "SELECT * FROM emp_info WHERE empno = '$bossno' ") or die(mysqli_error($link));
+                    $d_r = mysqli_fetch_array($d_q);
                     $dept_id = $d_r['dept'];
                     // var_dump($dept_id);
 
@@ -68,8 +68,8 @@
                 $dept_id = $_POST['dept_id'];
                 $ass_group = $_POST['ass_group'];
 
-                $add_q = mysql_query("INSERT INTO ass_appraisals (bossno,params_id, period_id, factor_id, dept_id, ass_group)
-                        VALUES('$bossno', '$params_id', '$period_id', '$factor_id', '$dept_id', '$ass_group' )") or die(mysql_error());
+                $add_q = mysqli_query($link, "INSERT INTO ass_appraisals (bossno,params_id, period_id, factor_id, dept_id, ass_group)
+                        VALUES('$bossno', '$params_id', '$period_id', '$factor_id', '$dept_id', '$ass_group' )") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Added Successfuly') </script>";
@@ -81,8 +81,8 @@
                 $factor_id = $_POST['factor'];
                 $id = $_POST['id'];
 
-                $add_q = mysql_query("UPDATE ass_appraisals SET params_id = '$params_id',factor_id='$factor_id'
-                        WHERE id = '$id' ") or die(mysql_error());
+                $add_q = mysqli_query($link, "UPDATE ass_appraisals SET params_id = '$params_id',factor_id='$factor_id'
+                        WHERE id = '$id' ") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Updated Successfuly') </script>";
@@ -92,7 +92,7 @@
             if (isset($_POST['delete'])) {
                 $id = $_POST['id'];
 
-                $add_q = mysql_query("DELETE FROM ass_appraisals WHERE id = '$id' ") or die(mysql_error());
+                $add_q = mysqli_query($link, "DELETE FROM ass_appraisals WHERE id = '$id' ") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Deleted Successfuly') </script>";
@@ -126,7 +126,7 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $query = mysql_query("SELECT emp_info.empno AS bossno, emp_info.dept AS dept_id, ass_appraisals.id AS id,
+                                        $query = mysqli_query($link, "SELECT emp_info.empno AS bossno, emp_info.dept AS dept_id, ass_appraisals.id AS id,
                                                         ass_params.name AS params, ass_params.id AS params_id, ass_periods.name AS periods,
                                                         ass_periods.id AS periods_id, ass_factors.name AS factors, ass_factors.id AS factors_id,
                                                         ass_appraisals.ass_group
@@ -136,8 +136,8 @@
                                                     left JOIN ass_periods ON ass_periods.id = ass_appraisals.period_id 
                                                     left JOIN ass_factors ON ass_factors.id = ass_appraisals.factor_id 
                                                     WHERE ass_appraisals.period_id = '$period_id' AND ass_params.dept='$dept'
-                                                    ") or die("Error Getting Data " . mysql_error());
-                                        while ($row = mysql_fetch_array($query)) {
+                                                    ") or die("Error Getting Data " . mysqli_error($link));
+                                        while ($row = mysqli_fetch_array($query)) {
                                             // $boss_name = $row['fname'] . " " . $row['lname'];
                                             $params = $row['params'];
                                             $params_id = $row['params_id'];
@@ -174,8 +174,8 @@
                                                                         <select name="params" class="form-control">
                                                                             <option value="<?php echo $params_id; ?>"> <?php echo $params; ?></option>
                                                                             <?php
-                                                                            $Query = mysql_query("SELECT * FROM ass_params ") or die(mysql_error());
-                                                                            while ($row1 = mysql_fetch_array($Query)) {
+                                                                            $Query = mysqli_query($link, "SELECT * FROM ass_params ") or die(mysqli_error($link));
+                                                                            while ($row1 = mysqli_fetch_array($Query)) {
                                                                             ?>
                                                                                 <option value="<?php echo $row1['id']; ?>"> <?php echo $row1['name']; ?></option>
                                                                             <?php
@@ -190,8 +190,8 @@
                                                                         <select name="factor" class="form-control">
                                                                             <option value="<?php echo $factor_id; ?>"> <?php echo $factor; ?></option>
                                                                             <?php
-                                                                            $Query2 = mysql_query("SELECT * FROM ass_factors ") or die(mysql_error());
-                                                                            while ($row2 = mysql_fetch_array($Query2)) {
+                                                                            $Query2 = mysqli_query($link, "SELECT * FROM ass_factors ") or die(mysqli_error($link));
+                                                                            while ($row2 = mysqli_fetch_array($Query2)) {
                                                                             ?>
                                                                                 <option value="<?php echo $row2['id']; ?>"> <?php echo $row2['name']; ?></option>
                                                                             <?php
@@ -272,8 +272,8 @@
                                                 <select name="params" class="form-control">
                                                     <option>-- Select Parameters --</option>
                                                     <?php
-                                                    $Query = mysql_query("SELECT * FROM ass_params WHERE dept='$dept' ") or die(mysql_error());
-                                                    while ($row1 = mysql_fetch_array($Query)) {
+                                                    $Query = mysqli_query($link, "SELECT * FROM ass_params WHERE dept='$dept' ") or die(mysqli_error($link));
+                                                    while ($row1 = mysqli_fetch_array($Query)) {
                                                     ?>
                                                         <option value="<?php echo $row1['id']; ?>"> <?php echo $row1['name']; ?></option>
                                                     <?php
@@ -288,8 +288,8 @@
                                                 <select id="myDropdown" name="factor" class="form-control selectpicker" data-live-search="true">
                                                     <option value="">-- Select Factor / Objective --</option>
                                                     <?php
-                                                    $Query2 = mysql_query("SELECT * FROM ass_factors  WHERE dept='$dept'") or die(mysql_error());
-                                                    while ($row2 = mysql_fetch_array($Query2)) {
+                                                    $Query2 = mysqli_query($link, "SELECT * FROM ass_factors  WHERE dept='$dept'") or die(mysqli_error($link));
+                                                    while ($row2 = mysqli_fetch_array($Query2)) {
                                                     ?>
                                                         <option value="<?php echo $row2['id']; ?>"> <?php echo $row2['name']; ?></option>
                                                     <?php
@@ -305,8 +305,8 @@
                                                 <select id="myDropdown" name="ass_group" class="form-control selectpicker" data-live-search="true">
                                                     <option value="">-- Select Assessment Group --</option>
                                                     <?php
-                                                    $Query3 = mysql_query("SELECT * FROM ass_group  WHERE dept='$dept' GROUP BY name ") or die(mysql_error());
-                                                    while ($row3 = mysql_fetch_array($Query3)) {
+                                                    $Query3 = mysqli_query($link, "SELECT * FROM ass_group  WHERE dept='$dept' GROUP BY name ") or die(mysqli_error($link));
+                                                    while ($row3 = mysqli_fetch_array($Query3)) {
                                                     ?>
                                                         <option value="<?php echo $row3['name']; ?>"> <?php echo $row3['name']; ?></option>
                                                     <?php

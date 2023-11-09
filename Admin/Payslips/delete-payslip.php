@@ -10,10 +10,10 @@ $id = $_GET['id'];
 $date = $_GET['date'];
 $empno = $_GET['empno'];
 $compId = $_SESSION['company_ID'];
-mysql_query("delete from employee where id='$id'") or die(mysql_error());
+mysqli_query($link, "delete from employee where id='$id'") or die(mysqli_error($link));
 //delete the taxes also, 
 
-// mysql_query("delete from tax WHERE time='$date' AND empno='$empno' ") or die(mysql_error());
+// mysqli_query($link,"delete from tax WHERE time='$date' AND empno='$empno' ") or die(mysqli_error($link));
 // revert back the leave days...
 $PaySlipsObject->deductLeave($empno, $compId);
 header('location:view-payslips.php');

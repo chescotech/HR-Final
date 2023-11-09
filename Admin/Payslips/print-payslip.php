@@ -1,7 +1,3 @@
-<?php
-error_reporting(0);
-?>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -111,8 +107,8 @@ error_reporting(0);
                 $empno = $_GET['empno'];
                 $slip_date = $_GET['date'];
                 $PayslipQuery = "SELECT * FROM employee WHERE id = '$emp_id' AND empno ='$empno' AND time='$slip_date'";
-                $result = mysql_query($PayslipQuery, $link) or die(mysql_error());
-                while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+                $result = mysqli_query($link, $PayslipQuery) or die(mysqli_error($link));
+                while ($row = mysqli_fetch_assoc($result)) {
                 }
 
                 $msg = "";
@@ -139,7 +135,7 @@ error_reporting(0);
                         $msg = "Record updated!";
                     }
                     include 'include/dbconnection.php';
-                    $result = mysql_query($query, $link) or die("invalid query" . mysql_error());
+                    $result = mysqli_query($link, $query) or die("invalid query" . mysqli_error($link));
                 }
 
                 $insert = 1;
@@ -154,17 +150,17 @@ error_reporting(0);
                 $insert = 0;
                 $empno = $_GET['empno'];
                 $query = "SELECT * FROM emp_info WHERE empno= '$empno'";
-                $result = mysql_query($query, $link) or die(mysql_error());
-                if (!mysql_num_rows($result)) {
+                $result = mysqli_query($link, $query) or die(mysqli_error($link));
+                if (!mysqli_num_rows($result)) {
                     $empno = 0;
                     $msg = "No record found!";
                 } else {
-                    $row = mysql_fetch_array($result, MYSQL_ASSOC);
+                    $row = mysqli_fetch_assoc($result);
                     //$id = $row['id'];
                     $empno = $row['empno'];
                     $dpId = $row['dept'];
-                    $checkDepartmentQuery = mysql_query("SELECT * FROM department WHERE dep_id='$dpId' ");
-                    $departmentName = mysql_fetch_array($checkDepartmentQuery);
+                    $checkDepartmentQuery = mysqli_query($link, "SELECT * FROM department WHERE dep_id='$dpId' ");
+                    $departmentName = mysqli_fetch_array($checkDepartmentQuery);
                     $dept = $departmentName['department'];
                     $lname = $row['lname'];
                     $fname = $row['fname'];
@@ -176,8 +172,8 @@ error_reporting(0);
                 $position = $brow['position'];
 
                 $query8 = "SELECT * FROM loan where empno = '$empno' AND status='Pending' ";
-                $result = mysql_query($query8) or die($query . "<br/><br/>" . mysql_error());
-                $row = mysql_fetch_array($result, MYSQL_ASSOC);
+                $result = mysqli_query($link, $query8) or die($query . "<br/><br/>" . mysqli_error($link));
+                $row = mysqli_fetch_assoc($result);
                 $balance = $row['loan_amt'];
                 $interest = $row['interest'];
                 $months = $row['duration'];
@@ -185,17 +181,17 @@ error_reporting(0);
 
                 $query = "SELECT * FROM tax where empno = '$empno' ";
 
-                $result = mysql_query($query) or die($query . "<br/><br/>" . mysql_error());
+                $result = mysqli_query($link, $query) or die($query . "<br/><br/>" . mysqli_error($link));
 
-                $row = mysql_fetch_array($result, MYSQL_ASSOC);
+                $row = mysqli_fetch_assoc($result);
                 $taxable_todate = $row['taxable_to_date'];
                 $paid_todate = $row['tax_paid_to_date'];
                 $social = $row['social'];
 
                 $query2 = "SELECT * FROM leave_days where empno = '$empno'";
-                $result = mysql_query($query2) or die($query . "<br/><br/>" . mysql_error());
-                $row = mysql_fetch_array($result, MYSQL_ASSOC);
-                if (mysql_num_rows($result) <= 0) {
+                $result = mysqli_query($link, $query2) or die($query . "<br/><br/>" . mysqli_error($link));
+                $row = mysqli_fetch_assoc($result);
+                if (mysqli_num_rows($result) <= 0) {
                     $leave_days = "No leave Days available";
                 } else {
                     $leave_days = $row['available'];
@@ -230,8 +226,8 @@ error_reporting(0);
                             <td>:
                                 <?php
                                 $issueDate = $_GET['date'];
-                                $query = mysql_query("SELECT * FROM employee WHERE empno='$empno' AND time='$issueDate'");
-                                $row = mysql_fetch_array($query);
+                                $query = mysqli_query($link, "SELECT * FROM employee WHERE empno='$empno' AND time='$issueDate'");
+                                $row = mysqli_fetch_array($query);
                                 // return var_dump($row);
                                 $dateIssued = $row['time'];
                                 $dayswork_ = 26;
@@ -297,30 +293,30 @@ error_reporting(0);
 
                         $query = "SELECT * FROM employee WHERE id='$id' AND time='$date'";
 
-                        $result = mysql_query($query, $link) or die(mysql_error());
-                        if (!mysql_num_rows($result)) {
+                        $result = mysqli_query($link, $query) or die(mysqli_error($link));
+                        if (!mysqli_num_rows($result)) {
                             $id = 0;
                             $msg = "No record found!";
                         } else {
-                            $row = mysql_fetch_array($result, MYSQL_ASSOC);
+                            $row = mysqli_fetch_assoc($result);
                             $empno = $row['empno'];
 
                             // get the total NHIMA paid to date..
                             $query_ = "SELECT pension, SUM(health_insurance) AS totalNhima FROM `employee` where  empno='$empno' ";
-                            $result_ = mysql_query($query_, $link) or die(mysql_error());
-                            $row_ = mysql_fetch_array($result_, MYSQL_ASSOC);
+                            $result_ = mysqli_query($link, $query_) or die(mysqli_error($link));
+                            $row_ = mysqli_fetch_assoc($result_);
                             $totalNhima = $row_['totalNhima'];
 
                             // $dayswork = 16;
                             $otrate = $row['otrate'];
                             $othrs = $row['othrs'];
                             $pension = $row['pension'];
-                            // $allow = $row['allow'];
-                            // $advances = $row['advances'];
-                            // $insurance = $row['insurance'];
-                            // $nhema = $row['health_insurance'];
-                            // $pension = $row['pension'];
-                            // $comission = $row['comission'];
+                            $allowances = $row['allow'];
+                            $advances = $row['advances'];
+                            $insurance = $row['insurance'];
+                            $nhema = $row['health_insurance'];
+                            $pension = $row['pension'];
+                            $comission = $row['comission'];
 
                             $overtime = $otrate * $othrs;
 
@@ -347,7 +343,7 @@ error_reporting(0);
                                 $dayswork = $_POST['dayswork'];
                                 $otrate = $_POST['otrate'];
                                 $othrs = $_POST['othrs'];
-                                $allow = $_POST['allow'];
+                                $allowances = $_POST['allow'];
                                 $advances = $_POST['advances'];
                                 $insurance = $_POST['insurance'];
                                 $comission = $_POST['comission'];
@@ -363,8 +359,8 @@ error_reporting(0);
                                 }
 
                                 echo '<center>';
-                                $result = mysql_query($query, $link) or die("invalid query" . mysql_error());
-                                $result2 = mysql_query($query2, $link) or die("invalid query" . mysql_error());
+                                $result = mysqli_query($link, $query) or die("invalid query" . mysqli_error($link));
+                                $result2 = mysqli_query($link, $query2) or die("invalid query" . mysqli_error($link));
                                 echo '</center>';
                             }
                             ?>
@@ -395,10 +391,10 @@ error_reporting(0);
                             }
 
                             $query = "SELECT * FROM employee_earnings WHERE employee_no ='$emp_no'";
-                            $result = mysql_query($query);
+                            $result = mysqli_query($link, $query);
 
-                            if (mysql_num_rows($result) > 0) {
-                                $row = mysql_fetch_assoc($result);
+                            if (mysqli_num_rows($result) > 0) {
+                                $row = mysqli_fetch_assoc($result);
                                 $columns = array();
 
                                 foreach ($row as $columnName => $value) {
@@ -427,7 +423,7 @@ error_reporting(0);
                                     </tr>
                                     <tr>
                                         <td>
-                                            <table border="0" width="417" style="">
+                                            <table border="0" width="417">
                                                 <tr>
                                                     <td align="left">
                                                         Basic Pay
@@ -438,11 +434,11 @@ error_reporting(0);
 
                                                 <?php
                                                 $query2 = "SELECT * FROM employee_earnings WHERE employee_no ='$emp_no'";
-                                                $result2 = mysql_query($query2, $link) or die(mysql_error());
+                                                $result2 = mysqli_query($link, $query2) or die(mysqli_error($link));
                                                 $earningsTotal = 0;
                                                 $rows = array();
-                                                if (mysql_num_rows($result2) > 0) {
-                                                    while ($row2 = mysql_fetch_assoc($result2)) {
+                                                if (mysqli_num_rows($result2) > 0) {
+                                                    while ($row2 = mysqli_fetch_assoc($result2)) {
                                                         $rows[] = $row2;
                                                     }
 
@@ -466,6 +462,27 @@ error_reporting(0);
                                                     </td>
                                                     <td align="right" style='vertical-align: top;'><?= number_format($overtime, 2) ?></td>
                                                 </tr>
+                                                <?php
+                                                if ($allowances) {
+                                                    echo "<tr>";
+                                                    echo "<td align='left'>Allowances</td>";
+                                                    echo "<td align='right' style='vertical-align: top;'>" . number_format($allowances, 2) . "</td>";
+                                                    echo "</tr>";
+                                                }
+                                                if ($advances > 0) {
+                                                    echo "<tr>";
+                                                    echo "<td align='left'>Advances</td>";
+                                                    echo "<td align='right' style='vertical-align: top;'>" . number_format($advances, 2) . "</td>";
+                                                    echo "</tr>";
+                                                }
+
+                                                if ($comission > 0) {
+                                                    echo "<tr>";
+                                                    echo "<td align='left'>Commission</td>";
+                                                    echo "<td align='right' style='vertical-align: top;'>" . number_format($comission, 2) . "</td>";
+                                                    echo "</tr>";
+                                                }
+                                                ?>
                                                 <tr style="height: 0px;">
                                                     <td class="box1"></td>
                                                     <td class="box1"><?php echo $id; ?></td>
@@ -475,7 +492,7 @@ error_reporting(0);
 
 
                                     <?php
-                                    $gross = ($pay) + $earningsTotal;
+                                    $gross = $PayslipObject->getEmployeeGrossPay($empno, $dateIssued);
 
 
                                     if ($TaxObject->getEmployeeAge($empno) < 55) {
@@ -499,9 +516,9 @@ error_reporting(0);
                                     $band3_rate = $TaxObject->getBandRate3($compId) / 100;
                                     $band4_rate = $TaxObject->getBandRate4($compId) / 100;
 
-                                    $emp_pay = $basic_pay + $earningsTotal + $overtime;
+                                    //                                    $emp_pay = $basic_pay + $earningsTotal + $overtime;
 
-                                    $starting_income = $income = $basic_pay - $napsa;
+                                    $starting_income = $income = $gross - $napsa;
 
                                     $band1 = $band2 = $band3 = $band4 = 0;
 
@@ -522,15 +539,13 @@ error_reporting(0);
 
                                     $band1 = $income * $band1_rate;
 
-                                    $total_tax_paid = $TaxObject->TaxCal($basic_pay, $compId);
-
+                                    $total_tax_paid = $TaxObject->TaxCal($starting_income, $compId);
                                     $taxable = $earningsTotal - $income;
 
-                                    $totdeduct = $total_tax_paid + $row['advances'] + $row['insurance'] + $napsa;
-                                    $netpay = $emp_pay - $totdeduct;
+                                    $totdeduct = $total_tax_paid + $row['advances'] + $nhema + $napsa;
+                                    $netpay = $starting_income - $totdeduct;
 
                                     $loanAmnt = $LoanObject->getLoanMonthDedeductAmounts($empno, $dateIssued) === "" ? "0" : $LoanObject->getLoanMonthDedeductAmounts($empno, $dateIssued);
-                                    $nhema = $row['health_insurance'];
                                     ?>
                                     <script>
                                         console.log(<?php json_encode($emp_pay); ?>);
@@ -560,11 +575,11 @@ error_reporting(0);
                                     </tr>
                                     <?php
                                     // echo $emp_id;s
-                                    $deductQuery = mysql_query("SELECT * FROM employee_deductions WHERE company_id='$compId' AND employee_no ='$emp_no'");
-                                    $row = mysql_fetch_array($deductQuery);
+                                    $deductQuery = mysqli_query($link, "SELECT * FROM employee_deductions WHERE company_id='$compId' AND employee_no ='$emp_no'");
+                                    $row = mysqli_fetch_array($deductQuery);
                                     // Get the column names from the query result
                                     $columnNames = array();
-                                    while ($fieldName = mysql_fetch_field($deductQuery)) {
+                                    while ($fieldName = mysqli_fetch_field($deductQuery)) {
                                         $columnName = $fieldName->name;
                                         // Exclude unwanted column names
                                         if ($columnName !== 'id' && $columnName !== 'employee_id' && $columnName !== 'company_id' && $columnName !== 'employee_no') {
@@ -575,12 +590,12 @@ error_reporting(0);
                                     // Fetch deduction details from `deductions` table using JOIN
                                     $deductionDetailsQuery = "SELECT * FROM deductions WHERE name IN ('" . implode("', '", $columnNames) . "')";
 
-                                    $deductionDetailsResult = mysql_query($deductionDetailsQuery);
+                                    $deductionDetailsResult = mysqli_query($link, $deductionDetailsQuery);
 
                                     $deductionsTotal = 0;
 
                                     // Loop through each deduction detail and add a row for it if value is 1
-                                    while ($deductionDetailRow = mysql_fetch_assoc($deductionDetailsResult)) {
+                                    while ($deductionDetailRow = mysqli_fetch_assoc($deductionDetailsResult)) {
                                         $deductionColumnName = strtolower($deductionDetailRow['name']); // Transform name to uppercase
                                         $deductionValue = isset($row[$deductionColumnName]) ? $row[$deductionColumnName] : 0;
                                         // return var_dump($deductionValue);
@@ -597,11 +612,11 @@ error_reporting(0);
                                     ?>
 
                                     <?php
-                                    $recurringDeductQuery = mysql_query("SELECT * FROM emp_recurring_deductions WHERE company_ID='$compId' AND employee_no ='$emp_no'");
+                                    $recurringDeductQuery = mysqli_query($link, "SELECT * FROM emp_recurring_deductions WHERE company_ID='$compId' AND employee_no ='$emp_no'");
                                     $recurringDeductTotal = 0;
                                     // Loop through each recurring deduction detail
                                     $recurringDeductRows = array();
-                                    while ($row = mysql_fetch_array($recurringDeductQuery)) {
+                                    while ($row = mysqli_fetch_array($recurringDeductQuery)) {
                                         $recurringDeductRows[] = $row;
                                     }
 
@@ -609,8 +624,8 @@ error_reporting(0);
                                         $deductionTypeId = $recurringDeductRow['deduction_type'];
 
                                         // Get deduction details from `recurring_deductions` table
-                                        $deductionTypeQuery = mysql_query("SELECT * FROM recurring_deduction_types WHERE id='$deductionTypeId'");
-                                        $deductionTypeRow = mysql_fetch_array($deductionTypeQuery);
+                                        $deductionTypeQuery = mysqli_query($link, "SELECT * FROM recurring_deduction_types WHERE id='$deductionTypeId'");
+                                        $deductionTypeRow = mysqli_fetch_array($deductionTypeQuery);
 
                                         $deductionName = $deductionTypeRow['name'];
                                         $status = $recurringDeductRow['status'];
@@ -637,7 +652,7 @@ error_reporting(0);
 
                                     <tr>
                                         <td class="box">Advances</td>
-                                        <td align="right"><?php echo number_format("$advances", 2); ?></td>
+                                        <td align="right"><?php echo number_format($advances, 2); ?></td>
                                     </tr>
                                     <tr>
                                         <td class="box">Loan</td>
@@ -650,7 +665,7 @@ error_reporting(0);
                                         <td class="box">National Health Insurance</td>
                                         <td align="right">
                                             <?php
-                                            echo $totalNhima;
+                                            echo number_format($nhema, 2);
                                             ?>
                                         </td>
                                     </tr>
@@ -677,13 +692,13 @@ error_reporting(0);
                             <tr style="display: flex;
     justify-content: space-between;">
                                 <td class="align2"><b style="margin-right: 333px;">Gross Pay <div class="align3"><?php
-                                                                                                                    $totalPay = $basic_pay + $earningsTotal + $overtime;
-                                                                                                                    echo number_format($totalPay, 2); ?></div></b>
+
+                                                                                                                    echo number_format($gross, 2); ?></div></b>
 
                                 </td>
                                 <td><b style="margin-right: 310px;">Total Deductions <div class="align3"> <?php
                                                                                                             $totalDeductions = $total_tax_paid + $napsa +
-                                                                                                                $advances + $insurance + $loanAmnt + $totalNhima + $pension + $recurringDeductTotal + $deductionsTotal;
+                                                                                                                $advances + $insurance + $loanAmnt + $nhema + $pension + $recurringDeductTotal + $deductionsTotal;
                                                                                                             echo number_format("$totalDeductions", 2);
                                                                                                             ?></div></b></td>
                             </tr>
@@ -705,51 +720,54 @@ error_reporting(0);
                         ?>
                         Closing Balances
                         <table border="1" width="850" cellspacing="0">
-                            <tr>
-                                <td></td>
-                                <td>Outstanding Amount</td>
-                                <td>Interest</td>
-                                <td>Months Left</td>
-                            </tr>
-                            <?php
-                            $query = "SELECT * FROM loan where empno = '$empno' ";
-
-                            $result = mysql_query($query) or die($query . "<br/><br/>" . mysql_error());
-
-                            while ($row = mysql_fetch_array($result)) {
-                                // return var_dump($row);
-                                $balance = $row['loan_amt'];
-                                $interest = $row['interest'];
-                                $months = $row['duration'];
-                                $deduct = $row['monthly_deduct'];
-                                $deadLine = new DateTime($row['date_completion']);
-                                $DI = new DateTime($dateIssued);
-                            ?>
+                            <thead>
                                 <tr>
-                                    <td>Personal Loans</td>
-                                    <td><?php
-                                        $interval = $DI->diff($deadLine);
-                                        $monthsBetween = $interval->y * 12 + $interval->m;
-
-                                        $balance = $deduct * $monthsBetween;
-
-                                        echo number_format($balance, 2);
-                                        ?></td>
-                                    <td><?php
-                                        if ($interest == "") {
-                                            echo "0.0";
-                                        } else {
-                                            echo number_format("$interest", 2);
-                                        }
-                                        ?></td>
-                                    <td><?php
-                                        echo $monthsBetween;
-                                        ?></td>
+                                    <td></td>
+                                    <td>Outstanding Amount</td>
+                                    <td>Interest</td>
+                                    <td>Months Left</td>
                                 </tr>
-                            <?php
-                            }
-                            ?>
-                            <tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $query = "SELECT * FROM loan where empno = '$empno' ";
+
+                                $result = mysqli_query($link, $query) or die($query . "<br/><br/>" . mysqli_error($link));
+
+                                while ($row = mysqli_fetch_array($result)) {
+                                    // return var_dump($row);
+                                    $balance = $row['loan_amt'];
+                                    $interest = $row['interest'];
+                                    $months = $row['duration'];
+                                    $deduct = $row['monthly_deduct'];
+                                    $deadLine = new DateTime($row['date_completion']);
+                                    $DI = new DateTime($dateIssued);
+                                ?>
+                                    <tr>
+                                        <td>Personal Loans</td>
+                                        <td><?php
+                                            $interval = $DI->diff($deadLine);
+                                            $monthsBetween = $interval->y * 12 + $interval->m;
+
+                                            $balance = $deduct * $monthsBetween;
+
+                                            echo number_format($balance, 2);
+                                            ?></td>
+                                        <td><?php
+                                            if ($interest == "") {
+                                                echo "0.0";
+                                            } else {
+                                                echo number_format("$interest", 2);
+                                            }
+                                            ?></td>
+                                        <td><?php
+                                            echo $monthsBetween;
+                                            ?></td>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
+
                                 <?php
                                 // return var_dump($recurringDeductRows);
                                 foreach ($recurringDeductRows as $recurringDeductRow) {
@@ -757,8 +775,8 @@ error_reporting(0);
                                     $deductionEndDate = $recurringDeductRow['date_completion'];
 
                                     // Get deduction details from `recurring_deductions` table
-                                    $deductionTypeQuery2 = mysql_query("SELECT * FROM recurring_deduction_types WHERE id='$deductionTypeId'");
-                                    $deductionTypeRow2 = mysql_fetch_array($deductionTypeQuery2);
+                                    $deductionTypeQuery2 = mysqli_query($link, "SELECT * FROM recurring_deduction_types WHERE id='$deductionTypeId'");
+                                    $deductionTypeRow2 = mysqli_fetch_array($deductionTypeQuery2);
 
                                     $deductionName = $deductionTypeRow2['name'];
                                     $deductionValue = $recurringDeductRow['monthly_deduct'];
@@ -774,21 +792,24 @@ error_reporting(0);
 
                                     if ($DI <= $DED) {
                                 ?>
-                                        <td><?= $deductionName ?></td>
-                                        <td><?php
-                                            echo number_format($deductionValue  * $interval->m, 2);
-                                            ?></td>
-                                        <td>N/A</td>
-                                        <td>
-                                            <?php
-                                            echo $interval->m;
-                                            ?>
-                                        </td>
+                                        <tr>
+                                            <td><?= $deductionName ?></td>
+                                            <td><?php
+                                                echo number_format($deductionValue  * $interval->m, 2);
+                                                ?></td>
+                                            <td>N/A</td>
+                                            <td>
+                                                <?php
+                                                echo $interval->m;
+                                                ?>
+                                            </td>
+                                        </tr>
                                 <?php
                                     }
                                 }
                                 ?>
-                            </tr>
+                            </tbody>
+
                         </table><br>
                         Total Contributions<br>
                         <table border="1" width="850" cellspacing="0">

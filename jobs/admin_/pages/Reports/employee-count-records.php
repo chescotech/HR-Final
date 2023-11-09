@@ -2,21 +2,21 @@
 
 <?php
 
-require_once ('../graph-libs/src/jpgraph.php');
-require_once ('../graph-libs/src/jpgraph_pie.php');
+require_once('../graph-libs/src/jpgraph.php');
+require_once('../graph-libs/src/jpgraph_pie.php');
 include('../../../../include/dbconnection.php');
 session_start();
 $dataArray = array();
 $labeslArray = array();
 //$companyId = $_SESSION['company_ID'];
 $sql = "SELECT dept, COUNT(*) AS 'count' FROM emp_info  GROUP BY dept";
-$result = mysql_query($sql) or die('Query failed: ' . mysql_error());
+$result = mysqli_query($link, $sql) or die('Query failed: ' . mysqli_error($link));
 if ($result) {
-    while ($row = mysql_fetch_assoc($result)) {
+    while ($row = mysqli_fetch_assoc($result)) {
         $departmentId = $row["dept"];
-        $query = mysql_query("SELECT department FROM department WHERE dep_id = '$departmentId'");
-        $departmentrows = mysql_fetch_array($query);
-        $salesgroup = $departmentrows['department']."\n%.1f%%";
+        $query = mysqli_query($link, "SELECT department FROM department WHERE dep_id = '$departmentId'");
+        $departmentrows = mysqli_fetch_array($query);
+        $salesgroup = $departmentrows['department'] . "\n%.1f%%";
         $count = $row["count"];
         //$dataArray[$salesgroup] = $count;
         array_push($dataArray, $count);
@@ -59,8 +59,10 @@ $p1->SetLabelType(PIE_VALUE_PER);
 // form,at string will be the value of the slice (either the percetage or absolute
 // depending on what was specified in the SetLabelType() above.
 
-$lbl = array("adam and finance\n%.1f%%", "bertil\n%.1f%%", "johan\n%.1f%%",
-    "peter\n%.1f%%", "daniel\n%.1f%%", "erik\n%.1f%%");
+$lbl = array(
+    "adam and finance\n%.1f%%", "bertil\n%.1f%%", "johan\n%.1f%%",
+    "peter\n%.1f%%", "daniel\n%.1f%%", "erik\n%.1f%%"
+);
 
 $p1->SetLabels($labeslArray);
 

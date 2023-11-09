@@ -1,8 +1,3 @@
-<?php
-error_reporting(0);
-?>
-
-
 <!DOCTYPE html>
 <html>
 
@@ -82,6 +77,7 @@ error_reporting(0);
     <div class="wrapper">
 
         <?php
+
         include_once '../Classes/Department.php';
         include_once '../Classes/Payslips.php';
         include_once '../Classes/Loans.php';
@@ -115,11 +111,7 @@ error_reporting(0);
             $overtime_rate_hour = $_POST['overtime_rate_hour'];
             $days_worked = $_POST['days_worked'];
 
-            // return var_dump($empno1);
-
-            // $staffer = $_POST['staffer'];
             $no_of_emps = count($empno);
-            // $id_ = $_POST['id_'];
 
             if ($no_of_emps == 1) {
                 // Dissable single
@@ -130,7 +122,7 @@ error_reporting(0);
 
                 array_map(function ($empno1, $days_worked1, $overtime_rate_hour1, $overtime1, $allowance1, $advances1, $insurance1, $commision1) {
                     // return var_dump($commision1);
-                    global $DepartmentObject, $TaxObject, $compId, $PaySlipsObject, $LoanObject, $RecurringDeductionsObject, $time;
+                    global $DepartmentObject, $TaxObject, $compId, $PaySlipsObject, $LoanObject, $RecurringDeductionsObject, $time, $link;
 
                     $Grosspay = $DepartmentObject->getBasicPay($empno1) + $DepartmentObject->getAllowances($empno1);
                     // Hide
@@ -192,12 +184,12 @@ error_reporting(0);
                         echo '$commision1 ' . $commision1;
                         // if (isset($staffer1)) {
                         // return $pay;
-                        $empDedQuery = mysql_query("SELECT id FROM employee_deductions WHERE employee_no='$empno1'") or die(mysql_error());
+                        $empDedQuery = mysqli_query($link, "SELECT id FROM employee_deductions WHERE employee_no='$empno1'") or die(mysqli_error($link));
                         // find earnings in earnings table
-                        $empEarnQuery = mysql_query("SELECT id FROM employee_earnings WHERE employee_no='$empno1'") or die(mysql_error());
+                        $empEarnQuery = mysqli_query($link, "SELECT id FROM employee_earnings WHERE employee_no='$empno1'") or die(mysqli_error($link));
 
-                        $dedRow = mysql_fetch_array($empDedQuery);
-                        $earnRow = mysql_fetch_array($empEarnQuery);
+                        $dedRow = mysqli_fetch_array($empDedQuery);
+                        $earnRow = mysqli_fetch_array($empEarnQuery);
 
 
                         $earnID = $earnRow['id'];
@@ -208,20 +200,20 @@ error_reporting(0);
                         // $PaySlipsObject->addEmpPayslipInfo($empno, $pay, $days_worked, $overtime_rate_hour, $overtime, $allowance, $advances, $insurance, $time, $commision, $compId);
 
                         $checkQuery = "SELECT * FROM tax where empno='$empno1'";
-                        $checkIfEmployeeExsist = mysql_query($checkQuery) or die("invalid query" . mysql_error());
+                        $checkIfEmployeeExsist = mysqli_query($link, $checkQuery) or die("invalid query" . mysqli_error($link));
 
                         //debug_to_console("Test1");
 
-                        if (mysql_num_rows($checkIfEmployeeExsist) == 0) {
+                        if (mysqli_num_rows($checkIfEmployeeExsist) == 0) {
                             $PaySlipsObject->addTax($taxable, $total_tax_paid, $empno1, $compId, $time);
                         } else {
                             $PaySlipsObject->updateTax($taxable, $total_tax_paid, $empno1);
                         }
 
                         $checkForLeave = "SELECT * FROM leave_days where empno='$empno1'";
-                        $checkIfEmployeeLeaveExsist = mysql_query($checkForLeave) or die("invalid query" . mysql_error());
+                        $checkIfEmployeeLeaveExsist = mysqli_query($link, $checkForLeave) or die("invalid query" . mysqli_error($link));
 
-                        if (mysql_num_rows($checkIfEmployeeLeaveExsist) == 0) {
+                        if (mysqli_num_rows($checkIfEmployeeLeaveExsist) == 0) {
                             $PaySlipsObject->addLeave($empno1);
                         } else {
                             // $empno = $_POST['empno'];
@@ -259,7 +251,7 @@ error_reporting(0);
 
                 array_map(function ($empno1, $days_worked1, $overtime_rate_hour1, $overtime1, $allowance1, $advances1, $insurance1, $commision1) {
                     // return var_dump($staffer1);
-                    global $DepartmentObject, $TaxObject, $compId, $PaySlipsObject, $LoanObject, $RecurringDeductionsObject, $time;
+                    global $DepartmentObject, $TaxObject, $compId, $PaySlipsObject, $LoanObject, $RecurringDeductionsObject, $time, $link;
 
                     $Grosspay = $DepartmentObject->getBasicPay($empno1) + $DepartmentObject->getAllowances($empno1);
                     // Hide
@@ -320,12 +312,12 @@ error_reporting(0);
                         // if (isset($staffer1)) {
                         // return $pay;
                         // get employee earnings id
-                        $empDedQuery = mysql_query("SELECT id FROM employee_deductions WHERE employee_no='$empno1'") or die(mysql_error());
+                        $empDedQuery = mysqli_query($link, "SELECT id FROM employee_deductions WHERE employee_no='$empno1'") or die(mysqli_error($link));
                         // find earnings in earnings table
-                        $empEarnQuery = mysql_query("SELECT id FROM employee_earnings WHERE employee_no='$empno1'") or die(mysql_error());
+                        $empEarnQuery = mysqli_query($link, "SELECT id FROM employee_earnings WHERE employee_no='$empno1'") or die(mysqli_error($link));
 
-                        $dedRow = mysql_fetch_array($empDedQuery);
-                        $earnRow = mysql_fetch_array($empEarnQuery);
+                        $dedRow = mysqli_fetch_array($empDedQuery);
+                        $earnRow = mysqli_fetch_array($empEarnQuery);
 
                         $earnID = $earnRow['id'];
                         $dedID = $dedRow['id'];
@@ -335,19 +327,19 @@ error_reporting(0);
                         // $PaySlipsObject->addEmpPayslipInfo($empno, $pay, $days_worked, $overtime_rate_hour, $overtime, $allowance, $advances, $insurance, $time, $commision, $compId);
 
                         $checkQuery = "SELECT * FROM tax where empno='$empno1'";
-                        $checkIfEmployeeExsist = mysql_query($checkQuery) or die("invalid query" . mysql_error());
+                        $checkIfEmployeeExsist = mysqli_query($link, $checkQuery) or die("invalid query" . mysqli_error($link));
 
 
-                        if (mysql_num_rows($checkIfEmployeeExsist) == 0) {
+                        if (mysqli_num_rows($checkIfEmployeeExsist) == 0) {
                             $PaySlipsObject->addTax($taxable, $total_tax_paid, $empno1, $compId, $time);
                         } else {
                             $PaySlipsObject->updateTax($taxable, $total_tax_paid, $empno1);
                         }
 
                         $checkForLeave = "SELECT * FROM leave_days where empno='$empno1'";
-                        $checkIfEmployeeLeaveExsist = mysql_query($checkForLeave) or die("invalid query" . mysql_error());
+                        $checkIfEmployeeLeaveExsist = mysqli_query($link, $checkForLeave) or die("invalid query" . mysqli_error($link));
 
-                        if (mysql_num_rows($checkIfEmployeeLeaveExsist) == 0) {
+                        if (mysqli_num_rows($checkIfEmployeeLeaveExsist) == 0) {
                             $PaySlipsObject->addLeave($empno1);
                         } else {
                             // $empno = $_POST['empno'];
@@ -400,6 +392,7 @@ error_reporting(0);
             $days_worked1 = $_POST['days_worked'];
 
             $Grosspay = $PaySlipsObject->getEmployeeEarnings($empno1);
+
             // Hide
             //echo '$Grosspay'.$Grosspay;
             $totalpay = ($Grosspay / 26) * $days_worked1;
@@ -457,13 +450,13 @@ error_reporting(0);
             if ($PaySlipsObject->checkIfRecordExsists($empno1, $time) == "false") {
 
                 // if (isset($staffer1)) {
-                $empDedQuery = mysql_query("SELECT id FROM employee_deductions WHERE employee_no='$empno1'") or die(mysql_error());
+                $empDedQuery = mysqli_query($link, "SELECT id FROM employee_deductions WHERE employee_no='$empno1'") or die(mysqli_error($link));
                 // find earnings in earnings table
-                $empEarnQuery = mysql_query("SELECT id FROM employee_earnings WHERE employee_no='$empno1'") or die(mysql_error());
+                $empEarnQuery = mysqli_query($link, "SELECT id FROM employee_earnings WHERE employee_no='$empno1'") or die(mysqli_error($link));
 
 
-                $dedRow = mysql_fetch_array($empDedQuery);
-                $earnRow = mysql_fetch_array($empEarnQuery);
+                $dedRow = mysqli_fetch_array($empDedQuery);
+                $earnRow = mysqli_fetch_array($empEarnQuery);
 
                 $earnID = $earnRow['id'] ? $earnRow['id'] : 0;
                 $dedID = $dedRow['id'] ? $dedRow['id'] : 0;
@@ -471,20 +464,20 @@ error_reporting(0);
                 $PaySlipsObject->addEmpPayslipInfo($empno1, $pay, $days_worked1, $overtime_rate_hour1, $overtime1, $allowance1, $advances1, $insurance1, $time, $commision1, $compId, $earnID, $dedID);
 
                 $checkQuery = "SELECT * FROM tax where empno='$empno1'";
-                $checkIfEmployeeExsist = mysql_query($checkQuery) or die("invalid query" . mysql_error());
+                $checkIfEmployeeExsist = mysqli_query($link, $checkQuery) or die("invalid query" . mysqli_error($link));
 
                 //debug_to_console("Test1");
 
-                if (mysql_num_rows($checkIfEmployeeExsist) == 0) {
+                if (mysqli_num_rows($checkIfEmployeeExsist) == 0) {
                     $PaySlipsObject->addTax($taxable, $total_tax_paid, $empno1, $compId, $time);
                 } else {
                     $PaySlipsObject->updateTax($taxable, $total_tax_paid, $empno1);
                 }
 
                 $checkForLeave = "SELECT * FROM leave_days where empno='$empno1'";
-                $checkIfEmployeeLeaveExsist = mysql_query($checkForLeave) or die("invalid query" . mysql_error());
+                $checkIfEmployeeLeaveExsist = mysqli_query($link, $checkForLeave) or die("invalid query" . mysqli_error($link));
 
-                if (mysql_num_rows($checkIfEmployeeLeaveExsist) == 0) {
+                if (mysqli_num_rows($checkIfEmployeeLeaveExsist) == 0) {
                     $PaySlipsObject->addLeave($empno1);
                 } else {
                     // $empno = $_POST['empno'];
@@ -559,8 +552,8 @@ error_reporting(0);
                                                     <?php
                                                     $compID = $_SESSION['company_ID'];
                                                     $query = "SELECT * FROM emp_info WHERE company_id ='$compID' AND (STATUS !='exited' AND status!='suspended')  ";
-                                                    $result = mysql_query($query);
-                                                    while ($row = mysql_fetch_array($result)) {
+                                                    $result = mysqli_query($link, $query);
+                                                    while ($row = mysqli_fetch_array($result)) {
                                                         $deptId = $row['dept'];
                                                         $id_ = $row['id'];
                                                         // $dept = $EmployeeObject->getDepartmentDetails($deptId);
@@ -628,8 +621,8 @@ error_reporting(0);
                                                     <?php
                                                     $compID = $_SESSION['company_ID'];
                                                     $query = "SELECT * FROM emp_info WHERE company_id ='$compID' AND (STATUS !='exited' AND status!='suspended')  ";
-                                                    $result = mysql_query($query);
-                                                    // while ($row = mysql_fetch_array($result)) {
+                                                    $result = mysqli_query($link, $query);
+                                                    // while ($row = mysqli_fetch_array($result)) {
                                                     //     $deptId = $row['dept'];
                                                     //     $id_ = $row['id'];
                                                     //     // $dept = $EmployeeObject->getDepartmentDetails($deptId);
@@ -646,7 +639,7 @@ error_reporting(0);
                                                         <td>
                                                             <select name="empno" class="form-control">
                                                                 <?php
-                                                                while ($row = mysql_fetch_array($result)) {
+                                                                while ($row = mysqli_fetch_array($result)) {
                                                                     $deptId = $row['dept'];
                                                                     $id_ = $row['id'];
                                                                     // $dept = $EmployeeObject->getDepartmentDetails($deptId);

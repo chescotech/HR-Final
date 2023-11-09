@@ -2,7 +2,6 @@
 <html>
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Leave Application</title>
@@ -67,12 +66,12 @@
     <div class="wrapper">
 
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Leave.php';
         $leaveObject = new Leave();
         include_once '../../Admin/Classes/Company.php';
         $CompanyObject = new Company();
         require_once('../../PHPmailer/sendmail.php');
-        include '../navigation_panel/authenticated_user_header.php';
         $companyId = $_SESSION['company_ID'];
         $empno = $_SESSION['employee_id'];
         ?>
@@ -81,8 +80,8 @@
 
         <?php
         // Get all hollidays from db
-        $hq1 = mysql_query("SELECT date FROM holidays ") or die(mysql_error());
-        while ($hr1 = mysql_fetch_assoc($hq1)) {
+        $hq1 = mysqli_query($link, "SELECT date FROM holidays ") or die(mysqli_error($link));
+        while ($hr1 = mysqli_fetch_assoc($hq1)) {
             $all_hollies[] = $hr1["date"];
         }
 
@@ -118,8 +117,8 @@
 
         if (isset($_POST['apply'])) {
             // *Check if there's a pending leave first
-            $res = mysql_query("SELECT * FROM leave_applications_tb WHERE empno='$empno' AND status = 'Pending Approval' ");
-            if (mysql_num_rows($res) > 0) {
+            $res = mysqli_query($link, "SELECT * FROM leave_applications_tb WHERE empno='$empno' AND status = 'Pending Approval' ");
+            if (mysqli_num_rows($res) > 0) {
                 echo "<script> alert('Error! You already have a pending leave.') </script>";
                 echo "<script> window.location='apply' </script>";
                 die();
@@ -177,20 +176,20 @@
             $EndDateConverted = date('Y-m-d', $EndDate);
 
             // Check for holidays withing the specifies period
-            // $holidays_q = mysql_query("SELECT count(name) AS hollies FROM holidays WHERE date BETWEEN '$startDateConverted' AND '$EndDateConverted_' ") or die(mysql_error());
-            // $h_r = mysql_fetch_array($holidays_q);
+            // $holidays_q = mysqli_query($link,"SELECT count(name) AS hollies FROM holidays WHERE date BETWEEN '$startDateConverted' AND '$EndDateConverted_' ") or die(mysqli_error($link));
+            // $h_r = mysqli_fetch_array($holidays_q);
             // $hollies = intval($h_r['hollies']);
             // $EndDateConverted = date('Y-m-d', strtotime($EndDateConverted_ . "+$hollies days"));
             // return var_dump($EndDateConverted_);
 
             $LeaveQuery = $leaveObject->checkLeaveDays($empno);
-            $leaveInfo = mysql_fetch_array($LeaveQuery);
+            $leaveInfo = mysqli_fetch_array($LeaveQuery);
             $leaveDaysAvailiable = $leaveInfo['available'];
 
             // substract working days from total leave days
             $leaveDays = number_of_working_days($startDateConverted, $EndDateConverted);
 
-            // mysql_query("UPDATE leave_days SET available = available-'$holidays' WHERE empno = '$empno' ");
+            // mysqli_query($link,"UPDATE leave_days SET available = available-'$holidays' WHERE empno = '$empno' ");
             // return var_dump($leaveDays);
             // check that the leave applied for does not exceed the limit set by company..                
             if ($leaveDays > $leaveObject->getMaxLeaveDaysApplicable($leaveType) || ($leaveDays + $leaveObject->getNumberofDaysByLeaveType($leaveType, $empno) > $leaveObject->getMaxLeaveDaysApplicable($leaveType))) {
@@ -200,7 +199,7 @@
             }
 
             $LeaveApplicatantQuery = $leaveObject->getLeaveApplicantDetails($empno);
-            $ApplicatRows = mysql_fetch_array($LeaveApplicatantQuery);
+            $ApplicatRows = mysqli_fetch_array($LeaveApplicatantQuery);
             $fname = $ApplicatRows['fname'];
             $lname = $ApplicatRows['lname'];
             $postition = $ApplicatRows['position'];
@@ -278,9 +277,9 @@
                                 <?php
                                 $employeeId = $_SESSION['employee_id'];
                                 $leaveDays = "";
-                                $result = mysql_query("SELECT * FROM leave_days WHERE empno='$employeeId' ") or die(mysql_error());
-                                $row = mysql_fetch_array($result);
-                                if (mysql_num_rows($result) == 0) {
+                                $result = mysqli_query($link, "SELECT * FROM leave_days WHERE empno='$employeeId' ") or die(mysqli_error($link));
+                                $row = mysqli_fetch_array($result);
+                                if (mysqli_num_rows($result) == 0) {
                                     $leaveDays = "0";
                                 } else {
                                     $leaveDays = $row['available'];
@@ -294,9 +293,9 @@
                                         <?php
                                         $employeeId = $_SESSION['employee_id'];
                                         //echo 'emp no '.$employeeId;
-                                        $result_ = mysql_query("SELECT * FROM leave_days WHERE empno='$employeeId' ") or die(mysql_error());
-                                        $row_ = mysql_fetch_array($result_);
-                                        if (mysql_num_rows($result_) == 0) {
+                                        $result_ = mysqli_query($link, "SELECT * FROM leave_days WHERE empno='$employeeId' ") or die(mysqli_error($link));
+                                        $row_ = mysqli_fetch_array($result_);
+                                        if (mysqli_num_rows($result_) == 0) {
                                             echo "No leave days available";
                                         } else {
                                             echo $row['available'] . "  Leave days available";
@@ -349,7 +348,7 @@
                                             <?php
                                             $comp_ID = $_SESSION['company_ID'];
                                             $AllDepartments = $leaveObject->getLeaveTypes($comp_ID);
-                                            while ($row = mysql_fetch_array($AllDepartments)) {
+                                            while ($row = mysqli_fetch_array($AllDepartments)) {
                                             ?>
                                                 <option value="<?php echo $row['leave_type'] ?>">
                                                     <?php echo $row['leave_type']; ?>

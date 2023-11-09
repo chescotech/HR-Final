@@ -28,10 +28,11 @@
     <div class="wrapper">
 
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
+
         include_once '../Classes/Leave.php';
         $leaveObject = new Leave();
 
-        include '../navigation_panel/authenticated_user_header.php';
         ?>
 
         <?php include '../navigation_panel/side_navigation_bar.php'; ?>
@@ -86,8 +87,8 @@
 
                 if (move_uploaded_file($file_loc, $folder . $CV) && move_uploaded_file($file_loc2, $folder2 . $Certificate)) {
 
-                    mysql_query("INSERT INTO certificates_tb (cv,qualifications,date_uploaded,status,empno)"
-                        . "VALUES ('$CV','$Certificate','$date','pending' ,'$employeeId')") or die(mysql_error());
+                    mysqli_query($link, "INSERT INTO certificates_tb (cv,qualifications,date_uploaded,status,empno)"
+                        . "VALUES ('$CV','$Certificate','$date','pending' ,'$employeeId')") or die(mysqli_error($link));
                     $mssge = "Upload Sucess";
         ?>
                 <?php

@@ -46,8 +46,8 @@
                     $rank = $_POST['rank'];
                     $recommendation = $_POST['recommendation'];
 
-                    $add_q = mysql_query("INSERT INTO app_rating (from_,to_, rank, recommendation)
-                        VALUES('$from_','$to_','$rank', '$recommendation')") or die(mysql_error());
+                    $add_q = mysqli_query($link, "INSERT INTO app_rating (from_,to_, rank, recommendation)
+                        VALUES('$from_','$to_','$rank', '$recommendation')") or die(mysqli_error($link));
 
                     if ($add_q) {
                         echo "<script> alert('Added Successfuly') </script>";
@@ -61,8 +61,8 @@
                     $recommendation = $_POST['recommendation'];
                     $id = $_POST['id'];
 
-                    $add_q = mysql_query("UPDATE app_rating SET from_ = '$from_',to_='$to_',
-                        rank = '$rank', recommendation = '$recommendation' WHERE id = '$id' ") or die(mysql_error());
+                    $add_q = mysqli_query($link, "UPDATE app_rating SET from_ = '$from_',to_='$to_',
+                        rank = '$rank', recommendation = '$recommendation' WHERE id = '$id' ") or die(mysqli_error($link));
 
                     if ($add_q) {
                         echo "<script> alert('Updated Successfuly') </script>";
@@ -72,7 +72,7 @@
                 if (isset($_POST['delete'])) {
                     $id = $_POST['id'];
 
-                    $add_q = mysql_query("DELETE FROM app_rating WHERE id = '$id' ") or die(mysql_error());
+                    $add_q = mysqli_query($link, "DELETE FROM app_rating WHERE id = '$id' ") or die(mysqli_error($link));
 
                     if ($add_q) {
                         echo "<script> alert('Deleted Successfuly') </script>";
@@ -101,8 +101,8 @@
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $query = mysql_query("SELECT * FROM app_rating") or die(mysql_error());
-                                            while ($row = mysql_fetch_array($query)) {
+                                            $query = mysqli_query($link, "SELECT * FROM app_rating") or die(mysqli_error($link));
+                                            while ($row = mysqli_fetch_array($query)) {
                                             ?>
                                                 <tr>
                                                     <td><?php echo $row['from_'] . "-" . $row['to_']; ?></td>

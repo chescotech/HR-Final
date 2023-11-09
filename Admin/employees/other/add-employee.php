@@ -252,7 +252,7 @@
                                             <option>--Select Department--</option>
                                             <?php
                                             $departmentquery = $DepartmentObject->GetAllDepartmentsByCompany($compId);
-                                            while ($row = mysql_fetch_array($departmentquery)) {
+                                            while ($row = mysqli_fetch_array($departmentquery)) {
                                             ?>
                                                 <option value="<?php echo $row['dep_id']; ?>"> <?php echo $row['department']; ?></option>
                                             <?php
@@ -328,7 +328,7 @@
                                             <?php
                                             $compName = $_SESSION['username'];
                                             $CompanyQuery = $CompanyObject->getEmployeGrade($compId);
-                                            while ($row = mysql_fetch_array($CompanyQuery)) {
+                                            while ($row = mysqli_fetch_array($CompanyQuery)) {
                                             ?>
                                                 <option value="<?php echo $row['grade']; ?>"> <?php echo $row['grade']; ?></option>
                                             <?php

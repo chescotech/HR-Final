@@ -41,21 +41,21 @@
             <?php
             $user_id = $_SESSION['job_user_id'];
             if (isset($_POST['add_'])) {
-                $employer = mysql_real_escape_string($_POST['employer']);
-                $comp_name = mysql_real_escape_string($_POST['comp_name']);
-                $phone = mysql_real_escape_string($_POST['phone']);
-                $position = mysql_real_escape_string($_POST['position']);
-                $starts = mysql_real_escape_string($_POST['starts']);
-                $ends = mysql_real_escape_string($_POST['ends']);
-                $reasons_for_leavng = mysql_real_escape_string($_POST['reasons_for_leavng']);
-                $duties = mysql_real_escape_string($_POST['duties']);
-                $achievement = mysql_real_escape_string($_POST['achievement']);
+                $employer = ($_POST['employer']);
+                $comp_name = ($_POST['comp_name']);
+                $phone = ($_POST['phone']);
+                $position = ($_POST['position']);
+                $starts = ($_POST['starts']);
+                $ends = ($_POST['ends']);
+                $reasons_for_leavng = ($_POST['reasons_for_leavng']);
+                $duties = ($_POST['duties']);
+                $achievement = ($_POST['achievement']);
 
 
-                $add_q = mysql_query("INSERT INTO jobs_user_experience (employer, comp_name, phone, position, starts,
+                $add_q = mysqli_query($link, "INSERT INTO jobs_user_experience (employer, comp_name, phone, position, starts,
                                         ends, reasons_for_leavng, duties, achievement,user_id)
                                     VALUES('$employer','$comp_name','$phone','$position','$starts','$ends','$reasons_for_leavng',
-                                        '$duties','$achievement','$user_id')") or die("Error: ".mysql_error());
+                                        '$duties','$achievement','$user_id')") or die("Error: " . mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Added Successfuly') </script>";
@@ -74,9 +74,9 @@
                 $achievement = $_POST['achievement'];
                 $id = $_POST['id'];
 
-                $add_q = mysql_query("UPDATE jobs_user_experience SET school = '$school', qualification = '$qualification',
+                $add_q = mysqli_query($link, "UPDATE jobs_user_experience SET school = '$school', qualification = '$qualification',
                                             award='$award', starts = '$starts', ends = '$ends'
-                                    WHERE id = '$id' ") or die(mysql_error());
+                                    WHERE id = '$id' ") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Updated Successfuly') </script>";
@@ -86,7 +86,7 @@
             if (isset($_POST['delete'])) {
                 $id = $_POST['id'];
 
-                $add_q = mysql_query("DELETE FROM jobs_user_experience WHERE id = '$id' ") or die(mysql_error());
+                $add_q = mysqli_query($link, "DELETE FROM jobs_user_experience WHERE id = '$id' ") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Deleted Successfuly') </script>";
@@ -192,8 +192,8 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $query = mysql_query("SELECT * FROM jobs_user_experience WHERE user_id = '$user_id' ") or die(mysql_error());
-                                        while ($row = mysql_fetch_array($query)) {
+                                        $query = mysqli_query($link, "SELECT * FROM jobs_user_experience WHERE user_id = '$user_id' ") or die(mysqli_error($link));
+                                        while ($row = mysqli_fetch_array($query)) {
                                         ?>
                                             <tr>
                                                 <td><?php echo $row['employer']; ?></td>
@@ -207,7 +207,7 @@
                                                 <td><?php echo $row['achievement']; ?></td>
                                                 <td>
                                                     <!-- <a href="#updateordinance<?php echo $row['id']; ?>" data-target="#updateordinance<?php echo $row['id']; ?>" data-toggle="modal" style="color:#fff;" class="btn btn-primary btn-sm">Edit</i></a> -->
-                                                
+
                                                     <a href="#delete<?php echo $row['id']; ?>" data-target="#delete<?php echo $row['id']; ?>" data-toggle="modal" style="color:#fff;" class="btn btn-danger btn-sm">Delete</a>
                                                 </td>
                                             </tr>

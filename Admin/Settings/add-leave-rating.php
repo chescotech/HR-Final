@@ -89,7 +89,7 @@
                                             <option>--Select Employee Grade--</option>
                                             <?php
                                             $AllDepartments = $DepartmentObject->getEmployeeGrade($comp_ID);
-                                            while ($row = mysql_fetch_array($AllDepartments)) {
+                                            while ($row = mysqli_fetch_array($AllDepartments)) {
                                             ?>
                                                 <option value="<?php echo $row['grade'] ?>">
                                                     <?php echo "grade " . $row['grade'] . " pay range " . $row['minimum'] . " to " . $row['maximum']; ?></option>

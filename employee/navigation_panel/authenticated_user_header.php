@@ -1,5 +1,9 @@
 <?php
 session_start();
+
+error_reporting(0);
+ini_set('display_errors', 1);
+
 include('../../include/dbconnection.php');
 
 if (!isset($_SESSION['employee_id'])) {
@@ -10,8 +14,8 @@ $CompanyObject = new Company();
 $companyId = $_SESSION['company_ID'];
 $employeeId = $_SESSION['employee_id'];
 
-$result = mysql_query("SELECT * FROM emp_info where empno='$employeeId'") or die(mysql_error());
-$row = mysql_fetch_array($result);
+$result = mysqli_query($link, "SELECT * FROM emp_info where empno='$employeeId'") or die(mysqli_error($link));
+$row = mysqli_fetch_array($result);
 $full_names = $row['fname'] . "-" . $row['lname'];
 ?>
 

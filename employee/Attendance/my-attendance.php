@@ -96,10 +96,10 @@
 
                                             $AbsentQuery = $AttendanceObject->getAttendanceLogList($convertedDate, $compID, $empno);
                                         } else {
-                                            $AbsentQuery = mysql_query("SELECT * FROM attendance_logs WHERE
-                                                company_id = '$companyId' AND  empno = '$empno'") or die(mysql_error());
+                                            $AbsentQuery = mysqli_query($link, "SELECT * FROM attendance_logs WHERE
+                                                company_id = '$companyId' AND  empno = '$empno'") or die(mysqli_error($link));
                                         }
-                                        while ($row = mysql_fetch_array($AbsentQuery)) {
+                                        while ($row = mysqli_fetch_array($AbsentQuery)) {
                                             $EmployeeName = $AttendanceObject->getEmployeeDetails($row['empno']);
                                             $LogDate = $row['log_date'];
                                             $LoginTime = $row['login_time'];
@@ -168,8 +168,8 @@
                                             $empno = $_POST['empno'];
                                             $LogDate = $_POST['LogDate'];
                                             $comment = $_POST['comment'];
-                                            $add_c = mysql_query("UPDATE attendance_logs SET comment = '$comment'
-                                                    WHERE empno = '$empno' AND log_date = '$LogDate' ") or die(mysql_error());
+                                            $add_c = mysqli_query($link, "UPDATE attendance_logs SET comment = '$comment'
+                                                    WHERE empno = '$empno' AND log_date = '$LogDate' ") or die(mysqli_error($link));
 
                                             if ($add_c) {
                                                 echo "<script> window.location='my-attendance' </script>";

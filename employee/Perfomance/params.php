@@ -45,8 +45,8 @@
                 $name = $_POST['name'];
                 $weight = $_POST['weight'];
 
-                $add_q = mysql_query("INSERT INTO ass_params (name,weight,dept)
-                        VALUES('$name','$weight','$dept')") or die(mysql_error());
+                $add_q = mysqli_query($link, "INSERT INTO ass_params (name,weight,dept)
+                        VALUES('$name','$weight','$dept')") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Added Successfuly') </script>";
@@ -58,8 +58,8 @@
                 $weight = $_POST['weight'];
                 $id = $_POST['id'];
 
-                $add_q = mysql_query("UPDATE ass_params SET name = '$name',weight='$weight'
-                        WHERE id = '$id' ") or die(mysql_error());
+                $add_q = mysqli_query($link, "UPDATE ass_params SET name = '$name',weight='$weight'
+                        WHERE id = '$id' ") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Updated Successfuly') </script>";
@@ -69,7 +69,7 @@
             if (isset($_POST['delete'])) {
                 $id = $_POST['id'];
 
-                $add_q = mysql_query("DELETE FROM ass_params WHERE id = '$id' ") or die(mysql_error());
+                $add_q = mysqli_query($link, "DELETE FROM ass_params WHERE id = '$id' ") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Deleted Successfuly') </script>";
@@ -97,8 +97,8 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $query = mysql_query("SELECT * FROM ass_params WHERE dept='$dept' ") or die(mysql_error());
-                                        while ($row = mysql_fetch_array($query)) {
+                                        $query = mysqli_query($link, "SELECT * FROM ass_params WHERE dept='$dept' ") or die(mysqli_error($link));
+                                        while ($row = mysqli_fetch_array($query)) {
                                         ?>
                                             <tr>
                                                 <td><?php echo $row['name']; ?></td>

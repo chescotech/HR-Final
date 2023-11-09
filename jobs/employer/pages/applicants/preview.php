@@ -96,8 +96,8 @@
             // Get applicant's info
             $user_id = $_GET['user_id'];
             $job_id = $_GET['job_id'];
-            $gt_app_q = mysql_query("SELECT * FROM jobs_users WHERE id = '$user_id' ") or die(mysql_error());
-            $gt_app_r = mysql_fetch_array($gt_app_q);
+            $gt_app_q = mysqli_query($link, "SELECT * FROM jobs_users WHERE id = '$user_id' ") or die(mysqli_error($link));
+            $gt_app_r = mysqli_fetch_array($gt_app_q);
 
             $fname = $gt_app_r['fname'];
             $lname = $gt_app_r['lname'];
@@ -115,8 +115,8 @@
                 // echo $job_id;
                 //return var_dump($job_id,$app_id);
 
-                mysql_query("UPDATE jobs_user_applications SET talent_pool_id = '$pool_id' WHERE  user_id='$app_id' AND jobs_user_applications.id='$job_id' ")
-                    or die("Err11 " . mysql_error());
+                mysqli_query($link, "UPDATE jobs_user_applications SET talent_pool_id = '$pool_id' WHERE  user_id='$app_id' AND jobs_user_applications.id='$job_id' ")
+                    or die("Err11 " . mysqli_error($link));
 
                 echo "<script> document.location='preview.php?user_id=' . $app_id . '&job_id=' . $job_id . ' </script>";
             }
@@ -127,8 +127,8 @@
                 $job_id = $_POST['job'];
                 //return var_dump($job_id,$app_id);
 
-                mysql_query("UPDATE jobs_user_applications SET job_status = '$status' WHERE  id='$job_id' ")
-                    or die("Err11 " . mysql_error());
+                mysqli_query($link, "UPDATE jobs_user_applications SET job_status = '$status' WHERE  id='$job_id' ")
+                    or die("Err11 " . mysqli_error($link));
 
                 // Add To Logs
                 $trans_name = $status;
@@ -144,8 +144,8 @@
                 $job_id = $_POST['job'];
                 // return var_dump($_POST);
 
-                mysql_query("UPDATE jobs_user_applications SET disqualify_reason = '$disqualify_reason',job_status='Disqualified'  WHERE  user_id='$app_id' AND jobs_job_id='$job_id' ")
-                    or die("Err11 " . mysql_error());
+                mysqli_query($link, "UPDATE jobs_user_applications SET disqualify_reason = '$disqualify_reason',job_status='Disqualified'  WHERE  user_id='$app_id' AND jobs_job_id='$job_id' ")
+                    or die("Err11 " . mysqli_error($link));
 
                 echo "<script> document.location='preview.php?user_id=' . $app_id . '&job_id=' . $job_id . ' </script>";
             }
@@ -172,13 +172,13 @@
                                             <br>
 
                                             <?php
-                                            $empQuery = mysql_query("SELECT *
+                                            $empQuery = mysqli_query($link, "SELECT *
                                             FROM jobs_user_info
                                             INNER JOIN jobs_user_applications ON jobs_user_info.user_id = jobs_user_applications.user_id AND jobs_user_applications.id = '$job_id'
                                             LEFT JOIN talent_pool ON talent_pool.id = jobs_user_applications.talent_pool_id
                                             WHERE jobs_user_info.user_id = '$user_id'
-                                            ") or die(mysql_error());                                            // echo mysql_num_rows($empQuery);
-                                            while ($empRows = mysql_fetch_array($empQuery)) {
+                                            ") or die(mysqli_error($link));                                            // echo mysqli_num_rows($empQuery);
+                                            while ($empRows = mysqli_fetch_array($empQuery)) {
                                                 // Other Info
                                                 // var_dump($empRows);
                                                 $location = $empRows['location'];
@@ -229,8 +229,8 @@
 
                                             <?php
                                             // Skillz
-                                            $skillsQuery = mysql_query("SELECT * FROM jobs_user_skills WHERE user_id = '$user_id' ") or die(mysql_error());
-                                            while ($skillsRow = mysql_fetch_array($skillsQuery)) {
+                                            $skillsQuery = mysqli_query($link, "SELECT * FROM jobs_user_skills WHERE user_id = '$user_id' ") or die(mysqli_error($link));
+                                            while ($skillsRow = mysqli_fetch_array($skillsQuery)) {
                                                 $category = $skillsRow['category'];
                                                 $name = $skillsRow['name'];
                                                 $level = $skillsRow['level'];
@@ -255,8 +255,8 @@
 
                                             <?php
                                             // Skillz
-                                            $attachQuery = mysql_query("SELECT * FROM jobs_user_attachments WHERE user_id = '$user_id' ") or die(mysql_error());
-                                            while ($attachRow = mysql_fetch_array($attachQuery)) {
+                                            $attachQuery = mysqli_query($link, "SELECT * FROM jobs_user_attachments WHERE user_id = '$user_id' ") or die(mysqli_error($link));
+                                            while ($attachRow = mysqli_fetch_array($attachQuery)) {
                                                 $name = $attachRow['name'];
                                                 $file = $attachRow['file'];
                                             ?>
@@ -288,8 +288,8 @@
                                                             <?php } ?> <!-- <option>--Select Talent Pool--</option> -->
                                                             <?php
                                                             $comp_id = $_SESSION['comp_id'];
-                                                            $poolQuery = mysql_query("SELECT * FROM talent_pool WHERE emp_id = $comp_id");
-                                                            while ($row = mysql_fetch_array($poolQuery)) {
+                                                            $poolQuery = mysqli_query($link, "SELECT * FROM talent_pool WHERE emp_id = $comp_id");
+                                                            while ($row = mysqli_fetch_array($poolQuery)) {
                                                             ?>
                                                                 <option value="<?php echo $row['id']; ?>"><?php echo $row['title']; ?></option>
                                                             <?php
@@ -364,8 +364,8 @@
 
                                         <?php
                                         // Work Xperience
-                                        $experienceQuery = mysql_query("SELECT * FROM jobs_user_experience WHERE user_id = '$user_id' ") or die(mysql_error());
-                                        while ($experienceRow = mysql_fetch_array($experienceQuery)) {
+                                        $experienceQuery = mysqli_query($link, "SELECT * FROM jobs_user_experience WHERE user_id = '$user_id' ") or die(mysqli_error($link));
+                                        while ($experienceRow = mysqli_fetch_array($experienceQuery)) {
                                             $employer = $experienceRow['employer'];
                                             $comp_name = $experienceRow['comp_name'];
                                             $phone = $experienceRow['phone'];
@@ -396,8 +396,8 @@
                                         <div class="w3-container">
                                             <?php
                                             // names - Accademic stuff
-                                            $qualificationsQuery = mysql_query("SELECT * FROM jobs_user_qualifications WHERE user_id = '$user_id' ") or die(mysql_error());
-                                            while ($qualificationsRow = mysql_fetch_array($qualificationsQuery)) {
+                                            $qualificationsQuery = mysqli_query($link, "SELECT * FROM jobs_user_qualifications WHERE user_id = '$user_id' ") or die(mysqli_error($link));
+                                            while ($qualificationsRow = mysqli_fetch_array($qualificationsQuery)) {
                                                 $school = $qualificationsRow['school'];
                                                 $qualification = $qualificationsRow['qualification'];
                                                 $award = $qualificationsRow['award'];
@@ -423,8 +423,8 @@
                                         <div class="w3-container">
                                             <?php
                                             // Qualifications - Accademic stuff
-                                            $refsQuery = mysql_query("SELECT * FROM jobs_user_refs WHERE user_id = '$user_id' ") or die(mysql_error());
-                                            while ($refsRow = mysql_fetch_array($refsQuery)) {
+                                            $refsQuery = mysqli_query($link, "SELECT * FROM jobs_user_refs WHERE user_id = '$user_id' ") or die(mysqli_error($link));
+                                            while ($refsRow = mysqli_fetch_array($refsQuery)) {
                                                 $ref_name = $refsRow['name'];
                                                 $ref_gender = $refsRow['gender'];
                                                 $ref_position = $refsRow['position'];
@@ -477,8 +477,8 @@
                                                         <option>--Select Talent Pool--</option>
                                                         <?php
                                                         $comp_id = $_SESSION['emp_id'];
-                                                        $departmentquery = mysql_query("SELECT * FROM talent_pool WHERE emp_id = $comp_id");
-                                                        while ($row = mysql_fetch_array($departmentquery)) {
+                                                        $departmentquery = mysqli_query($link, "SELECT * FROM talent_pool WHERE emp_id = $comp_id");
+                                                        while ($row = mysqli_fetch_array($departmentquery)) {
                                                         ?>
                                                             <option value="<?php echo $row['id']; ?>"> <?php echo $row['title']; ?>
                                                             </option>

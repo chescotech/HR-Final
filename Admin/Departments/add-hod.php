@@ -31,11 +31,12 @@
 <body class="hold-transition skin-green-light sidebar-mini">
     <div class="wrapper">
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Department.php';
 
         $DepartmentObject = new Department();
 
-        include '../navigation_panel/authenticated_user_header.php'; ?>
+        ?>
 
         <?php include '../navigation_panel/side_navigation_bar.php'; ?>
 
@@ -91,7 +92,7 @@
                                             <option>--Select Department--</option>
                                             <?php
                                             $AllDepartments = $DepartmentObject->getDepartmentByCompany($comp_ID);
-                                            while ($row = mysql_fetch_array($AllDepartments)) {
+                                            while ($row = mysqli_fetch_array($AllDepartments)) {
                                             ?>
                                                 <option value="<?php echo $row['dep_id'] ?>"> <?php echo $row['department']; ?></option>
                                             <?php
@@ -107,7 +108,7 @@
                                             <?php
 
                                             $EmployeeQuery = $DepartmentObject->getAllEmployees();
-                                            while ($row = mysql_fetch_array($EmployeeQuery)) {
+                                            while ($row = mysqli_fetch_array($EmployeeQuery)) {
                                             ?>
                                                 <option value="<?php echo $row['empno']; ?>"> <?php echo $row['fname'] . "-" . $row['lname'] . "-" . $row['position']; ?></option>
                                             <?php
@@ -122,7 +123,7 @@
                                             <option>--Select superior to person selected above--</option>
                                             <?php
                                             $EmployeeQuery = $DepartmentObject->getAllEmployees();
-                                            while ($row = mysql_fetch_array($EmployeeQuery)) {
+                                            while ($row = mysqli_fetch_array($EmployeeQuery)) {
                                             ?>
                                                 <option value="<?php echo $row['empno']; ?>"> <?php echo $row['fname'] . "-" . $row['lname'] . "-" . $row['position']; ?></option>
                                             <?php

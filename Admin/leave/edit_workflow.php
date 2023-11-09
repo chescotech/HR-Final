@@ -29,9 +29,9 @@
 <body class="hold-transition skin-green-light sidebar-mini">
     <div class="wrapper">
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Department.php';
         $DepartmentObject = new Department();
-        include '../navigation_panel/authenticated_user_header.php';
         ?>
 
 
@@ -66,7 +66,7 @@
                         <?php
                         $id = $_GET['id'];
                         $EditQuery = $DepartmentObject->EditWorkFlow($id);
-                        while ($rows = mysql_fetch_array($EditQuery)) {
+                        while ($rows = mysqli_fetch_array($EditQuery)) {
                         ?>
 
                             <form enctype="multipart/form-data" method="post">

@@ -1,8 +1,8 @@
 <?php
 
 session_start();
-require_once ('../graph-libs/src/jpgraph.php');
-require_once ('../graph-libs/src/jpgraph_pie.php');
+require_once('../graph-libs/src/jpgraph.php');
+require_once('../graph-libs/src/jpgraph_pie.php');
 include('../../include/dbconnection.php');
 include_once '../Classes/Loans.php';
 
@@ -11,17 +11,17 @@ $dataArray = array();
 $labeslArray = array();
 $companyId = $_SESSION['company_ID'];
 
-$query = mysql_query(" SELECT DISTINCT dept FROM emp_info WHERE company_id ='$companyId' ");
+$query = mysqli_query($link, " SELECT DISTINCT dept FROM emp_info WHERE company_id ='$companyId' ");
 $sum = 0;
 $payrollAmountByDept = 0;
 
-while ($row = mysql_fetch_array($query)) {
+while ($row = mysqli_fetch_array($query)) {
     $departmentId = $row['dept'];
     $departmentName = $LoanObject->getDepartmentById($departmentId);
     $payrollAmountByDept = $LoanObject->getPayrollTotalByDepartment($departmentId, $companyId);
-   
+
     array_push($dataArray, $payrollAmountByDept);
-    array_push($labeslArray, $departmentName."\n%.1f%%");
+    array_push($labeslArray, $departmentName . "\n%.1f%%");
 }
 
 $graph = new PieGraph(650, 650, 'auto');
@@ -62,5 +62,3 @@ $p1->ExplodeAll(15);
 $graph->Add($p1);
 
 $graph->Stroke();
-
-

@@ -32,7 +32,7 @@ $companyId = $_SESSION['company_ID'];
 <?php
 include_once '../Classes/Timesheets.php';
 
-$TimesheetObject = new Timesheets();
+$TimesheetObject = new Timesheets($link);
 ?>
 
 <?php
@@ -57,9 +57,10 @@ if (isset($_POST['save'])) {
         // Create a session variable to store the number of days
         $_SESSION["num_days"] = $num_days;
         $_SESSION["ts_current_date"] = $start_date;
-        $_SESSION["timesheet_id"] = mysql_insert_id();
-        // $start_date_encoded = urlencode($start_date);
+        $tmid = mysqli_insert_id($link);
+        $_SESSION["timesheet_id"] = mysqli_insert_id($link);
 
+        // return var_dump($tmid);
         echo '<script>window.location.assign("create-timesheet?page=1&current-date=' . $startDay . '");</script>';
     } else {
         $message = '<p class="alert alert-danger">Something went wrong. Please try again.</p>';

@@ -48,8 +48,8 @@
                 $ends = $_POST['ends'];
 
 
-                $add_q = mysql_query("INSERT INTO jobs_user_qualifications (school,qualification, award,starts,ends,user_id)
-                        VALUES('$school','$qualification', '$award','$starts','$ends','$user_id')") or die(mysql_error());
+                $add_q = mysqli_query($link, "INSERT INTO jobs_user_qualifications (school,qualification, award,starts,ends,user_id)
+                        VALUES('$school','$qualification', '$award','$starts','$ends','$user_id')") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Added Successfuly') </script>";
@@ -65,9 +65,9 @@
 
                 $id = $_POST['id'];
 
-                $add_q = mysql_query("UPDATE jobs_user_qualifications SET school = '$school', qualification = '$qualification',
+                $add_q = mysqli_query($link, "UPDATE jobs_user_qualifications SET school = '$school', qualification = '$qualification',
                                             award='$award', starts = '$starts', ends = '$ends'
-                                    WHERE id = '$id' ") or die(mysql_error());
+                                    WHERE id = '$id' ") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Updated Successfuly') </script>";
@@ -77,7 +77,7 @@
             if (isset($_POST['delete'])) {
                 $id = $_POST['id'];
 
-                $add_q = mysql_query("DELETE FROM jobs_user_qualifications WHERE id = '$id' ") or die(mysql_error());
+                $add_q = mysqli_query($link, "DELETE FROM jobs_user_qualifications WHERE id = '$id' ") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Deleted Successfuly') </script>";
@@ -161,8 +161,8 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $query = mysql_query("SELECT * FROM jobs_user_qualifications WHERE user_id = '$user_id' ") or die(mysql_error());
-                                        while ($row = mysql_fetch_array($query)) {
+                                        $query = mysqli_query($link, "SELECT * FROM jobs_user_qualifications WHERE user_id = '$user_id' ") or die(mysqli_error($link));
+                                        while ($row = mysqli_fetch_array($query)) {
                                         ?>
                                             <tr>
                                                 <td><?php echo $row['school']; ?></td>

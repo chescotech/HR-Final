@@ -47,19 +47,17 @@
     <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css"
-        href="https://cdn.datatables.net/r/dt/jq-2.1.4,jszip-2.5.0,pdfmake-0.1.18,dt-1.10.9,af-2.0.0,b-1.0.3,b-colvis-1.0.3,b-html5-1.0.3,b-print-1.0.3,se-1.0.1/datatables.min.css" />
-    <script type="text/javascript"
-        src="https://cdn.datatables.net/r/dt/jq-2.1.4,jszip-2.5.0,pdfmake-0.1.18,dt-1.10.9,af-2.0.0,b-1.0.3,b-colvis-1.0.3,b-html5-1.0.3,b-print-1.0.3,se-1.0.1/datatables.min.js">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/dt/jq-2.1.4,jszip-2.5.0,pdfmake-0.1.18,dt-1.10.9,af-2.0.0,b-1.0.3,b-colvis-1.0.3,b-html5-1.0.3,b-print-1.0.3,se-1.0.1/datatables.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/r/dt/jq-2.1.4,jszip-2.5.0,pdfmake-0.1.18,dt-1.10.9,af-2.0.0,b-1.0.3,b-colvis-1.0.3,b-html5-1.0.3,b-print-1.0.3,se-1.0.1/datatables.min.js">
     </script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <script>
-    $(document).ready(function() {
-        $("#datepicker").datepicker();
-        $("#datepicker_").datepicker();
-    });
+        $(document).ready(function() {
+            $("#datepicker").datepicker();
+            $("#datepicker_").datepicker();
+        });
     </script>
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -68,91 +66,91 @@
     <script type="text/javascript" src="js_chart/Chart.min.js"></script>
 
     <script>
-    $(document).ready(function() {
-        $("#datepicker").datepicker();
-        $("#datepicker_").datepicker();
-    });
+        $(document).ready(function() {
+            $("#datepicker").datepicker();
+            $("#datepicker_").datepicker();
+        });
     </script>
 
     <script>
-    $(document).ready(function() {
-        showGraph();
-    });
+        $(document).ready(function() {
+            showGraph();
+        });
 
-    function showGraph() {
-        {
-            $.post("data-active-jobs.php",
-                function(data) {
-                    console.log(data);
-                    var name = [];
-                    var marks = [];
+        function showGraph() {
+            {
+                $.post("data-active-jobs.php",
+                    function(data) {
+                        console.log(data);
+                        var name = [];
+                        var marks = [];
 
-                    for (var i in data) {
-                        name.push(data[i].department);
-                        marks.push(data[i].number);
-                    }
-                    var chartdata = {
-                        labels: name,
-                        datasets: [{
-                            label: 'Active Jobs Count',
-                            backgroundColor: '#3c8dbc',
-                            borderColor: '#yellow',
-                            hoverBackgroundColor: '#3c8dbc',
-                            hoverBorderColor: '#3c8dbc',
-                            data: marks
-                        }]
-                    };
+                        for (var i in data) {
+                            name.push(data[i].department);
+                            marks.push(data[i].number);
+                        }
+                        var chartdata = {
+                            labels: name,
+                            datasets: [{
+                                label: 'Active Jobs Count',
+                                backgroundColor: '#3c8dbc',
+                                borderColor: '#yellow',
+                                hoverBackgroundColor: '#3c8dbc',
+                                hoverBorderColor: '#3c8dbc',
+                                data: marks
+                            }]
+                        };
 
-                    var graphTarget = $("#graphCanvas");
+                        var graphTarget = $("#graphCanvas");
 
-                    var barGraph = new Chart(graphTarget, {
-                        type: 'bar',
-                        data: chartdata
+                        var barGraph = new Chart(graphTarget, {
+                            type: 'bar',
+                            data: chartdata
+                        });
                     });
-                });
+            }
         }
-    }
     </script>
 
     <script>
-    $(document).ready(function() {
-        showGraphByDepartment();
-    });
+        $(document).ready(function() {
+            showGraphByDepartment();
+        });
 
-    function showGraphByDepartment() {
-        {
-            $.post("data_by_candidates.php",
-                function(data) {
-                    console.log(data);
-                    var name = [];
-                    var marks = [];
+        function showGraphByDepartment() {
+            {
+                $.post("data_by_candidates.php",
+                    function(data) {
+                        console.log(data);
+                        var name = [];
+                        var marks = [];
 
-                    for (var i in data) {
-                        name.push(data[i].job);
-                        marks.push(data[i].number);
-                    }
+                        for (var i in data) {
+                            name.push(data[i].job);
+                            marks.push(data[i].number);
+                        }
 
-                    var chartdata = {
-                        labels: name,
-                        datasets: [{
-                            label: 'Jobs by Candidates',
-                            backgroundColor: '#3c8dbc',
-                            borderColor: '#yellow',
-                            hoverBackgroundColor: '#3c8dbc',
-                            hoverBorderColor: '#3c8dbc',
-                            data: marks
-                        }]
-                    };
+                        var chartdata = {
+                            labels: name,
+                            datasets: [{
+                                label: 'Jobs by Candidates',
+                                backgroundColor: '#3c8dbc',
+                                borderColor: '#yellow',
+                                hoverBackgroundColor: '#3c8dbc',
+                                hoverBorderColor: '#3c8dbc',
+                                data: marks
+                            }]
+                        };
 
-                    var graphTarget = $("#ByDepartment");
+                        var graphTarget = $("#ByDepartment");
 
-                    var barGraph = new Chart(graphTarget, {
-                        type: 'bar',
-                        data: chartdata
+                        var barGraph = new Chart(graphTarget, {
+                            type: 'bar',
+                            data: chartdata
+                        });
                     });
-                });
+            }
         }
-    }
     </script>
 
 </head>
@@ -188,8 +186,7 @@
                     <div class="input-group">
                         <input type="text" name="q" class="form-control" placeholder="Search...">
                         <span class="input-group-btn">
-                            <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i
-                                    class="fa fa-search"></i></button>
+                            <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
                         </span>
                     </div>
                 </form>
@@ -222,30 +219,27 @@
                             <table cellpadding="" border="0" class="se">
                                 <tr>
                                     <td>
-                                        <input required="required" id="datepicker" name="from" class="form-control"
-                                            placeholder="Select From Date" autocomplete="off">
+                                        <input required="required" id="datepicker" name="from" class="form-control" placeholder="Select From Date" autocomplete="off">
                                     </td>
                                     <td>
-                                        <input required="required" id="datepicker_" name="to" class="form-control"
-                                            placeholder="Select To Date" autocomplete="off">
+                                        <input required="required" id="datepicker_" name="to" class="form-control" placeholder="Select To Date" autocomplete="off">
                                     </td>
                                     <div class="form-group  col-md-3">
                                         <select name="filter" class="form-control">
                                             <option value="all">-- All Jobs --</option>
                                             <?php
-                                        $qq1 = mysql_query("SELECT * FROM `jobs_postings`");
-                                        while ($rr1 = mysql_fetch_array($qq1)) {
-                                        ?>
-                                            <option value="<?php echo $rr1['id']; ?>"> <?php echo $rr1['title']; ?>
-                                            </option>
+                                            $qq1 = mysqli_query($link, "SELECT * FROM `jobs_postings`");
+                                            while ($rr1 = mysqli_fetch_array($qq1)) {
+                                            ?>
+                                                <option value="<?php echo $rr1['id']; ?>"> <?php echo $rr1['title']; ?>
+                                                </option>
                                             <?php
-                                        }
-                                        ?>
+                                            }
+                                            ?>
                                         </select>
                                     </div>
                                     <td>
-                                        <button type="submit" name="search" id="save" type="button"
-                                            class="btn btn-default"><span class="glyphicon glyphicon-search"></span>
+                                        <button type="submit" name="search" id="save" type="button" class="btn btn-default"><span class="glyphicon glyphicon-search"></span>
                                             Search
                                         </button>
                                     </td>
@@ -268,84 +262,81 @@
                                 <tbody>
 
                                     <?php
-                                  if (isset($_POST['search'])) {
+                                    if (isset($_POST['search'])) {
                                         $_SESSION['fromdate'] = $_POST['from'];
                                         $_SESSION['todate'] = $_POST['to'];
                                         $_SESSION['filter']  = $_POST['filter'];
                                     } else {
-                                        
                                     }
                                     ?>
                                     <?php
 
-                    if(isset($_POST['search'])){
-                        $filter = $_POST['filter'];
-                        $reportDate = $_POST['from'];
-                        $arr = explode("/", $reportDate);
-                        list($Getmonth, $Getday, $GetYear) = $arr;
+                                    if (isset($_POST['search'])) {
+                                        $filter = $_POST['filter'];
+                                        $reportDate = $_POST['from'];
+                                        $arr = explode("/", $reportDate);
+                                        list($Getmonth, $Getday, $GetYear) = $arr;
 
-                        $year = $GetYear;
-                        $month = $Getmonth;
-                        $day = $Getday;
+                                        $year = $GetYear;
+                                        $month = $Getmonth;
+                                        $day = $Getday;
 
-                        // to date.. 
-                        $toDate = $_POST['to'];
-                        $arr2 = explode("/", $toDate);
-                        list($Getmonth2, $Getday2, $GetYear2) = $arr2;
-                        $year2 = $GetYear2;
-                        $month2 = $Getmonth2;
-                        $day2 = $Getday2;
+                                        // to date.. 
+                                        $toDate = $_POST['to'];
+                                        $arr2 = explode("/", $toDate);
+                                        list($Getmonth2, $Getday2, $GetYear2) = $arr2;
+                                        $year2 = $GetYear2;
+                                        $month2 = $Getmonth2;
+                                        $day2 = $Getday2;
 
-                      if($filter=="all"){
-                        $user_q = mysql_query("SELECT COUNT(*) as number,jobs_postings.title as job FROM `jobs_user_applications`
+                                        if ($filter == "all") {
+                                            $user_q = mysqli_query($link, "SELECT COUNT(*) as number,jobs_postings.title as job FROM `jobs_user_applications`
                         inner join jobs_postings on jobs_postings.id=jobs_user_applications.jobs_job_id
                         inner join department on department.dep_id=jobs_postings.dep_id 
                         WHERE DATE(jobs_user_applications.date) BETWEEN '$year-$month-$day'  AND  '$year2-$month2-$day2' 
                         GROUP BY jobs_postings.title
-                    ") or die(mysql_error());
+                    ") or die(mysqli_error($link));
 
-                   // echo 'from '.$year.'-'.$month.'-'.$day;
-                      }else{
-                        $user_q = mysql_query("SELECT COUNT(*) as number,jobs_postings.title as job FROM `jobs_user_applications`
+                                            // echo 'from '.$year.'-'.$month.'-'.$day;
+                                        } else {
+                                            $user_q = mysqli_query($link, "SELECT COUNT(*) as number,jobs_postings.title as job FROM `jobs_user_applications`
                         inner join jobs_postings on jobs_postings.id=jobs_user_applications.jobs_job_id
                         inner join department on department.dep_id=jobs_postings.dep_id 
                         WHERE jobs_postings.id='$filter' AND DATE(jobs_user_applications.date) BETWEEN '$year-$month-$day'  AND  '$year2-$month2-$day2' 
                         GROUP BY jobs_postings.title
 
-                    ") or die(mysql_error());
-                    //echo 'eh';
-                      }
-                     
-                    }else{
-                     
-                        $user_q = mysql_query("SELECT COUNT(*) as number,jobs_postings.title as job FROM `jobs_user_applications`
+                    ") or die(mysqli_error($link));
+                                            //echo 'eh';
+                                        }
+                                    } else {
+
+                                        $user_q = mysqli_query($link, "SELECT COUNT(*) as number,jobs_postings.title as job FROM `jobs_user_applications`
                         inner join jobs_postings on jobs_postings.id=jobs_user_applications.jobs_job_id
                         inner join department on department.dep_id=jobs_postings.dep_id 
-                        GROUP BY jobs_postings.title") or die(mysql_error());
-                    
-                    }
-                    $total=0;
-                    while ($row = mysql_fetch_array($user_q)) {
-                        $number = $row['number'];
-                        
-                        $job_status= $row['job'];
-                        $total +=$number; 
-                        echo '
+                        GROUP BY jobs_postings.title") or die(mysqli_error($link));
+                                    }
+                                    $total = 0;
+                                    while ($row = mysqli_fetch_array($user_q)) {
+                                        $number = $row['number'];
+
+                                        $job_status = $row['job'];
+                                        $total += $number;
+                                        echo '
                             <tr>
                                 <td>' . $job_status . '</td>
-                                <td>'.$number.'</td>
+                                <td>' . $number . '</td>
                               
                             </tr>';
-                            ?>
+                                    ?>
                                     <?php
-                        }
+                                    }
 
-                        echo '
+                                    echo '
                             <tr>
                                 <td>Total</td>
-                                <td>'.$total.'</td>
+                                <td>' . $total . '</td>
                             </tr>';
-                        ?>
+                                    ?>
 
                                 </tbody>
                             </table>
@@ -354,8 +345,7 @@
                             <h3> Active Jobs per department</h3>
                             <center><canvas id="graphCanvas" height="100px" width="500px"></canvas>
                                 <center>
-                                    <table id="maintable" class="display compact cell-border" cellspacing="0"
-                                        width="100%">
+                                    <table id="maintable" class="display compact cell-border" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
                                                 <th>Department </th>
@@ -364,73 +354,71 @@
                                         </thead>
                                         <tbody>
                                             <?php
-                        if(isset($_POST['search'])){
-                            $filter = $_POST['filter'];
-                            $reportDate = $_POST['from'];
-                            $arr = explode("/", $reportDate);
-                            list($Getmonth, $Getday, $GetYear) = $arr;
+                                            if (isset($_POST['search'])) {
+                                                $filter = $_POST['filter'];
+                                                $reportDate = $_POST['from'];
+                                                $arr = explode("/", $reportDate);
+                                                list($Getmonth, $Getday, $GetYear) = $arr;
 
-                            $year = $GetYear;
-                            $month = $Getmonth;
-                            $day = $Getday;
+                                                $year = $GetYear;
+                                                $month = $Getmonth;
+                                                $day = $Getday;
 
-                            // to date.. 
-                            $toDate = $_POST['to'];
-                            $arr2 = explode("/", $toDate);
-                            list($Getmonth2, $Getday2, $GetYear2) = $arr2;
-                            $year2 = $GetYear2;
-                            $month2 = $Getmonth2;
-                            $day2 = $Getday2;
+                                                // to date.. 
+                                                $toDate = $_POST['to'];
+                                                $arr2 = explode("/", $toDate);
+                                                list($Getmonth2, $Getday2, $GetYear2) = $arr2;
+                                                $year2 = $GetYear2;
+                                                $month2 = $Getmonth2;
+                                                $day2 = $Getday2;
 
-                        if($filter=="all"){
-                            $user_q = mysql_query("SELECT COUNT(*) as number,department.department as department FROM `jobs_postings`
+                                                if ($filter == "all") {
+                                                    $user_q = mysqli_query($link, "SELECT COUNT(*) as number,department.department as department FROM `jobs_postings`
                             inner join department on department.dep_id=jobs_postings.dep_id 
                             where DATE(NOW()) <=DATE(expires)
                             AND jobs_postings.date BETWEEN '$year-$month-$day'  AND  '$year2-$month2-$day2' 
                             GROUP BY department.department
-                        ") or die(mysql_error());
+                        ") or die(mysqli_error($link));
 
-                        // echo 'from '.$year.'-'.$month.'-'.$day;
-                        }else{
-                          
-                        $user_q = mysql_query("SELECT COUNT(*) as number,department.department as department FROM `jobs_postings`
+                                                    // echo 'from '.$year.'-'.$month.'-'.$day;
+                                                } else {
+
+                                                    $user_q = mysqli_query($link, "SELECT COUNT(*) as number,department.department as department FROM `jobs_postings`
                         inner join department on department.dep_id=jobs_postings.dep_id 
                         where DATE(NOW()) <=DATE(expires)
                         AND jobs_postings.date BETWEEN '$year-$month-$day'  AND  '$year2-$month2-$day2' 
-                        GROUP BY department.department") or die(mysql_error());
-                        //echo 'eh';
-                        }
-                        
-                        }else{
-                        
-                            $user_q = mysql_query("SELECT COUNT(*) as number,department.department as department FROM `jobs_postings`
+                        GROUP BY department.department") or die(mysqli_error($link));
+                                                    //echo 'eh';
+                                                }
+                                            } else {
+
+                                                $user_q = mysqli_query($link, "SELECT COUNT(*) as number,department.department as department FROM `jobs_postings`
                             inner join department on department.dep_id=jobs_postings.dep_id 
                             where DATE(NOW()) <=DATE(expires)
-                            GROUP BY department.department") or die(mysql_error());
+                            GROUP BY department.department") or die(mysqli_error($link));
+                                            }
+                                            $total = 0;
+                                            while ($row = mysqli_fetch_array($user_q)) {
+                                                $number = $row['number'];
 
-                        }
-                        $total=0;
-                        while ($row = mysql_fetch_array($user_q)) {
-                            $number = $row['number'];
-                            
-                            $job_status= $row['department'];
-                            $total +=$number; 
-                            echo '
+                                                $job_status = $row['department'];
+                                                $total += $number;
+                                                echo '
                                 <tr>
                                     <td>' . $job_status . '</td>
-                                    <td>'.$number.'</td>
+                                    <td>' . $number . '</td>
                                 
                                 </tr>';
-                                ?>
+                                            ?>
                                             <?php
-                            }
+                                            }
 
-                            echo '
+                                            echo '
                                 <tr>
                                     <td>Total</td>
-                                    <td>'.$total.'</td>
+                                    <td>' . $total . '</td>
                                 </tr>';
-                            ?>
+                                            ?>
 
                                         </tbody>
                                     </table>
@@ -449,7 +437,7 @@
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 
     <script>
-    $.widget.bridge('uibutton', $.ui.button);
+        $.widget.bridge('uibutton', $.ui.button);
     </script>
     <!-- Bootstrap 3.3.5 -->
     <script src="../../../bootstrap/js/bootstrap.min.js"></script>

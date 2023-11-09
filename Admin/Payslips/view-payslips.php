@@ -1,9 +1,3 @@
-<?php
-error_reporting(0);
-?>
-
-
-
 <!DOCTYPE html>
 <html>
 
@@ -82,7 +76,7 @@ error_reporting(0);
                                             <option value="all"> All Employees </option>
                                             <?php
                                             $departmentquery = $DepartmentObject->getAllEmployeesByCompany($compId);
-                                            while ($row = mysql_fetch_array($departmentquery)) {
+                                            while ($row = mysqli_fetch_array($departmentquery)) {
 
                                                 $fname = $row['fname'];
                                                 $lname = $row['lname'];
@@ -164,11 +158,11 @@ error_reporting(0);
                                         }
 
                                         $query = "DESCRIBE employee_earnings";
-                                        $result = mysql_query($query);
+                                        $result = mysqli_query($link, $query);
                                         $columns = array();
 
-                                        if (mysql_num_rows($result) > 0) {
-                                            while ($row = mysql_fetch_assoc($result)) {
+                                        if (mysqli_num_rows($result) > 0) {
+                                            while ($row = mysqli_fetch_assoc($result)) {
                                                 $columns[] = cleanColumnName($row['Field']); // Clean and add to the array
                                             }
                                         } else {
@@ -221,14 +215,12 @@ error_reporting(0);
                                                         $query3 = "SELECT * FROM employee WHERE company_id='$compId' AND empno='$empno'";
                                                     }
 
-                                                    // $result = mysql_query($query, $link) or die(mysql_error());
-                                                    // $result2 = mysql_query($query2, $link) or die(mysql_error());
-                                                    $result3 = mysql_query($query3, $link) or die(mysql_error());
+                                                    $result3 = mysqli_query($link, $query3) or die(mysqli_error($link));
 
                                                     $sum = 0;
                                                     $row2 = '';
 
-                                                    while ($row = mysql_fetch_array($result3)) {
+                                                    while ($row = mysqli_fetch_array($result3)) {
 
                                                         $id_ = $row['id'];
                                                         $employeeId = $row['empno'];
@@ -238,7 +230,7 @@ error_reporting(0);
                                                     <?php
                                                         $emp_nom = $row['empno'];
 
-                                                        $nPay = number_format("$netpay", 2);
+                                                        $nPay = number_format($row['pay'], 2);
 
 
                                                         echo '<tr>';

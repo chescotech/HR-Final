@@ -2,12 +2,11 @@
 if (isset($_GET['id'])) {
     $from_jobs_id = $_GET['id'];
 
-    $user_q = mysql_query("SELECT * FROM talent_pool   WHERE id=$from_jobs_id ") or die(mysql_error());
-    while ($row = mysql_fetch_array($user_q)) {
+    $user_q = mysqli_query($link, "SELECT * FROM talent_pool   WHERE id=$from_jobs_id ") or die(mysqli_error($link));
+    while ($row = mysqli_fetch_array($user_q)) {
         $edit_title = $row["title"];
         $edit_dep_id = $row["department_id"];
         $description = $row["description"];
-        
     }
 }
 
@@ -15,13 +14,13 @@ if (isset($_POST["updated_posting"])) {
     // return var_dump($link);
     $title = $_POST["title"];
     $dep_id = $_POST["dep_id"];
-    
-    $description = $_POST["description"];
-    
 
-    mysql_query("UPDATE talent_pool SET title='$title', department_id='$dep_id',description='$description'
+    $description = $_POST["description"];
+
+
+    mysqli_query($link, "UPDATE talent_pool SET title='$title', department_id='$dep_id',description='$description'
      WHERE id='$from_jobs_id'")
-        or die("Err11 " . mysql_error());
+        or die("Err11 " . mysqli_error($link));
 
     echo "<script>document.location='pool'</script>";
 }
@@ -60,8 +59,8 @@ if (isset($_POST["updated_posting"])) {
                                 <select name="dep_id" class="form-control" required>
                                     <option>--Select Department--</option>
                                     <?php
-                                    $departmentquery = mysql_query("SELECT * FROM department ");
-                                    while ($row = mysql_fetch_array($departmentquery)) {
+                                    $departmentquery = mysqli_query($link, "SELECT * FROM department ");
+                                    while ($row = mysqli_fetch_array($departmentquery)) {
                                     ?>
                                         <option value="<?php echo $row['dep_id']; ?>"> <?php echo $row['department']; ?></option>
                                     <?php
@@ -69,13 +68,13 @@ if (isset($_POST["updated_posting"])) {
                                     ?>
                                 </select>
                             </div>
-                           
+
                             <div class="col-md-6">
                                 <label for="pwd">Talent Description:</label>
-                                <textarea  type="text" class="form-control" name="description" rows="5" cols="40" required>
+                                <textarea type="text" class="form-control" name="description" rows="5" cols="40" required>
                                 <?php echo $description; ?>
                                 </textarea>
-                            </div>                         
+                            </div>
 
                         </div>
                     </div>
@@ -83,7 +82,7 @@ if (isset($_POST["updated_posting"])) {
 
             </div>
 
-          
+
             <div class="panel panel-default">
 
                 <div style="padding:10px; margin-top:20px;">

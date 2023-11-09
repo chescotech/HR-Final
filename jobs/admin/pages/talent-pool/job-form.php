@@ -4,10 +4,10 @@ if (isset($_POST["create_posting"])) {
     $title = $_POST["title"];
     $dep_id = $_POST["dep_id"];
     $description = $_POST["description"];
-   
-    mysql_query("INSERT INTO talent_pool (title, department_id, description)
+
+    mysqli_query($link, "INSERT INTO talent_pool (title, department_id, description)
                                             VALUES('$title', '$dep_id', '$description')")
-        or die("Err11 " . mysql_error());
+        or die("Err11 " . mysqli_error($link));
 
     echo "<script>document.location='pool'</script>";
 }
@@ -46,8 +46,8 @@ if (isset($_POST["create_posting"])) {
                                 <select name="dep_id" class="form-control" required>
                                     <option>--Select Department--</option>
                                     <?php
-                                    $departmentquery = mysql_query("SELECT * FROM department ");
-                                    while ($row = mysql_fetch_array($departmentquery)) {
+                                    $departmentquery = mysqli_query($link, "SELECT * FROM department ");
+                                    while ($row = mysqli_fetch_array($departmentquery)) {
                                     ?>
                                         <option value="<?php echo $row['dep_id']; ?>"> <?php echo $row['department']; ?></option>
                                     <?php
@@ -55,7 +55,7 @@ if (isset($_POST["create_posting"])) {
                                     ?>
                                 </select>
                             </div>
-                            
+
                             <div class="col-md-6">
                                 <label for="pwd">Description:</label>
                                 <textarea type="text" rows="5" cols="40" class="form-control" name="description" required> </textarea>
@@ -69,7 +69,7 @@ if (isset($_POST["create_posting"])) {
 
             </div>
 
-     
+
             <div class="panel panel-default">
 
                 <div style="padding:10px; margin-top:20px;">

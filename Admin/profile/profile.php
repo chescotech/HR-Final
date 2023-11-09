@@ -57,8 +57,8 @@
 
             if (move_uploaded_file($file_loc, $folder . $final_file)) {
 
-                mysql_query("UPDATE users_tb SET  profile_pic='$final_file',phone_number='$phone',username ='$Username',email_address='$Email', first_name='$FirstName',"
-                    . "last_name='$LastName',authors_profile='$AuthorsProfile' WHERE id= '1'") or die(mysql_error());
+                mysqli_query($link, "UPDATE users_tb SET  profile_pic='$final_file',phone_number='$phone',username ='$Username',email_address='$Email', first_name='$FirstName',"
+                    . "last_name='$LastName',authors_profile='$AuthorsProfile' WHERE id= '1'") or die(mysqli_error($link));
         ?>
 
                 <script>
@@ -68,7 +68,7 @@
             <?php
             } else {
 
-                mysql_query("UPDATE users_tb SET phone_number='$phone',authors_profile='$AuthorsProfile',username ='$Username',email_address='$Email', first_name='$FirstName',last_name='$LastName' WHERE id= '1'") or die(mysql_error());
+                mysqli_query($link, "UPDATE users_tb SET phone_number='$phone',authors_profile='$AuthorsProfile',username ='$Username',email_address='$Email', first_name='$FirstName',last_name='$LastName' WHERE id= '1'") or die(mysqli_error($link));
             ?>
 
                 <script>
@@ -90,8 +90,8 @@
                             <div class="box-body box-profile">
                                 <?php
                                 $employeeId = $_SESSION['employee_id'];
-                                $user_query = mysql_query("select * from emp_info where empno='$employeeId'") or die(mysql_error());
-                                while ($row = mysql_fetch_array($user_query)) {
+                                $user_query = mysqli_query($link, "select * from emp_info where empno='$employeeId'") or die(mysqli_error($link));
+                                while ($row = mysqli_fetch_array($user_query)) {
                                     $id = $row['id'];
                                 ?>
 
@@ -112,8 +112,8 @@
                                 <h3 class="profile-username text-center">
 
                                     <?php
-                                    $result = mysql_query("SELECT * FROM emp_info where empno='$employeeId' ") or die(mysql_error());
-                                    $row = mysql_fetch_array($result);
+                                    $result = mysqli_query($link, "SELECT * FROM emp_info where empno='$employeeId' ") or die(mysqli_error($link));
+                                    $row = mysqli_fetch_array($result);
                                     $position = $row['position'];
                                     echo $row['fname'] . "-" . $row['lname'];
                                     ?>
@@ -142,8 +142,8 @@
 
                                     <?php
                                     $sql = "SELECT * FROM emp_info where empno='$employeeId'";
-                                    $result = mysql_query($sql);
-                                    while ($rows = mysql_fetch_array($result)) {
+                                    $result = mysqli_query($link, $sql);
+                                    while ($rows = mysqli_fetch_array($result)) {
                                     ?>
 
                                         <form method="post" enctype="multipart/form-data" class="form-horizontal">

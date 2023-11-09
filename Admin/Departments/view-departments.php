@@ -24,9 +24,9 @@
     <div class="wrapper">
 
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Department.php';
         $DepartmentObject = new Department();
-        include '../navigation_panel/authenticated_user_header.php';
         ?>
 
         <?php include '../navigation_panel/side_navigation_bar.php'; ?>
@@ -59,7 +59,7 @@
 
                                         <?php
                                         $Departments = $DepartmentObject->getDepartmentByCompany($compID);
-                                        while ($row = mysql_fetch_array($Departments)) {
+                                        while ($row = mysqli_fetch_array($Departments)) {
                                             $id_ = $row['dep_id'];
 
                                             echo '  

@@ -41,8 +41,8 @@
         $compID = $_SESSION['company_ID'];
         // get boss department.
         $emp_no = $_SESSION['empno'];
-        $gt_dep = mysql_query("SELECT dept FROM emp_info WHERE empno = '$emp_no' ") or die(mysql_error());
-        $gt_dep_r = mysql_fetch_array($gt_dep);
+        $gt_dep = mysqli_query($link, "SELECT dept FROM emp_info WHERE empno = '$emp_no' ") or die(mysqli_error($link));
+        $gt_dep_r = mysqli_fetch_array($gt_dep);
         $dep_id = $gt_dep_r['dept'];
         ?>
 
@@ -96,19 +96,19 @@
                                         </thead>
                                         <?php
                                         if (isset($_GET['full'])) {
-                                            $AbsentQuery = mysql_query("SELECT * FROM `emp_info`
+                                            $AbsentQuery = mysqli_query($link, "SELECT * FROM `emp_info`
                                                                     WHERE empno NOT IN (SELECT empno FROM `attendance_logs` WHERE  login_time != ''    )  AND dept='$dep_id'
-                                                                    ") or die(mysql_error());
+                                                                    ") or die(mysqli_error($link));
                                         } else {
-                                            // $AbsentQuery = mysql_query("SELECT * FROM `attendance_logs` WHERE DATE(log_date) = DATE(NOW()) AND  company_id = '$compID' ") or die(mysql_error());
-                                            $AbsentQuery = mysql_query("SELECT * FROM `emp_info`
+                                            // $AbsentQuery = mysqli_query($link,"SELECT * FROM `attendance_logs` WHERE DATE(log_date) = DATE(NOW()) AND  company_id = '$compID' ") or die(mysqli_error($link));
+                                            $AbsentQuery = mysqli_query($link, "SELECT * FROM `emp_info`
                                                                     WHERE empno NOT IN (SELECT empno FROM `attendance_logs` WHERE DATE(log_date) = DATE(NOW()) 
                                                                     AND  company_id = '$compID' AND login_time != '' AND logout_time = ''   )  AND dept='$dep_id'
-                                                                    ") or die(mysql_error());
+                                                                    ") or die(mysqli_error($link));
                                         }
 
 
-                                        while ($row = mysql_fetch_array($AbsentQuery)) {
+                                        while ($row = mysqli_fetch_array($AbsentQuery)) {
 
                                             $empno = $row['empno'];
                                             $fname = $row['fname'];

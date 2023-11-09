@@ -79,17 +79,17 @@ error_reporting(0);
                                             <?php
                                             $query = "  SELECT * FROM emp_info WHERE company_id = '$compId' AND has_gratuity='Yes' ";
 
-                                            $result2 = mysql_query($query, $link) or die(mysql_error());
+                                            $result2 = mysqli_query($link, $query) or die(mysqli_error($link));
                                             $sum = 0;
-                                            while ($row = mysql_fetch_array($result2)) {
+                                            while ($row = mysqli_fetch_array($result2)) {
 
                                                 $empno = $row['empno'];
                                                 $SNo = $loanObj->getSocialSecurityNo($empno);
 
                                                 $pensionAmount = $loanObj->getPensions($compId, $empno);
 
-                                                $result = mysql_query("SELECT * FROM emp_info WHERE empno='$empno'");
-                                                $grossRows = mysql_fetch_array($result);
+                                                $result = mysqli_query($link, "SELECT * FROM emp_info WHERE empno='$empno'");
+                                                $grossRows = mysqli_fetch_array($result);
                                                 $grossPay = $grossRows['basic_pay'];
                                                 $dateJoined = $grossRows['date_joined'];
 

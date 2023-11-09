@@ -8,8 +8,8 @@
 <?php
 // Get applicant's info
 $user_id = $_GET['user_id'];
-$get_user = mysql_query("SELECT * FROM jobs_users WHERE id = '$user_id' ") or die(mysql_error());
-$user_info = mysql_fetch_array($get_user);
+$get_user = mysqli_query($link, "SELECT * FROM jobs_users WHERE id = '$user_id' ") or die(mysqli_error($link));
+$user_info = mysqli_fetch_array($get_user);
 
 $fname = $user_info['fname'];
 $lname = $user_info['lname'];
@@ -19,7 +19,7 @@ $phone = $user_info['phone'];
 $dob = $user_info['dob'];
 $gender = $user_info['gender'];
 
-$user_full_names = $fname .' '. $lname;
+$user_full_names = $fname . ' ' . $lname;
 
 ?>
 
@@ -74,13 +74,13 @@ $user_full_names = $fname .' '. $lname;
                                 <tbody>
                                     <?php
 
-                                    $user_q = mysql_query("SELECT * FROM savsoft_quiz ") or die(mysql_error());
-                                    while ($row = mysql_fetch_array($user_q)) {
+                                    $user_q = mysqli_query($link, "SELECT * FROM savsoft_quiz ") or die(mysqli_error($link));
+                                    while ($row = mysqli_fetch_array($user_q)) {
                                         $quiz_name = $row['quiz_name'];
                                         $duration = $row['duration'];
                                         $noq = $row['noq'];
                                         $maximum_attempts = $row['maximum_attempts'];
-                                       
+
 
                                         echo '
                                             <tr>
@@ -95,7 +95,7 @@ $user_full_names = $fname .' '. $lname;
                                             </tr>';
                                     }
                                     ?>
-                                   
+
                                 </tbody>
                             </table>
                             <!-- End Right Column -->

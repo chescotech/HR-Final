@@ -14,22 +14,22 @@ $License = new License();
 
 <?php
 if (isset($_POST['register'])) {
-    $comp_name = mysql_real_escape_string($_POST['cname']);
-    $description = mysql_real_escape_string($_POST['description']);
-    $email = mysql_real_escape_string($_POST['email']);
-    $phone = mysql_real_escape_string($_POST['phone']);
-    $reg_num = mysql_real_escape_string($_POST['reg_number']);
-    $username = mysql_real_escape_string($_POST['username']);
-    $web_url = mysql_real_escape_string($_POST['web_url']);
-    $fb_url = mysql_real_escape_string($_POST['fb_url']);
-    
-    
-     $mail->isHTML(true);                                  //Set email format to HTML
+    $comp_name = ($_POST['cname']);
+    $description = ($_POST['description']);
+    $email = ($_POST['email']);
+    $phone = ($_POST['phone']);
+    $reg_num = ($_POST['reg_number']);
+    $username = ($_POST['username']);
+    $web_url = ($_POST['web_url']);
+    $fb_url = ($_POST['fb_url']);
+
+
+    $mail->isHTML(true);                                  //Set email format to HTML
     $mail->Subject = "JANA SOLUTIONS";
     $mail->addAddress('info@janazm.com');
     $mail->Body = "New Employer Registration login here to Approve. <a href='https://janazm.com/jobs/login.php'> Admin login </a>";
-        
-        
+
+
 
     $upload_id = round(microtime(true) * 1000);
     $file = $upload_id . "-" . $_FILES['file']['name'];
@@ -64,14 +64,14 @@ if (isset($_POST['register'])) {
     }
     $message = "";
 
-    $ck_q = mysql_query("
+    $ck_q = mysqli_query($link, "
     SELECT * FROM employer 
     WHERE username = '$username' AND email = '$email' 
     UNION 
     SELECT * FROM jobs_users 
-    WHERE username = '$username' AND email = '$email' ") or die(mysql_error());
+    WHERE username = '$username' AND email = '$email' ") or die(mysqli_error($link));
 
-    if (mysql_num_rows($ck_q) > 0) {
+    if (mysqli_num_rows($ck_q) > 0) {
         echo "<script> alert('The Email and Username Used Already Exist! please try with different credentials') </script>";
         echo "<script> window.location='register' </script>";
         return;
@@ -82,8 +82,8 @@ if (isset($_POST['register'])) {
         //     return;
         // }
 
-        // $check_query = mysql_query("SELECT * FROM employer WHERE reg_number = '$reg_num'") or die(mysql_error());
-        // if (mysql_num_rows($check_query) > 0) {
+        // $check_query = mysqli_query($link,"SELECT * FROM employer WHERE reg_number = '$reg_num'") or die(mysqli_error($link));
+        // if (mysqli_num_rows($check_query) > 0) {
         //     echo 'here';
         //     echo "<script> alert('The Registration Number is linked to another company! please use your unique registration number.') </script>";
         //     echo "<script> window.location='register' </script>";
@@ -92,11 +92,11 @@ if (isset($_POST['register'])) {
 
         if (in_array($imgExt, $valid_extensions)) {
             if (move_uploaded_file($file_loc, $folder . $Certificate)) {
-                mysql_query("INSERT INTO employer (comp_name, reg_number, username, email, phone, web_url, fb_url,ref_id, password, comp_description)
+                mysqli_query($link, "INSERT INTO employer (comp_name, reg_number, username, email, phone, web_url, fb_url,ref_id, password, comp_description)
     VALUES ('$comp_name', '$reg_num', '$username', '$email', '$phone', '$web_url', '$fb_url','$Certificate','$password', '$description')")
-                    or die("Error Inserting: " . mysql_error());
+                    or die("Error Inserting: " . mysqli_error($link));
 
-                $comp_id = mysql_insert_id();
+                $comp_id = mysql_insert_id($link);
 
                 // $_SESSION['comp_name'] = $comp_name;
                 // $_SESSION['reg_num'] = $reg_num;
@@ -105,7 +105,7 @@ if (isset($_POST['register'])) {
                 // $_SESSION['empl_phone'] = $phone;
                 // $_SESSION['empl_id'] = $comp_id;
                 // $_SESSION['empl_logo'] = $Certificate;
-                
+
                 $mail->send();
                 echo "<script> alert('You have successfully registered, you will be notified once your registration is approved.') </script>";
                 echo "<script> window.location='../login.php' </script>";

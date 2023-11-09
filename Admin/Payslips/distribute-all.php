@@ -29,14 +29,14 @@ $day = $Getday;
 $image = '<img src="' . $TaxObject->getCompanyLogo($companyId) . '"class="img-thumbnail" />';
 
 $query = "SELECT * FROM employee WHERE time = '$year-$month-$day' AND company_id='$companyId'  ";
-$result = mysql_query($query, $link) or die(mysql_error());
-while ($row = mysql_fetch_array($result)) {
+$result = mysqli_query($link, $querye(mysqli_error($link));
+while ($row = mysqli_fetch_array($result)) {
 
     $id_ = $row['id'];
     $empNo = $row['empno'];
     $query2 = "SELECT * FROM emp_info WHERE empno= '$empNo' ";
-    $result2 = mysql_query($query2, $link) or die(mysql_error());
-    $row2 = mysql_fetch_array($result2);
+    $result2 = mysqli_query($link, $query2) or die(mysqli_error($link));
+    $row2 = mysqli_fetch_array($result2);
     $em = new email();
 
     $idEncryp = base64_encode($row['id']);
@@ -49,16 +49,16 @@ while ($row = mysql_fetch_array($result)) {
     $payslipLink = "";
 
     $message = " Dear " . $fname . " " . $lname . " , " . "<br>" . "<br>"
-            . "A new payslip has been loaded , please login your account to access your pay slip for " . "$printdate" . "." . "<br>" . "<br>"
-            . "$payslipLink" . "<br>" . "<br>" . "<br>" . "<br>"
-            . $image;
+        . "A new payslip has been loaded , please login your account to access your pay slip for " . "$printdate" . "." . "<br>" . "<br>"
+        . "$payslipLink" . "<br>" . "<br>" . "<br>" . "<br>"
+        . $image;
 
     $Subject = "PAYSLIP FOR " . strtoupper($printdate);
 
     $message2 = " Dear " . $fname . " " . $lname . " , " . "<br>" . "<br>"
-            . " Please find attached your Payslip for " . "$printdate" . "." . "<br>" . "<br>"
-            . "<br>" . "<br>" . "<br>" . "<br>"
-            . $image;
+        . " Please find attached your Payslip for " . "$printdate" . "." . "<br>" . "<br>"
+        . "<br>" . "<br>" . "<br>" . "<br>"
+        . $image;
 
     if ($PaySlipsObject->checkIfUploadExsists($empNo, $date) == "true") {
         $slip = $PaySlipsObject->getPdfPayslip($empNo, $date);
@@ -69,4 +69,3 @@ while ($row = mysql_fetch_array($result)) {
 }
 
 echo "<script>window.close();</script>";
-?>

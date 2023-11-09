@@ -35,13 +35,13 @@ $License = new License();
 if (isset($_POST['sign_in'])) {
 
     $password = md5($_POST['password']);
-    $username = mysql_real_escape_string($_POST['username']);
-    $ck_q = mysql_query("SELECT * FROM jobs_users WHERE username = '$username' AND password = '$password' ") or die(mysql_error());
+    $username = ($_POST['username']);
+    $ck_q = mysqli_query($link, "SELECT * FROM jobs_users WHERE username = '$username' AND password = '$password' ") or die(mysqli_error($link));
 
-    // return var_dump(mysql_num_rows($ck_q));
+    // return var_dump(mysqli_num_rows($ck_q));
 
-    if (mysql_num_rows($ck_q) == 1) {
-        while ($row = mysql_fetch_array($ck_q)) {
+    if (mysqli_num_rows($ck_q) == 1) {
+        while ($row = mysqli_fetch_array($ck_q)) {
             $fname = $row['fname'];
             $lname = $row['lname'];
             $username = $row['username'];

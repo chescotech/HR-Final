@@ -83,7 +83,8 @@
         </aside>
 
 
-        <?php //include 'form-list.php'; ?>
+        <?php //include 'form-list.php'; 
+        ?>
         <div class="content-wrapper">
             <section class="content-header">
                 <h1>
@@ -99,8 +100,8 @@
                 $department = $_POST['department'];
                 $dep_id = $_POST['dep_id'];
 
-                $add_q = mysql_query("INSERT INTO department (department, dep_id)
-                        VALUES('$department' ,'$dep_id')") or die(mysql_error());
+                $add_q = mysqli_query($link, "INSERT INTO department (department, dep_id)
+                        VALUES('$department' ,'$dep_id')") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Added Successfuly') </script>";
@@ -113,8 +114,8 @@
 
                 $dep_id = $_POST['dep_id'];
 
-                $add_q = mysql_query("UPDATE department SET department = '$department', name = '$name',level='$level'
-                        WHERE id = '$id' ") or die(mysql_error());
+                $add_q = mysqli_query($link, "UPDATE department SET department = '$department', name = '$name',level='$level'
+                        WHERE id = '$id' ") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Updated Successfuly') </script>";
@@ -124,7 +125,7 @@
             if (isset($_GET['delete'])) {
                 $dep_id = $_GET['delete'];
 
-                $add_q = mysql_query("DELETE FROM department WHERE dep_id = '$dep_id' ") or die(mysql_error());
+                $add_q = mysqli_query($link, "DELETE FROM department WHERE dep_id = '$dep_id' ") or die(mysqli_error($link));
 
                 if ($add_q) {
                     echo "<script> alert('Deleted Successfuly') </script>";
@@ -191,13 +192,15 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $query = mysql_query("SELECT * FROM department ") or die(mysql_error());
-                                        while ($row = mysql_fetch_array($query)) {
+                                        $query = mysqli_query($link, "SELECT * FROM department ") or die(mysqli_error($link));
+                                        while ($row = mysqli_fetch_array($query)) {
                                         ?>
                                             <tr>
                                                 <td><?php echo $row['department']; ?></td>
                                                 <!-- <td>
-                                                    <a href="#updateordinance<?php //echo $row['dep_id']; ?>" data-target="#updateordinance<?php // echo $row['id']; ?>" data-toggle="modal" style="color:#fff;" class="btn btn-primary btn-sm">Edit</i></a>
+                                                    <a href="#updateordinance<?php //echo $row['dep_id']; 
+                                                                                ?>" data-target="#updateordinance<?php // echo $row['id']; 
+                                                                                                                    ?>" data-toggle="modal" style="color:#fff;" class="btn btn-primary btn-sm">Edit</i></a>
                                                 </td> -->
                                                 <td>
                                                     <a href="?delete=<?php echo $row['dep_id']; ?>" style="color:#fff;" class="btn btn-danger btn-sm">Delete</a>

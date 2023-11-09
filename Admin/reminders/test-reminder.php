@@ -1,9 +1,9 @@
 <?php
 
 include('../../include/dbconnection.php');
-$result = mysql_query("SELECT * FROM emp_info  ");
+$result = mysqli_query($link, "SELECT * FROM emp_info  ");
 $months = 0;
-while ($rows = mysql_fetch_array($result)) {
+while ($rows = mysqli_fetch_array($result)) {
 
     $fname = $rows['fname'];
     $lname = $rows['lname'];
@@ -27,12 +27,10 @@ while ($rows = mysql_fetch_array($result)) {
     $d11 = new DateTime($todaysDate);
     $d22 = new DateTime($dateEnd);
     $contractDuration = $d11->diff($d22)->days;
-    if($rows['id'] == 175){
-         echo $contractDuration;
+    if ($rows['id'] == 175) {
+        echo $contractDuration;
     }
-   
+
 
     // echo $numberOfMonths;
 }
-
-  

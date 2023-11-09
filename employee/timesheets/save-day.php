@@ -1,9 +1,9 @@
 
 <?php
-session_start();
+// session_start();
 include_once '../Classes/Timesheets.php';
 
-$TimesheetObject = new Timesheets();
+$TimesheetObject = new Timesheets($link);
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Get the raw JSON data from the request body
@@ -12,21 +12,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Decode the JSON data into an associative array
     $post_data = json_decode($json_data, true);
 
-    // echo $post_data[0];
-
     // Access the parsed values from the decoded data
     $currentDate = $post_data["date"];
     $currentPage = $post_data["page"];
     $entries = $post_data["entries"];
     $timesheet_id = $_SESSION['timesheet_id'];
 
-    // var_dump($timesheet_id);
-
-    // $dateAsDate = new DateTime($currentDate);
-    // create day
-    $new_day = $TimesheetObject->saveDay($currentDate, $timesheet_id);
-
-    $day_id = mysql_insert_id();
+    $day_id = $TimesheetObject->saveDay($currentDate, $timesheet_id);
 
     // Insert the entries into the database for the current day (page)
     foreach ($entries as $entry) {

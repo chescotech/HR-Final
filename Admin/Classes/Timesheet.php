@@ -1,18 +1,26 @@
 <?php
 
+include_once 'DBClass.php';
+
 class Timesheet
 {
+    private $link;
+
+    function __construct()
+    {
+        $this->link = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME) or die('db connection problem' . mysqli_connect_error());
+    }
 
     public function getAllTimesheets()
     {
         $query = "SELECT * FROM timesheet";
-        $result = mysql_query($query);
+        $result = mysqli_query($this->link, $query);
         if (!$result) {
-            die("Query failed: " . mysql_error());
+            die("Query failed: " . mysqli_error($this->link));
         }
 
         $timesheets = array();
-        while ($row = mysql_fetch_assoc($result)) {
+        while ($row = mysqli_fetch_assoc($result)) {
             $timesheets[] = $row;
         }
 
@@ -21,9 +29,9 @@ class Timesheet
     public function getAllTimesheetsByCompany($company_id_arg)
     {
         $query = "SELECT * FROM timesheet WHERE company_id='$company_id_arg'";
-        $result = mysql_query($query);
+        $result = mysqli_query($this->link, $query);
         if (!$result) {
-            die("Query failed: " . mysql_error());
+            die("Query failed: " . mysqli_error($this->link));
         }
 
         return $result;
@@ -32,9 +40,9 @@ class Timesheet
     public function getEmployeeTimesheets($emp_id_arg)
     {
         $query = "SELECT * FROM timesheet WHERE employee_no = '$emp_id_arg'";
-        $result = mysql_query($query);
+        $result = mysqli_query($this->link, $query);
         if (!$result) {
-            die("Query failed: " . mysql_error());
+            die("Query failed: " . mysqli_error($this->link));
         }
 
 
@@ -48,10 +56,10 @@ class Timesheet
         INNER JOIN timesheet_entry te on td.id=te.day_id
         WHERE ts.id='$timesheet_id_arg'";
 
-        $result = mysql_query($query);
+        $result = mysqli_query($this->link, $query);
 
         if (!$result) {
-            die("Query failed: " . mysql_error());
+            die("Query failed: " . mysqli_error($this->link));
         }
 
         return $result;
@@ -61,7 +69,7 @@ class Timesheet
     {
         $query = "UPDATE emp_info SET has_timesheets='$status_arg' WHERE empno='$emp_id_arg'";
 
-        $result = mysql_query($query) or die(mysql_error());
+        $result = mysqli_query($this->link, $query) or die(mysqli_error($this->link));
 
         return $result;
     }
@@ -70,7 +78,7 @@ class Timesheet
     {
         $query = "UPDATE timesheet SET status='$status_arg' WHERE id='$timesheet_id_arg'";
 
-        $result = mysql_query($query) or die(mysql_error());
+        $result = mysqli_query($this->link, $query) or die(mysqli_error($this->link));
 
         return $result;
     }
@@ -79,12 +87,12 @@ class Timesheet
     {
         $timesheet_id = intval($timesheet_id_arg);
         $query = "SELECT * FROM timesheet WHERE id = $timesheet_id";
-        $result = mysql_query($query);
+        $result = mysqli_query($this->link, $query);
         if (!$result) {
-            die("Query failed: " . mysql_error());
+            die("Query failed: " . mysqli_error($this->link));
         }
 
-        $timesheet = mysql_fetch_assoc($result);
+        $timesheet = mysqli_fetch_assoc($result);
 
         return $timesheet;
     }

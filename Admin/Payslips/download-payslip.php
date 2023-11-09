@@ -72,7 +72,7 @@
                                             <option>-- Select Employee --</option>
                                             <?php
                                             $departmentquery = $DepartmentObject->getAllEmployeesByCompany($compID);
-                                            while ($row = mysql_fetch_array($departmentquery)) {
+                                            while ($row = mysqli_fetch_array($departmentquery)) {
 
                                                 $fname = $row['fname'];
                                                 $lname = $row['lname'];
@@ -120,10 +120,10 @@
                                                     $empno = $_POST['empno'];
                                                     $query = "SELECT * FROM payslip_uploads WHERE empno = '$empno'";
 
-                                                    $result = mysql_query($query, $link) or die(mysql_error());
+                                                    $result = mysqli_query($link, $query) or die(mysqli_error($link));
 
                                                     $sum = 0;
-                                                    while ($row = mysql_fetch_array($result)) {
+                                                    while ($row = mysqli_fetch_array($result)) {
 
                                                         $id_ = $row['id'];
                                                         $empId = $row['empno'];
@@ -131,8 +131,8 @@
 
                                                         $pdfPayslip = "../uploads/" . $row['payslip'];
 
-                                                        $EmployeeQuery = mysql_query("SELECT * FROM emp_info WHERE empno ='$empId'");
-                                                        $row2 = mysql_fetch_array($EmployeeQuery);
+                                                        $EmployeeQuery = mysqli_query($link, "SELECT * FROM emp_info WHERE empno ='$empId'");
+                                                        $row2 = mysqli_fetch_array($EmployeeQuery);
                                                 ?>
 
                                                         <?php

@@ -1,4 +1,4 @@
-<?php 
+<?php
 error_reporting(0);
 ?>
 
@@ -152,20 +152,20 @@ error_reporting(0);
 
                                                 $query = "SELECT * FROM employee WHERE time = '$year-$month-$day' AND company_id='$companyId'  ";
 
-                                                $result = mysql_query($query, $link) or die(mysql_error());
+                                                $result = mysqli_query($link, $query) or die(mysqli_error($link));
 
-                                                if (mysql_num_rows($result) == 0) {
+                                                if (mysqli_num_rows($result) == 0) {
                                                     echo '<tr>
                                                     <td style="vertical-align:middle" align="left">No records found for your search</td>
                                                     </tr>';
                                                 }
                                                 $sum = 0;
-                                                while ($row = mysql_fetch_array($result)) {
+                                                while ($row = mysqli_fetch_array($result)) {
                                                     $id_ = $row['id'];
                                                     $empNo = $row['empno'];
                                                     $query2 = "SELECT * FROM emp_info WHERE empno= '$empNo' ";
-                                                    $result2 = mysql_query($query2, $link) or die(mysql_error());
-                                                    $row2 = mysql_fetch_array($result2);
+                                                    $result2 = mysqli_query($link, $query2) or die(mysqli_error($link));
+                                                    $row2 = mysqli_fetch_array($result2);
 
                                             ?>
                                                     <?php

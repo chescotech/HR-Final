@@ -25,10 +25,10 @@
     <div class="wrapper">
 
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
+
         include_once '../Classes/Employee.php';
         $EmployeeObject = new Employee();
-
-        include '../navigation_panel/authenticated_user_header.php';
         ?>
 
         <?php include '../navigation_panel/side_navigation_bar.php'; ?>
@@ -63,13 +63,13 @@
                                         </thead>
                                         <?php
                                         $compID = $_SESSION['company_ID'];
-                                        $result = mysql_query("SELECT * FROM postings 
+                                        $result = mysqli_query($link, "SELECT * FROM postings 
                                                 LEFT JOIN department ON department.dep_id = postings.dep_id
                                                 WHERE status = 'Published'
                                                 AND DATE(expires) > DATE(NOW())
-                                                ") or die(mysql_error());
+                                                ") or die(mysqli_error($link));
                                         $view_details = "";
-                                        while ($row = mysql_fetch_array($result)) {
+                                        while ($row = mysqli_fetch_array($result)) {
                                             $id_ = $row['id'];
                                             $title = $row['title'];
                                             $department = $row['department'];
@@ -121,9 +121,9 @@
             $info = $_POST["info"];
             $qualifications = $_POST["qualifications"];
 
-            mysql_query("INSERT INTO postings (title, dep_id, type, vacancies, salary, experience, date, expires,info,qualifications,status)
+            mysqli_query($link, "INSERT INTO postings (title, dep_id, type, vacancies, salary, experience, date, expires,info,qualifications,status)
                                             VALUES('$title', '$dep_id', '$type', '$vacancies', '$salary', '$experience', '$date', '$expires', '$info','$qualifications','Unpublished')")
-                or die("Err11 " . mysql_error());
+                or die("Err11 " . mysqli_error($link));
 
             echo "<script>document.location='postings'</script>";
         }
@@ -133,8 +133,8 @@
             $app_id = $_POST["app_id"];
             // return var_dump($status,$app_id);
 
-            mysql_query("UPDATE postings SET status = '$status' WHERE id = '$app_id' ")
-                or die("Err11 " . mysql_error());
+            mysqli_query($link, "UPDATE postings SET status = '$status' WHERE id = '$app_id' ")
+                or die("Err11 " . mysqli_error($link));
 
             echo "<script> document.location='postings.php' </script>";
         }

@@ -56,7 +56,7 @@
                             . "'2017-05-23 10:15:22','1','1','1',"
                             . "'2017-05-23 10:15:22','0','2017-05-23 10:15:22','ACTIVE' )";
                         //we are using mysql_query function. it returns a resource on true else False on error
-                        $result = mysql_query($sql);
+                        $result = mysqli_query($link, $sql);
                     }
 
                     if (!$result) {
@@ -124,7 +124,7 @@
                                             $empno = $_POST['empno'];
                                             $AbsentQuery = $leaveObject->getAttendanceLogList($convertedDate, $empno);
 
-                                            while ($row = mysql_fetch_array($AbsentQuery)) {
+                                            while ($row = mysqli_fetch_array($AbsentQuery)) {
                                                 $EmployeeName = $leaveObject->getEmployeeDetails($row['empno']);
                                                 $LogDate = $row['log_date'];
                                                 $id = $row['id'];

@@ -69,8 +69,8 @@
 
     $CompanyObject->trancateStructure();
 
-    $result = mysql_query("SELECT hod_tb.id,parent_supervisor,emp_info.empno,CONCAT(emp_info.fname,'  ' ,lname ,' - ',emp_info.position) AS otherInfo from hod_tb LEFT JOIN emp_info on emp_info.empno=hod_tb.empno ") or die(mysql_error());
-    while ($row = mysql_fetch_array($result)) {
+    $result = mysqli_query($link, "SELECT hod_tb.id,parent_supervisor,emp_info.empno,CONCAT(emp_info.fname,'  ' ,lname ,' - ',emp_info.position) AS otherInfo from hod_tb LEFT JOIN emp_info on emp_info.empno=hod_tb.empno ") or die(mysqli_error($link));
+    while ($row = mysqli_fetch_array($result)) {
         $id = $row['id'];
         $parent_supervisor = $row['parent_supervisor'];
         $empno = $row['empno'];
@@ -83,17 +83,17 @@
         $parentId = $CompanyObject->getSupervisorParentId($parent_supervisor);
 
         if ($parent_supervisor == "FAB425") {
-            mysql_query("UPDATE  comp_structure SET parent_id='1'  WHERE  empno='$empno' AND hod_id='$id' ") or die(mysql_error());
+            mysqli_query($link, "UPDATE  comp_structure SET parent_id='1'  WHERE  empno='$empno' AND hod_id='$id' ") or die(mysqli_error($link));
         } else if ($empno == "FAB425") {
-            mysql_query("UPDATE  comp_structure SET parent_id='0'  WHERE  empno='$empno' AND hod_id='$id' ") or die(mysql_error());
+            mysqli_query($link, "UPDATE  comp_structure SET parent_id='0'  WHERE  empno='$empno' AND hod_id='$id' ") or die(mysqli_error($link));
         } else {
-            mysql_query("UPDATE  comp_structure SET parent_id='$parentId'  WHERE  empno='$empno' AND hod_id='$id' ") or die(mysql_error());
+            mysqli_query($link, "UPDATE  comp_structure SET parent_id='$parentId'  WHERE  empno='$empno' AND hod_id='$id' ") or die(mysqli_error($link));
         }
     }
 
 
-    $result_ = mysql_query("SELECT * FROM `emp_info` where empno not in ( SELECT hod_tb.empno from hod_tb)") or die(mysql_error());
-    while ($rows = mysql_fetch_array($result_)) {
+    $result_ = mysqli_query($link, "SELECT * FROM `emp_info` where empno not in ( SELECT hod_tb.empno from hod_tb)") or die(mysqli_error($link));
+    while ($rows = mysqli_fetch_array($result_)) {
         $id = $rows['id'];
         $dept = $rows['dept'];
         $empno = $rows['empno'];
@@ -106,7 +106,7 @@
 
         $parentId = $CompanyObject->getHodParentId($dept, $id);
 
-        mysql_query("UPDATE  comp_structure SET parent_id='$parentId'  WHERE  empno='$empno' AND hod_id='0' ") or die(mysql_error());
+        mysqli_query($link, "UPDATE  comp_structure SET parent_id='$parentId'  WHERE  empno='$empno' AND hod_id='0' ") or die(mysqli_error($link));
     }
     ?>
     <div style="overflow-y: scroll; height:600px;margin-left: 200px">

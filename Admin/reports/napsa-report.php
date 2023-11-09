@@ -152,15 +152,13 @@ error_reporting(0);
                                                         INNER JOIN emp_info n ON em.empno = n.empno                                                     
                                                         WHERE em.company_id =  '$compId' and em.time = '$year-$month-$day'";
 
-                                            $result = mysql_query($query, $link) or die(mysql_error());
+                                            $result = mysqli_query($link, $query) or die(mysqli_error($link));
 
                                             $sum = 0;
-                                            while ($row = mysql_fetch_array($result)) {
+                                            while ($row = mysqli_fetch_array($result)) {
                                                 $earnings = $PayslipObject->getEmployeeEarnings($row['earnings_id']);
 
-                                                $gross = $row['basic_pay'] + $earnings + ($row['otrate'] * $row['othrs']) + $row['allow'] + $row['comission'];
-
-
+                                                $gross = $PayslipObject->getEmployeeGrossPay($row['empno'], $year . '-' . $month . '-' . $day);
 
                                                 if ($TaxObject->getEmployeeAge($row['empno']) < 55) {
                                                     $napsa = $gross * 0.05;

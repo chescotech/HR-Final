@@ -51,7 +51,7 @@
                         }
 
                         $sql = $EmployeeHistoryObject->getEduInfo($empno);
-                        $rows = mysql_fetch_array($sql);
+                        $rows = mysqli_fetch_array($sql);
                         ?>
 
                         <form enctype="multipart/form-data" method="post">

@@ -24,9 +24,9 @@
     <div class="wrapper">
 
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Leave.php';
         $leaveObject = new Leave();
-        include '../navigation_panel/authenticated_user_header.php';
         $empno = $_SESSION['employee_id'];
         ?>
 
@@ -53,7 +53,7 @@
                                 <?php
                                 $MyLeave = $leaveObject->checkLeaveDays($empno);
 
-                                while ($row = mysql_fetch_array($MyLeave)) {
+                                while ($row = mysqli_fetch_array($MyLeave)) {
                                     $available = $row['available'];
                                     echo "<span class='center h4'><u>You have " . $available . " days available </u> </span>";
                                 }
@@ -72,13 +72,13 @@
                                         <tr>
                                             <?php
                                             $MyLeave = $leaveObject->veiwLeaveBalance($empno);
-                                            if (mysql_num_rows($MyLeave) == 0) {
+                                            if (mysqli_num_rows($MyLeave) == 0) {
                                                 echo '<tr>
                                                     <td style="vertical-align:middle" align="left">No records have been found for your leave</td>
                                                     </tr>';
                                             }
                                             // echo $empno;
-                                            while ($row = mysql_fetch_array($MyLeave)) {
+                                            while ($row = mysqli_fetch_array($MyLeave)) {
                                                 $id_ = $row['application_id'];
                                                 $LeaveStartdate = $row['leave_start_date'];
                                                 $leaveEndDate = $row['leave_end_date'];

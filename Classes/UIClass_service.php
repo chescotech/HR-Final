@@ -1,41 +1,50 @@
 
 <?php
-function getMappedLocation($minlocation) {
-    $query = mysql_query(" SELECT * FROM test_tb");
-    while ($row = mysql_fetch_array($query)) {
+function getMappedLocation($minlocation)
+{
+    $query = mysqli_query($link, " SELECT * FROM test_tb");
+    while ($row = mysqli_fetch_array($query)) {
         $location = $row['location'];
     }
 }
 
-function google_getCountry($jsondata) {
+function google_getCountry($jsondata)
+{
     return Find_Long_Name_Given_Type("country", $jsondata["results"][0]["address_components"]);
 }
 
-function google_getProvince($jsondata) {
+function google_getProvince($jsondata)
+{
     return Find_Long_Name_Given_Type("administrative_area_level_1", $jsondata["results"][0]["address_components"], true);
 }
 
-function google_getCity($jsondata) {
+function google_getCity($jsondata)
+{
     return Find_Long_Name_Given_Type("locality", $jsondata["results"][0]["address_components"]);
 }
 
-function google_getStreet($jsondata) {
+function google_getStreet($jsondata)
+{
     return Find_Long_Name_Given_Type("street_number", $jsondata["results"][0]["address_components"]) . ' ' . Find_Long_Name_Given_Type("route", $jsondata["results"][0]["address_components"]);
 }
 
-function google_getPostalCode($jsondata) {
+function google_getPostalCode($jsondata)
+{
     return Find_Long_Name_Given_Type("postal_code", $jsondata["results"][0]["address_components"]);
 }
 
-function google_getCountryCode($jsondata) {
+function google_getCountryCode($jsondata)
+{
     return Find_Long_Name_Given_Type("country", $jsondata["results"][0]["address_components"], true);
 }
 
-function google_getAddress($jsondata) {
+function google_getAddress($jsondata)
+{
     return $jsondata["results"][0]["formatted_address"];
 }
 
-function Find_Long_Name_Given_Type($type, $array, $short_name = false) {
+function Find_Long_Name_Given_Type($type, $array, $short_name = false)
+{
     foreach ($array as $value) {
         if (in_array($type, $value["types"])) {
             if ($short_name)
@@ -45,71 +54,77 @@ function Find_Long_Name_Given_Type($type, $array, $short_name = false) {
     }
 }
 
-function check_status($jsondata) {
+function check_status($jsondata)
+{
     if ($jsondata["status"] == "OK")
         return true;
     return false;
 }
 
-function getCategoryNames($catid) {
-    $query = mysql_query("SELECT * FROM service_category_tb WHERE id = '$catid'");
-    $rows = mysql_fetch_array($query);
+function getCategoryNames($catid)
+{
+    $query = mysqli_query($link, "SELECT * FROM service_category_tb WHERE id = '$catid'");
+    $rows = mysqli_fetch_array($query);
     $categoryName = $rows['name'];
     return $categoryName;
 }
 
-function getTutoringSubjects($id) {
+function getTutoringSubjects($id)
+{
 
     $message = "";
-    $query = mysql_query("SELECT * FROM service_details_tb WHERE id = '$id'");
-    $rows = mysql_fetch_array($query);
+    $query = mysqli_query($link, "SELECT * FROM service_details_tb WHERE id = '$id'");
+    $rows = mysqli_fetch_array($query);
     $subtCateOne = $rows['sub_category_id'];
 
     // first cat..
-    $query2 = mysql_query(" SELECT * FROM sub_service_categories WHERE id = '$subtCateOne' ");
-    $subRow1 = mysql_fetch_array($query2);
+    $query2 = mysqli_query($link, " SELECT * FROM sub_service_categories WHERE id = '$subtCateOne' ");
+    $subRow1 = mysqli_fetch_array($query2);
 
-    if ( $subRow1['name'] != "") {
+    if ($subRow1['name'] != "") {
         $message = "<p>&#10004; " . $subRow1['name'];
-    } 
+    }
 
     return $message;
 }
 
 
-function getServicegOffered($id) {
+function getServicegOffered($id)
+{
 
     $message = "";
-    $query = mysql_query("SELECT * FROM maid_centers_tb WHERE id = '$id'");
-    $rows = mysql_fetch_array($query);
+    $query = mysqli_query($link, "SELECT * FROM maid_centers_tb WHERE id = '$id'");
+    $rows = mysqli_fetch_array($query);
     $subtCateOne = $rows['service_number'];
 
     // first cat..
-    $query2 = mysql_query(" SELECT * FROM sub_service_categories WHERE id = '$subtCateOne' ");
-    $subRow1 = mysql_fetch_array($query2);
+    $query2 = mysqli_query($link, " SELECT * FROM sub_service_categories WHERE id = '$subtCateOne' ");
+    $subRow1 = mysqli_fetch_array($query2);
 
-    if ( $subRow1['name'] != "") {
+    if ($subRow1['name'] != "") {
         $message = "<p>&#10004; " . $subRow1['name'];
-    } 
+    }
 
     return $message;
 }
 
 
 
-function getCategoryIdFromSubCat($subCatId) {
-    $query = mysql_query("SELECT * FROM sub_categories WHERE id = '$subCatId'");
-    $rows = mysql_fetch_array($query);
+function getCategoryIdFromSubCat($subCatId)
+{
+    $query = mysqli_query($link, "SELECT * FROM sub_categories WHERE id = '$subCatId'");
+    $rows = mysqli_fetch_array($query);
     $category_id = $rows['category_id'];
     return $category_id;
 }
 
-function getCoordinates($address) {
+function getCoordinates($address)
+{
 
-// Get JSON results from this request
+    // Get JSON results from this request
     $geo = file_get_contents('http://maps.googleapis.com/maps/api/geocode/json?address=' . urlencode($address) . '&sensor=false');
 
-// Convert the JSON to an array
+    // Convert the JSON to an array
     $geo = json_decode($geo, true);
 
     if ($geo['status'] == 'OK') {
@@ -120,13 +135,14 @@ function getCoordinates($address) {
     return -15.420562 . "," . $longitude;
 }
 
-function computeNearestTutionCentre($lat1, $lon1, $categoryId) {
+function computeNearestTutionCentre($lat1, $lon1, $categoryId)
+{
 
     $cart = array();
     $location = array();
-    $result = mysql_query("SELECT * FROM Maid_centers_tb WHERE category_one='$categoryId' "
-            . "OR category_two='$categoryId' OR category_three ='$categoryId' AND status = 'Approved' ");
-    while ($row = mysql_fetch_array($result)) {
+    $result = mysqli_query($link, "SELECT * FROM Maid_centers_tb WHERE category_one='$categoryId' "
+        . "OR category_two='$categoryId' OR category_three ='$categoryId' AND status = 'Approved' ");
+    while ($row = mysqli_fetch_array($result)) {
         // compute distance between each tution centre and the users location, 
         // keep each distance in a list and then find the min distance. 
         // return the tution centres location..  
@@ -157,7 +173,8 @@ function computeNearestTutionCentre($lat1, $lon1, $categoryId) {
     }
 }
 
-function distance($lat1, $lon1, $lat2, $lon2, $unit) {
+function distance($lat1, $lon1, $lat2, $lon2, $unit)
+{
     $theta = $lon1 - $lon2;
     $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) + cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
     $dist = acos($dist);
@@ -174,10 +191,11 @@ function distance($lat1, $lon1, $lat2, $lon2, $unit) {
     }
 }
 
-function checkForCentreInDb($usersLocation) {
+function checkForCentreInDb($usersLocation)
+{
     $status = "";
-    $result = mysql_query("SELECT * FROM maid_centers_tb WHERE physical_address = '$usersLocation' ");
-    if (mysql_num_rows($result) == 0) {
+    $result = mysqli_query($link, "SELECT * FROM maid_centers_tb WHERE physical_address = '$usersLocation' ");
+    if (mysqli_num_rows($result) == 0) {
         $status = "true";
     } else {
         $status = "false";
@@ -214,18 +232,18 @@ if (!empty($_POST['latitude']) && !empty($_POST['longitude'])) {
     // where city = > and province => and street =>  
     // check for approved tution centres by category..
     $categoryId = 1;
-    $result = mysql_query("SELECT * FROM maid_centers_tb WHERE category_one='$categoryId' AND status = 'Approved' ");
+    $result = mysqli_query($link, "SELECT * FROM maid_centers_tb WHERE category_one='$categoryId' AND status = 'Approved' ");
 
-    $row = mysql_fetch_array($result);
+    $row = mysqli_fetch_array($result);
 
     $PysicalLocation = $row['physical_address'];
     $Town = $row['town'];
     $Email = $row['email_address'];
     $phone = $row['phone_number'];
     // check for tuition centre by physical address...
-    $result2 = mysql_query("SELECT * FROM maid_centers_tb WHERE physical_address = 'Chindo Rd, Lusaka, Zambia' AND  category_one='$categoryId' OR category_two='$categoryId' OR category_three='$categoryId'");
-    if (mysql_num_rows($result) != 0 && mysql_fetch_array($result2) != 0) {
-        $row = mysql_fetch_array($result2);
+    $result2 = mysqli_query($link, "SELECT * FROM maid_centers_tb WHERE physical_address = 'Chindo Rd, Lusaka, Zambia' AND  category_one='$categoryId' OR category_two='$categoryId' OR category_three='$categoryId'");
+    if (mysqli_num_rows($result) != 0 && mysqli_fetch_array($result2) != 0) {
+        $row = mysqli_fetch_array($result2);
         $address = $row['physical_address'];
         echo getCoordinates($address);
     } else {

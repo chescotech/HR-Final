@@ -6,11 +6,11 @@ class Classes
     {
         $total_points = 0;
         // Other Info Score
-        $sql = mysql_query("SELECT * FROM jobs_user_info WHERE user_id = '$user_id' ") or die(mysql_error());
+        $sql = mysqli_query($link, "SELECT * FROM jobs_user_info WHERE user_id = '$user_id' ") or die(mysqli_error($link));
         $point = 0;
-        if (mysql_num_rows($sql) > 0) {
-            $total_points = $total_points + mysql_num_rows($sql);
-            while ($row = mysql_fetch_array($sql)) {
+        if (mysqli_num_rows($sql) > 0) {
+            $total_points = $total_points + mysqli_num_rows($sql);
+            while ($row = mysqli_fetch_array($sql)) {
 
                 if ($row['location'] != '') {
                     $point = $point + 1;
@@ -96,52 +96,52 @@ class Classes
         }
 
         // Skills Score
-        $sk_sql = mysql_query("SELECT * FROM jobs_user_skills WHERE user_id = '$user_id' ") or die(mysql_error());
+        $sk_sql = mysqli_query($link, "SELECT * FROM jobs_user_skills WHERE user_id = '$user_id' ") or die(mysqli_error($link));
         $sk_point = 0;
         $total_points = $total_points + 5;
-        if (mysql_num_rows($sk_sql) > 0) {
+        if (mysqli_num_rows($sk_sql) > 0) {
             $sk_point = 5;
-            while ($sk_row = mysql_fetch_array($sk_sql)) {
+            while ($sk_row = mysqli_fetch_array($sk_sql)) {
             }
         }
 
         // Qualification Score
-        $qal_sql = mysql_query("SELECT * FROM jobs_user_qualifications WHERE user_id = '$user_id' ") or die(mysql_error());
+        $qal_sql = mysqli_query($link, "SELECT * FROM jobs_user_qualifications WHERE user_id = '$user_id' ") or die(mysqli_error($link));
         $qal_point = 0;
         $total_points = $total_points + 5;
-        if (mysql_num_rows($qal_sql) > 0) {
+        if (mysqli_num_rows($qal_sql) > 0) {
             $qal_point = 5;
-            while ($qal_row = mysql_fetch_array($qal_sql)) {
+            while ($qal_row = mysqli_fetch_array($qal_sql)) {
             }
         }
 
         // Experience Score
-        $exp_sql = mysql_query("SELECT * FROM jobs_user_experience WHERE user_id = '$user_id' ") or die(mysql_error());
+        $exp_sql = mysqli_query($link, "SELECT * FROM jobs_user_experience WHERE user_id = '$user_id' ") or die(mysqli_error($link));
         $exp_point = 0;
         $total_points = $total_points + 5;
-        if (mysql_num_rows($exp_sql) > 0) {
+        if (mysqli_num_rows($exp_sql) > 0) {
             $exp_point = 5;
-            while ($exp_row = mysql_fetch_array($exp_sql)) {
+            while ($exp_row = mysqli_fetch_array($exp_sql)) {
             }
         }
 
         // Attachments Score
-        $att_sql = mysql_query("SELECT * FROM jobs_user_attachments WHERE user_id = '$user_id' ") or die(mysql_error());
+        $att_sql = mysqli_query($link, "SELECT * FROM jobs_user_attachments WHERE user_id = '$user_id' ") or die(mysqli_error($link));
         $att_point = 0;
         $total_points = $total_points + 5;
-        if (mysql_num_rows($att_sql) > 0) {
+        if (mysqli_num_rows($att_sql) > 0) {
             $att_point = 5;
-            while ($att_row = mysql_fetch_array($att_sql)) {
+            while ($att_row = mysqli_fetch_array($att_sql)) {
             }
         }
 
         // Reference Score
-        $ref_sql = mysql_query("SELECT * FROM jobs_user_refs WHERE user_id = '$user_id' ") or die(mysql_error());
+        $ref_sql = mysqli_query($link, "SELECT * FROM jobs_user_refs WHERE user_id = '$user_id' ") or die(mysqli_error($link));
         $ref_point = 0;
         $total_points = $total_points + 5;
-        if (mysql_num_rows($ref_sql) > 0) {
+        if (mysqli_num_rows($ref_sql) > 0) {
             $ref_point = 5;
-            while ($ref_row = mysql_fetch_array($ref_sql)) {
+            while ($ref_row = mysqli_fetch_array($ref_sql)) {
             }
         }
 

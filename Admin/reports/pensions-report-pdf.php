@@ -50,17 +50,17 @@ $pdf->Ln();
 
 $query = "SELECT * FROM `emp_info` where employment_type='Permanent' ";
 
-$result2 = mysql_query($query, $link) or die(mysql_error());
+$result2 = mysqli_query($link, $query) or die(mysqli_error($link));
 $sum = 0;
-while ($row = mysql_fetch_array($result2)) {
+while ($row = mysqli_fetch_array($result2)) {
 
     $empno = $row['empno'];
     $SNo = $loanObj->getSocialSecurityNo($empno);
 
     $pensionAmount = $loanObj->getPensions($compId, $empno);
 
-    $result = mysql_query("SELECT * FROM emp_info WHERE empno='$empno'");
-    $grossRows = mysql_fetch_array($result);
+    $result = mysqli_query($link, "SELECT * FROM emp_info WHERE empno='$empno'");
+    $grossRows = mysqli_fetch_array($result);
     $grossPay = $grossRows['gross_pay'];
     $dateJoined = $grossRows['date_joined'];
 
@@ -101,9 +101,8 @@ $pdf->Ln();
 
 $pdf->Cell(450, 2, "___________________________________________________________________________________________________");
 $pdf->Ln();
-$totalNoRecords = mysql_num_rows($result2);
+$totalNoRecords = mysqli_num_rows($result2);
 $pdf->Cell(420, 7, "Printed On : " . $datePrint . " By Monica Okpara");
 $pdf->Ln();
 
 $pdf->Output();
-?>

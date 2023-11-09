@@ -23,11 +23,11 @@
     <div class="wrapper">
 
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Department.php';
         include_once '../Classes/Group.php';
         $GroupObject = new Group();
         $DepartmentObject = new Department();
-        include '../navigation_panel/authenticated_user_header.php';
         ?>
 
         <?php
@@ -46,15 +46,15 @@
 
             if ($password == $repassword) {
                 if ($status == "") {
-                    $add_q = mysql_query("UPDATE users_tb SET user_name = '$user_name',"
-                        . "password='$password' WHERE id = '$id' ") or die(mysql_error());
+                    $add_q = mysqli_query($link, "UPDATE users_tb SET user_name = '$user_name',"
+                        . "password='$password' WHERE id = '$id' ") or die(mysqli_error($link));
                 } else if (strlen($group_id) > 0) {
-                    $add_q = mysql_query("
+                    $add_q = mysqli_query($link, "
                     UPDATE users_tb SET user_name = '$user_name',"
                         . "password='$password', group_id = '$group_id' WHERE id = '$id'");
                 } else {
-                    $add_q = mysql_query("UPDATE users_tb SET user_name = '$user_name',"
-                        . "password='$password',status='$status' WHERE id = '$id' ") or die(mysql_error());
+                    $add_q = mysqli_query($link, "UPDATE users_tb SET user_name = '$user_name',"
+                        . "password='$password',status='$status' WHERE id = '$id' ") or die(mysqli_error($link));
                 }
 
 
@@ -122,7 +122,7 @@
 
                                         <?php
                                         $Departments = $DepartmentObject->getUsersByCompany($compID);
-                                        while ($row = mysql_fetch_array($Departments)) {
+                                        while ($row = mysqli_fetch_array($Departments)) {
                                             $user_id = $row['id'];
 
                                         ?>
@@ -149,7 +149,7 @@
                                                             <span>
                                                                 <?php
                                                                 $current_group = $GroupObject->getGroupById($row['group_id']);
-                                                                $row = mysql_fetch_array($current_group);
+                                                                $row = mysqli_fetch_array($current_group);
 
                                                                 echo '<h5 class="fw-bold p-2"> ' . $row['name'] . ' </h5>';
                                                                 ?>
@@ -160,7 +160,7 @@
                                                                 $groupList = $GroupObject->getGroups($_SESSION['company_ID']);
 
 
-                                                                while ($group_row = mysql_fetch_array($groupList)) {
+                                                                while ($group_row = mysqli_fetch_array($groupList)) {
                                                                 ?>
                                                                     <option name="group_update" class="list-menu-item" value="<?= $group_row['id'] ?>"><?= $group_row['name'] ?></option>
                                                                 <?php

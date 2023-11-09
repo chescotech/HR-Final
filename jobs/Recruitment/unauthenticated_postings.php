@@ -108,18 +108,22 @@ include '../includes/oldheaders.php';
                 margin-left: 0 !important;
                 margin-right: 0 !important;
             }
-            
-            .topnavbar .navbar-nav > li > a, .topnavbar .navbar-nav > .open > a {
-    color: White;
-    font-weight: 800;
-    font-size:13px;
-}
 
-@media only screen and (min-width: 768px){
-.topnavbar .navbar-nav > li > a, .topnavbar .navbar-nav > .open > a {
-    color: white;
-    font-weight: 800;
-}}
+            .topnavbar .navbar-nav>li>a,
+            .topnavbar .navbar-nav>.open>a {
+                color: White;
+                font-weight: 800;
+                font-size: 13px;
+            }
+
+            @media only screen and (min-width: 768px) {
+
+                .topnavbar .navbar-nav>li>a,
+                .topnavbar .navbar-nav>.open>a {
+                    color: white;
+                    font-weight: 800;
+                }
+            }
         </style>
         <header class="topnavbar-wrapper">
             <!-- START Top Navbar-->
@@ -141,8 +145,8 @@ include '../includes/oldheaders.php';
 
                         </div>
                         <ul class="nav navbar-nav" style=" font-family: 'Heebo', 'Inter', sans-serif !important; margin-top:1.7rem;">
-                            <li><a  href="/index.php">Home</a></li>
-                            <li><a  href="unauthenticated_postings.php">All Postings</a></li>
+                            <li><a href="/index.php">Home</a></li>
+                            <li><a href="unauthenticated_postings.php">All Postings</a></li>
                             <li class="pull-right"><a href="../login.php">Login / Post Listing</a></li>
                         </ul>
                     </center>
@@ -157,13 +161,13 @@ include '../includes/oldheaders.php';
 
         include_once("../includes/dbconnection.php");
 
-        $result = mysql_query("SELECT * FROM jobs_postings 
+        $result = mysqli_query($link, "SELECT * FROM jobs_postings 
                                         LEFT JOIN department ON department.dep_id = jobs_postings.dep_id
                                         WHERE status = 'Published'
                                         AND DATE(expires) > DATE(NOW())
-                                        ") or die(mysql_error());
+                                        ") or die(mysqli_error($link));
         $view_details = "";
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $id_ = $row['id'];
             $title = $row['title'];
             $department = $row['department'];
@@ -194,8 +198,8 @@ include '../includes/oldheaders.php';
                                     <select name="department" class="form-control">
                                         <option></option>
                                         <?php
-                                        $departmentquery = mysql_query("SELECT department,dep_id FROM  department");
-                                        while ($row = mysql_fetch_array($departmentquery)) {
+                                        $departmentquery = mysqli_query($link, "SELECT department,dep_id FROM  department");
+                                        while ($row = mysqli_fetch_array($departmentquery)) {
                                             $depid = $row["dep_id"];
                                         ?>
                                             <option value="<?php echo $row['department']; ?>"> <?php echo $row['department']; ?></option>
@@ -248,8 +252,8 @@ include '../includes/oldheaders.php';
                             $queryCount = "SELECT COUNT(*) as total FROM jobs_postings, department 
                             WHERE department.dep_id = jobs_postings.dep_id
                             AND DATE(NOW()) <= expires";
-                            $resultCount = mysql_query($queryCount) or die(mysql_error());
-                            $rowCount = mysql_fetch_assoc($resultCount);
+                            $resultCount = mysqli_query($link, $queryCount) or die(mysqli_error($link));
+                            $rowCount = mysqli_fetch_assoc($resultCount);
                             $totalJobs = $rowCount['total'];
 
                             // Number of job postings to display per page
@@ -276,28 +280,28 @@ include '../includes/oldheaders.php';
 
 
                             if (!empty($search)) {
-                                $search = mysql_real_escape_string($search);
+                                $search = ($search);
                                 $query .= " AND (jobs_postings.title LIKE '%$search%' OR department.department LIKE '%$search%')";
                             }
 
                             if (!empty($dep)) {
-                                $dep = mysql_real_escape_string($dep);
+                                $dep = ($dep);
                                 $query .= " AND department.department = '$dep' ";
                             }
-                            
+
                             $query .= " ORDER BY jobs_postings.date DESC";
 
                             $query .= " LIMIT $offset, $perPage";
 
 
-                            $result = mysql_query($query) or die(mysql_error());
+                            $result = mysqli_query($link, $query) or die(mysqli_error($link));
 
-                            if (mysql_num_rows($result) < 1) {
+                            if (mysqli_num_rows($result) < 1) {
                                 $errorMessage = 'SORRY NO RESULTS FOUND!';
                                 echo "<p class='alert alert-danger' style='text-align:center;'>$errorMessage</p>";
                             }
 
-                            while ($row = mysql_fetch_array($result)) {
+                            while ($row = mysqli_fetch_array($result)) {
                                 $comp_description = $row['description'];
                                 $id_ = $row['id'];
                                 $comp = $row['comp_name'];
@@ -317,10 +321,10 @@ include '../includes/oldheaders.php';
                                 $expires = date("d M, Y", strtotime($rawExpires));
                                 $location = $row['city'] . ", " . $row['region'] . ", " . $row['country'];
 
-                                $ck_q = mysql_query("SELECT id FROM jobs_user_applications WHERE jobs_job_id = '$id_'
-                                ") or die(mysql_error());
+                                $ck_q = mysqli_query($link, "SELECT id FROM jobs_user_applications WHERE jobs_job_id = '$id_'
+                                ") or die(mysqli_error($link));
 
-                                if (mysql_num_rows($ck_q) > 0) {
+                                if (mysqli_num_rows($ck_q) > 0) {
                                     $applied = '
                                         <div class="canvas canvas6">
                                             <div class="spinner6 p1"></div>
@@ -348,7 +352,7 @@ include '../includes/oldheaders.php';
                                 <div class="col-md-4">
                                     <div class="panel ">
                                         <div class="panel-heading panel-primary" style="height:11rem">
-                                            
+
                                             <strong><span style="float: right; color:<?php echo "red" ?>">
                                                     <?php echo $applied; ?> </span>
                                             </strong>
