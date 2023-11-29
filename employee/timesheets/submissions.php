@@ -1,5 +1,5 @@
 <?php
-error_reporting(0);
+session_start();
 ?>
 <!DOCTYPE html>
 <html>
@@ -30,10 +30,10 @@ error_reporting(0);
         include_once '../../Admin/Classes/Department.php';
         include_once '../Classes/Timesheets.php';
 
-        $DepartmentObject = new Department();
-        $TimesheetObject = new Timesheets();
 
         include '../navigation_panel/authenticated_user_header.php';
+        $DepartmentObject = new Department();
+        $TimesheetObject = new Timesheets($link);
 
         $compId = $_SESSION['company_ID'];
         $dept_id = $_SESSION['dept'];

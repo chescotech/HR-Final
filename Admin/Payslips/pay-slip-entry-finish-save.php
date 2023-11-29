@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -77,6 +80,7 @@
     <div class="wrapper">
 
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../../dbconnection.php';
         include_once '../Classes/Department.php';
         include_once '../Classes/Payslips.php';
@@ -91,7 +95,6 @@
         $TaxObject = new Tax();
         $RecurringDeductionsObject = new RecurringDeductions();
 
-        include '../navigation_panel/authenticated_user_header.php';
         //$companyId = $_SESSION['username'];
         $compId = $_SESSION['company_ID'];
         ?>
@@ -129,9 +132,9 @@
                 // WHEN MANY USERS ARE SELECTED
                 array_map(function ($empno1, $days_worked1, $overtime_rate_hour1, $overtime1, $allowance1, $advances1, $insurance1, $commision1) {
 
-                    global $DepartmentObject, $TaxObject, $compId, $PaySlipsObject, $LoanObject, $RecurringDeductionsObject, $LeaveObject, $time;
+                    global $DepartmentObject, $TaxObject, $compId, $PaySlipsObject, $LoanObject, $RecurringDeductionsObject, $LeaveObject, $time, $link;
 
-                    $Grosspay = $PaySlipsObject->getEmployeeEarnings($empno1);
+                    $Grosspay = (int)$PaySlipsObject->getEmployeeBasicPay($empno1)['basic_pay'] + (int)$PaySlipsObject->getEmployeeEarningsTotal($empno1);
                     // Hide
                     //echo '$Grosspay'.$Grosspay;
                     $totalpay = ($Grosspay / 26) * $days_worked1;
@@ -188,14 +191,28 @@
                     // return var_dump($PaySlipsObject->checkIfRecordExsists($empno1, $time));
                     if ($PaySlipsObject->checkIfRecordExsists($empno1, $time) != "true") {
 
-                        // if (isset($staffer1)) {
-                        $earnID = $PaySlipsObject->getEmployeeEarningsId($empno1)['id'];
-                        // find earnings in earnings table
-                        $dedID = $PaySlipsObject->getEmployeeDeductionsId($empno1)['id'];
+                        // Fetch data from employee_earnings
+                        $earningsData = array();
+                        $earningsQuery = "SELECT * FROM employee_earnings WHERE employee_no = '$empno1'";
+                        $earningsResult = mysqli_query($link, $earningsQuery);
 
-                        $PaySlipsObject->addEmpPayslipInfo($empno1, $pay, $days_worked1, $overtime_rate_hour1, $overtime1, $allowance1, $advances1, $insurance1, $time, $commision1, $compId, $earnID, $dedID);
+                        while ($earningsRow = mysqli_fetch_assoc($earningsResult)) {
+                            $slicedEarningsRow = array_slice($earningsRow, 4, null, true);
+                            $earningsData[] = $slicedEarningsRow;
+                        }
+
+                        // Fetch data from employee_deductions
+                        $deductionsData = array();
+                        $deductionsQuery = "SELECT * FROM employee_deductions WHERE employee_no = '$empno1'";
+                        $deductionsResult = mysqli_query($link, $deductionsQuery);
+
+                        while ($deductionsRow = mysqli_fetch_assoc($deductionsResult)) {
+                            $deductionsRow = array_slice($deductionsRow, 4, null, true);
+                            $deductionsData[] = $deductionsRow;
+                        }
+
+                        $PaySlipsObject->addEmpPayslipInfo($empno1, $pay, $days_worked1, $overtime_rate_hour1, $overtime1, $allowance1, $advances1, $insurance1, $time, $commision1, $total_tax_paid, $napsa, $compId, json_encode($earningsData), json_encode($deductionsData));
                         // }
-                        // $PaySlipsObject->addEmpPayslipInfo($empno, $pay, $days_worked, $overtime_rate_hour, $overtime, $allowance, $advances, $insurance, $time, $commision, $compId);
 
                         $checkIfEmployeeExsist = $PaySlipsObject->checkEmployeeTax($empno1);
 

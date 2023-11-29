@@ -1,7 +1,5 @@
 <?php
 
-include_once 'DBClass.php';
-
 class Payslips
 {
     private $link;
@@ -131,10 +129,9 @@ class Payslips
         $payslipResult = mysqli_query($this->link, $payslipQuery) or die("invalid query" . mysqli_error($this->link));
         $payslipRow = mysqli_fetch_array($payslipResult);
 
-        $payslip = $payslipRow['pay'] + ($payslipRow['otrate'] * $payslipRow['othrs']) + $payslipRow['allow'] + $payslipRow['advances'] + $payslipRow['comission'];
-
+        $payslip = $payslipRow['pay'] + ($payslipRow['otrate'] * $payslipRow['othrs']) + $payslipRow['allow'] + $payslipRow['comission'];
         // Get earnings from `getEmployeeEarnings` function
-        $earnings = $this->getEmployeeEarnings($emp_no_arg, $date_arg);
+        $earnings = $this->getEmployeeEarnings($payslipRow['earnings_data']);
 
         // Add them up
         $gross = $payslip + $earnings;
@@ -158,7 +155,7 @@ class Payslips
         return $pension;
     }
 
-    public function addEmpPayslipInfo($empno, $pay, $dayswork, $otrate, $othrs, $allow, $advances, $insurance, $time, $comission, $company_id, $earnings_id_arg, $deductions_id_arg)
+    public function addEmpPayslipInfo($empno, $pay, $dayswork, $otrate, $othrs, $allow, $advances, $insurance, $time, $comission, $payee, $napsa, $company_id, $earnings_arg, $deductions_arg)
     {
         $result = "";
         $pension = 0;
@@ -177,11 +174,10 @@ class Payslips
                     $employer_share = ($this->getEmployerPensionShareCal() / 100) * $basic_pay;
                 }
 
-                // return var_dump($empno, $pay, $dayswork, $otrate, $othrs, $allow, $advances, $insurance, $time, $comission, $company_id, $deductions_id_arg, $earnings_id_arg);
                 $result = mysqli_query($this->link, "INSERT INTO employee(empno,pay,
                      dayswork,otrate,othrs
-                    ,allow,advances,insurance,time,comission,company_id,health_insurance,pension,employer_share,employee_share, earnings_id, deductions_id) VALUES('$empno','$basic_pay','$dayswork'
-                    ,'$otrate','$othrs', '$allow','$advances','$insurance', '$time','$comission','$company_id','$nhima','$pension','$employer_share' ,'$employee_share', '$earnings_id_arg', '$deductions_id_arg'  )") or die(mysqli_error($this->link));
+                    ,allow,advances,insurance,time,comission,company_id,health_insurance,pension,employer_share,employee_share, payee, napsa, earnings_data, deductions_data) VALUES('$empno','$basic_pay','$dayswork'
+                    ,'$otrate','$othrs', '$allow','$advances','$insurance', '$time','$comission','$company_id','$nhima','$pension','$employer_share' ,'$employee_share', '$payee','$napsa', '$earnings_arg', '$deductions_arg'  )") or die(mysqli_error($this->link));
             }
             return $result;
         } else {
@@ -286,60 +282,69 @@ class Payslips
     {
         // get the employees monthly leave days based on there grade .... 
         $result2 = mysqli_query($this->link, "SELECT * FROM leave_ratings_tb "
-            . "WHERE grade_id = ( SELECT employee_grade FROM emp_info WHERE empno = '$empno' AND company_id = '$companyId' )");
+            . "WHERE grade_id = ( SELECT employee_grade FROM emp_info WHERE empno = '$empno' AND company_id = '$companyId' )") or die(mysqli_error($this->link));
         $DetalsRows = mysqli_fetch_array($result2);
         $monthly_leave_days = $DetalsRows['monthly_leave_days'];
         // update the employees leave days.. 
-        $result = mysqli_query($this->link, "UPDATE leave_days SET available = available - '$monthly_leave_days' WHERE empno = '$empno' ");
+        $result = mysqli_query($this->link, "UPDATE leave_days SET available = available - '$monthly_leave_days' WHERE empno = '$empno' ") or die(mysqli_error($this->link));
         return $result;
     }
 
     public function updateLoans($empno, $interest, $principle)
     {
         $query4 = "UPDATE loan  SET duration  = duration - 1 , interest =  $interest, loan_amt = $principle, principle = $principle  WHERE empno = '$empno'";
-        $result = mysqli_query($this->link, $query4);
+        $result = mysqli_query($this->link, $query4) or die($this->link);
         return $result;
     }
 
-    public function getDeductionValue($salary, $deducArray)
+    public function getDeductionValue($salary, $deducName)
     {
-        // var_dump(mysqli_fetch_assoc($deducArray));
-        $type = $deducArray['type'];
-        // if type is fixed
-        if ($type == 'fixed') {
-            return $deducArray['emp_fixed'];
-        } else
-        // otherwise, calculate
-        {
-            $deductAmount = $salary * ($deducArray['emp_calc_num'] / $deducArray['emp_calc_deno']);
-            // check if deduction amount is greater than max
-            if ($deductAmount > $deducArray['emp_upper_bound']) {
-                $deductAmount = $deducArray['emp_upper_bound_amnt'];
-            } else if ($deductAmount > $deducArray['emp_lower_bound']) {
-                $deductAmount = $deducArray['emp_lower_bound_amnt'];
+        $deductionValue = 0;
+
+        $deductionRow = $this->getDeductionRow($deducName);
+
+        if ($deductionRow) {
+            $type = $deductionRow['type'];
+
+            if ($type == 'fixed') {
+                return $deductionRow['emp_fixed'];
+            } else {
+                $deductAmount = $salary * ($deductionRow['emp_calc_num'] / $deductionRow['emp_calc_deno']);
+
+                if ($deductAmount > $deductionRow['emp_upper_bound']) {
+                    $deductAmount = $deductionRow['emp_upper_bound_amnt'];
+                } else if ($deductAmount > $deductionRow['emp_lower_bound']) {
+                    $deductAmount = $deductionRow['emp_lower_bound_amnt'];
+                }
+
+                return $deductAmount;
             }
-            // check if deduction amount is less than minimum
-            return $deductAmount;
         }
+
+        return $deductionValue;
     }
 
-    public function getEmployeeEarnings($emp_earn_id_arg)
+    private function getDeductionRow($deduction)
     {
-        $query = mysqli_query($this->link, "SELECT * FROM employee_earnings WHERE employee_no = '$emp_earn_id_arg'") or die(mysqli_error($this->link));
-        $sum = 0;
-        $data = mysqli_fetch_assoc($query);
+        // Replace this with your database query to fetch the deduction row
+        $query = "SELECT * FROM deductions WHERE name = '$deduction'";
+        $deductionRow = mysqli_query($this->link, $query);
 
-        $sum = 0;
-        $sliced = array_slice($data, 4);
+        return mysqli_fetch_assoc($deductionRow);
+    }
 
-        foreach ($sliced as $key => $value) {
-            if ($key === "company_id" || $key === "employee_id" || $key === "id" || $key === "employee_no") {
-                $add = false; // Stop adding when 'company_id' is reached
-            } elseif (is_numeric($value)) {
-                $sum += (float)$value; // Convert to float and add if it's numeric
+    public function getEmployeeEarnings($employeeEarningsJson)
+    {
+        $employeeEarnings = json_decode($employeeEarningsJson, true);
+        $sum = 0;
+        if (!empty($employeeEarnings)) {
+            foreach ($employeeEarnings[0] as $key => $value) {
+                if (!empty($value)) {
+                    $sum += intval($value);
+                }
             }
         }
-        // var_dump($sum);
+
         return $sum;
     }
 
@@ -362,38 +367,60 @@ class Payslips
         return $value;
     }
 
-    public function getEmployeeBasicPay($emp_earn_id_arg)
+    public function getEmployeeBasicPay($emp_no_arg)
     {
-        $query = mysqli_query($this->link, "SELECT basic_pay FROM employee_earnings WHERE id = '$emp_earn_id_arg'") or die(mysqli_error($this->link));
+        $query = mysqli_query($this->link, "SELECT basic_pay FROM emp_info WHERE empno = '$emp_no_arg'") or die(mysqli_error($this->link));
 
         $data = mysqli_fetch_assoc($query);
 
         return $data;
     }
 
-    public function getEmployeeDeductions($salary_arg, $emp_num_arg, $emp_ded_id_arg)
+    public function getEmployeeEarningsTotal($emp_earn_id_arg)
     {
-        $query = mysqli_query($this->link, "SELECT * FROM employee_deductions WHERE id = '$emp_ded_id_arg'") or die(mysqli_error($this->link));
+        $query = mysqli_query($this->link, "SELECT * FROM employee_earnings WHERE employee_no = '$emp_earn_id_arg'") or die(mysqli_error($this->link));
+
+        if (mysqli_num_rows($query) > 0) {
+
+            $data = mysqli_fetch_assoc($query);
+
+            $sliced = array_slice($data, 4);
+
+            $sum = 0;
+
+            foreach ($sliced as $key => $value) {
+                if ($key === "company_id" || $key === "employee_id" || $key === "id" || $key === "employee_no") {
+                    $add = false; // Stop adding when 'company_id' is reached
+                } elseif (is_numeric($value)) {
+                    $sum += (float)$value; // Convert to float and add if it's numeric
+                }
+            }
+        } else {
+            $sum = 0;
+        }
+
+        return $sum;
+    }
+
+    public function getEmployeeDeductions($salary_arg, $emp_num_arg, $emp_ded_id_arg, $date_arg)
+    {
+        $deductions = json_decode($emp_ded_id_arg, true);
         $sum = 0;
-        $data = mysqli_fetch_assoc($query);
 
+        foreach ($deductions[0] as $deduction => $value) {
+            if ($value == '1') {
+                $ded_value = $this->getDeductionValue($salary_arg, $deduction);
 
-        foreach ($data as $key => $value) {
-            // key is the column name
-            $dQuery = mysqli_query($this->link, "SELECT * FROM deductions WHERE name LIKE '$key'");
-            $ded = mysqli_fetch_assoc($dQuery);
-
-            if ($value === '1') {
-                $ded_value = $this->getDeductionValue($salary_arg, $ded);
-                $sum += $ded_value;
+                $sum += intval($ded_value);
             }
         }
 
-        // recurring
-        $rdQuery = mysqli_query($this->link, "SELECT * FROM emp_recurring_deductions WHERE employee_no = '$emp_num_arg' && status = 'Pending'") or die(mysqli_error($this->link));
-        $rdRow = mysqli_fetch_assoc($rdQuery);
+        $rdQuery = mysqli_query($this->link, "SELECT * FROM emp_recurring_deductions WHERE employee_no = '$emp_num_arg' AND '$date_arg' BETWEEN deduction_date AND date_completion") or die(mysqli_error($this->link));
 
-        $sum += $rdRow['monthly_deduct'];
+        if (mysqli_num_rows($rdQuery) > 0) {
+            $rdRow = mysqli_fetch_assoc($rdQuery);
+            $sum += $rdRow['monthly_deduct'];
+        }
 
         return $sum;
     }
@@ -406,4 +433,68 @@ class Payslips
 
         return $checkResult;
     }
+
+    // function savePayrollSnapshot($snapshotData, $employeeEarningsData, $employeeDeductionsData)
+    // {
+    //     $employeeNo = mysqli_real_escape_string($this->link, $snapshotData['employee_no']);
+    //     $pay = mysqli_real_escape_string($this->link, $snapshotData['pay']);
+    //     $daysWorked = mysqli_real_escape_string($this->link, $snapshotData['days_worked']);
+    //     $overtimeRateHour = mysqli_real_escape_string($this->link, $snapshotData['overtime_rate_hour']);
+    //     $overtime = mysqli_real_escape_string($this->link, $snapshotData['overtime']);
+    //     $allowance = mysqli_real_escape_string($this->link, $snapshotData['allowance']);
+    //     $advances = mysqli_real_escape_string($this->link, $snapshotData['advances']);
+    //     $insurance = mysqli_real_escape_string($this->link, $snapshotData['insurance']);
+    //     $commission = mysqli_real_escape_string($this->link, $snapshotData['commission']);
+    //     $grossPay = mysqli_real_escape_string($this->link, $snapshotData['gross_pay']);
+    //     $napsa = mysqli_real_escape_string($this->link, $snapshotData['napsa']);
+    //     $payrollDate = mysqli_real_escape_string($this->link, $snapshotData['payroll_date']);
+    //     $totalTaxPaid = mysqli_real_escape_string($this->link, $snapshotData['total_tax_paid']);
+
+    //     // Fetch relevant employee_earnings and employee_deductions data
+    //     $earningsData = $this->getRelevantEmployeeEarningsData($employeeNo, $employeeEarningsData);
+    //     $deductionsData = $this->getRelevantEmployeeDeductionsData($employeeNo, $employeeDeductionsData);
+
+    //     // Convert arrays to JSON for storage in the snapshot table
+    //     $earningsJson = json_encode($earningsData);
+    //     $deductionsJson = json_encode($deductionsData);
+
+    //     // Assuming payroll_snapshots table has columns like employee_no, pay, days_worked, etc.
+    //     $query = "INSERT INTO payroll_snapshots (employee_no, pay, days_worked, overtime_rate_hour, overtime, allowance, advances, insurance, commission, gross_pay, napsa, payroll_date, total_tax_paid, earnings_data, deductions_data) 
+    //               VALUES ('$employeeNo', '$pay', '$daysWorked', '$overtimeRateHour', '$overtime', '$allowance', '$advances', '$insurance', '$commission', '$grossPay', '$napsa', $payrollDate, '$totalTaxPaid', '$earningsJson', '$deductionsJson')";
+
+    //     $result = mysqli_query($this->link, $query);
+
+    //     if ($result) {
+    //         // Successful insertion
+    //         return true;
+    //     } else {
+    //         // Failed insertion
+    //         echo "Error: " . mysqli_error($this->link);
+    //         return false;
+    //     }
+    // }
+
+    // function getRelevantEmployeeEarningsData($employeeNo, $employeeEarningsData)
+    // {
+    //     // Fetch only the relevant earnings data where the value is not null
+    //     $relevantEarningsData = array();
+    //     foreach ($employeeEarningsData as $columnName => $value) {
+    //         if ($value !== null) {
+    //             $relevantEarningsData[$columnName] = $value;
+    //         }
+    //     }
+    //     return $relevantEarningsData;
+    // }
+
+    // function getRelevantEmployeeDeductionsData($employeeNo, $employeeDeductionsData)
+    // {
+    //     // Fetch only the relevant deductions data where the value is 1
+    //     $relevantDeductionsData = array();
+    //     foreach ($employeeDeductionsData as $columnName => $value) {
+    //         if ($value == 1) {
+    //             $relevantDeductionsData[$columnName] = $value;
+    //         }
+    //     }
+    //     return $relevantDeductionsData;
+    // }
 }

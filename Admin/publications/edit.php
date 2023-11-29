@@ -1,3 +1,9 @@
+<?php
+session_start();
+?>
+<!DOCTYPE html>
+<html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,89 +20,72 @@
     <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
+
+
+    <style>
+        #drop-area {
+            border: 2px dashed black;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        #pub {
+            margin: 3em;
+            border: 2px solid;
+        }
+
+        .pub {
+            padding: 3rem;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50rem;
+        }
+
+        .pub textarea {
+            width: 55rem;
+            height: 38rem;
+        }
+
+        .pub label {
+            width: 7rem;
+            margin: 0.5em;
+
+        }
+
+        #drop-area {
+            margin: 2rem 2rem 2rem 0;
+            width: 100%;
+        }
+
+        .pub input {
+            width: 70%;
+        }
+
+        .pub select {
+
+            width: 50%;
+            height: 2em;
+
+        }
+
+        .content {
+            min-height: 20px;
+        }
+    </style>
 </head>
 
-<body>
-    <div class="content-wrapper">
-        <style>
-            .bg-light-green {
-                background-color: #8CC63F;
-            }
-        </style>
-        <section class="content-header">
-            <h1>
-        </section>
-        <section class="content">
-
-
-            <div class="box-body">
-                <?php include '../navigation_panel/authenticated_user_header.php'; ?>
-            </div>
-        </section>
-
-
-
-        <style>
-            #drop-area {
-                border: 2px dashed black;
-                border-radius: 20px;
-                padding: 20px;
-                text-align: center;
-                font-size: 18px;
-            }
-
-            #pub {
-                margin: 3em;
-                border: 2px solid;
-            }
-
-            .pub {
-                padding: 3rem;
-                margin-left: auto;
-                margin-right: auto;
-                width: 50rem;
-            }
-
-            .pub textarea {
-                width: 55rem;
-                height: 38rem;
-            }
-
-            .pub label {
-                width: 7rem;
-                margin: 0.5em;
-
-            }
-
-            #drop-area {
-                margin: 2rem 2rem 2rem 0;
-                width: 100%;
-            }
-
-            .pub input {
-                width: 70%;
-            }
-
-            .pub select {
-
-                width: 50%;
-                height: 2em;
-
-            }
-
-            .content {
-                min-height: 20px;
-            }
-
-            .container-fluid,
-            .content {
-                background: white;
-            }
-        </style>
-
+<body class="hold-transition skin-green-light sidebar-mini">
+    <div class="wrapper">
 
         <?php
-        include '../navigation_panel/side_navigation_bar.php';
+        include_once '../navigation_panel/authenticated_user_header.php';
+        include_once '../navigation_panel/side_navigation_bar.php';
+
+        ?>
+
+        <?php
 
         if (isset($_POST['submit_publication'])) {
             $subject = $_POST['subject'];
@@ -173,45 +162,51 @@
         $query0 = mysqli_query($link, "SELECT * FROM publications ORDER BY date DESC") or die(mysqli_error($link));
         $rowCount = 0; // To keep track of the displayed rows
         ?>
-        <div class="container-fluid">
-            <table id="publication_table" class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>id</th>
-                        <th> date</th>
-                        <th>subject</th>
-                        <th>message</th>
-                        <th>Category</th>
-                        <th>Attachment</th>
-                        <th>Edit</th>
-                    </tr>
-                </thead>
-                <tbody>
+        <div class="content-wrapper">
+            <section class="content-header">
+                <h1>Edit Publications</h1>
+            </section>
+            <section class="content box">
 
-                    <?php
-                    $query0 = mysqli_query($link, "SELECT * FROM publications ORDER BY date DESC") or die(mysqli_error($link));
-                    $rowCount = 0;
-                    while ($row0 = mysqli_fetch_array($query0)) {
-
-                        $id = $row0['id'];
-                        $files = $row0['file'];
-                    ?>
-
-                        <tr class="del<?php echo $id ?>">
-                            <td><?php echo $row0['id']; ?></td>
-                            <td><?php echo $row0['date']; ?></td>
-                            <td><?php echo $row0['subject']; ?></td>
-                            <td><?php echo $row0['message']; ?></td>
-                            <td><?php echo $row0['category']; ?></td>
-                            <td><a href="../../files/<?php echo $files ?>" class="btn">view</a></td>
-                            <td><a href="./edit_form.php?id=<?php echo $id; ?>" class="btn">Edit</a> <a href="#" class="btn delete-btn">Delete</a></td>
+                <table id="publication_table" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th> date</th>
+                            <th>subject</th>
+                            <th>message</th>
+                            <th>Category</th>
+                            <th>Attachment</th>
+                            <th>Edit</th>
                         </tr>
-                    <?php } ?>
+                    </thead>
+                    <tbody>
 
-                </tbody>
+                        <?php
+                        $query0 = mysqli_query($link, "SELECT * FROM publications ORDER BY date DESC") or die(mysqli_error($link));
+                        $rowCount = 0;
+                        while ($row0 = mysqli_fetch_array($query0)) {
 
-            </table>
+                            $id = $row0['id'];
+                            $files = $row0['file'];
+                        ?>
 
+                            <tr class="del<?php echo $id ?>">
+                                <td><?php echo $row0['id']; ?></td>
+                                <td><?php echo $row0['date']; ?></td>
+                                <td><?php echo $row0['subject']; ?></td>
+                                <td><?php echo $row0['message']; ?></td>
+                                <td><?php echo $row0['category']; ?></td>
+                                <td><a href="../../files/<?php echo $files ?>" class="btn">view</a></td>
+                                <td><a href="./edit_form.php?id=<?php echo $id; ?>" class="btn">Edit</a> <a href="#" class="btn delete-btn">Delete</a></td>
+                            </tr>
+                        <?php } ?>
+
+                    </tbody>
+
+                </table>
+
+            </section>
         </div>
 
         <div class="control-sidebar-bg"></div>
@@ -280,3 +275,5 @@
 
 
 </body>
+
+</html>

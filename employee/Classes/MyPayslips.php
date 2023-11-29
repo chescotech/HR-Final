@@ -1,9 +1,8 @@
 <?php
 
-include_once 'DBClass.php';
-
 class MyPayslips
 {
+    private $link;
 
     function __construct()
     {
@@ -19,31 +18,49 @@ class MyPayslips
     public function getLoanMonthDedeductAmounts($empno, $date)
     {
         // $dateFormated = date_format(strtotime($date), "Y/m/d");
-        $result = mysqli_query($this->link, "SELECT * FROM loan WHERE empno='$empno' AND status='Pending' AND '$date' BETWEEN loan_date AND date_completion  ") or die(mysqli_error($this->link));
-        $rows = mysqli_fetch_array($result);
-        $loanAmount = $rows['monthly_deduct'];
-        return $loanAmount;
-    }
-    public function getDeductionValue($salary, $deducArray)
-    {
-        // var_dump(mysqli_fetch_assoc($deducArray));
-        $type = $deducArray['type'];
-        // if type is fixed
-        if ($type == 'fixed') {
-            return $deducArray['emp_fixed'];
-        } else
-        // otherwise, calculate
-        {
-            $deductAmount = $salary * ($deducArray['emp_calc_num'] / $deducArray['emp_calc_deno']);
-            // check if deduction amount is greater than max
-            if ($deductAmount > $deducArray['emp_upper_bound']) {
-                $deductAmount = $deducArray['emp_upper_bound_amnt'];
-            } else if ($deductAmount > $deducArray['emp_lower_bound']) {
-                $deductAmount = $deducArray['emp_lower_bound_amnt'];
-            }
-            // check if deduction amount is less than minimum
-            return $deductAmount;
+        $result = mysqli_query($this->link, "SELECT * FROM loan WHERE empno='$empno' AND '$date' BETWEEN loan_date AND date_completion  ") or die(mysqli_error($this->link));
+        if (mysqli_num_rows($result) == 0) {
+            return 0;
+        } else {
+            $rows = mysqli_fetch_array($result);
+            $loanAmount = $rows['monthly_deduct'];
+            return $loanAmount;
         }
+    }
+    public function getDeductionValue($salary, $deducName)
+    {
+        $deductionValue = 0;
+
+        $deductionRow = $this->getDeductionRow($deducName);
+
+        if ($deductionRow) {
+            $type = $deductionRow['type'];
+
+            if ($type == 'fixed') {
+                return $deductionRow['emp_fixed'];
+            } else {
+                $deductAmount = $salary * ($deductionRow['emp_calc_num'] / $deductionRow['emp_calc_deno']);
+
+                if ($deductAmount > $deductionRow['emp_upper_bound']) {
+                    $deductAmount = $deductionRow['emp_upper_bound_amnt'];
+                } else if ($deductAmount > $deductionRow['emp_lower_bound']) {
+                    $deductAmount = $deductionRow['emp_lower_bound_amnt'];
+                }
+
+                return $deductAmount;
+            }
+        }
+
+        return $deductionValue;
+    }
+
+    private function getDeductionRow($deduction)
+    {
+        // Replace this with your database query to fetch the deduction row
+        $query = "SELECT * FROM deductions WHERE name = '$deduction'";
+        $deductionRow = mysqli_query($this->link, $query);
+
+        return mysqli_fetch_assoc($deductionRow);
     }
 
     public function getRecurringDeductionValue()
@@ -51,29 +68,23 @@ class MyPayslips
         echo "Recurring";
     }
 
-    public function getMyDeductions($salary_arg, $emp_num_arg, $emp_ded_id_arg)
+    public function getMyDeductions($salary_arg, $emp_num_arg, $emp_ded_data)
     {
-        $query = mysqli_query($this->link, "SELECT * FROM employee_deductions WHERE id = '$emp_ded_id_arg'") or die(mysqli_error($this->link));
+        $deductions = json_decode($emp_ded_data, true);
         $sum = 0;
-        $data = mysqli_fetch_assoc($query);
 
-
-        foreach ($data as $key => $value) {
-            // key is the column name
-            $dQuery = mysqli_query($this->link, "SELECT * FROM deductions WHERE name LIKE '$key'");
-            $ded = mysqli_fetch_assoc($dQuery);
-
-            if ($value === '1') {
-                $ded_value = $this->getDeductionValue($salary_arg, $ded);
+        foreach ($deductions[0] as $key => $value) {
+            if ($value == '1') {
+                $ded_value = $this->getDeductionValue($salary_arg, $key);
                 $sum += $ded_value;
             }
         }
 
-        // recurring
         $rdQuery = mysqli_query($this->link, "SELECT * FROM emp_recurring_deductions WHERE employee_no = '$emp_num_arg' && status = 'Pending'") or die(mysqli_error($this->link));
-        $rdRow = mysqli_fetch_assoc($rdQuery);
-
-        $sum += $rdRow['monthly_deduct'];
+        if (mysqli_num_rows($rdQuery) > 0) {
+            $rdRow = mysqli_fetch_assoc($rdQuery);
+            $sum += $rdRow['monthly_deduct'];
+        }
 
         return $sum;
     }
@@ -99,6 +110,21 @@ class MyPayslips
         return $sum;
     }
 
+    public function getEmployeeCurrentEarnings($employeeEarningsJson)
+    {
+        $employeeEarnings = json_decode($employeeEarningsJson, true);
+        $sum = 0;
+        if (!empty($employeeEarnings)) {
+            foreach ($employeeEarnings[0] as $key => $value) {
+                if (!empty($value)) {
+                    $sum += intval($value);
+                }
+            }
+        }
+
+        return $sum;
+    }
+
     public function getEmployeeGrossPay($emp_no_arg, $date_arg)
     {
         // Get the month payslip from `employee` table
@@ -107,11 +133,11 @@ class MyPayslips
         $payslipResult = mysqli_query($this->link, $payslipQuery) or die("invalid query" . mysqli_error($this->link));
         $payslipRow = mysqli_fetch_array($payslipResult);
 
-        $payslip = $payslipRow['pay'] + ($payslipRow['otrate'] * $payslipRow['othrs']) + $payslipRow['allow'] + $payslipRow['advances'] + $payslipRow['comission'];
+        $payslip = $payslipRow['pay'] + ($payslipRow['otrate'] * $payslipRow['othrs']) + $payslipRow['allow'] + $payslipRow['comission'];
 
-        $earn_id = $payslipRow['earnings_id'];
+        // $earn_id = $payslipRow['earnings_data'];
         // Get earnings from `getEmployeeEarnings` function
-        $earnings = $this->getEmployeeEarnings($emp_no_arg);
+        $earnings = $this->getEmployeeCurrentEarnings($payslipRow['earnings_data']);
 
         // Add them up
         $gross = $payslip + $earnings;

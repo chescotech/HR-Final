@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -31,8 +34,6 @@
 <body class="hold-transition skin-green-light sidebar-mini">
     <div class="wrapper">
         <?php
-        error_reporting(0);
-
         include '../navigation_panel/authenticated_user_header.php';
         ?>
 

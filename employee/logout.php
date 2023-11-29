@@ -1,7 +1,9 @@
 <?php
 include_once '../include/dbconnection.php';
 
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 // retrieve client name
 $client = $_SESSION['CLIENT_NAME'];

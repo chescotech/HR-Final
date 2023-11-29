@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -39,8 +42,6 @@
                 <span class="logo-lg"><b>
 
                         <?php
-                        error_reporting(0);
-                        session_start();
                         $companyName = $_SESSION['company_name'];
 
                         echo $companyName;

@@ -1,9 +1,8 @@
 <?php
 
-include_once 'DBClass.php';
-
 class Loan
 {
+    private $link;
     function __construct()
     {
         $this->link = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME) or die('db connection problem' . mysqli_connect_error());

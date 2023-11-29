@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 error_reporting(0);
 ini_set('display_errors', 1);
 
@@ -10,6 +8,7 @@ if (!isset($_SESSION['employee_id'])) {
     header('Location:../../login.php');
 }
 include_once '../../Admin/Classes/Company.php';
+include_once '../../Admin/Classes/DBClass.php';
 $CompanyObject = new Company();
 $companyId = $_SESSION['company_ID'];
 $employeeId = $_SESSION['employee_id'];

@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -190,7 +193,7 @@
                                                     }
 
                                                     $band1 = $income * $band1_rate;
-                                                    $total_tax_paid = $TaxObject->TaxCal($starting_income, $compId); //$band1 + $band2 + $band3 + $band4;
+                                                    $total_tax_paid = $TaxObject->TaxCal($gross, $compId); //$band1 + $band2 + $band3 + $band4;
 
 
                                                     $totdeduct = $total_tax_paid + $row['advances'] + $row['insurance'] + $napsa;
@@ -218,7 +221,7 @@
                                                             <td>' . number_format($gross, 2) . '</td>
                                                             <td>' . number_format($chargbleEmTaxPeriod, 2) . '</td>
                                                             <td>0.00</td>
-                                                            <td>' . number_format($total_tax_paid, 2) . '</td>
+                                                            <td>' . number_format($row['payee'], 2) . '</td>
                                                             <td>0.00</td>
                                                         </tr>  
                                                         ';

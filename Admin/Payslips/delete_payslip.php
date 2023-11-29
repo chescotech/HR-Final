@@ -1,3 +1,6 @@
+<?php
+session_start()
+?>
 <!DOCTYPE html>
 <html>
 
@@ -77,6 +80,8 @@
     <div class="wrapper">
 
         <?php
+        include '../../include/dbconnection.php';
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Department.php';
         include_once '../Classes/Payslips.php';
         include_once '../Classes/Loans.php';
@@ -86,7 +91,6 @@
         $PaySlipsObject = new Payslips();
         $TaxObject = new Tax();
 
-        include '../navigation_panel/authenticated_user_header.php';
         //$companyId = $_SESSION['username'];
         $compId = $_SESSION['company_ID'];
         ?>
@@ -116,7 +120,7 @@
 
                 array_map(function ($empno1, $days_worked1, $overtime_rate_hour1, $overtime1, $allowance1, $advances1, $insurance1, $commision1) {
                     // return var_dump($staffer1);
-                    global $DepartmentObject, $TaxObject, $compId, $PaySlipsObject, $LoanObject, $time;
+                    global $DepartmentObject, $TaxObject, $compId, $PaySlipsObject, $LoanObject, $time, $link;
 
                     $Grosspay = $DepartmentObject->getBasicPay($empno1) + $DepartmentObject->getAllowances($empno1);
                     // Hide
@@ -213,7 +217,7 @@
             $empnos = $_POST['staffer'];
             // return var_dump($month);
             array_map(function ($empno) {
-                global $time;
+                global $time, $link;
                 mysqli_query($link, "DELETE FROM employee where empno='$empno' AND DATE(time) ='$time' ") or die(mysqli_error($link));
             }, $empnos);
 

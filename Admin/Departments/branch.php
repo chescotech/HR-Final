@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -125,22 +128,28 @@
                                     <tbody>
                                         <?php
                                         $res_q = mysqli_query($link, "SELECT * FROM branch ");
-                                        while ($rows = mysqli_fetch_array($res_q)) {
-                                            $b_name = $rows['name'];
-                                            $b_id = $rows['id'];
-                                            $lati = $rows['lati'];
-                                            $longi = $rows['longi'];
+                                        if (mysqli_num_rows($res_q) == 0) {
+                                            echo "No Records Found";
+                                        } else {
+                                            while ($rows = mysqli_fetch_array($res_q)) {
+                                                $b_name = $rows['name'];
+                                                $b_id = $rows['id'];
+                                                $lati = $rows['lati'];
+                                                $longi = $rows['longi'];
                                         ?>
-                                            <tr>
-                                                <td><?php echo $b_name ?></td>
-                                                <td><?php echo $lati ?></td>
-                                                <td><?php echo $longi ?></td>
-                                                <!-- <td>Update</td> -->
-                                                <td>
-                                                    <a href="?del=<?php echo $b_id ?>" class="label label-danger"> Delete </a>
-                                                </td>
-                                            </tr>
-                                        <?php } ?>
+                                                <tr>
+                                                    <td><?php echo $b_name ?></td>
+                                                    <td><?php echo $lati ?></td>
+                                                    <td><?php echo $longi ?></td>
+                                                    <!-- <td>Update</td> -->
+                                                    <td>
+                                                        <a href="?del=<?php echo $b_id ?>" class="label label-danger"> Delete </a>
+                                                    </td>
+                                                </tr>
+                                        <?php
+                                            }
+                                        }
+                                        ?>
                                     </tbody>
                                 </table>
 

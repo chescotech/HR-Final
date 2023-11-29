@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -77,6 +80,7 @@
     <div class="wrapper">
 
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
 
         include_once '../Classes/Department.php';
         include_once '../Classes/Payslips.php';
@@ -90,7 +94,6 @@
         $TaxObject = new Tax();
         $RecurringDeductionsObject = new RecurringDeductions();
 
-        include '../navigation_panel/authenticated_user_header.php';
         //$companyId = $_SESSION['username'];
         $compId = $_SESSION['company_ID'];
         ?>
@@ -391,14 +394,22 @@
             $overtime_rate_hour1 = $_POST['overtime_rate_hour'];
             $days_worked1 = $_POST['days_worked'];
 
-            $Grosspay = $PaySlipsObject->getEmployeeEarnings($empno1);
+            // $earningsQuery = "SELECT * FROM employee_earnings WHERE employee_no='$empno1'";
+            // $earningsResult = mysqli_query($link, $earningsQuery) or die("invalid query" . mysqli_error($link));
+
+            // $earningsRow = mysqli_fetch_assoc($earningsResult);
+
+            // $slicedEarningsRow = array_slice($earningsRow, 4, null, true);
+
+
+            $Grosspay = (int)$PaySlipsObject->getEmployeeBasicPay($empno1)['basic_pay'] + (int)$PaySlipsObject->getEmployeeEarningsTotal($empno1);
 
             // Hide
-            //echo '$Grosspay'.$Grosspay;
+            // echo '$Grosspay' . $Grosspay;
             $totalpay = ($Grosspay / 26) * $days_worked1;
             $pay = $totalpay;
 
-            $gross = ($pay) + ($overtime_rate_hour1 * $overtime1) + $allowance1 + $commision1;
+            $gross = ($overtime_rate_hour1 * $overtime1) + $allowance1 + $commision1 + $Grosspay;
             $napsa = $gross * 0.05;
             if ($TaxObject->getEmployeeAge($empno1) < 55) {
                 $napsa = $gross * 0.05;
@@ -447,21 +458,29 @@
             $taxable = $gross - $income;
             // hide
 
+
             if ($PaySlipsObject->checkIfRecordExsists($empno1, $time) == "false") {
+                // Fetch data from employee_earnings
+                $earningsData = array();
+                $earningsQuery = "SELECT * FROM employee_earnings WHERE employee_no = '$empno1'";
+                $earningsResult = mysqli_query($link, $earningsQuery);
 
-                // if (isset($staffer1)) {
-                $empDedQuery = mysqli_query($link, "SELECT id FROM employee_deductions WHERE employee_no='$empno1'") or die(mysqli_error($link));
-                // find earnings in earnings table
-                $empEarnQuery = mysqli_query($link, "SELECT id FROM employee_earnings WHERE employee_no='$empno1'") or die(mysqli_error($link));
+                while ($earningsRow = mysqli_fetch_assoc($earningsResult)) {
+                    $slicedEarningsRow = array_slice($earningsRow, 4, null, true);
+                    $earningsData[] = $slicedEarningsRow;
+                }
 
+                // Fetch data from employee_deductions
+                $deductionsData = array();
+                $deductionsQuery = "SELECT * FROM employee_deductions WHERE employee_no = '$empno1'";
+                $deductionsResult = mysqli_query($link, $deductionsQuery);
 
-                $dedRow = mysqli_fetch_array($empDedQuery);
-                $earnRow = mysqli_fetch_array($empEarnQuery);
+                while ($deductionsRow = mysqli_fetch_assoc($deductionsResult)) {
+                    $deductionsRow = array_slice($deductionsRow, 4, null, true);
+                    $deductionsData[] = $deductionsRow;
+                }
 
-                $earnID = $earnRow['id'] ? $earnRow['id'] : 0;
-                $dedID = $dedRow['id'] ? $dedRow['id'] : 0;
-
-                $PaySlipsObject->addEmpPayslipInfo($empno1, $pay, $days_worked1, $overtime_rate_hour1, $overtime1, $allowance1, $advances1, $insurance1, $time, $commision1, $compId, $earnID, $dedID);
+                $PaySlipsObject->addEmpPayslipInfo($empno1, $pay, $days_worked1, $overtime_rate_hour1, $overtime1, $allowance1, $advances1, $insurance1, $time, $commision1, $total_tax_paid, $napsa, $compId, json_encode($earningsData), json_encode($deductionsData));
 
                 $checkQuery = "SELECT * FROM tax where empno='$empno1'";
                 $checkIfEmployeeExsist = mysqli_query($link, $checkQuery) or die("invalid query" . mysqli_error($link));

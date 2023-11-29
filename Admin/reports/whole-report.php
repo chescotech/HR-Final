@@ -1,3 +1,6 @@
+<?php
+session_start()
+?>
 <!DOCTYPE html>
 <html>
 
@@ -26,6 +29,7 @@
 <body class="hold-transition skin-green-light sidebar-mini">
     <div class="wrapper">
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Employee.php';
         include_once '../Classes/Loans.php';
         include_once '../Classes/Tax.php';
@@ -35,7 +39,6 @@
         $loanObj = new Loans();
         $TaxObject = new Tax();
 
-        include '../navigation_panel/authenticated_user_header.php';
 
         $compId = $_SESSION['company_ID'];
         ?>
@@ -140,10 +143,10 @@
                                                 $result = mysqli_query($link, $query) or die($query . "<br/><br/>" . mysqli_error($link));
 
                                                 $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-                                                $balance = $row['loan_amt'];
-                                                $interest = $row['interest'];
-                                                $months = $row['duration'];
-                                                $deduct = $row['monthly_deduct'];
+                                                // $balance = $row['loan_amt'];
+                                                // $interest = $row['interest'];
+                                                // $months = $row['duration'];
+                                                // $deduct = $row['monthly_deduct'];
                                                 $band1_top = "";
                                                 $band1_rate = "";
                                                 $band2_top = "";
@@ -160,15 +163,15 @@
                                                 $result2 = mysqli_query($link, $query2) or die(mysqli_error($link));
                                                 $sum = 0;
                                                 while ($row = mysqli_fetch_array($result2)) {
-                                                    $earn_id = $row['earnings_id'];
-                                                    $ded_id = $row['deductions_id'];
+                                                    $earn_data = $row['earnings_data'];
+                                                    $ded_data = $row['deductions_data'];
 
-                                                    $earnings = $PaySlipObject->getEmployeeEarnings($earn_id);
+                                                    $earnings = $PaySlipObject->getEmployeeEarnings($earn_data);
 
                                                     $empoyeeNo = $row['empno'];
                                                     $gross = $PaySlipObject->getEmployeeGrossPay($empoyeeNo, $year . '-' . $month . '-' . $day);
 
-                                                    $emp_deductions = $PaySlipObject->getEmployeeDeductions($gross, $empoyeeNo, $ded_id);
+                                                    $emp_deductions = $PaySlipObject->getEmployeeDeductions($gross, $empoyeeNo, $ded_data, $row['time']);
 
                                                     if ($TaxObject->getEmployeeAge($row['empno']) < 55) {
                                                         $napsa = $gross * 0.05;
@@ -211,16 +214,19 @@
                                                     }
 
                                                     $band1 = $income * $band1_rate;
-                                                    $total_tax_paid = $TaxObject->TaxCal($starting_income, $compId); //$band1 + $band2 + $band3 + $band4;
+                                                    $total_tax_paid = $TaxObject->TaxCal($gross, $compId); //$band1 + $band2 + $band3 + $band4;
 
                                                     $date_compare = date('Y-m-d', strtotime($row['time']));
-                                                    if ($loanObj->getLoanMonthDedeductAmount($empoyeeNo, $date_compare) == "") {
+
+                                                    if ($loanObj->getLoanMonthDedeductAmounts($empoyeeNo, $date_compare) == "") {
                                                         $lAmount = 0;
                                                     } else {
                                                         $lAmount = $loanObj->getLoanMonthDedeductAmount($empoyeeNo, $date_compare);
                                                     }
 
-                                                    // echo $total_tax_paid . " " . $row['advances'] . " " . $row['insurance'] . " " . $lAmount . " " . $napsa . " " . $row['health_insurance'] . " " . $row['pension'] . " " . $emp_deductions;
+                                                    
+
+                                                    // echo "emp: " . $total_tax_paid . " " . $row['advances'] . " " . $row['insurance'] . " " . $lAmount . " " . $napsa . " " . $row['health_insurance'] . " " . $row['pension'] . " " . $emp_deductions;
 
                                                     $totdeduct = $total_tax_paid + $row['advances'] + $row['insurance'] + $lAmount + $napsa + $row['health_insurance'] + $row['pension'] + $emp_deductions;
                                                     $netpay = ($gross - $totdeduct);

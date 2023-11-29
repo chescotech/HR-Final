@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -29,12 +32,11 @@
 <body class="hold-transition skin-green-light sidebar-mini">
     <div class="wrapper">
         <?php
-        error_reporting(0);
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Employee.php';
         include_once '../Classes/Loans.php';
         $EmployeeObject = new Employee();
         $loanObj = new Loans();
-        include '../navigation_panel/authenticated_user_header.php';
         $compId = $_SESSION['company_ID'];
         ?>
 
@@ -123,8 +125,8 @@
                                                             <td>' . $SNo . '</td>                                                            
                                                             <td>' . $row['fname'] . " " . $row['lname'] . '</td>
                                                             <td>' . $diff . ' Months</td>
+                                                            <td>' . $getEmployerPensionTotal . '</td> 
                                                             <td>' . $getEmployeePensionTotal . '</td> 
-                                                             <td>' . $getEmployerPensionTotal . '</td> 
                                                             <td>' . number_format($pensionAmount, 2) . '</td>                                                          
                                                         </tr>  
 

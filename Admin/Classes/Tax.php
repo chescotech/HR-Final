@@ -1,7 +1,5 @@
 <?php
 
-include_once 'DBClass.php';
-
 class Tax
 {
     private $link;

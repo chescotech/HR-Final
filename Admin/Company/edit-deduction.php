@@ -1,5 +1,5 @@
 <?php
-error_reporting(0);
+session_start();
 ?>
 <!DOCTYPE html>
 <html>
@@ -27,9 +27,9 @@ error_reporting(0);
     <div class="wrapper">
 
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Department.php';
         $DepartmentObject = new Department();
-        include '../navigation_panel/authenticated_user_header.php';
         ?>
 
         <?php include '../navigation_panel/side_navigation_bar.php'; ?>
@@ -49,7 +49,8 @@ error_reporting(0);
             <?php
             if (isset($_POST['update_'])) {
                 // variable
-                $type = $_POST['calculated'] == 'on' ? 'calculated' : 'fixed';
+                $type = isset($_POST['calculated']) && $_POST['calculated'] == 'on' ? 'calculated' : 'fixed';
+
                 // fixed amounts
                 $emp_fixed = $_POST['fixed_amount_emp'];
                 $comp_fixed = $_POST['fixed_amount_comp'];
@@ -106,7 +107,8 @@ error_reporting(0);
                 } else {
                     $message = "Failed to update the deduction information.";
                 }
-                header("Location:edit-deduction.php?id='$ded_id'");
+                // header("Location:edit-deduction.php?id='$ded_id'");
+                echo '<script> window.location.replace("edit-deduction.php?id=' . $ded_id . '");</script>';
             }
             ?>
 
@@ -306,7 +308,7 @@ error_reporting(0);
                                                     </div>
                                                     <div class="row">
                                                         <div class="form-group">
-                                                            <input name="short_desc" class="form-control" type="text" value="<?= $row['name'] ?>" id="" value="<?= $row['short_desc']; ?>" readonly>
+                                                            <input name="short_desc" class="form-control" type="text" value="<?= $row['name'] ?>" id="" value="<?= $row['name']; ?>" readonly>
                                                         </div>
                                                         <input type="hidden" name="orig_name" value="<?= $row['name'] ?>">
                                                     </div>

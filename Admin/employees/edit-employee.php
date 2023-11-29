@@ -1,5 +1,5 @@
 <?php
-error_reporting(0);
+session_start()
 ?>
 
 <!DOCTYPE html>
@@ -75,9 +75,9 @@ error_reporting(0);
             $basic_pay = $_POST['basic_pay'];
             $payment_method = $_POST['payment_method'];
 
-            $house_allowance = $_POST['house_allowance'];
-            $transport_allowance = $_POST['transport_allowance'];
-            $lunch_allowance = $_POST['lunch_allowance'];
+            // $house_allowance = $_POST['house_allowance'];
+            // $transport_allowance = $_POST['transport_allowance'];
+            // $lunch_allowance = $_POST['lunch_allowance'];
             $branch_code = $_POST['branch_code'];
 
             // fetch the data for earnings
@@ -287,14 +287,14 @@ error_reporting(0);
             $emp_log = mysqli_query($link, "INSERT INTO emp_log(company_id, action, action_user) VALUES('$companyId','$action','$emp_id')") or die(mysqli_error($link));
 
 
-            $result = mysqli_query($link, "SELECT * FROM allowances_tb WHERE emp_no = '$empno' ");
-            if (mysqli_num_rows($result) > 0) {
-                mysqli_query($link, "UPDATE allowances_tb SET house_allowance ='$house_allowance',transport_allowance='$transport_allowance',"
-                    . "lunch_allowance='$lunch_allowance' WHERE emp_no= '$empno'");
-            } else {
-                mysqli_query($link, "INSERT allowances_tb(house_allowance,transport_allowance,lunch_allowance,emp_no,company_id) "
-                    . "VALUES('$house_allowance','$transport_allowance','$lunch_allowance','$empno','4')");
-            }
+            // $result = mysqli_query($link, "SELECT * FROM allowances_tb WHERE emp_no = '$empno' ");
+            // if (mysqli_num_rows($result) > 0) {
+            //     mysqli_query($link, "UPDATE allowances_tb SET house_allowance ='$house_allowance',transport_allowance='$transport_allowance',"
+            //         . "lunch_allowance='$lunch_allowance' WHERE emp_no= '$empno'");
+            // } else {
+            //     mysqli_query($link, "INSERT allowances_tb(house_allowance,transport_allowance,lunch_allowance,emp_no,company_id) "
+            //         . "VALUES('$house_allowance','$transport_allowance','$lunch_allowance','$empno','4')");
+            // }
 
             $stateMessage = "Employee information Successully updated !!";
         }
@@ -447,7 +447,17 @@ error_reporting(0);
                                         <label>Leave Approver Group:</label>
                                         <div class="form-group">
                                             <select name="leaveworkflow_id" class="form-control">
-                                                <option value="<?php $rows['leaveworkflow_id'] ?>"><?php echo $CompanyObject->getApproverByID($rows['leaveworkflow_id']); ?></option>
+                                                <?php
+                                                if ($rows['leaveworkflow_id'] != NULL) {
+                                                ?>
+                                                    <option value="<?php $rows['leaveworkflow_id'] ?>"><?php echo $CompanyObject->getApproverByID($rows['leaveworkflow_id']); ?></option>
+                                                <?php
+                                                } else {
+                                                ?>
+                                                    <option value="">Select a leave workflow group</option>
+                                                <?php
+                                                }
+                                                ?>
                                                 <?php
                                                 $departmentquery = $CompanyObject->getApproverList();
                                                 while ($row = mysqli_fetch_array($departmentquery)) {
@@ -559,7 +569,7 @@ error_reporting(0);
                                         <label>Employee Grade:</label><span style="color:red; font-size: large;" title="Required">* </span>
                                         <div class="form-horizontal">
                                             <select name="emp_grade" class="form-control">
-                                                <option value="<?php echo $rows['grade']; ?>">- Currently in <?php echo $rows['employee_grade']; ?> -</option>
+                                                <option value="<?php echo $rows['employee_grade']; ?>">- Currently in <?php echo $rows['employee_grade']; ?> -</option>
                                                 <?php
                                                 $compName = $_SESSION['username'];
                                                 $CompanyQuery = mysqli_query($link, "SELECT grade FROM grade where company_ID='$companyId'") or die(mysqli_error($link));
@@ -718,13 +728,17 @@ error_reporting(0);
                                                         $link,
                                                         "SELECT * FROM `employee_deductions` WHERE employee_id = '$empl_id' AND company_id = '$companyId'"
                                                     ) or die(mysqli_error($link));
-                                                    $deductionRow = mysqli_fetch_assoc($employeeDeductions);
-                                                    foreach ($deductionRow as $deductionColumn => $deductionValue) {
-                                                        // Check if the deduction value is set
-                                                        if ($deductionValue === '1') {
-                                                            $deductionValues[] = $deductionColumn;
+
+                                                    if (mysqli_num_rows($employeeDeductions) > 0) {
+                                                        $deductionRow = mysqli_fetch_assoc($employeeDeductions);
+                                                        foreach ($deductionRow as $deductionColumn => $deductionValue) {
+                                                            // Check if the deduction value is set
+                                                            if ($deductionValue == '1') {
+                                                                $deductionValues[] = $deductionColumn;
+                                                            }
                                                         }
                                                     }
+
 
                                                     while ($ded_row = mysqli_fetch_array($deductions)) {
                                                     ?>

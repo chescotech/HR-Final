@@ -1,7 +1,5 @@
 <?php
 
-include_once 'DBClass.php';
-
 include_once 'Tax.php';
 include_once 'Payslips.php';
 
@@ -386,18 +384,26 @@ class Loans
 
     public function getLoanMonthDedeductAmount($empno)
     {
-        $result = mysqli_query($this->link, "SELECT * FROM loan WHERE empno='$empno' AND status='Pending'");
-        $rows = mysqli_fetch_array($result);
-        $loanAmount = $rows['monthly_deduct'];
-        return $loanAmount;
+        $result = mysqli_query($this->link, "SELECT * FROM loan WHERE empno='$empno'");
+
+        if (mysqli_num_rows($result) == 0) {
+            return 0;
+        } else {
+            $rows = mysqli_fetch_array($result);
+            $loanAmount = $rows['monthly_deduct'];
+            return $loanAmount;
+        }
     }
 
     public function getLoanMonthDedeductAmounts($empno, $date)
     {
         $result = mysqli_query($this->link, "SELECT * FROM loan WHERE empno='$empno' AND '$date' BETWEEN loan_date AND date_completion  ");
-        $rows = mysqli_fetch_array($result);
-        $loanAmount = $rows['monthly_deduct'];
-        return $loanAmount;
+        if (mysqli_num_rows($result) > 0) {
+            $rows = mysqli_fetch_array($result);
+            $loanAmount = $rows['monthly_deduct'];
+            return $loanAmount;
+        }
+        return 0;
     }
 
     public function getTopBand1($company_ID)
@@ -528,7 +534,7 @@ class Loans
         while ($row = mysqli_fetch_array($result2)) {
             // $earnings = $PayslipObject->getEmployeeEarnings($row['earnings_id']);
 
-            $gross = $PayslipObject->getEmployeeGrossPay($row['empno'], $row['date']);
+            $gross = $PayslipObject->getEmployeeGrossPay($row['empno'], $row['time']);
             $empoyeeNo = $row['empno'];
             $napsa = $gross * 0.05;
             if ($this->getEmployeeAge($empno) < 55) {
@@ -573,7 +579,7 @@ class Loans
 
             $band1 = $income * $band1_rate;
             $total_tax_paid = $band1 + $band2 + $band3 + $band4;
-            $totdeduct = $total_tax_paid + $row['advances'] + $row['insurance'] + $napsa;
+            $totdeduct = $row['payee'] + $row['advances'] + $row['insurance'] + $row['napsa'] + $row['health_insurance'];
 
             if ($this->getLoanMonthDedeductAmount($empoyeeNo) == "") {
                 $lAmount = 0;
@@ -586,7 +592,7 @@ class Loans
             $sum += $totdeduct;
         }
 
-        return number_format($sum);
+        return number_format($sum, 2);
     }
 
     public function getNapsaCeiling($company_ID)

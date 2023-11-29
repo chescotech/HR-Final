@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -29,12 +32,12 @@
 <body class="hold-transition skin-green-light sidebar-mini">
     <div class="wrapper">
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Employee.php';
         include_once '../Classes/Loans.php';
         $EmployeeObject = new Employee();
         $loanObj = new Loans();
 
-        include '../navigation_panel/authenticated_user_header.php';
 
         $compId = $_SESSION['company_ID'];
         ?>

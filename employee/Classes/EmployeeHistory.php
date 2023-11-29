@@ -1,6 +1,4 @@
 <?php
-
-include 'DBClass.php';
 include_once '../../dbconnection.php';
 
 class EmployeeHistory

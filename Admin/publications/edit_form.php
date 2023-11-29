@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -71,9 +74,9 @@
     <div class="wrapper">
 
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Group.php';
         $GroupObject = new Group();
-        include '../navigation_panel/authenticated_user_header.php';
         ?>
 
         <?php

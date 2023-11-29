@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -33,7 +36,7 @@
     <div class="wrapper">
 
         <?php
-        error_reporting(0);
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Department.php';
         include_once '../Classes/Payslips.php';
         include_once '../Classes/Loans.php';
@@ -42,7 +45,6 @@
         $DepartmentObject = new Department();
         $PaySlipsObject = new Payslips();
 
-        include '../navigation_panel/authenticated_user_header.php';
 
         $compId = $_SESSION['company_ID'];
         ?>

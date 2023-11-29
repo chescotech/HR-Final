@@ -1,6 +1,5 @@
 <?php
-session_start();
-error_reporting(E_ALL);
+error_reporting(0);
 ini_set('display_errors', 1);
 
 if (!isset($_SESSION['company_ID'])) {
@@ -8,6 +7,7 @@ if (!isset($_SESSION['company_ID'])) {
     exit();
 }
 
+include_once '../Admin/Classes/DBClass.php';
 include_once('../include/dbconnection.php');
 include_once '../Admin/Classes/Company.php';
 include_once '../Admin/Classes/Reminders.php';

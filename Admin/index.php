@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <html>
 
 <head>
@@ -43,7 +46,9 @@
 
                     </b></span>
             </a>
-            <?php include 'navigation_panel/main_menu.php'; ?>
+            <?php
+            include_once 'navigation_panel/main_menu.php';
+            ?>
         </header>
         <aside class="main-sidebar">
             <section class="sidebar">

@@ -1,5 +1,5 @@
 <?php
-error_reporting(0);
+session_start();
 ?>
 <!DOCTYPE html>
 <html>
@@ -183,7 +183,7 @@ error_reporting(0);
                                                 $band3_rate = $TaxObject->getBandRate3($compId) / 100;
                                                 $band4_rate = $TaxObject->getBandRate4($compId) / 100;
 
-                                                $starting_income = $income = $gross - $napsa_calc;
+                                                $starting_income = $income = $gross - (int)$napsa_calc;
 
                                                 $band1 = $band2 = $band3 = $band4 = 0;
 
@@ -233,7 +233,7 @@ error_reporting(0);
                                                             <td> </td> 
                                                             <td>' . $DepartmentObject->getDOB($row['empno']) . '</td> 
                                                             <td> ' . $gross . '</td> 
-                                                            <td>' . $napsa . '</td> 
+                                                            <td>' . $row['napsa'] . '</td> 
                                                             <td>' . $napsa . '</td>                                                                                                                    
                                                         </tr>  
 

@@ -1,5 +1,5 @@
 <?php
-error_reporting(0);
+session_start();
 ?>
 <!DOCTYPE html>
 <html>
@@ -80,6 +80,7 @@ error_reporting(0);
     <div class="wrapper">
 
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Department.php';
         include_once '../Classes/Payslips.php';
         include_once '../Classes/Loans.php';
@@ -89,7 +90,6 @@ error_reporting(0);
         $PaySlipsObject = new Payslips();
         $TaxObject = new Tax();
 
-        include '../navigation_panel/authenticated_user_header.php';
         //$companyId = $_SESSION['username'];
         $compId = $_SESSION['company_ID'];
         ?>

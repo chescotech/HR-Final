@@ -1,6 +1,5 @@
 <?php include_once '../../dbconnection.php';
 
-include 'DBClass.php';
 
 class Department
 {
@@ -124,7 +123,7 @@ class Department
         $mp = trim($empno);
 
         $res = mysqli_query($this->link, "INSERT INTO emp_info(empno,fname,lname,init,gender
-                ,bdate,dept,position,phone,address,email,bank,account,
+                ,bdate,dept,position,phone,address,email,bank,account,status,
                 date_joined,date_left,employee_grade,marital_status
                 ,payment_method,leave_days,company_id,password,gross_pay,
                 nok_name, nok_relationship, nok_email, nok_address, nok_phone, 
@@ -132,12 +131,13 @@ class Department
                 has_gratuity,gatuity_amount,photo,nrc_file,tpin)
                 VALUES('$mp','$fname','$lname',' $init','$gender', 
                 '$bdate', '$dept' , '$position','$phone', '$address', 
-                '$email', '$bank','$account','$dateJoined','$dateLeft'
+                '$email', '$bank','$account','Active','$dateJoined','$dateLeft'
                 ,'$EmployeeGrade','$mStatus','$payMethod' ,'$leaveDays',
                 '$companyId','$password','$gross_pay','$nok_name', '$nok_relationship', '$nok_email', '$nok_address', '$nok_phone','$NRC',
                 '$employment_type','$probation_deadline','$employee_type','$basic_pay','$social','$branch_code','$has_gratuity','$gatuity_amount','$img','$nrc_file','$tpin' )") or die(mysqli_error($this->link));
+        $new_emp_id = mysqli_insert_id($this->link);
 
-        return $res;
+        return $new_emp_id;
     }
 
     public function getEmpCount($companyID)

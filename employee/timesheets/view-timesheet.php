@@ -1,5 +1,5 @@
 <?php
-error_reporting(0)
+session_start();
 ?>
 <!DOCTYPE html>
 
@@ -30,12 +30,13 @@ error_reporting(0)
     <div class="wrapper">
 
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
+
         include_once '../Classes/Timesheets.php';
         include_once '../Classes/EmployeeHistory.php';
         $EmpHistoryObject = new EmployeeHistory();
-        $TimesheetObject = new Timesheets();
+        $TimesheetObject = new Timesheets($link);
 
-        include '../navigation_panel/authenticated_user_header.php';
         ?>
 
         <?php include '../navigation_panel/side_navigation_bar.php'; ?>

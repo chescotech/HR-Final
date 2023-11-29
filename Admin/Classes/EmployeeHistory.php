@@ -1,7 +1,5 @@
 <?php include_once '../../dbconnection.php';
 
-include 'DBClass.php';
-
 class EmployeeHistory
 {
     private $link;

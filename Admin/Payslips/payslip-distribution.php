@@ -1,5 +1,5 @@
 <?php
-error_reporting(0);
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -36,6 +36,7 @@ error_reporting(0);
 <body class="hold-transition skin-green-light sidebar-mini">
     <div class="wrapper">
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
 
         include_once '../Classes/Department.php';
         include_once '../Classes/Payslips.php';
@@ -45,7 +46,6 @@ error_reporting(0);
         $DepartmentObject = new Department();
         $PaySlipsObject = new Payslips();
 
-        include '../navigation_panel/authenticated_user_header.php';
         $companyId = $_SESSION['company_ID'];
 
         ?>

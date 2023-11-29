@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -33,6 +36,7 @@
     <div class="wrapper">
 
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Department.php';
         include_once '../Classes/RecurringDeductions.php';
         require_once('../../PHPmailer/sendmail.php');
@@ -42,7 +46,6 @@
         $DepartmentObject = new Department();
         $RecurringDeductionsObject = new RecurringDeductions();
 
-        include '../navigation_panel/authenticated_user_header.php';
 
         $compID = $_SESSION['company_ID'];
         ?>
@@ -68,8 +71,7 @@
 
             $RecurringDeductionsObject->updateRecurringDeduction($empno, $deduction_amount, $monthly_deduction, $duration, $LoanDate, $deadLine, $companyId, $status, $deduction_type);
 
-            $message = "Recurring Deduction Successfully Created!!";
-            $message = "Recurring Deduction Successfully Created!!";
+            $message = "Recurring Deduction Successfully Updated!!";
         }
         ?>
 
@@ -115,7 +117,7 @@
                                 <div class="box-body">
                                     <label>Monthly Deduction:</label>
                                     <div class="form-group">
-                                        <input required="required" name="monthly_deduction" class="form-control" placeholder="Monthly Deduction:" value="<?= $deduct['monthly_deduct'] ?>">
+                                        <input required="required" name="monthly_deduction" class="form-control" placeholder="Monthly Deduction:" value="<?= $deduct['monthly_deduct'] ?>" readOnly>
                                     </div>
                                 </div>
 
@@ -154,6 +156,24 @@
         <div class="control-sidebar-bg"></div>
     </div><!-- ./wrapper -->
 
+    <script>
+        const deductionAmountInput = document.querySelector('input[name="deduction_amount"]');
+        const monthsInput = document.querySelector('input[name="months"]');
+        const monthlyDeductionInput = document.querySelector('input[name="monthly_deduction"]');
+
+        deductionAmountInput.addEventListener('input', updateMonthlyDeduction);
+        monthsInput.addEventListener('input', updateMonthlyDeduction);
+
+        function updateMonthlyDeduction() {
+            const deductionAmount = parseFloat(deductionAmountInput.value);
+            const months = parseInt(monthsInput.value);
+
+            if (!isNaN(deductionAmount) && !isNaN(months)) {
+                const monthlyDeduction = deductionAmount / months;
+                monthlyDeductionInput.value = monthlyDeduction.toFixed(2);
+            }
+        }
+    </script>
 
     <script src="../bootstrap/js/bootstrap.min.js"></script>
     <!-- Slimscroll -->

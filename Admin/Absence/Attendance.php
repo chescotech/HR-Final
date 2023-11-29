@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -149,10 +152,10 @@
                                                     WHERE
                                                     emp_info.company_id = '$compID' AND log_date BETWEEN '$firstDate' AND '$endDate'     $filter_by_dept ") or die(mysqli_error($link));
 
-                                                echo "SELECT * FROM attendance_logs
-                                                    inner join emp_info on emp_info.empno=attendance_logs.empno     
-                                                    WHERE
-                                                    emp_info.company_id = '$compID' AND log_date BETWEEN '$firstDate' AND '$endDate'     $filter_by_dept ";
+                                                // echo "SELECT * FROM attendance_logs
+                                                //     inner join emp_info on emp_info.empno=attendance_logs.empno     
+                                                //     WHERE
+                                                //     emp_info.company_id = '$compID' AND log_date BETWEEN '$firstDate' AND '$endDate'     $filter_by_dept ";
                                             } else {
 
                                                 $arr = explode("/", $convertedDate);

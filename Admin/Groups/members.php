@@ -1,5 +1,5 @@
 <?php
-error_reporting(0);
+session_start();
 ?>
 <!DOCTYPE html>
 <html>
@@ -26,9 +26,9 @@ error_reporting(0);
     <div class="wrapper">
 
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Group.php';
         $GroupObject = new Group();
-        include '../navigation_panel/authenticated_user_header.php';
         ?>
 
         <?php

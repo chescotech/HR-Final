@@ -1,6 +1,4 @@
-<?php include_once
-
-    include_once 'DBClass.php';
+<?php
 
 
 class Qualifications

@@ -1,9 +1,8 @@
 <?php
 
-include_once 'DBClass.php';
-
 class Leave
 {
+    private $link;
 
     function __construct()
     {
@@ -17,7 +16,7 @@ class Leave
         $res = mysqli_query($this->link, "INSERT INTO leave_applications_tb(leave_start_date,leave_end_date, 
         leave_type,empno,status,reason_leave,contact,contact_person,address_on_leave,file_proof,application_date,level,days)
          VALUES('$startLeave','$endLeave','$leaveType','$empNo','$status',
-        '$reasonLeave','$contact','$contact_person','$address_on_leave','$file','$today','1','$leaveDays')") or die(mysq_error());
+        '$reasonLeave','$contact','$contact_person','$address_on_leave','$file','$today','1','$leaveDays')") or die(mysqli_error($this->link));
         return $res;
     }
 

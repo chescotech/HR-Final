@@ -1,12 +1,7 @@
 <?php
-session_start();
-
-
-error_reporting(0);
-ini_set('display_errors', 1);
-
 $companyId = $_SESSION['company_ID'];
 include_once '../../include/dbconnection.php';
+include_once '../Classes/DBClass.php';
 include_once '../Classes/Reminders.php';
 include_once '../Classes/Company.php';
 include_once '../Classes/Group.php';

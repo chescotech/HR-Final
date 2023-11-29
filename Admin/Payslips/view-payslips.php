@@ -1,3 +1,6 @@
+<?php
+session_start()
+?>
 <!DOCTYPE html>
 <html>
 
@@ -24,6 +27,7 @@
 <body class="hold-transition skin-green-light sidebar-mini">
     <div class="wrapper">
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Department.php';
         include_once '../Classes/Payslips.php';
         include_once '../Classes/Loans.php';
@@ -34,7 +38,6 @@
         $PaySlipsObject = new Payslips();
         $TaxObject = new Tax();
 
-        include '../navigation_panel/authenticated_user_header.php';
 
         $compId = $_SESSION['company_ID'];
 

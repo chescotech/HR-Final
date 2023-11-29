@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -19,47 +22,6 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
 </head>
 
-<?php
-include_once '../Classes/Asset.php';
-$AssetObject = new Asset();
-?>
-
-<?php
-if (isset($_POST['save_type'])) {
-    $name = $_POST['name'];
-    $company = $_POST['company_id'];
-
-    $saveResult = $AssetObject->saveNewAssetType($name, $company);
-
-    if (!$saveResult) {
-        echo '<script> alert("Failed to save new asset type.")</script>';
-    }
-
-    echo '<script>window.location = "assets-type.php"</script>';
-} else if (isset($_POST['update_type'])) {
-    $name = $_POST['name'];
-    $id = $_POST['id'];
-
-    $updateResult = $AssetObject->updateAssetType($name, $id);
-
-    if (!$updateResult) {
-        echo '<script> alert("Failed to update new asset type.")</script>';
-    }
-
-    echo '<script>window.location = "assets-type.php"</script>';
-} else if (isset($_POST['delete_type'])) {
-    $id = $_POST['id'];
-
-    $deleteResult = $AssetObject->deleteAssetType($id);
-
-    if (!$deleteResult) {
-        echo '<script> alert("Failed to save new asset type.")</script>';
-    }
-
-    echo '<script>window.location = "assets-type.php"</script>';
-}
-?>
-
 
 
 <body class="hold-transition skin-green-light sidebar-mini">
@@ -67,6 +29,11 @@ if (isset($_POST['save_type'])) {
 
         <?php
         include '../navigation_panel/authenticated_user_header.php';
+        ?>
+
+        <?php
+        include_once '../Classes/Asset.php';
+        $AssetObject = new Asset();
         ?>
 
         <?php include '../navigation_panel/side_navigation_bar.php'; ?>
@@ -258,5 +225,42 @@ if (isset($_POST['save_type'])) {
         });
     </script>
 </body>
+
+
+<?php
+if (isset($_POST['save_type'])) {
+    $name = $_POST['name'];
+    $company = $_POST['company_id'];
+
+    $saveResult = $AssetObject->saveNewAssetType($name, $company);
+
+    if (!$saveResult) {
+        echo '<script> alert("Failed to save new asset type.")</script>';
+    }
+
+    echo '<script>window.location = "assets-type.php"</script>';
+} else if (isset($_POST['update_type'])) {
+    $name = $_POST['name'];
+    $id = $_POST['id'];
+
+    $updateResult = $AssetObject->updateAssetType($name, $id);
+
+    if (!$updateResult) {
+        echo '<script> alert("Failed to update new asset type.")</script>';
+    }
+
+    echo '<script>window.location = "assets-type.php"</script>';
+} else if (isset($_POST['delete_type'])) {
+    $id = $_POST['id'];
+
+    $deleteResult = $AssetObject->deleteAssetType($id);
+
+    if (!$deleteResult) {
+        echo '<script> alert("Failed to save new asset type.")</script>';
+    }
+
+    echo '<script>window.location = "assets-type.php"</script>';
+}
+?>
 
 </html>

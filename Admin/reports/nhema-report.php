@@ -1,7 +1,6 @@
 <?php
-error_reporting(0);
+session_start();
 ?>
-
 <!DOCTYPE html>
 <html>
 
@@ -33,6 +32,7 @@ error_reporting(0);
 <body class="hold-transition skin-green-light sidebar-mini">
     <div class="wrapper">
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Employee.php';
         include_once '../Classes/Loans.php';
         include_once '../Classes/Payslips.php';
@@ -40,7 +40,6 @@ error_reporting(0);
         $EmployeeObject = new Employee();
         $loanObj = new Loans();
 
-        include '../navigation_panel/authenticated_user_header.php';
 
         $compId = $_SESSION['company_ID'];
         ?>
@@ -163,7 +162,7 @@ error_reporting(0);
                                                 $month2 = $Getmonth2;
                                                 $day2 = $Getday2;
 
-                                                $query = "SELECT emp_info.nhima,employee.empno,emp_info.nrc,emp_info.bdate,health_insurance,emp_info.fname,emp_info.lname,employee.time,emp_info.basic_pay, employee.earnings_id, employee.deductions_id FROM `employee` INNER JOIN emp_info on emp_info.empno=employee.empno
+                                                $query = "SELECT emp_info.nhima,employee.empno,emp_info.nrc,emp_info.bdate,health_insurance,emp_info.fname,emp_info.lname,employee.time,emp_info.basic_pay FROM `employee` INNER JOIN emp_info on emp_info.empno=employee.empno
                                                     WHERE employee.time BETWEEN '$year-$month-$day'  AND  '$year2-$month2-$day2' ";
 
                                                 $result2 = mysqli_query($link, $query) or die(mysqli_error($link));
@@ -186,8 +185,8 @@ error_reporting(0);
                                                             <td>' . $row['time'] . '</td> 
                                                                  <td>' . $row['bdate'] . '</td> 
                                                             
-                                                                 <td>' . $row['health_insurance'] / 2 . '</td>
-                                                                 <td>' . $row['health_insurance'] / 2 . '</td>                                                            
+                                                                 <td>' . $row['health_insurance'] . '</td>
+                                                                 <td>' . $row['health_insurance'] . '</td>                                                            
                                                         </tr>  
                                                         ';
                                                 }

@@ -1,7 +1,6 @@
 <?php
-error_reporting(0);
+session_start();
 ?>
-
 <!DOCTYPE html>
 <html>
 
@@ -31,6 +30,7 @@ error_reporting(0);
     <div class="wrapper">
 
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Department.php';
 
         require_once('../../PHPmailer/sendmail.php');
@@ -39,7 +39,6 @@ error_reporting(0);
         $LoanObject = new Loans();
         $DepartmentObject = new Department();
 
-        include '../navigation_panel/authenticated_user_header.php';
         $companyId = $_SESSION['username'];
         ?>
 

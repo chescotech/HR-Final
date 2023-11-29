@@ -1,6 +1,6 @@
 <?php
+include_once '../Admin/Classes/DBClass.php';
 
-session_start();
 include('../include/dbconnection.php');
 
 include_once '../Admin/Classes/Company.php';

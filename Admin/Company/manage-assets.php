@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -19,87 +22,20 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
 </head>
 
-<?php
-include_once '../Classes/Asset.php';
-include_once '../Classes/Employee.php';
-$EmployeeObject = new Employee();
-$AssetObject = new Asset();
-?>
 
-<?php
-if (isset($_POST['save_asset'])) {
-    // return var_dump($_POST);
-    $admin_id = $_SESSION['user_session'];
-    $name = $_POST['name'];
-    $description = $_POST['description'];
-    $identifier = $_POST['identifier'];
-    $type_id = $_POST['asset_type'];
-    $company_id = $_POST['company_id'];
 
-    $result = $AssetObject->saveAsset($admin_id, $name, $description, $identifier, $type_id, $company_id);
-
-    if (!$result) {
-        echo '<script>alert("Something went wrong. Please try again.")</script>';
-    }
-
-    echo '<script>window.location = "manage-assets.php"</script>';
-}
-?>
-<?php
-if (isset($_POST['assign'])) {
-    $emp_id = $_POST['emp_select'];
-    $asset_id = $_POST['asset_id'];
-    $admin_id = $_SESSION['user_session'];
-    $company_id = $_POST['company_id'];
-
-    $result = $AssetObject->assignAsset($emp_id, $asset_id, $admin_id, $company_id);
-
-    if (!$result) {
-        echo '<script>alert("Something went wrong. Please try again.")</script>';
-    }
-
-    echo '<script>window.location = "manage-assets.php"</script>';
-}
-?>
-
-<?php
-if (isset($_POST['delete'])) {
-    $asset_id = $_POST['asset_id'];
-    $admin_id = $_SESSION['user_session'];
-    $company_id = $_POST['company_id'];
-
-    $result = $AssetObject->deleteAsset($admin_id, $company_id, $asset_id);
-
-    if (!$result) {
-        echo '<script>alert("Something went wrong. Please try again.")</script>';
-    }
-
-    echo '<script>window.location = "manage-assets.php"</script>';
-}
-?>
-
-<?php
-if (isset($_POST['return'])) {
-    $asset_id = $_POST['asset_id'];
-    $comments = $_POST['comments'];
-    $admin_id = $_SESSION['user_session'];
-    $company_id = $_POST['company_id'];
-
-    $result = $AssetObject->returnAsset($admin_id, $asset_id, $comments, $company_id);
-
-    if (!$result) {
-        echo '<script>alert("Something went wrong. Please try again.")</script>';
-    }
-
-    echo '<script>window.location = "manage-assets.php"</script>';
-}
-?>
 
 <body class="hold-transition skin-green-light sidebar-mini">
     <div class="wrapper">
 
         <?php
         include '../navigation_panel/authenticated_user_header.php';
+        ?>
+        <?php
+        include_once '../Classes/Asset.php';
+        include_once '../Classes/Employee.php';
+        $EmployeeObject = new Employee();
+        $AssetObject = new Asset();
         ?>
 
         <?php include '../navigation_panel/side_navigation_bar.php'; ?>
@@ -347,6 +283,76 @@ if (isset($_POST['return'])) {
         <?php include '../footer/footer.php'; ?>
         <div class="control-sidebar-bg"></div>
     </div><!-- ./wrapper -->
+
+
+    <?php
+    if (isset($_POST['save_asset'])) {
+        // return var_dump($_POST);
+        $admin_id = $_SESSION['user_session'];
+        $name = $_POST['name'];
+        $description = $_POST['description'];
+        $identifier = $_POST['identifier'];
+        $type_id = $_POST['asset_type'];
+        $company_id = $_POST['company_id'];
+
+        $result = $AssetObject->saveAsset($admin_id, $name, $description, $identifier, $type_id, $company_id);
+
+        if (!$result) {
+            echo '<script>alert("Something went wrong. Please try again.")</script>';
+        }
+
+        echo '<script>window.location = "manage-assets.php"</script>';
+    }
+    ?>
+    <?php
+    if (isset($_POST['assign'])) {
+        $emp_id = $_POST['emp_select'];
+        $asset_id = $_POST['asset_id'];
+        $admin_id = $_SESSION['user_session'];
+        $company_id = $_POST['company_id'];
+
+        $result = $AssetObject->assignAsset($emp_id, $asset_id, $admin_id, $company_id);
+
+        if (!$result) {
+            echo '<script>alert("Something went wrong. Please try again.")</script>';
+        }
+
+        echo '<script>window.location = "manage-assets.php"</script>';
+    }
+    ?>
+
+    <?php
+    if (isset($_POST['delete'])) {
+        $asset_id = $_POST['asset_id'];
+        $admin_id = $_SESSION['user_session'];
+        $company_id = $_POST['company_id'];
+
+        $result = $AssetObject->deleteAsset($admin_id, $company_id, $asset_id);
+
+        if (!$result) {
+            echo '<script>alert("Something went wrong. Please try again.")</script>';
+        }
+
+        echo '<script>window.location = "manage-assets.php"</script>';
+    }
+    ?>
+
+    <?php
+    if (isset($_POST['return'])) {
+        $asset_id = $_POST['asset_id'];
+        $comments = $_POST['comments'];
+        $admin_id = $_SESSION['user_session'];
+        $company_id = $_POST['company_id'];
+
+        $result = $AssetObject->returnAsset($admin_id, $asset_id, $comments, $company_id);
+
+        if (!$result) {
+            echo '<script>alert("Something went wrong. Please try again.")</script>';
+        }
+
+        echo '<script>window.location = "manage-assets.php"</script>';
+    }
+    ?>
 
     <script src="../bootstrap/js/bootstrap.min.js"></script>
     <!-- DataTables -->

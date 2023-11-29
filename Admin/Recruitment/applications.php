@@ -1,5 +1,5 @@
 <?php
-error_reporting(0);
+session_start();
 ?>
 <!DOCTYPE html>
 
@@ -29,6 +29,7 @@ error_reporting(0);
     <div class="wrapper">
 
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Employee.php';
         $EmployeeObject = new Employee();
         //include_once '../Classes/Department.php';
@@ -40,7 +41,6 @@ error_reporting(0);
         //$DepartmentObject = new Department();
         $PaySlipsObject = new Payslips();
         $TaxObject = new Tax();
-        include '../navigation_panel/authenticated_user_header.php';
         ?>
 
         <?php include '../navigation_panel/side_navigation_bar.php'; ?>

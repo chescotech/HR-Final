@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -33,7 +36,8 @@
     <div class="wrapper">
 
         <?php
-        error_reporting(0);
+        include '../navigation_panel/authenticated_user_header.php';
+
 
         include_once '../Classes/Department.php';
         include_once '../Classes/RecurringDeductions.php';
@@ -44,7 +48,6 @@
         $DepartmentObject = new Department();
         $RecurringDeductionsObject = new RecurringDeductions();
 
-        include '../navigation_panel/authenticated_user_header.php';
 
         $compID = $_SESSION['company_ID'];
         ?>
@@ -161,14 +164,14 @@
                                 <div class="box-body">
                                     <label>Months:</label>
                                     <div class="form-group">
-                                        <input id="months" required="required" name="months" class="form-control" placeholder="Repayment Duration in Months:" onchange="calculate_monthly();">
+                                        <input id="months" required="required" name="months" class="form-control" placeholder="Repayment Duration in Months:">
                                     </div>
                                 </div>
 
                                 <div class="box-body">
                                     <label>Monthly Deduction:</label>
                                     <div class="form-group">
-                                        <input id="monthly_deduction" required="required" name="monthly_deduction" class="form-control" placeholder="Monthly Deduction:" onchange="calculate_monthly();">
+                                        <input id="monthly_deduction" required="required" name="monthly_deduction" class="form-control" placeholder="Monthly Deduction:" readOnly>
                                     </div>
                                 </div>
 
@@ -223,20 +226,22 @@
     <script src="../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 
     <script>
-        // $(function() {
-        //     $(document).ready(function() {
-        //         let ded_amt = $("#deduction_amount").val();
-        //         let mths = $("#months").val();
+        const deductionAmountInput = document.querySelector('input[name="deduction_amount"]');
+        const monthsInput = document.querySelector('input[name="months"]');
+        const monthlyDeductionInput = document.querySelector('input[name="monthly_deduction"]');
 
-        //         function calculate_monthly() {
-        //             if (ded_amt > 0 && mths > 0) {
-        //                 let monthlyDeduction = ded_amt / mths;
-        //                 $("#monthly_deduction").val(monthlyDeduction.toFixed(2));
-        //                 $("#monthly_deduction").prop('disabled', true);
-        //             }
-        //         }
-        //     });
-        // });
+        deductionAmountInput.addEventListener('input', updateMonthlyDeduction);
+        monthsInput.addEventListener('input', updateMonthlyDeduction);
+
+        function updateMonthlyDeduction() {
+            const deductionAmount = parseFloat(deductionAmountInput.value);
+            const months = parseInt(monthsInput.value);
+
+            if (!isNaN(deductionAmount) && !isNaN(months)) {
+                const monthlyDeduction = deductionAmount / months;
+                monthlyDeductionInput.value = monthlyDeduction.toFixed(2);
+            }
+        }
     </script>
 
 </body>

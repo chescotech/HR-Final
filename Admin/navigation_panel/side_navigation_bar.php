@@ -180,10 +180,10 @@ $permissions = mysqli_fetch_assoc($userGroup);
             <li class="treeview" <?php echo $permissions['groups'] == 'false' ? 'hidden' : '' ?>>
                 <a href="#">
                     <i class="fa fa-group">
-                        <span>
-                            Groups
-                        </span>
                     </i>
+                    <span>
+                        Groups
+                    </span>
                     <i class="fa fa-angle-left pull-right">
 
                     </i>
@@ -195,10 +195,10 @@ $permissions = mysqli_fetch_assoc($userGroup);
             <li class="treeview" <?php echo $permissions['groups'] == 'false' ? 'hidden' : '' ?>>
                 <a href="#">
                     <i class="fa fa-group">
-                        <span>
-                            Publications
-                        </span>
                     </i>
+                    <span>
+                        Publications
+                    </span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">

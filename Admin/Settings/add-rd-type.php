@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -30,13 +33,13 @@
 <body class="hold-transition skin-green-light sidebar-mini">
     <div class="wrapper">
         <?php
-        error_reporting(0);
+        include '../navigation_panel/authenticated_user_header.php';
+
         include_once '../Classes/Loans.php';
         include_once '../Classes/RecurringDeductions.php';
         $LoanObject = new Loans();
         $RecurringDeductionsObject = new RecurringDeductions();
 
-        include '../navigation_panel/authenticated_user_header.php';
         ?>
 
         <?php include '../navigation_panel/side_navigation_bar.php'; ?>

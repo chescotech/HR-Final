@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -50,8 +53,6 @@
     <div class="wrapper">
 
         <?php
-        error_reporting(1);
-
         include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Department.php';
         include_once '../Classes/Company.php';
@@ -191,7 +192,7 @@
 
             $trim = trim($empno);
 
-            $new_employee = $DepartmentObject->addEmployee(
+            $new_employee_id = $DepartmentObject->addEmployee(
                 $trim,
                 $fname,
                 $lname,
@@ -232,9 +233,6 @@
                 $_FILES["nrc_file"]["name"],
                 $tpin
             );
-
-            // save employee earnings
-            $new_emp_id = mysqli_insert_id($link);
 
 
 
@@ -281,10 +279,10 @@
             $cv_imploded = strlen($cv_imploded) > 2 ? "," . $cv_imploded : $cv_imploded;
 
 
-            $earn_query = "INSERT INTO employee_deductions(employee_id, employee_no, company_id $columnsString) VALUES ('$new_emp_id', '$trim', '$companyId' $valuesString)";
+            $earn_query = "INSERT INTO employee_deductions(employee_id, employee_no, company_id $columnsString) VALUES ('$new_employee_id', '$trim', '$companyId' $valuesString)";
             $deductions_query_result = mysqli_query($link, $earn_query) or die(mysqli_error($link));
 
-            $deduct_query = "INSERT INTO employee_earnings(employee_id, employee_no, company_id $cn_imploded) VALUES('$new_emp_id', '$trim', '$companyId' $cv_imploded)";
+            $deduct_query = "INSERT INTO employee_earnings(employee_id, employee_no, company_id $cn_imploded) VALUES('$new_employee_id', '$trim', '$companyId' $cv_imploded)";
             $deduct_result = mysqli_query($link, $deduct_query) or die(mysqli_error($link));
 
             // log user creation
@@ -293,7 +291,7 @@
             // return var_dump($_SESSION);
             $emp_log = mysqli_query($link, "INSERT INTO emp_log(company_id, action, action_user) VALUES('$companyId','$action','$empl')") or die(mysqli_error($link));
 
-            $DepartmentObject->addEmployeeAllowances($companyId, $house_allowance, $transport_allowance, $lunch_allowance, $empno);
+            // $DepartmentObject->addEmployeeAllowances($companyId, $house_allowance, $transport_allowance, $lunch_allowance, $empno);
 
             $em = new email();
 

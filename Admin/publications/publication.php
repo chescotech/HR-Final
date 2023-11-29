@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -135,10 +138,9 @@
         ?>
 
         <div class="content-wrapper">
-            <center>
-                <h2>Publications</h2>
-            </center>
+
             <section class="content-header">
+                <h2>Publications</h2>
                 <h1>
                     <?php
                     $compID = $_SESSION['company_ID'];
@@ -147,21 +149,21 @@
             </section>
             <section id="pub">
                 <form action="" method="post" class="pub" enctype="multipart/form-data">
-                    <label for="subject">Subject:</label><br>
-                    <input type="text" id="subject" name="subject" required><br><br>
+                    <label for="subject">Subject:</label>
+                    <input type="text" id="subject" name="subject" class="form-control" required><br><br>
 
                     <label for="category">Category:</label>
-                    <select id="category" name="category">
+                    <select id="category" name="category" class="form-control">
                         <option value="memo">Memo</option>
                         <option value="policy">Policy</option>
                         <option value="news">News</option>
                     </select><br><br>
 
                     <label for="message">Message:</label><br>
-                    <textarea id="message" name="message" rows="6" cols="50" required></textarea><br><br>
+                    <textarea class="form-control" id="message" name="message" rows="6" cols="50" required></textarea><br><br>
 
                     <div id="drop-area">
-                        <input type="file" id="attachment" name="attachment">
+                        <input type="file" id="attachment" name="attachment" class="form-control">
                         <p>Drag and drop your file here or click to select</p>
                     </div>
 

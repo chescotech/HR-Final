@@ -1,5 +1,5 @@
 <?php
-error_reporting(0);
+session_start();
 ?>
 <!DOCTYPE html>
 <html>
@@ -29,6 +29,7 @@ error_reporting(0);
 <body class="hold-transition skin-green-light sidebar-mini">
     <div class="wrapper">
         <?php
+        include '../navigation_panel/authenticated_user_header.php';
         include_once '../Classes/Department.php';
         include_once '../Classes/Payslips.php';
         include_once '../Classes/Loans.php';
@@ -41,7 +42,6 @@ error_reporting(0);
         $TaxObject = new Tax();
         $RecurringDeductionsObject = new RecurringDeductions();
 
-        include '../navigation_panel/authenticated_user_header.php';
 
         $compId = $_SESSION['company_ID'];
         ?>
@@ -68,7 +68,7 @@ error_reporting(0);
         <div class="content-wrapper">
             <section class="content-header">
                 <h1>
-                    <?php echo $_SESSION['name']; ?> Loan Types
+                    <?php echo $_SESSION['name']; ?> Recurring Deduction Types
                 </h1>
             </section>
             <section class="content">

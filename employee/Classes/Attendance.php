@@ -1,7 +1,5 @@
 <?php
 
-include 'DBClass.php';
-
 class Attendance
 {
     private $link;

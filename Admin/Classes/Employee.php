@@ -1,7 +1,5 @@
 <?php include_once '../../dbconnection.php';
 
-include 'DBClass.php';
-
 class Employee
 {
     private $link;
@@ -60,29 +58,47 @@ class Employee
         $tpin,
         $nrc
     ) {
-        if ($leaveworkflow_id == "") {
-            $result = mysqli_query($this->link, "UPDATE emp_info SET fname ='$fname',lname='$lname',
-            init='$init',bdate='$bdate',position='$position', bank='$bank',
-            account='$account',date_joined='$date_joined',date_left='$date_left'
-            ,gross_pay='$gross_pay',payment_method='$payment_method',basic_pay='$basic_pay',
-            social='$social',branch_code='$branch_code',photo = '$img',
-            nok_name='$nok_name', nok_relationship='$nok_relationship', nok_email='$nok_email', nok_address='$nok_address', nok_phone='$nok_phone',
-            gatuity_amount='$gatuity_amount',phone='$phone',nrc_file='$nrc_file',
-            dept = '$department', address = '$p_address', email='$email', employee_grade='$emp_grade',
-            employee_type = '$employee_type', employment_type = '$employment_type',nhima='$nhima' ,tpin='$tpin',NRC='$nrc' WHERE id= '$id'") or die("Error.." . mysqli_error($this->link));
-            return $result;
-        } else {
-            $result = mysqli_query($this->link, "UPDATE emp_info SET fname ='$fname',lname='$lname',
-            init='$init',bdate='$bdate',position='$position', bank='$bank',
-            account='$account',date_joined='$date_joined',date_left='$date_left'
-            ,gross_pay='$gross_pay',payment_method='$payment_method',basic_pay='$basic_pay',
-            social='$social',branch_code='$branch_code',leaveworkflow_id='$leaveworkflow_id',
-            nok_name='$nok_name', nok_relationship='$nok_relationship', nok_email='$nok_email', nok_address='$nok_address', nok_phone='$nok_phone',
-            photo = '$img', gatuity_amount='$gatuity_amount',phone='$phone',nrc_file='$nrc_file',
-            dept = '$department', address = '$p_address', email='$email', employee_grade='$emp_grade',
-            employee_type = '$employee_type', employment_type = '$employment_type',nhima='$nhima' ,tpin='$tpin',NRC='$nrc' WHERE id= '$id'") or die("Error.." . mysqli_error($this->link));
-            return $result;
+        $sql = "UPDATE emp_info SET 
+                fname = '$fname',
+                lname = '$lname',
+                init = '$init',
+                bdate = '$bdate',
+                position = '$position',
+                bank = '$bank',
+                account = '$account',
+                date_joined = '$date_joined',
+                date_left = '$date_left',
+                gross_pay = '$gross_pay',
+                payment_method = '$payment_method',
+                basic_pay = '$basic_pay',
+                social = '$social',
+                branch_code = '$branch_code',
+                photo = '$img',
+                nok_name = '$nok_name',
+                nok_relationship = '$nok_relationship',
+                nok_email = '$nok_email',
+                nok_address = '$nok_address',
+                nok_phone = '$nok_phone',
+                gatuity_amount = '$gatuity_amount',
+                phone = '$phone',
+                nrc_file = '$nrc_file',
+                dept = '$department',
+                address = '$p_address',
+                email = '$email',
+                employee_grade = '$emp_grade',
+                employee_type = '$employee_type',
+                employment_type = '$employment_type',
+                nhima = '$nhima',
+                tpin = '$tpin',
+                NRC = '$nrc'
+            WHERE id = '$id'";
+
+        if ($leaveworkflow_id != "") {
+            $sql .= " AND leaveworkflow_id = '$leaveworkflow_id'";
         }
+
+        $result = mysqli_query($this->link, $sql) or die("Error. Could not update employee: " . mysqli_error($this->link));
+        return $result;
     }
 
     public function getProfileInfo($employeeId)

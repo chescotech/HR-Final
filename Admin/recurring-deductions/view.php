@@ -1,5 +1,5 @@
 <?php
-error_reporting(0);
+session_start();
 ?>
 <!DOCTYPE html>
 <html>
@@ -32,8 +32,8 @@ error_reporting(0);
     <div class="wrapper">
 
         <?php
-        include_once '../Classes/Department.php';
         include '../navigation_panel/authenticated_user_header.php';
+        include_once '../Classes/Department.php';
         include_once '../Classes/Loans.php';
         include_once '../Classes/RecurringDeductions.php';
         $LoanObject = new Loans();
@@ -68,7 +68,7 @@ error_reporting(0);
                                                 <th>Start Date</th>
                                                 <th>Date Completion</th>
                                                 <th>Status</th>
-                                                <!-- <th>Edit</th> -->
+                                            <!-- <th>Edit</th> -->
                                                 <th>Delete</th>
                                             </tr>
                                         </thead>
@@ -80,7 +80,7 @@ error_reporting(0);
                                                 $id_ = $row['id'];
                                                 $empno = $row['employee_id'];
                                                 $employees = $LoanObject->getEmpDetailsByID($empno);
-                                                $empRows = mysqli_fetch_array($employees);
+                                                $empRows = mysqli_fetch_assoc($employees);
 
                                                 if ($row['status'] == "Cleared") {
                                                     $status = '<span class="label label-success arrowed-in arrowed-in-right">' . $row['status'] . '</span>';
@@ -97,7 +97,7 @@ error_reporting(0);
                                                             <td>' . $row['duration'] . '</td>                                                                                                         
                                                             <td>' . $row['deduction_date'] . '</td> 
                                                             <td>' . $row['date_completion'] . '</td>  
-                                                            <td>' . $status . '</td>     
+                                                            <td>' . $status . '</td>
                                                             <td><a href=' . "delete-deduction.php?id=" . $id_ . '>Delete</a></td>
                                                        
                                                         </tr>  

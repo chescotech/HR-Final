@@ -1,7 +1,8 @@
 <?php
-error_reporting(0);
+session_start();
+// error_reporting(E_ALL);
+include_once '../Classes/DBClass.php';
 ?>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -70,10 +71,6 @@ error_reporting(0);
 <body onload="window.print()">
     <div class="wrapper" title="Right click to print payslip">
         <?php
-        session_start();
-        // error_reporting(E_ALL);
-        // ini_set('display_errors', 1);
-
         include('../../include/dbconnection.php');
         include_once '../../Admin/Classes/Company.php';
         include_once '../../Admin/Classes/Tax.php';
@@ -130,7 +127,7 @@ error_reporting(0);
                     if ($gross < 3000)
                         $tax = 0;
 
-                    $totdeduct = $tax + $row['advances'] + $row['insurance'] + $PayslipObject->getMyDeductions($gross, $empno, $row['deductions_id']);
+                    $totdeduct = $tax + $row['advances'] + $row['insurance'] + $PayslipObject->getMyDeductions($gross, $empno, $row['deductions_data']);
                     $netpay = $gross - $totdeduct;
                 }
                 $msg = "";
@@ -195,10 +192,15 @@ error_reporting(0);
                 $query8 = "SELECT * FROM loan where empno = '$empno' AND status = 'Pending' ";
                 $result = mysqli_query($link, $query8) or die($query . "<br/><br/>" . mysqli_error($link));
                 $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-                $balance = $row['loan_amt'];
-                $interest = $row['interest'];
-                $months = $row['duration'];
-                $deduct = $row['monthly_deduct'];
+                if (mysqli_num_rows($result) <= 0) {
+                    $loan = "No loan available";
+                } else {
+                    $balance = $row['loan_amt'];
+                    $interest = $row['interest'];
+                    $months = $row['duration'];
+                    $deduct = $row['monthly_deduct'];
+                }
+                // $balance = $row['loan_amt'];
 
                 $query = "SELECT * FROM tax where empno = '$empno' ";
 
@@ -322,6 +324,10 @@ error_reporting(0);
                             $overtime = $otrate * $othrs;
                             $nhema = $row['health_insurance'];
                             $pension = $row['pension'];
+                            $empPayee = $row['payee'];
+                            $empNapsa = $row['napsa'];
+                            $earningsData = $row['earnings_data'];
+                            $deductionsData = $row['deductions_data'];
                         }
                     }
                     ?>
@@ -388,8 +394,8 @@ error_reporting(0);
                                 display: flex;
                                 flex-direction: column;">
                                     <tr>
-                                        <td align="left" class="align1"><b>Earnings Amount</b></td>
-                                        <td class="align"><b>Deductions Amount</b></td>
+                                        <td align="left" style="width: 417px;"><b>Earnings Amount</b></td>
+                                        <td align="left" style="width: 417px;"><b>Deductions Amount</b></td>
                                     </tr>
                                     <tr>
                                         <td>
@@ -404,52 +410,23 @@ error_reporting(0);
                                                 </tr>
                                                 <?php
                                                 // Function to clean column names
-                                                function cleanColumnName($columnName)
-                                                {
-                                                    // Replace underscores with spaces, then remove other special characters
-                                                    $cleanedName = preg_replace('/_/', ' ', $columnName);
-                                                    $cleanedName = preg_replace('/[^A-Za-z0-9\s]/', '', $cleanedName);
-                                                    return $cleanedName;
-                                                }
-
-                                                $query = "SELECT * FROM employee_earnings WHERE employee_no = '$empno'";
-                                                $result = mysqli_query($link, $query);
-
-                                                if (mysqli_num_rows($result) > 0) {
-                                                    $row = mysqli_fetch_assoc($result);
-                                                    $columns = array();
-
-                                                    foreach ($row as $columnName => $value) {
-                                                        if (!empty($value)) {
-                                                            $columns[] = cleanColumnName($columnName);
-                                                        }
-                                                    }
-
-                                                    // Now $columns will contain cleaned column names with non-empty values for the specified empno
-                                                } else {
-                                                    echo "No data found for the specified empno.";
-                                                }
 
                                                 ?>
                                                 <?php
-                                                $query2 = "SELECT * FROM employee_earnings WHERE employee_no ='$empno'";
-                                                $result2 = mysqli_query($link, $query2) or die(mysqli_error($link));
+                                                $earningsResult = json_decode($earningsData, true);
                                                 $totalEarnings = 0;
                                                 $rows = array();
-                                                while ($row2 = mysqli_fetch_assoc($result2)) {
-                                                    $rows[] = $row2;
-                                                }
 
-                                                foreach (array_slice($columns, 4) as $columnName) {
-                                                    echo "<tr>";
-                                                    echo "<td align='left' style='text-transform: capitalize;'>" . $columnName . "</td>";
+                                                foreach ($earningsResult as $earnArray) {
+                                                    foreach ($earnArray as $earning => $earnVal) {
+                                                        if ($earnVal != null) {
+                                                            echo "<tr>";
+                                                            echo "<td align='left' style='text-transform: capitalize;'>" . str_replace('_', ' ', $earning) . "</td>";
+                                                            echo "<td align='right'>" . (isset($earnVal) ? number_format($earnVal, 2) : "0") . "</td>";
+                                                            echo "</tr>"; // Close the row after each value
 
-                                                    foreach ($rows as $row) {
-                                                        $columnNameWithUnderscores = str_replace(' ', '_', $columnName);
-                                                        echo "<td align='right'>" . (isset($row[$columnNameWithUnderscores]) ? number_format("$row[$columnNameWithUnderscores]", 2) : "0") . "</td>";
-                                                        echo "</tr>"; // Close the row after each value
-
-                                                        $totalEarnings += $row[$columnNameWithUnderscores];
+                                                            $totalEarnings += $earnVal;
+                                                        }
                                                     }
                                                 }
                                                 ?>
@@ -457,19 +434,13 @@ error_reporting(0);
                                                     <td align="left">
                                                         Overtime
                                                     </td>
-                                                    <td align="right"><?= $overtime ?></td>
+                                                    <td align="right"><?= number_format($overtime, 2) ?></td>
                                                 </tr>
                                                 <?php
                                                 if ($allowances) {
                                                     echo "<tr>";
                                                     echo "<td align='left'>Allowances</td>";
                                                     echo "<td align='right' style='vertical-align: top;'>" . number_format($allowances, 2) . "</td>";
-                                                    echo "</tr>";
-                                                }
-                                                if ($advances > 0) {
-                                                    echo "<tr>";
-                                                    echo "<td align='left'>Advances</td>";
-                                                    echo "<td align='right' style='vertical-align: top;'>" . number_format($advances, 2) . "</td>";
                                                     echo "</tr>";
                                                 }
 
@@ -489,63 +460,59 @@ error_reporting(0);
                                     $gross = $PayslipObject->getEmployeeGrossPay($empno, $dateIssued);
                                     // return var_dump($gross);
 
-                                    if ($TaxObject->getEmployeeAge($row['empno']) < 55) {
-                                        $napsa = $gross * 0.05;
-                                        if ($napsa >= $TaxObject->getNapsaCeiling($compId))
-                                            $napsa = $TaxObject->getNapsaCeiling($compId);
+                                    // if ($TaxObject->getEmployeeAge($_GET['empno']) < 55) {
+                                    //     $napsa = $gross * 0.05;
+                                    //     if ($napsa >= $TaxObject->getNapsaCeiling($compId))
+                                    //         $napsa = $TaxObject->getNapsaCeiling($compId);
 
-                                        $napsa_calc = "";
-                                        if ($napsa >= 255)
-                                            $napsa_calc = 255;
-                                    } else {
-                                        $napsa = 0;
-                                    }
+                                    //     $napsa_calc = "";
+                                    //     if ($napsa >= 255)
+                                    //         $napsa_calc = 255;
+                                    // } else {
+                                    //     $napsa = 0;
+                                    // }
 
-                                    //the tops of each tax band
-                                    $band1_top = $TaxObject->getTopBand1($companyId);
-                                    $band2_top = $TaxObject->getTopBand2($companyId);
-                                    $band3_top = $TaxObject->getTopBand3($companyId);
+                                    // //the tops of each tax band
+                                    // $band1_top = $TaxObject->getTopBand1($companyId);
+                                    // $band2_top = $TaxObject->getTopBand2($companyId);
+                                    // $band3_top = $TaxObject->getTopBand3($companyId);
 
-                                    $band1_rate = $TaxObject->getBandRate1($companyId) / 100;
-                                    $band2_rate = $TaxObject->getBandRate2($companyId) / 100;
-                                    $band3_rate = $TaxObject->getBandRate3($companyId) / 100;
-                                    $band4_rate = $TaxObject->getBandRate4($companyId) / 100;
+                                    // $band1_rate = $TaxObject->getBandRate1($companyId) / 100;
+                                    // $band2_rate = $TaxObject->getBandRate2($companyId) / 100;
+                                    // $band3_rate = $TaxObject->getBandRate3($companyId) / 100;
+                                    // $band4_rate = $TaxObject->getBandRate4($companyId) / 100;
 
 
-                                    $starting_income = $income = $gross - $napsa;
+                                    // $starting_income = $income = $gross - $napsa;
 
-                                    $band1 = $band2 = $band3 = $band4 = 0;
+                                    // $band1 = $band2 = $band3 = $band4 = 0;
 
-                                    if ($income > $band3_top) {
-                                        $band4 = ($income - $band3_top) * $band4_rate;
-                                        $income = $band3_top;
-                                    }
+                                    // if ($income > $band3_top) {
+                                    //     $band4 = ($income - $band3_top) * $band4_rate;
+                                    //     $income = $band3_top;
+                                    // }
 
-                                    if ($income > $band2_top) {
-                                        $band3 = ($income - $band2_top) * $band3_rate;
-                                        $income = $band2_top;
-                                    }
+                                    // if ($income > $band2_top) {
+                                    //     $band3 = ($income - $band2_top) * $band3_rate;
+                                    //     $income = $band2_top;
+                                    // }
 
-                                    if ($income > $band1_top) {
-                                        $band2 = ($income - $band1_top) * $band2_rate;
-                                        $income = $band1_top;
-                                    }
+                                    // if ($income > $band1_top) {
+                                    //     $band2 = ($income - $band1_top) * $band2_rate;
+                                    //     $income = $band1_top;
+                                    // }
 
-                                    $band1 = $income * $band1_rate;
+                                    // $band1 = $income * $band1_rate;
 
-                                    $total_tax_paid = $TaxObject->TaxCal($starting_income, $compId);
+                                    // $total_tax_paid = $TaxObject->TaxCal($gross, $compId);
 
-                                    $taxable = $gross - $income;
+                                    // $taxable = $gross - $income;
 
-                                    $date_compare = date('Y-m-d', strtotime($row['time']));
+                                    // $date_compare = date('Y-m-d', strtotime($row['time']));
 
-                                    if ($PayslipObject->getLoanMonthDedeductAmounts($row["empno"], $date_compare) == "") {
-                                        $loanAmnt = "0.0";
-                                    } else {
-                                        $loanAmnt = $PayslipObject->getLoanMonthDedeductAmounts($row["empno"], $date_compare);
-                                    }
+                                    $loanAmnt = $PayslipObject->getLoanMonthDedeductAmounts($empno, $dateIssued) === "" ? "0" : $PayslipObject->getLoanMonthDedeductAmounts($empno, $dateIssued);
 
-                                    $totdeduct = $total_tax_paid + $row['advances'] + $row['insurance'] + $napsa + $loanAmnt;
+                                    $totdeduct = $empPayee + $advances + $insurance + $empNapsa + $loanAmnt;
                                     $netpay = $gross - $totdeduct;
                                     ?>
                                     <tr>
@@ -560,11 +527,11 @@ error_reporting(0);
                                 <table border="0" width="417" cellspacing="0">
                                     <tr>
                                         <td class="box">PAYE</td>
-                                        <td align="right"><?php echo number_format("$total_tax_paid", 2); ?></td>
+                                        <td align="right"><?php echo number_format("$empPayee", 2); ?></td>
                                     </tr>
                                     <tr>
                                         <td class="box">NAPSA</td>
-                                        <td align="right"><?php echo number_format("$napsa", 2); ?></td>
+                                        <td align="right"><?php echo number_format("$empNapsa", 2); ?></td>
                                     </tr>
                                     <tr>
                                         <td class="box">Insurance</td>
@@ -594,11 +561,11 @@ error_reporting(0);
                                         $deductionColumnName = strtolower($deductionDetailRow['name']); // Transform name to uppercase
                                         $deductionValue = isset($row[$deductionColumnName]) ? $row[$deductionColumnName] : 0;
                                         if ($deductionValue == "1") {
-                                            $deductionsTotal += $PayslipObject->getDeductionValue($pay, $deductionDetailRow);
+                                            $deductionsTotal += intval($PayslipObject->getDeductionValue($gross, $deductionDetailRow['name']));
                                     ?>
                                             <tr>
                                                 <td class="box"><?php echo $deductionDetailRow['name']; ?></td>
-                                                <td align="right"><?php echo number_format($PayslipObject->getDeductionValue($pay, $deductionDetailRow), 2); ?></td>
+                                                <td align="right"><?php echo number_format($PayslipObject->getDeductionValue($gross, $deductionDetailRow['name']), 2); ?></td>
                                             </tr>
                                     <?php
                                         }
@@ -606,7 +573,7 @@ error_reporting(0);
                                     ?>
 
                                     <?php
-                                    $recurringDeductQuery = mysqli_query($link, "SELECT * FROM emp_recurring_deductions WHERE company_ID='$compId' AND employee_no='$empno'") or die(mysqli_error($link));
+                                    $recurringDeductQuery = mysqli_query($link, "SELECT * FROM emp_recurring_deductions WHERE company_ID='$compId' AND employee_no='$empno' AND '$dateIssued' BETWEEN deduction_date AND date_completion") or die(mysqli_error($link));
                                     $recurringDeductTotal = 0;
                                     // Loop through each recurring deduction detail
                                     $recurringDeductRows = array();
@@ -645,29 +612,16 @@ error_reporting(0);
                                         <td class="box">Advances</td>
                                         <td align="right"><?php echo number_format("$advances", 2); ?></td>
                                     </tr>
-                                    <?php
-                                    $query = "SELECT * FROM loan where empno = '$empno' AND status='Pending' ";
 
-                                    $result = mysqli_query($link, $query) or die($query . "<br/><br/>" . mysqli_error($link));
+                                    <tr>
+                                        <td class="box">Loan</td>
+                                        <td align="right">
+                                            <?php
+                                            echo number_format($loanAmnt, 2);
+                                            ?>
+                                        </td>
+                                    </tr>
 
-                                    while ($row = mysqli_fetch_array($result)) {
-                                        // return var_dump($row);
-                                        $balance = $row['loan_amt'];
-                                        $loanAmnt = $row['monthly_deduct'];
-                                        $deadLine = new DateTime($row['date_completion']);
-                                        $DI = new DateTime($dateIssued);
-                                    ?>
-                                        <tr>
-                                            <td class="box">Loan</td>
-                                            <td align="right">
-                                                <?php
-                                                echo $loanAmnt;
-                                                ?>
-                                            </td>
-                                        </tr>
-                                    <?php
-                                    }
-                                    ?>
 
                                     <tr>
                                         <td class="box">National Health Insurance</td>
@@ -698,16 +652,16 @@ error_reporting(0);
                             </tr>
                             </tr>
                             <tr style="display: flex; justify-content: space-between;">
-                                <td class="align2"><b style="margin-right: 333px;">Gross Pay <div class="align3"> <?php
+                                <td align="left" style="width: 417px;"><b style="margin-right: 333px;">Gross Pay <div class="align3"> <?php
 
-                                                                                                                    echo number_format("$gross", 2); ?></div></b>
+                                                                                                                                        echo number_format("$gross", 2); ?></div></b>
 
                                 </td>
-                                <td><b style="margin-right: 310px;">Total Deductions <div class="align3"> <?php
-                                                                                                            $totalDeductions = $total_tax_paid + $napsa +
-                                                                                                                $advances + $insurance + $loanAmnt + $nhema + $recurringDeductTotal + $deductionsTotal + $pension;
-                                                                                                            echo number_format("$totalDeductions", 2);
-                                                                                                            ?></div></b></td>
+                                <td align="left" style="width: 417px;"><b>Total Deductions <div class="align3"> <?php
+                                                                                                                $totalDeductions = $empPayee + $empNapsa +
+                                                                                                                    $advances + $insurance + $loanAmnt + $nhema + $recurringDeductTotal + $deductionsTotal + $pension;
+                                                                                                                echo number_format("$totalDeductions", 2);
+                                                                                                                ?></div></b></td>
                             </tr>
                         </table>
                         </br>
@@ -724,15 +678,17 @@ error_reporting(0);
                         <input type="hidden" name="insert" disabled value="<?php echo $insert; ?>" />
                         <br><br>
                         <?php
-                        $query = "SELECT * FROM loan where empno = '$empno' ";
+                        // $query = "SELECT * FROM loan where empno = '$empno' ";
 
-                        $result = mysqli_query($link, $query) or die($query . "<br/><br/>" . mysqli_error($link));
+                        // $result = mysqli_query($link, $query) or die($query . "<br/><br/>" . mysqli_error($link));
 
-                        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-                        $balance = $row['loan_amt'];
-                        $interest = $row['interest'];
-                        $months = $row['duration'];
-                        $deduct = $row['monthly_deduct'];
+                        // if (mysqli_num_rows($result) > 0) {
+                        //     $loanRow = mysqli_fetch_array($result, MYSQLI_ASSOC);
+                        //     $balance = $loanRow['loan_amt'];
+                        //     $interest = $loanRow['interest'];
+                        //     $months = $loanRow['duration'];
+                        //     $deduct = $loanRow['monthly_deduct'];
+                        // }
                         ?>
                         Closing Balances
                         <table border="1" width="850" cellspacing="0">
@@ -839,12 +795,12 @@ error_reporting(0);
                             </tr>
                             <tr>
                                 <td>NAPSA</td>
-                                <td><?php echo number_format($napsa, 2); ?></td>
+                                <td><?php echo number_format($empNapsa, 2); ?></td>
 
                             </tr>
                             <tr>
                                 <td>Tax Paid This Month:</td>
-                                <td><?php echo number_format($total_tax_paid, 2); ?></td>
+                                <td><?php echo number_format($empPayee, 2); ?></td>
                             </tr>
 
                             <tr>

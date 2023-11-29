@@ -1,4 +1,5 @@
 <?php
+include '../navigation_panel/authenticated_user_header.php';
 
 include_once '../Classes/Department.php';
 
@@ -68,7 +69,7 @@ $query = "SELECT *
                                                         INNER JOIN emp_info n ON em.empno = n.empno                                                     
                                                         WHERE em.company_id =  '$compId' and em.time = '$year-$month-$day'";
 
-$result = mysqli_query($link,$query);
+$result = mysqli_query($link, $query);
 $sum = 0;
 $GrossTotal = 0;
 $chargableEmTotal = 0;
@@ -80,7 +81,7 @@ while ($row = mysqli_fetch_array($result)) {
     $fname = $row['fname'];
     $lname = $row['lname'];
     $natureEmployement = $row['employment_type'];
-    $gross = ($row['pay'] ) + ($row['otrate'] * $row['othrs']) + $row['allow'] + $row['comission'];
+    $gross = ($row['pay']) + ($row['otrate'] * $row['othrs']) + $row['allow'] + $row['comission'];
     $empoyeeNo = $row['empno'];
     $napsa = $gross * 0.05;
     if ($napsa >= 843)
@@ -137,16 +138,16 @@ while ($row = mysqli_fetch_array($result)) {
 
     $GrossTotal += $row['pay'];
     $chargableEmTotal += $chargbleEmTaxPeriod;
-    $taxPaidTotal +=$total_tax_paid;
+    $taxPaidTotal += $total_tax_paid;
 
     $pdf->Cell(20, 7, "NRC");
     $pdf->Cell(22, 7, $NRC);
     $pdf->Cell(43, 7, $row['fname'] . " " . $row['lname']);
     $pdf->Cell(34, 7, $natureEmployement);
-    $pdf->Cell(30, 7, number_format($gross,2));
-    $pdf->Cell(45, 7, number_format($chargbleEmTaxPeriod,2));
+    $pdf->Cell(30, 7, number_format($gross, 2));
+    $pdf->Cell(45, 7, number_format($chargbleEmTaxPeriod, 2));
     $pdf->Cell(35, 7, "0.00");
-    $pdf->Cell(40, 7, number_format($total_tax_paid,2));
+    $pdf->Cell(40, 7, number_format($total_tax_paid, 2));
     $pdf->Cell(40, 7, "0.00");
 
     $pdf->Ln();
@@ -159,10 +160,10 @@ $pdf->Cell(20, 9, "Total");
 $pdf->Cell(22, 9, "");
 $pdf->Cell(43, 9, "");
 $pdf->Cell(34, 9, "");
-$pdf->Cell(30, 9, number_format($GrossTotal,2));
-$pdf->Cell(45, 9, number_format($chargableEmTotal,2));
+$pdf->Cell(30, 9, number_format($GrossTotal, 2));
+$pdf->Cell(45, 9, number_format($chargableEmTotal, 2));
 $pdf->Cell(35, 9, "");
-$pdf->Cell(40, 9, number_format($taxPaidTotal,2));
+$pdf->Cell(40, 9, number_format($taxPaidTotal, 2));
 $pdf->Cell(40, 9, "");
 
 $pdf->Ln();
@@ -170,7 +171,7 @@ $pdf->Cell(450, 7, "____________________________________________________________
 $pdf->Ln();
 $totalNoRecords = mysqli_num_rows($result);
 
-$pdf->Cell(420, 5, "Printed On : " . $datePrint . " By ".$CompanyObject->getUserDetails($userId));
+$pdf->Cell(420, 5, "Printed On : " . $datePrint . " By " . $CompanyObject->getUserDetails($userId));
 
 $pdf->Ln();
 

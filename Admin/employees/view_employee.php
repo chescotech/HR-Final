@@ -1,10 +1,5 @@
 <?php
-include_once '../Classes/Employee.php';
-include_once '../Classes/Payslips.php';
-include_once '../Classes/Asset.php';
-$AssetObject = new Asset();
-$PayslipsObject = new Payslips();
-$EmployeeObject = new Employee();
+session_start();
 ?>
 <!DOCTYPE html>
 <html>
@@ -37,28 +32,22 @@ $EmployeeObject = new Employee();
     </style>
 </head>
 
-<?php
-if (isset($_POST['return'])) {
-    $asset_id = $_POST['asset_id'];
-    $comments = $_POST['comments'];
-    $admin_id = $_SESSION['user_session'];
-    $company_id = $_POST['company_id'];
 
-    $result = $AssetObject->returnAsset($admin_id, $asset_id, $comments, $company_id);
-
-    if (!$result) {
-        echo '<script>alert("Something went wrong. Please try again.")</script>';
-    }
-
-    echo '<script>window.location = "view-employee.php"</script>';
-}
-?>
 
 <body class="hold-transition skin-green-light sidebar-mini">
     <div class="wrapper">
 
         <?php
         include '../navigation_panel/authenticated_user_header.php';
+        ?>
+
+        <?php
+        include_once '../Classes/Employee.php';
+        include_once '../Classes/Payslips.php';
+        include_once '../Classes/Asset.php';
+        $AssetObject = new Asset();
+        $PayslipsObject = new Payslips();
+        $EmployeeObject = new Employee();
         ?>
 
         <?php include '../navigation_panel/side_navigation_bar.php'; ?>
@@ -275,7 +264,7 @@ if (isset($_POST['return'])) {
                                                         <td>
                                                             <div>
                                                                 <p><?php
-                                                                    echo $row['basic_pay']; ?>.</p>
+                                                                    echo $row['basic_pay']; ?></p>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -285,7 +274,12 @@ if (isset($_POST['return'])) {
                                                         </td>
                                                         <td>
                                                             <div>
-                                                                <p><?php echo $row['gross_pay']; ?>.</p>
+                                                                <p>
+                                                                    <?php
+                                                                    $empEarnings = $PayslipsObject->getEmployeeEarningsTotal($empno);
+                                                                    echo $row['basic_pay'] + $empEarnings;
+                                                                    ?>
+                                                                </p>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -600,5 +594,22 @@ if (isset($_POST['return'])) {
         });
     </script>
 </body>
+
+<?php
+if (isset($_POST['return'])) {
+    $asset_id = $_POST['asset_id'];
+    $comments = $_POST['comments'];
+    $admin_id = $_SESSION['user_session'];
+    $company_id = $_POST['company_id'];
+
+    $result = $AssetObject->returnAsset($admin_id, $asset_id, $comments, $company_id);
+
+    if (!$result) {
+        echo '<script>alert("Something went wrong. Please try again.")</script>';
+    }
+
+    echo '<script>window.location = "view-employee.php"</script>';
+}
+?>
 
 </html>
